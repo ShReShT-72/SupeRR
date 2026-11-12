@@ -1,4 +1,4 @@
-# SupeRR Selector Dashboard
+﻿# SupeRR Selector Dashboard
 
 This dashboard is a static browser app for the pressure-index analysis.
 
