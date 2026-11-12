@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17211b">
+  <title>SupeRR Selector | Pressure Index</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="dashboard.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="SupeRR Selector home">
+        <span class="brand-mark">SR<span>2</span></span>
+        <span class="brand-copy"><strong>SupeRR</strong><small>SELECTOR / S2</small></span>
+      </a>
+      <div class="side-label">ANALYSIS</div>
+      <nav class="primary-nav">
+        <button class="nav-link is-active" data-view="overview"><span class="nav-glyph">01</span>Overview</button>
+        <button class="nav-link" data-view="batters"><span class="nav-glyph">02</span>Batting index</button>
+        <button class="nav-link" data-view="bowlers"><span class="nav-glyph">03</span>Bowling index</button>
+        <button class="nav-link" data-view="methodology"><span class="nav-glyph">04</span>Methodology</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="live-mark"><span></span> DATASET VERIFIED</div>
+        <p>IPL + T20I<br>2022—2026</p>
+        <a href="methodology_report.html" target="_blank" rel="noopener">Open report <span aria-hidden="true">↗</span></a>
+      </div>
+    </aside>
+
+    <main id="top" class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb"><span>ROUND 01</span><i>/</i> PRESSURE INDEX</div>
+        <div class="top-actions">
+          <span class="period-tag">2022 — 2026 DATA WINDOW</span>
+          <button id="exportButton" class="button button-dark" type="button"><span aria-hidden="true">↓</span> Export rankings</button>
+        </div>
+      </header>
+
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> PERFORMANCE WHEN IT TILTS</div>
+          <h1 id="page-title">Pressure,<br><em>made measurable.</em></h1>
+          <p class="intro-copy">A delivery-level read on who changes the game when the margin for error disappears.</p>
+        </div>
+        <div class="intro-stamp" aria-label="Pressure Index, edition 02">
+          <span>PRESSURE</span><strong>INDEX</strong><i>02</i>
+        </div>
+      </section>
+
+      <section class="stat-strip" aria-label="Dataset overview">
+        <div class="stat-item"><span class="stat-label">MATCHES IN SCOPE</span><strong id="matchCount">—</strong><small>Across IPL + T20I</small></div>
+        <div class="stat-item"><span class="stat-label">IN-SCOPE DELIVERIES</span><strong id="deliveryCount">—</strong><small id="rawDeliveryCount">— raw file rows</small></div>
+        <div class="stat-item stat-pressure"><span class="stat-label">PRESSURE EXPOSURE</span><strong id="pressureShare">—</strong><small id="pressureCount">— classified balls</small></div>
+        <div class="stat-note"><span class="note-mark">↗</span><p>Pressure is a match state, not a reputation. Every score starts with the ball that came before.</p></div>
+      </section>
+
+      <section id="analysis" class="analysis-section" aria-labelledby="analysis-title">
+        <div class="section-heading">
+          <div><div class="eyebrow"><span class="eyebrow-line"></span> THE SHORTLIST</div><h2 id="analysis-title">Who holds their nerve?</h2></div>
+          <div class="list-tabs" role="tablist" aria-label="Player type">
+            <button type="button" class="list-tab is-active" role="tab" aria-selected="true" data-kind="batters">Batters</button>
+            <button type="button" class="list-tab" role="tab" aria-selected="false" data-kind="bowlers">Bowlers</button>
+          </div>
+        </div>
+
+        <div class="filter-bar" aria-label="Ranking filters">
+          <label class="filter-control"><span>FORMAT</span><select id="formatFilter" aria-label="Filter by format"><option value="All">All formats</option><option value="IPL">IPL</option><option value="T20I">T20 International</option></select></label>
+          <label class="filter-control"><span>SEASON</span><select id="seasonFilter" aria-label="Filter by season"><option value="All">All seasons</option></select></label>
+          <label class="filter-control"><span>MINIMUM SAMPLE</span><select id="sampleFilter" aria-label="Minimum pressure sample"><option value="60:8">60 balls · 8 matches</option><option value="36:5">36 balls · 5 matches</option><option value="90:10">90 balls · 10 matches</option></select></label>
+          <label class="search-control"><span class="sr-only">Search players</span><span class="search-icon" aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Find a player" autocomplete="off"></label>
+          <button id="showAllButton" class="text-button" type="button" aria-pressed="false">Show all eligible <span aria-hidden="true">+</span></button>
+        </div>
+
+        <div class="analysis-grid">
+          <div class="ranking-panel">
+            <div class="table-head"><div><span class="eyebrow">RANKED BY PRESSURE INDEX</span><span id="eligibleCount" class="eligible-count">— eligible</span></div><span id="rankMetricLabel" class="metric-caption">PRESSURE STRIKE RATE</span></div>
+            <div class="ranking-table" role="table" aria-label="Player pressure rankings">
+              <div class="ranking-header" role="row">
+                <span role="columnheader">RANK</span><span role="columnheader">PLAYER</span>
+                <button class="sort-button" type="button" data-sort="score" aria-label="Sort by pressure index">INDEX <span>↕</span></button>
+                <button class="sort-button metric-sort" type="button" data-sort="metric" aria-label="Sort by pressure performance">PERFORMANCE <span>↕</span></button>
+              </div>
+              <div id="rankingRows" class="ranking-rows" aria-live="polite"></div>
+              <div id="emptyState" class="empty-state" hidden>No players meet this sample threshold. Try a wider season or a smaller minimum sample.</div>
+            </div>
+            <div class="ranking-foot"><span>INDEX IS NORMALIZED WITHIN FORMAT + SEASON</span><span>SELECT A PLAYER TO INSPECT THE PROFILE →</span></div>
+          </div>
+
+          <aside class="profile-panel" aria-labelledby="profileName">
+            <div class="profile-topline"><span class="eyebrow">PLAYER FILE</span><span id="profileRank" class="profile-rank">—</span></div>
+            <h3 id="profileName">Select a player</h3>
+            <div id="profileTeam" class="profile-team">Ranked pressure performer</div>
+            <div class="profile-scoreline"><span id="profileScore" class="profile-score">—</span><span class="score-label">PRESSURE<br>INDEX</span><span id="profileReliability" class="confidence-tag">—</span></div>
+            <div class="profile-chart-title"><span id="profileChartLabel">PRESSURE VS USUAL</span><span id="profileMetricUnit">SR</span></div>
+            <div id="profileChart" class="compare-chart" aria-label="Pressure and usual performance comparison"></div>
+            <div class="profile-metrics">
+              <div><span id="metricPressureLabel">PRESSURE SR</span><strong id="metricPressure">—</strong></div>
+              <div><span id="metricUsualLabel">USUAL SR</span><strong id="metricUsual">—</strong></div>
+              <div><span>PRESSURE MATCHES</span><strong id="metricMatches">—</strong></div>
+              <div><span>PRESSURE BALLS</span><strong id="metricBalls">—</strong></div>
+                <div><span id="metricOutcomeLabel">PRESSURE OUTS / 100</span><strong id="metricOutcome">—</strong></div>
+            </div>
+            <div class="consistency-row"><span>Positive pressure matches</span><strong id="metricConsistency">—</strong></div>
+            <label class="compare-select"><span>COMPARE WITH</span><select id="compareSelect" aria-label="Choose a player to compare"><option value="">Choose player</option></select></label>
+            <div id="compareNote" class="compare-note">A like-for-like index, using each player's usual performance as their reference.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pressure-section" aria-labelledby="pressure-title">
+        <div class="section-heading section-heading-compact">
+          <div><div class="eyebrow"><span class="eyebrow-line"></span> CONTEXT, NOT VIBES</div><h2 id="pressure-title">Three ways a game tightens.</h2></div>
+          <p class="section-aside">Pressure is assigned before each delivery from the live innings state.</p>
+        </div>
+        <div class="pressure-grid">
+          <article class="pressure-rule rule-green"><div class="rule-index">01</div><div class="rule-meta">FINISH PHASE <span>ANY INNINGS</span></div><h3>The last five overs.</h3><p>30 or fewer legal deliveries remain. Every score or stop has a direct effect on the finish.</p><div class="rule-track"><span style="width: 100%"></span></div></article>
+          <article class="pressure-rule rule-orange"><div class="rule-index">02</div><div class="rule-meta">WICKET SQUEEZE <span>ANY INNINGS</span></div><h3>Five down, time short.</h3><p>At least five wickets have fallen, after over eight, with no more than 12 overs left.</p><div class="rule-track"><span style="width: 67%"></span></div></article>
+          <article class="pressure-rule rule-charcoal"><div class="rule-index">03</div><div class="rule-meta">CHASE SQUEEZE <span>SECOND INNINGS</span></div><h3>The asking rate bites.</h3><p>After three overs: required rate is 9.5+, or 7.5+ and at least 2.5 above the current rate.</p><div class="rule-track"><span style="width: 83%"></span></div></article>
+        </div>
+        <div class="pressure-summary"><span class="summary-dot"></span><span id="pressureSummary">Pressure classifications include overlapping conditions; a ball is counted once.</span><a href="#methodology" class="inline-link">Read the full method <span aria-hidden="true">↗</span></a></div>
+      </section>
+
+      <section id="methodology" class="method-section" aria-labelledby="method-title">
+        <div class="method-left"><div class="eyebrow"><span class="eyebrow-line"></span> OPEN METHOD</div><h2 id="method-title">A score you can<br><em>take apart.</em></h2><p>No black box. The rating combines pressure output, change from the player's own usual level, and the share of pressure matches that beat that baseline.</p><a class="button button-lime" href="methodology_report.html" target="_blank" rel="noopener">Open report <span aria-hidden="true">↗</span></a></div>
+        <div class="method-right">
+          <div class="method-row"><span class="method-number">01</span><div><h3>Compare like with like</h3><p>Metrics are standardized within each format-season pool, then blended by pressure-ball volume. This avoids treating era or format scoring conditions as player skill.</p></div></div>
+          <div class="method-row"><span class="method-number">02</span><div><h3>Reward more than a hot spell</h3><p>Default eligibility requires 60 pressure balls, eight pressure matches, and 60 usual balls. Smaller samples can qualify only when the filter is deliberately relaxed.</p></div></div>
+          <div class="method-row"><span class="method-number">03</span><div><h3>Shrink uncertain scores</h3><p>The index is pulled toward 50 when pressure-ball or match volume is low. Confidence is displayed beside every selection.</p></div></div>
+          <div class="method-row"><span class="method-number">04</span><div><h3>Check consistency across matches</h3><p>The ranking includes the percentage of pressure matches with positive performance relative to the player's usual baseline, not just an aggregate strike or economy rate.</p></div></div>
+        </div>
+      </section>
+      <footer class="page-footer"><span>SUPERR SELECTOR / SEASON 02</span><span>BUILT FROM THE SUPPLIED IPL + T20I BALL-BY-BALL DATA</span><a href="methodology_report.html" target="_blank" rel="noopener">REPORT ↗</a></footer>
+      <div id="statusMessage" class="status-message" role="status" aria-live="polite"></div>
+    </main>
+  </div>
+</body>
+</html>
