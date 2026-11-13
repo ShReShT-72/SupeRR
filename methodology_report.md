@@ -17,7 +17,7 @@ This analysis defines pressure from the live innings state before a delivery, th
 | 4 | Mohammad Nabi | 56.2 | 158.7 | 111.8 | 126 | 9 | 89% | 64% |
 | 5 | Suryakumar Yadav | 55.3 | 188.7 | 157.1 | 688 | 37 | 70% | 89% |
 | 6 | Mark Chapman | 55.0 | 166.9 | 106.5 | 236 | 12 | 100% | 73% |
-| 7 | David Miller | 54.4 | 161.5 | 104.5 | 226 | 14 | 71% | 74% |
+| 7 | David Miller | 54.6 | 161.5 | 104.5 | 226 | 14 | 71% | 74% |
 | 8 | Sai Sudharsan | 53.8 | 183.5 | 147.6 | 249 | 17 | 71% | 77% |
 | 9 | Nitish Reddy | 53.6 | 194.4 | 135.3 | 108 | 11 | 55% | 64% |
 | 10 | Rinku Singh | 53.1 | 172.1 | 119.8 | 365 | 34 | 50% | 85% |
@@ -26,15 +26,15 @@ This analysis defines pressure from the live innings state before a delivery, th
 
 | Rank | Player | Pressure index | Pressure econ/6 | Usual econ/6 | Pressure balls | Pressure matches | Positive-match share | Sample reliability |
 |---:|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | Akash Madhwal | 61.9 | 7.16 | 10.52 | 93 | 8 | 63% | 59% |
-| 2 | Umran Malik | 61.7 | 6.18 | 9.98 | 99 | 9 | 56% | 61% |
-| 3 | Sunil Narine | 61.6 | 6.23 | 7.36 | 684 | 53 | 62% | 91% |
+| 1 | Akash Madhwal | 62.1 | 7.16 | 10.52 | 93 | 8 | 63% | 59% |
+| 2 | Sunil Narine | 61.6 | 6.23 | 7.36 | 684 | 53 | 62% | 91% |
+| 3 | Umran Malik | 61.6 | 6.18 | 9.98 | 99 | 9 | 56% | 61% |
 | 4 | Washington Sundar | 59.4 | 5.56 | 6.23 | 135 | 12 | 58% | 68% |
 | 5 | Sakib Hussain | 59.3 | 8.23 | 10.88 | 151 | 11 | 82% | 68% |
-| 6 | Kuldeep Yadav | 58.4 | 7.21 | 8.33 | 634 | 51 | 51% | 90% |
-| 7 | Mohit Sharma | 57.9 | 9.26 | 9.78 | 346 | 23 | 78% | 82% |
+| 6 | Kuldeep Yadav | 58.3 | 7.21 | 8.33 | 634 | 51 | 51% | 90% |
+| 7 | Mohit Sharma | 58.1 | 9.26 | 9.78 | 346 | 23 | 78% | 82% |
 | 8 | Mohammad Saifuddin | 57.8 | 6.85 | 8.44 | 71 | 8 | 88% | 56% |
-| 9 | Kagiso Rabada | 57.3 | 8.52 | 9.52 | 276 | 27 | 59% | 82% |
+| 9 | Kagiso Rabada | 57.2 | 8.52 | 9.52 | 276 | 27 | 59% | 82% |
 | 10 | Adam Zampa | 57.1 | 7.88 | 8.86 | 416 | 30 | 67% | 85% |
 
 ### Top 10 all-rounders
@@ -45,14 +45,14 @@ Players must independently meet the selected eligibility threshold as both a bat
 |---:|---|---:|---:|---:|---:|---:|---:|---:|
 | 1 | Washington Sundar | 54.0 | 48.5 | 59.4 | 141 | 135 | 14 | 12 |
 | 2 | Sikandar Raza | 52.4 | 50.3 | 54.4 | 115 | 94 | 12 | 10 |
-| 3 | Ravichandran Ashwin | 51.5 | 52.6 | 50.4 | 60 | 479 | 9 | 33 |
-| 4 | Ravindra Jadeja | 51.3 | 52.4 | 50.2 | 255 | 368 | 18 | 28 |
-| 5 | Moeen Ali | 50.7 | 50.8 | 50.5 | 164 | 103 | 13 | 8 |
-| 6 | Nitish Reddy | 50.1 | 53.6 | 46.5 | 108 | 100 | 11 | 10 |
-| 7 | Cameron Green | 49.0 | 51.0 | 47.0 | 163 | 160 | 12 | 19 |
-| 8 | Sam Curran | 48.1 | 50.2 | 45.9 | 200 | 453 | 18 | 43 |
-| 9 | Shivam Dube | 47.7 | 48.9 | 46.4 | 684 | 152 | 59 | 16 |
-| 10 | Axar Patel | 47.3 | 42.7 | 51.8 | 197 | 454 | 19 | 42 |
+| 3 | Ravindra Jadeja | 51.3 | 52.4 | 50.1 | 255 | 368 | 18 | 28 |
+| 4 | Moeen Ali | 50.7 | 50.8 | 50.5 | 164 | 103 | 13 | 8 |
+| 5 | Nitish Reddy | 50.1 | 53.6 | 46.5 | 108 | 100 | 11 | 10 |
+| 6 | Cameron Green | 49.0 | 51.0 | 46.9 | 163 | 160 | 12 | 19 |
+| 7 | Sam Curran | 48.1 | 50.2 | 46.0 | 200 | 453 | 18 | 43 |
+| 8 | Shivam Dube | 47.7 | 48.9 | 46.4 | 684 | 152 | 59 | 16 |
+| 9 | Axar Patel | 47.2 | 42.7 | 51.7 | 197 | 454 | 19 | 42 |
+| 10 | Roston Chase | 46.6 | 41.2 | 52.0 | 186 | 62 | 19 | 8 |
 
 ## Data and scope
 
@@ -74,7 +74,9 @@ The finish phase captures high-leverage deliveries in either innings. The wicket
 
 ## Performance and ranking
 
-Players who represented Pakistan in T20Is in the supplied data are excluded from all lists. The source has no dedicated nationality field, so Pakistan T20I team representation is used as the nationality proxy; 53 player IDs are excluded. This filter is applied before scoring and format-season standardization. Players are analyzed by format and season. A player-format-season segment must have at least **60 pressure balls**, **8 matches containing pressure batting/bowling**, and **60 ordinary balls**. After format-season roll-up, 58 batter profiles and 124 bowler profiles qualify; 12 players qualify in both disciplines for the all-rounder list. The dashboard also offers 36-ball/5-match and 90-ball/10-match sensitivity settings.
+Players who represented Pakistan in T20Is in the supplied data are excluded from all lists. The source has no dedicated nationality field, so Pakistan T20I team representation is used as the nationality proxy; 53 player IDs are excluded. Five players with confirmed IPL playing retirements are also excluded: Kieron Pollard, Dwayne Bravo, Ambati Rayudu, Dinesh Karthik, and Ravichandran Ashwin. International-only retirements and unconfirmed rumors are not used. These exclusions are applied before scoring and format-season standardization. Players are analyzed by format and season. A player-format-season segment must have at least **60 pressure balls**, **8 matches containing pressure batting/bowling**, and **60 ordinary balls**. After format-season roll-up, 57 batter profiles and 123 bowler profiles qualify; 11 players qualify in both disciplines for the all-rounder list. The dashboard also offers 36-ball/5-match and 90-ball/10-match sensitivity settings.
+
+IPL retirement sources: [Mumbai Indians on Kieron Pollard](https://www.mumbaiindians.com/news/kieron-pollard-announces-retirement-from-playing-ipl-appointed-as-batting-coach-for-mumbai-indians); [ESPNcricinfo on Dwayne Bravo](https://www.espncricinfo.com/story/ipl-2023-csk-news-dwayne-bravo-retires-from-ipl-takes-over-as-chennai-super-kings-bowling-coach-1348125); [Cricbuzz on Ambati Rayudu](https://www.cricbuzz.com/cricket-news/126676/ambati-rayudu-to-retire-from-ipl-after-the-final); [ESPNcricinfo on Dinesh Karthik's last IPL season](https://www.espncricinfo.com/story/dinesh-karthik-retires-from-all-representative-cricket-1434318); [News18 on Ravichandran Ashwin](https://www.news18.com/cricket/ravichandran-ashwin-announces-retirement-from-ipl-9530890.html).
 
 For batters the inputs are pressure strike rate, strike-rate change from the player's ordinary baseline, improvement in outs per 100 balls, and positive-match share. For bowlers they are lower pressure economy rate, economy improvement from the player's ordinary baseline, pressure wickets per 100 legal balls, and positive-match share. Inputs are direction-aligned and standardized as z-scores against eligible players in the same format-season pool. The weighted blend is:
 
