@@ -12,15 +12,15 @@ This analysis defines pressure from the live innings state before a delivery, th
 | Rank | Player | Pressure index | Pressure SR | Usual SR | Pressure balls | Pressure matches | Positive-match share | Sample reliability |
 |---:|---|---:|---:|---:|---:|---:|---:|---:|
 | 1 | Rishabh Pant | 59.3 | 194.9 | 123.5 | 217 | 17 | 82% | 76% |
-| 2 | Fakhar Zaman | 59.3 | 183.6 | 134.1 | 116 | 8 | 100% | 61% |
-| 3 | Sanju Samson | 57.8 | 188.5 | 136.5 | 113 | 8 | 75% | 61% |
-| 4 | Ryan Burl | 57.1 | 174.2 | 101.8 | 120 | 9 | 67% | 63% |
+| 2 | Sanju Samson | 57.8 | 188.5 | 136.5 | 113 | 8 | 75% | 61% |
+| 3 | Ryan Burl | 56.5 | 174.2 | 101.8 | 120 | 9 | 67% | 63% |
+| 4 | Mohammad Nabi | 56.2 | 158.7 | 111.8 | 126 | 9 | 89% | 64% |
 | 5 | Suryakumar Yadav | 55.3 | 188.7 | 157.1 | 688 | 37 | 70% | 89% |
 | 6 | Mark Chapman | 55.0 | 166.9 | 106.5 | 236 | 12 | 100% | 73% |
 | 7 | David Miller | 54.4 | 161.5 | 104.5 | 226 | 14 | 71% | 74% |
-| 8 | Mohammad Nabi | 54.1 | 158.7 | 111.8 | 126 | 9 | 89% | 64% |
-| 9 | Sai Sudharsan | 53.8 | 183.5 | 147.6 | 249 | 17 | 71% | 77% |
-| 10 | Nitish Reddy | 53.6 | 194.4 | 135.3 | 108 | 11 | 55% | 64% |
+| 8 | Sai Sudharsan | 53.8 | 183.5 | 147.6 | 249 | 17 | 71% | 77% |
+| 9 | Nitish Reddy | 53.6 | 194.4 | 135.3 | 108 | 11 | 55% | 64% |
+| 10 | Rinku Singh | 53.1 | 172.1 | 119.8 | 365 | 34 | 50% | 85% |
 
 ### Top 10 bowlers
 
@@ -29,13 +29,13 @@ This analysis defines pressure from the live innings state before a delivery, th
 | 1 | Akash Madhwal | 61.9 | 7.16 | 10.52 | 93 | 8 | 63% | 59% |
 | 2 | Umran Malik | 61.7 | 6.18 | 9.98 | 99 | 9 | 56% | 61% |
 | 3 | Sunil Narine | 61.6 | 6.23 | 7.36 | 684 | 53 | 62% | 91% |
-| 4 | Mohammad Nawaz | 61.3 | 5.39 | 7.40 | 186 | 15 | 73% | 73% |
-| 5 | Abrar Ahmed | 60.8 | 5.17 | 7.81 | 232 | 18 | 67% | 77% |
-| 6 | Sakib Hussain | 59.3 | 8.23 | 10.88 | 151 | 11 | 82% | 68% |
-| 7 | Washington Sundar | 58.6 | 5.56 | 6.23 | 135 | 12 | 58% | 68% |
-| 8 | Kuldeep Yadav | 58.2 | 7.21 | 8.33 | 634 | 51 | 51% | 90% |
-| 9 | Mohit Sharma | 57.9 | 9.26 | 9.78 | 346 | 23 | 78% | 82% |
-| 10 | Kagiso Rabada | 57.3 | 8.52 | 9.52 | 276 | 27 | 59% | 82% |
+| 4 | Washington Sundar | 59.4 | 5.56 | 6.23 | 135 | 12 | 58% | 68% |
+| 5 | Sakib Hussain | 59.3 | 8.23 | 10.88 | 151 | 11 | 82% | 68% |
+| 6 | Kuldeep Yadav | 58.4 | 7.21 | 8.33 | 634 | 51 | 51% | 90% |
+| 7 | Mohit Sharma | 57.9 | 9.26 | 9.78 | 346 | 23 | 78% | 82% |
+| 8 | Mohammad Saifuddin | 57.8 | 6.85 | 8.44 | 71 | 8 | 88% | 56% |
+| 9 | Kagiso Rabada | 57.3 | 8.52 | 9.52 | 276 | 27 | 59% | 82% |
+| 10 | Adam Zampa | 57.1 | 7.88 | 8.86 | 416 | 30 | 67% | 85% |
 
 ## Data and scope
 
@@ -57,7 +57,7 @@ The finish phase captures high-leverage deliveries in either innings. The wicket
 
 ## Performance and ranking
 
-Players are analyzed by format and season. A player-format-season segment must have at least **60 pressure balls**, **8 matches containing pressure batting/bowling**, and **60 ordinary balls**. After format-season roll-up, 61 batter profiles and 134 bowler profiles qualify in the all-format/all-season view. The dashboard also offers 36-ball/5-match and 90-ball/10-match sensitivity settings.
+Players who represented Pakistan in T20Is in the supplied data are excluded from both lists. The source has no dedicated nationality field, so Pakistan T20I team representation is used as the nationality proxy; 53 player IDs are excluded. This filter is applied before scoring and format-season standardization. Players are analyzed by format and season. A player-format-season segment must have at least **60 pressure balls**, **8 matches containing pressure batting/bowling**, and **60 ordinary balls**. After format-season roll-up, 58 batter profiles and 124 bowler profiles qualify in the all-format/all-season view. The dashboard also offers 36-ball/5-match and 90-ball/10-match sensitivity settings.
 
 For batters the inputs are pressure strike rate, strike-rate change from the player's ordinary baseline, improvement in outs per 100 balls, and positive-match share. For bowlers they are lower pressure economy rate, economy improvement from the player's ordinary baseline, pressure wickets per 100 legal balls, and positive-match share. Inputs are direction-aligned and standardized as z-scores against eligible players in the same format-season pool. The weighted blend is:
 
@@ -75,7 +75,7 @@ Bowler wicket credit excludes run-outs, retired hurt/out, timed out, handled-the
 
 ## Evidence and interpretation
 
-Rishabh Pant and Fakhar Zaman are effectively tied at a displayed 59.3; Pant ranks first on the unrounded index. Pant recorded 217 pressure balls in 17 matches, with a 194.9 pressure strike rate versus 123.5 ordinarily and a positive result in 82% of pressure matches. Fakhar's 183.6 versus 134.1 comes from 116 balls in eight matches, with a positive result in all eight. Their different sample sizes appear in reliability (76% and 61%). Suryakumar Yadav has the largest pressure sample in the batter top ten: 688 balls and 89% reliability.
+Rishabh Pant leads the batter list at 59.3, with 217 pressure balls in 17 matches, a 194.9 pressure strike rate versus 123.5 ordinarily, and a positive result in 82% of pressure matches. Suryakumar Yadav has the largest pressure sample in the batter top ten: 688 balls and 89% reliability.
 
 Akash Madhwal leads the bowling index at 61.9, with a 7.16 pressure economy against 10.52 ordinarily over 93 balls in eight matches. Umran Malik follows closely with 6.18 against 9.98 over 99 balls in nine matches. Sunil Narine offers the strongest repeat-volume evidence in the top ten (684 pressure balls, 91% reliability), while his overall rating is lower than the two leaders. The index therefore distinguishes rate performance from sample certainty.
 

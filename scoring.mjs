@@ -38,8 +38,12 @@ function makeProfile(record) {
 
 export function ratePlayers(records, { format = 'All', season = 'All', minBalls = MIN_PRESSURE_BALLS, minMatches = MIN_PRESSURE_MATCHES } = {}) {
   const grouped = new Map();
+  const pakistanPlayers = new Set(records
+    .filter((record) => record.format === 'T20I' && record.team === 'Pakistan')
+    .map((record) => String(record.playerId)));
   const selected = records.filter((record) => (
-    (format === 'All' || record.format === format)
+    !pakistanPlayers.has(String(record.playerId))
+    && (format === 'All' || record.format === format)
     && (season === 'All' || String(record.season) === String(season))
   ));
 
