@@ -67,7 +67,7 @@ export function ratePlayers(records, { format = 'All', season = 'All', minBalls 
 
   const allPlayers = [...grouped.values()];
   const categories = ['batter', 'bowler'];
-  return Object.fromEntries(categories.map((kind) => {
+  const rankings = Object.fromEntries(categories.map((kind) => {
     const eligible = allPlayers.filter((player) => (
       player.kind === kind
       && player.pressure.balls >= Number(minBalls)
@@ -200,6 +200,43 @@ export function ratePlayers(records, { format = 'All', season = 'All', minBalls 
     ranked.forEach((player, index) => { player.rank = index + 1; });
     return [kind === 'batter' ? 'batters' : 'bowlers', ranked];
   }));
+
+  const bowlersById = new Map(rankings.bowlers.map((player) => [String(player.playerId), player]));
+  const allrounders = rankings.batters.flatMap((batter) => {
+    const bowler = bowlersById.get(String(batter.playerId));
+    if (!bowler) return [];
+
+    return [{
+      rank: 0,
+      playerId: batter.playerId,
+      player: batter.player,
+      teams: [...new Set([...batter.teams, ...bowler.teams])],
+      score: rounded((batter.score + bowler.score) / 2),
+      batting: {
+        index: batter.score,
+        pressureRate: batter.pressureRate,
+        usualRate: batter.usualRate,
+        pressureBalls: batter.pressureBalls,
+        pressureMatches: batter.pressureMatches,
+        consistency: batter.consistency,
+        reliability: batter.reliability,
+      },
+      bowling: {
+        index: bowler.score,
+        pressureEconomy: bowler.pressureEconomy,
+        usualEconomy: bowler.usualEconomy,
+        pressureBalls: bowler.pressureBalls,
+        pressureMatches: bowler.pressureMatches,
+        consistency: bowler.consistency,
+        reliability: bowler.reliability,
+      },
+    }];
+  }).sort((left, right) => right.score - left.score
+    || Math.min(right.batting.index, right.bowling.index) - Math.min(left.batting.index, left.bowling.index)
+    || left.player.localeCompare(right.player));
+
+  allrounders.forEach((player, index) => { player.rank = index + 1; });
+  return { ...rankings, allrounders };
 }
 
 export const ratingRules = {

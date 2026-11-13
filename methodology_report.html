@@ -65,7 +65,7 @@
   <div class="toolbar"><strong>SUPERR SELECTOR / REPORT 02</strong><div><button type="button" onclick="window.print()">Print / Save as PDF</button><a href="methodology_report.md" download>Markdown</a></div></div>
   <main>
     <header class="cover">
-      <div><div class="eyebrow">ROUND 01 / IPL + T20I / 2022—2026</div><h1>Pressure,<br><em>made measurable.</em></h1><p class="subtitle">A delivery-level analysis of which batters and bowlers most reliably improve their performance when innings context tightens.</p></div>
+      <div><div class="eyebrow">ROUND 01 / IPL + T20I / 2022—2026</div><h1>Pressure,<br><em>made measurable.</em></h1><p class="subtitle">A delivery-level analysis of which batters, bowlers, and dual-discipline players most reliably improve their performance when innings context tightens.</p></div>
       <div class="stamp"><span>SUPERR SELECTOR</span><strong>METHOD</strong><i>SEASON 02</i></div>
     </header>
 
@@ -73,7 +73,7 @@
       <div><span class="metric-label">MATCHES</span><strong>819</strong><small>IPL + T20I</small></div>
       <div><span class="metric-label">DELIVERIES</span><strong>189,683</strong><small>In-scope data</small></div>
       <div><span class="metric-label">PRESSURE BALLS</span><strong>79,974</strong><small>42.2% of in-scope</small></div>
-      <div><span class="metric-label">ELIGIBLE PROFILES</span><strong>58 / 124</strong><small>Batters / bowlers</small></div>
+      <div><span class="metric-label">ELIGIBLE PROFILES</span><strong>58 / 124 / 12</strong><small>Batters / bowlers / all-rounders</small></div>
     </div>
 
     <h2>Top 10 batters</h2>
@@ -104,6 +104,21 @@
       <tr><td>10</td><td>Adam Zampa</td><td>57.1</td><td>7.88</td><td>8.86</td><td>416</td><td>30</td><td>67%</td><td>85%</td></tr>
     </tbody></table></div>
 
+    <h2>Top 10 all-rounders</h2>
+    <p class="section-lead">Players must meet the selected eligibility threshold as both a batter and a bowler. The composite is the equal-weight mean of their final, reliability-adjusted indexes.</p>
+    <div class="table-wrap"><table><thead><tr><th>RANK</th><th>PLAYER</th><th>COMPOSITE</th><th>BATTING INDEX</th><th>BOWLING INDEX</th><th>BAT PRESSURE BALLS</th><th>BOWL PRESSURE BALLS</th><th>BAT MATCHES</th><th>BOWL MATCHES</th></tr></thead><tbody>
+      <tr><td>01</td><td>Washington Sundar</td><td>54.0</td><td>48.5</td><td>59.4</td><td>141</td><td>135</td><td>14</td><td>12</td></tr>
+      <tr><td>02</td><td>Sikandar Raza</td><td>52.4</td><td>50.3</td><td>54.4</td><td>115</td><td>94</td><td>12</td><td>10</td></tr>
+      <tr><td>03</td><td>Ravichandran Ashwin</td><td>51.5</td><td>52.6</td><td>50.4</td><td>60</td><td>479</td><td>9</td><td>33</td></tr>
+      <tr><td>04</td><td>Ravindra Jadeja</td><td>51.3</td><td>52.4</td><td>50.2</td><td>255</td><td>368</td><td>18</td><td>28</td></tr>
+      <tr><td>05</td><td>Moeen Ali</td><td>50.7</td><td>50.8</td><td>50.5</td><td>164</td><td>103</td><td>13</td><td>8</td></tr>
+      <tr><td>06</td><td>Nitish Reddy</td><td>50.1</td><td>53.6</td><td>46.5</td><td>108</td><td>100</td><td>11</td><td>10</td></tr>
+      <tr><td>07</td><td>Cameron Green</td><td>49.0</td><td>51.0</td><td>47.0</td><td>163</td><td>160</td><td>12</td><td>19</td></tr>
+      <tr><td>08</td><td>Sam Curran</td><td>48.1</td><td>50.2</td><td>45.9</td><td>200</td><td>453</td><td>18</td><td>43</td></tr>
+      <tr><td>09</td><td>Shivam Dube</td><td>47.7</td><td>48.9</td><td>46.4</td><td>684</td><td>152</td><td>59</td><td>16</td></tr>
+      <tr><td>10</td><td>Axar Patel</td><td>47.3</td><td>42.7</td><td>51.8</td><td>197</td><td>454</td><td>19</td><td>42</td></tr>
+    </tbody></table></div>
+
     <h2>Pressure is a match state</h2>
     <p class="section-lead">A delivery is classified from the score, wickets, and legal balls remaining immediately before it. If multiple rules apply, it is still counted once.</p>
     <div class="rule-grid">
@@ -113,11 +128,13 @@
     </div>
 
     <h2>How the index is built</h2>
-    <p>Only IPL and T20I competitions with a known season from 2022 onward are included. Players who represented Pakistan in T20Is in the supplied data are excluded from both lists. The source has no dedicated nationality field, so Pakistan T20I team representation is the nationality proxy; 53 player IDs are excluded before scoring. A player-format-season segment requires at least 60 pressure balls, eight pressure-exposed matches, and 60 ordinary balls. Metrics are standardized within each format-season pool before player segments are combined by pressure-ball volume.</p>
+    <p>Only IPL and T20I competitions with a known season from 2022 onward are included. Players who represented Pakistan in T20Is in the supplied data are excluded from all lists. The source has no dedicated nationality field, so Pakistan T20I team representation is the nationality proxy; 53 player IDs are excluded before scoring. A player-format-season segment requires at least 60 pressure balls, eight pressure-exposed matches, and 60 ordinary balls. Metrics are standardized within each format-season pool before player segments are combined by pressure-ball volume.</p>
     <div class="split">
       <section><h3>Batting inputs</h3><p>Higher pressure strike rate, strike-rate improvement over the player's ordinary baseline, lower dismissal rate per 100 balls, and greater positive-match share.</p><h3>Bowling inputs</h3><p>Lower pressure economy, improvement over the player's ordinary economy, more pressure wickets per 100 legal balls, and greater positive-match share.</p></section>
       <section><h3>Weights and shrinkage</h3><p>Each direction-aligned input is a z-score against eligible players in that format-season stratum.</p><code class="formula">0.35 × output + 0.30 × baseline change<br>+ 0.20 × outcome + 0.15 × match consistency</code><p>Reliability is √((balls/(balls+60)) × (matches/(matches+6))). Index = clip(50 + 10 × weighted score × reliability, 0, 100). Reliability is a heuristic shrinkage factor, not a confidence interval.</p></section>
     </div>
+    <h3>All-rounder method</h3>
+    <p>All-rounders must qualify for both discipline lists under the same format, season, and sample filters. Composite index = 0.50 × batting index + 0.50 × bowling index. Each component already includes its own reliability adjustment. This is a dual-discipline performance ranking, not an official player-role label.</p>
 
     <h2>Consistency, data checks, and limits</h2>
     <ul>

@@ -20,7 +20,8 @@
         <button class="nav-link is-active" data-view="overview"><span class="nav-glyph">01</span>Overview</button>
         <button class="nav-link" data-view="batters"><span class="nav-glyph">02</span>Batting index</button>
         <button class="nav-link" data-view="bowlers"><span class="nav-glyph">03</span>Bowling index</button>
-        <button class="nav-link" data-view="methodology"><span class="nav-glyph">04</span>Methodology</button>
+        <button class="nav-link" data-view="allrounders"><span class="nav-glyph">04</span>All-rounder index</button>
+        <button class="nav-link" data-view="methodology"><span class="nav-glyph">05</span>Methodology</button>
       </nav>
       <div class="sidebar-bottom">
         <div class="live-mark"><span></span> DATASET VERIFIED</div>
@@ -62,6 +63,7 @@
           <div class="list-tabs" role="tablist" aria-label="Player type">
             <button type="button" class="list-tab is-active" role="tab" aria-selected="true" data-kind="batters">Batters</button>
             <button type="button" class="list-tab" role="tab" aria-selected="false" data-kind="bowlers">Bowlers</button>
+            <button type="button" class="list-tab" role="tab" aria-selected="false" data-kind="allrounders">All-rounders</button>
           </div>
         </div>
 
@@ -85,24 +87,24 @@
               <div id="rankingRows" class="ranking-rows" aria-live="polite"></div>
               <div id="emptyState" class="empty-state" hidden>No players meet this sample threshold. Try a wider season or a smaller minimum sample.</div>
             </div>
-            <div class="ranking-foot"><span>INDEX IS NORMALIZED WITHIN FORMAT + SEASON</span><span>SELECT A PLAYER TO INSPECT THE PROFILE →</span></div>
+            <div class="ranking-foot"><span id="rankingMethodLabel">INDEX IS NORMALIZED WITHIN FORMAT + SEASON</span><span>SELECT A PLAYER TO INSPECT THE PROFILE →</span></div>
           </div>
 
           <aside class="profile-panel" aria-labelledby="profileName">
             <div class="profile-topline"><span class="eyebrow">PLAYER FILE</span><span id="profileRank" class="profile-rank">—</span></div>
             <h3 id="profileName">Select a player</h3>
             <div id="profileTeam" class="profile-team">Ranked pressure performer</div>
-            <div class="profile-scoreline"><span id="profileScore" class="profile-score">—</span><span class="score-label">PRESSURE<br>INDEX</span><span id="profileReliability" class="confidence-tag">—</span></div>
+            <div class="profile-scoreline"><span id="profileScore" class="profile-score">—</span><span id="scoreLabel" class="score-label">PRESSURE<br>INDEX</span><span id="profileReliability" class="confidence-tag">—</span></div>
             <div class="profile-chart-title"><span id="profileChartLabel">PRESSURE VS USUAL</span><span id="profileMetricUnit">SR</span></div>
             <div id="profileChart" class="compare-chart" aria-label="Pressure and usual performance comparison"></div>
             <div class="profile-metrics">
               <div><span id="metricPressureLabel">PRESSURE SR</span><strong id="metricPressure">—</strong></div>
               <div><span id="metricUsualLabel">USUAL SR</span><strong id="metricUsual">—</strong></div>
-              <div><span>PRESSURE MATCHES</span><strong id="metricMatches">—</strong></div>
-              <div><span>PRESSURE BALLS</span><strong id="metricBalls">—</strong></div>
+              <div><span id="metricMatchesLabel">PRESSURE MATCHES</span><strong id="metricMatches">—</strong></div>
+              <div><span id="metricBallsLabel">PRESSURE BALLS</span><strong id="metricBalls">—</strong></div>
                 <div><span id="metricOutcomeLabel">PRESSURE OUTS / 100</span><strong id="metricOutcome">—</strong></div>
             </div>
-            <div class="consistency-row"><span>Positive pressure matches</span><strong id="metricConsistency">—</strong></div>
+            <div class="consistency-row"><span id="metricConsistencyLabel">Positive pressure matches</span><strong id="metricConsistency">—</strong></div>
             <label class="compare-select"><span>COMPARE WITH</span><select id="compareSelect" aria-label="Choose a player to compare"><option value="">Choose player</option></select></label>
             <div id="compareNote" class="compare-note">A like-for-like index, using each player's usual performance as their reference.</div>
           </aside>
@@ -129,6 +131,7 @@
           <div class="method-row"><span class="method-number">02</span><div><h3>Reward more than a hot spell</h3><p>Default eligibility requires 60 pressure balls, eight pressure matches, and 60 usual balls. Smaller samples can qualify only when the filter is deliberately relaxed.</p></div></div>
           <div class="method-row"><span class="method-number">03</span><div><h3>Shrink uncertain scores</h3><p>The index is pulled toward 50 when pressure-ball or match volume is low. Confidence is displayed beside every selection.</p></div></div>
           <div class="method-row"><span class="method-number">04</span><div><h3>Check consistency across matches</h3><p>The ranking includes the percentage of pressure matches with positive performance relative to the player's usual baseline, not just an aggregate strike or economy rate.</p></div></div>
+          <div class="method-row"><span class="method-number">05</span><div><h3>Score all-rounders across both disciplines</h3><p>All-rounders must qualify for both the batting and bowling lists. Their composite index is the equal-weight mean of those two reliability-adjusted indexes; both component scores remain visible.</p></div></div>
         </div>
       </section>
       <footer class="page-footer"><span>SUPERR SELECTOR / SEASON 02</span><span>BUILT FROM THE SUPPLIED IPL + T20I BALL-BY-BALL DATA</span><a href="methodology_report.html" target="_blank" rel="noopener">REPORT ↗</a></footer>

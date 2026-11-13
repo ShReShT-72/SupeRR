@@ -100,7 +100,7 @@ h1 em, h2 em { color: #72874a; font-weight: 600; }
 .section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 25px; margin-bottom: 23px; }
 h2 { margin: 9px 0 0; font-family: var(--serif); font-size: 34px; font-weight: 600; letter-spacing: 0; line-height: 1.08; }
 .list-tabs { display: flex; border-bottom: 1px solid #bdc7bc; }
-.list-tab { position: relative; min-width: 102px; padding: 10px 15px 12px; border: 0; background: transparent; color: var(--muted); font-size: 12px; cursor: pointer; }
+.list-tab { position: relative; flex: 1; min-width: 0; padding: 10px 15px 12px; border: 0; background: transparent; color: var(--muted); font-size: 12px; cursor: pointer; }
 .list-tab::after { position: absolute; right: 0; bottom: -1px; left: 0; height: 2px; background: transparent; content: ''; }
 .list-tab.is-active { color: var(--ink); font-weight: 700; }
 .list-tab.is-active::after { background: var(--orange); }
@@ -124,6 +124,7 @@ h2 { margin: 9px 0 0; font-family: var(--serif); font-size: 34px; font-weight: 6
 .eligible-count, .metric-caption { color: var(--muted); font: 9px var(--mono); }
 .metric-caption { letter-spacing: .5px; }
 .ranking-header, .ranking-row { display: grid; grid-template-columns: 50px minmax(115px, 1fr) 68px 116px; align-items: center; }
+.ranking-table.is-allrounder .ranking-header, .ranking-table.is-allrounder .ranking-row { grid-template-columns: 50px minmax(100px, 1fr) 68px 142px; }
 .ranking-header { min-height: 33px; padding: 0 18px; border-bottom: 1px solid #e8ece6; color: #89928b; font-size: 8px; letter-spacing: .6px; }
 .ranking-header > :nth-child(3), .ranking-header > :nth-child(4) { text-align: right; }
 .sort-button { padding: 0; border: 0; background: transparent; color: #89928b; font: 8px var(--mono); letter-spacing: .6px; cursor: pointer; }
@@ -137,6 +138,10 @@ h2 { margin: 9px 0 0; font-family: var(--serif); font-size: 34px; font-weight: 6
 .rank-team { display: block; margin-top: 3px; overflow: hidden; color: var(--muted); font-size: 9px; font-weight: 400; text-overflow: ellipsis; }
 .rank-score { justify-self: end; min-width: 45px; padding: 5px 7px; background: #edf2e8; color: #33452d; font: 11px var(--mono); text-align: center; }
 .rank-performance { justify-self: end; color: var(--ink-soft); font: 11px var(--mono); }
+.rank-allrounder-pair { display: flex; align-items: center; gap: 8px; }
+.rank-allrounder-part { display: grid; gap: 2px; text-align: right; }
+.rank-allrounder-part small { color: var(--muted); font: 7px var(--mono); }
+.rank-allrounder-part strong { color: var(--ink-soft); font: 10px var(--mono); }
 .ranking-foot { display: flex; justify-content: space-between; gap: 10px; padding: 11px 18px; color: #88928a; font-size: 7px; letter-spacing: .4px; }
 .empty-state { padding: 38px 20px; color: var(--muted); font-size: 12px; text-align: center; }
 .profile-panel { min-width: 0; padding: 17px 20px 16px; background-color: #fbfcf8; }
@@ -146,7 +151,7 @@ h2 { margin: 9px 0 0; font-family: var(--serif); font-size: 34px; font-weight: 6
 .profile-team { min-height: 15px; color: var(--muted); font-size: 10px; }
 .profile-scoreline { display: flex; align-items: center; gap: 8px; margin: 18px 0 18px; }
 .profile-score { color: var(--green); font-family: var(--serif); font-size: 38px; line-height: 1; }
-.score-label { color: var(--muted); font: 8px/1.35 var(--mono); letter-spacing: .3px; }
+.score-label { color: var(--muted); font: 8px/1.35 var(--mono); letter-spacing: .3px; white-space: pre-line; }
 .confidence-tag { margin-left: auto; padding: 5px 7px; border: 1px solid #d4dfca; color: #536840; font: 8px var(--mono); }
 .profile-chart-title { display: flex; justify-content: space-between; margin: 0 0 8px; color: var(--muted); font-size: 8px; letter-spacing: .5px; }
 .compare-chart { display: grid; gap: 8px; min-height: 56px; padding: 5px 0 12px; border-bottom: 1px solid var(--line); }
@@ -205,6 +210,7 @@ h2 { margin: 9px 0 0; font-family: var(--serif); font-size: 34px; font-weight: 6
   .main-content { padding-right: 28px; padding-left: 30px; }
   .analysis-grid { grid-template-columns: minmax(420px, 1.4fr) minmax(245px, .8fr); }
   .ranking-header, .ranking-row { grid-template-columns: 40px minmax(100px, 1fr) 58px 100px; }
+  .ranking-table.is-allrounder .ranking-header, .ranking-table.is-allrounder .ranking-row { grid-template-columns: 40px minmax(90px, 1fr) 58px 126px; }
   .filter-bar { flex-wrap: wrap; }
   .search-control { margin-left: auto; }
 }
@@ -260,12 +266,16 @@ h2 { margin: 9px 0 0; font-family: var(--serif); font-size: 34px; font-weight: 6
   .analysis-grid { grid-template-columns: 1fr; }
   .ranking-panel { border-right: 0; }
   .ranking-header, .ranking-row { grid-template-columns: 34px minmax(95px, 1fr) 50px 86px; }
+  .ranking-table.is-allrounder .ranking-header, .ranking-table.is-allrounder .ranking-row { grid-template-columns: 34px minmax(75px, 1fr) 44px 108px; }
   .ranking-header { padding: 0 10px; font-size: 7px; }
   .ranking-row { min-height: 48px; padding: 0 10px; }
   .sort-button { font-size: 7px; }
   .rank-player { font-size: 10px; }
   .rank-team { font-size: 8px; }
   .rank-score, .rank-performance { font-size: 9px; }
+  .rank-allrounder-pair { gap: 4px; }
+  .rank-allrounder-part small { font-size: 6px; }
+  .rank-allrounder-part strong { font-size: 9px; }
   .table-head { padding: 0 10px; }
   .table-head .eyebrow, .eligible-count, .metric-caption { font-size: 7px; }
   .ranking-foot { padding: 10px; font-size: 6px; }

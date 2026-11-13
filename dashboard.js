@@ -9,6 +9,8 @@ const elements = {
   empty: document.querySelector('#emptyState'),
   count: document.querySelector('#eligibleCount'),
   metricLabel: document.querySelector('#rankMetricLabel'),
+  metricSort: document.querySelector('.metric-sort'),
+  rankingMethodLabel: document.querySelector('#rankingMethodLabel'),
   showAll: document.querySelector('#showAllButton'),
   tabs: [...document.querySelectorAll('.list-tab')],
   sortButtons: [...document.querySelectorAll('.sort-button')],
@@ -17,7 +19,9 @@ const elements = {
   profileTeam: document.querySelector('#profileTeam'),
   profileRank: document.querySelector('#profileRank'),
   profileScore: document.querySelector('#profileScore'),
+  scoreLabel: document.querySelector('#scoreLabel'),
   profileReliability: document.querySelector('#profileReliability'),
+  profilePanel: document.querySelector('.profile-panel'),
   profileChart: document.querySelector('#profileChart'),
   profileChartLabel: document.querySelector('#profileChartLabel'),
   metricUnit: document.querySelector('#profileMetricUnit'),
@@ -25,10 +29,13 @@ const elements = {
   usualLabel: document.querySelector('#metricUsualLabel'),
   pressureMetric: document.querySelector('#metricPressure'),
   usualMetric: document.querySelector('#metricUsual'),
+  matchesLabel: document.querySelector('#metricMatchesLabel'),
   matches: document.querySelector('#metricMatches'),
+  ballsLabel: document.querySelector('#metricBallsLabel'),
   balls: document.querySelector('#metricBalls'),
   outcomeLabel: document.querySelector('#metricOutcomeLabel'),
   outcome: document.querySelector('#metricOutcome'),
+  consistencyLabel: document.querySelector('#metricConsistencyLabel'),
   consistency: document.querySelector('#metricConsistency'),
   compareNote: document.querySelector('#compareNote'),
   status: document.querySelector('#statusMessage'),
@@ -43,7 +50,7 @@ const state = {
   showAll: false,
   sort: 'score',
   direction: -1,
-  rankings: { batters: [], bowlers: [] },
+  rankings: { batters: [], bowlers: [], allrounders: [] },
 };
 
 function number(value) {
@@ -65,10 +72,12 @@ function ratingOptions() {
 }
 
 function displayMetric(player, kind = state.kind) {
+  if (kind === 'allrounders') return Math.min(player.batting.index, player.bowling.index);
   return kind === 'batters' ? player.pressureRate : player.pressureEconomy;
 }
 
 function metricText(player, kind = state.kind) {
+  if (kind === 'allrounders') return `Batting ${player.batting.index.toFixed(1)}; bowling ${player.bowling.index.toFixed(1)}`;
   return kind === 'batters' ? `${player.pressureRate.toFixed(1)}` : `${player.pressureEconomy.toFixed(2)}`;
 }
 
@@ -137,13 +146,31 @@ function renderRows(list) {
     const performance = document.createElement('span');
     performance.className = 'rank-performance';
     performance.setAttribute('role', 'cell');
-    performance.textContent = metricText(player);
+    if (state.kind === 'allrounders') {
+      performance.classList.add('rank-allrounder-pair');
+      performance.setAttribute('aria-label', metricText(player));
+      for (const [label, value] of [['BAT', player.batting.index], ['BOWL', player.bowling.index]]) {
+        const component = document.createElement('span');
+        component.className = 'rank-allrounder-part';
+        const componentLabel = document.createElement('small');
+        componentLabel.textContent = label;
+        const componentScore = document.createElement('strong');
+        componentScore.textContent = value.toFixed(1);
+        component.append(componentLabel, componentScore);
+        performance.append(component);
+      }
+    } else {
+      performance.textContent = metricText(player);
+    }
 
     row.append(rank, name, score, performance);
     row.style.animationDelay = `${Math.min(index, 9) * 22}ms`;
     row.addEventListener('click', () => selectProfile(player.playerId));
     return row;
   }));
+  elements.empty.textContent = state.kind === 'allrounders'
+    ? 'No players qualify in both disciplines with this sample threshold.'
+    : 'No players meet this sample threshold. Try a wider season or a smaller minimum sample.';
   elements.empty.hidden = visible.length > 0;
   elements.count.textContent = `${list.length} eligible`;
   elements.showAll.setAttribute('aria-pressed', String(state.showAll));
@@ -161,12 +188,16 @@ function createChartRow(label, value, max, type) {
   bar.style.width = `${Math.max(3, Math.min(100, (value / max) * 100))}%`;
   track.append(bar);
   const figure = document.createElement('strong');
-  figure.textContent = state.kind === 'batters' ? value.toFixed(1) : value.toFixed(2);
+  figure.textContent = state.kind === 'bowlers' ? value.toFixed(2) : value.toFixed(1);
   row.append(name, track, figure);
   return row;
 }
 
 function renderProfile(list) {
+  const isAllrounder = state.kind === 'allrounders';
+  elements.profilePanel.classList.toggle('is-allrounder', isAllrounder);
+  elements.scoreLabel.textContent = isAllrounder ? 'ALL-ROUNDER\nINDEX' : 'PRESSURE\nINDEX';
+  elements.profileChart.setAttribute('aria-label', isAllrounder ? 'Batting and bowling index comparison' : 'Pressure and usual performance comparison');
   let player = list.find((item) => String(item.playerId) === String(state.selectedId));
   if (!player) {
     player = list[0] ?? null;
@@ -183,11 +214,20 @@ function renderProfile(list) {
   elements.compare.value = compared ? String(compared.playerId) : '';
 
   if (!player) {
+    const isBatter = state.kind === 'batters';
     elements.profileName.textContent = 'No eligible players';
     elements.profileTeam.textContent = 'Adjust the filters to see a ranking.';
     elements.profileRank.textContent = '—';
     elements.profileScore.textContent = '—';
     elements.profileReliability.textContent = 'NO SAMPLE';
+    elements.profileChartLabel.textContent = isAllrounder ? 'BATTING / BOWLING INDEX' : 'PRESSURE VS USUAL';
+    elements.metricUnit.textContent = isAllrounder ? '0–100' : isBatter ? 'SR' : 'ECON / 6';
+    elements.pressureLabel.textContent = isAllrounder ? 'BATTING INDEX' : isBatter ? 'PRESSURE SR' : 'PRESSURE ECONOMY';
+    elements.usualLabel.textContent = isAllrounder ? 'BOWLING INDEX' : isBatter ? 'USUAL SR' : 'USUAL ECONOMY';
+    elements.matchesLabel.textContent = isAllrounder ? 'PRESSURE MATCHES · BAT / BOWL' : 'PRESSURE MATCHES';
+    elements.ballsLabel.textContent = isAllrounder ? 'PRESSURE BALLS · BAT / BOWL' : 'PRESSURE BALLS';
+    elements.outcomeLabel.textContent = isAllrounder ? 'PRESSURE SR / ECON / 6' : isBatter ? 'PRESSURE OUTS / 100' : 'PRESSURE WICKETS';
+    elements.consistencyLabel.textContent = isAllrounder ? 'Positive-match share · bat / bowl' : 'Positive pressure matches';
     elements.profileChart.replaceChildren();
     elements.pressureMetric.textContent = '—';
     elements.usualMetric.textContent = '—';
@@ -199,16 +239,48 @@ function renderProfile(list) {
     return;
   }
 
+  elements.profileName.textContent = player.player;
+  elements.profileTeam.textContent = player.teams.join(' · ') || 'Team not listed';
+  elements.profileRank.textContent = `RANK ${String(player.rank).padStart(2, '0')}`;
+  elements.profileScore.textContent = player.score.toFixed(1);
+  if (isAllrounder) {
+    const { batting, bowling } = player;
+    elements.profileReliability.textContent = `BAT ${batting.reliability}% · BOWL ${bowling.reliability}%`;
+    elements.profileChartLabel.textContent = 'BATTING / BOWLING INDEX';
+    elements.metricUnit.textContent = '0–100';
+    elements.pressureLabel.textContent = 'BATTING INDEX';
+    elements.usualLabel.textContent = 'BOWLING INDEX';
+    elements.pressureMetric.textContent = batting.index.toFixed(1);
+    elements.usualMetric.textContent = bowling.index.toFixed(1);
+    elements.matchesLabel.textContent = 'PRESSURE MATCHES · BAT / BOWL';
+    elements.matches.textContent = `${batting.pressureMatches} / ${bowling.pressureMatches}`;
+    elements.ballsLabel.textContent = 'PRESSURE BALLS · BAT / BOWL';
+    elements.balls.textContent = `${formatInt(batting.pressureBalls)} / ${formatInt(bowling.pressureBalls)}`;
+    elements.outcomeLabel.textContent = 'PRESSURE SR / ECON / 6';
+    elements.outcome.textContent = `${batting.pressureRate.toFixed(1)} / ${bowling.pressureEconomy.toFixed(2)}`;
+    elements.consistencyLabel.textContent = 'Positive-match share · bat / bowl';
+    elements.consistency.textContent = `${batting.consistency}% / ${bowling.consistency}%`;
+
+    const chartRows = [
+      createChartRow('BATTING', batting.index, 100, 'pressure'),
+      createChartRow('BOWLING', bowling.index, 100, 'usual'),
+    ];
+    if (compared) {
+      chartRows.push(createChartRow(`${compared.player.split(' ')[0]} BAT`, compared.batting.index, 100, 'pressure'));
+      chartRows.push(createChartRow(`${compared.player.split(' ')[0]} BOWL`, compared.bowling.index, 100, 'usual'));
+      elements.compareNote.textContent = `${compared.player}: composite ${compared.score.toFixed(1)} from batting ${compared.batting.index.toFixed(1)} and bowling ${compared.bowling.index.toFixed(1)}.`;
+    } else {
+      elements.compareNote.textContent = 'Composite index is the equal-weight mean of the batting and bowling indexes. Both components must meet the selected sample threshold.';
+    }
+    elements.profileChart.replaceChildren(...chartRows);
+    return;
+  }
+
   const isBatter = state.kind === 'batters';
   const metric = isBatter ? player.pressureRate : player.pressureEconomy;
   const usual = isBatter ? player.usualRate : player.usualEconomy;
   const values = compared ? [metric, usual, displayMetric(compared), isBatter ? compared.usualRate : compared.usualEconomy] : [metric, usual];
   const max = Math.max(...values, 1) * 1.08;
-
-  elements.profileName.textContent = player.player;
-  elements.profileTeam.textContent = player.teams.join(' · ') || 'Team not listed';
-  elements.profileRank.textContent = `RANK ${String(player.rank).padStart(2, '0')}`;
-  elements.profileScore.textContent = player.score.toFixed(1);
   elements.profileReliability.textContent = `${player.reliability}% RELIABLE`;
   elements.profileChartLabel.textContent = compared ? 'PRESSURE / USUAL COMPARISON' : 'PRESSURE VS USUAL';
   elements.metricUnit.textContent = isBatter ? 'SR' : 'ECON / 6';
@@ -216,10 +288,13 @@ function renderProfile(list) {
   elements.usualLabel.textContent = isBatter ? 'USUAL SR' : 'USUAL ECONOMY';
   elements.pressureMetric.textContent = isBatter ? player.pressureRate.toFixed(1) : player.pressureEconomy.toFixed(2);
   elements.usualMetric.textContent = isBatter ? player.usualRate.toFixed(1) : player.usualEconomy.toFixed(2);
+  elements.matchesLabel.textContent = 'PRESSURE MATCHES';
   elements.matches.textContent = String(player.pressureMatches);
+  elements.ballsLabel.textContent = 'PRESSURE BALLS';
   elements.balls.textContent = formatInt(player.pressureBalls);
   elements.outcomeLabel.textContent = isBatter ? 'PRESSURE OUTS / 100' : 'PRESSURE WICKETS';
   elements.outcome.textContent = isBatter ? player.pressureDismissalRate.toFixed(1) : String(player.pressureWickets);
+  elements.consistencyLabel.textContent = 'Positive pressure matches';
   elements.consistency.textContent = `${player.consistency}%`;
 
   const chartRows = [
@@ -242,7 +317,12 @@ function render() {
   const { batters, bowlers } = state.rankings;
   const list = state.rankings[state.kind];
   const isBatter = state.kind === 'batters';
-  elements.metricLabel.textContent = isBatter ? 'PRESSURE STRIKE RATE' : 'PRESSURE ECONOMY / 6';
+  const isAllrounder = state.kind === 'allrounders';
+  elements.metricLabel.textContent = isAllrounder ? 'EQUAL-WEIGHT COMPOSITE' : isBatter ? 'PRESSURE STRIKE RATE' : 'PRESSURE ECONOMY / 6';
+  elements.metricSort.firstChild.textContent = isAllrounder ? 'WEAKER INDEX ' : 'PERFORMANCE ';
+  elements.metricSort.setAttribute('aria-label', isAllrounder ? 'Sort by weaker component index' : 'Sort by pressure performance');
+  elements.rows.closest('.ranking-table').classList.toggle('is-allrounder', isAllrounder);
+  elements.rankingMethodLabel.textContent = isAllrounder ? 'COMPOSITE = 50% BATTING + 50% BOWLING' : 'INDEX IS NORMALIZED WITHIN FORMAT + SEASON';
   elements.tabs.forEach((tab) => {
     const active = tab.dataset.kind === state.kind;
     tab.classList.toggle('is-active', active);
@@ -251,15 +331,19 @@ function render() {
   renderRows(list);
   renderProfile(list);
 
-  const selectedTab = state.kind === 'batters' ? 'Batting index' : 'Bowling index';
   document.querySelectorAll('.nav-link').forEach((link) => {
     const active = link.dataset.view === state.view;
     link.classList.toggle('is-active', active);
     if (active) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   });
-  document.querySelector('#analysis-title').textContent = selectedTab === 'Batting index' ? 'Who holds their nerve?' : 'Who owns the tight overs?';
-  if (!batters.length && !bowlers.length) elements.count.textContent = '0 eligible';
+  const analysisTitles = {
+    batters: 'Who holds their nerve?',
+    bowlers: 'Who owns the tight overs?',
+    allrounders: 'Who contributes in both disciplines?',
+  };
+  document.querySelector('#analysis-title').textContent = analysisTitles[state.kind];
+  if (!batters.length && !bowlers.length && !state.rankings.allrounders.length) elements.count.textContent = '0 eligible';
 }
 
 function updateRankings() {
@@ -296,24 +380,33 @@ function exportCsv() {
   const allRanks = [
     ['Batters', state.rankings.batters],
     ['Bowlers', state.rankings.bowlers],
+    ['All-rounders', state.rankings.allrounders],
   ];
-  const rows = [['category', 'rank', 'player', 'team', 'pressure_index', 'pressure_balls', 'pressure_matches', 'pressure_performance', 'usual_performance', 'positive_match_share', 'sample_reliability']];
+  const rows = [['category', 'rank', 'player', 'team', 'pressure_index', 'batting_index', 'bowling_index', 'pressure_balls', 'pressure_matches', 'pressure_performance', 'usual_performance', 'positive_match_share', 'sample_reliability']];
   for (const [category, players] of allRanks) {
     for (const player of players.slice(0, 10)) {
-      const isBatter = category === 'Batters';
-      rows.push([
-        category,
-        player.rank,
-        player.player,
-        player.teams.join(' / '),
-        player.score,
-        player.pressureBalls,
-        player.pressureMatches,
-        isBatter ? player.pressureRate : player.pressureEconomy,
-        isBatter ? player.usualRate : player.usualEconomy,
-        `${player.consistency}%`,
-        `${player.reliability}%`,
-      ]);
+      if (category === 'All-rounders') {
+        rows.push([
+          category, player.rank, player.player, player.teams.join(' / '), player.score,
+          player.batting.index, player.bowling.index,
+          `${player.batting.pressureBalls} batting / ${player.bowling.pressureBalls} bowling`,
+          `${player.batting.pressureMatches} batting / ${player.bowling.pressureMatches} bowling`,
+          `${player.batting.pressureRate} SR / ${player.bowling.pressureEconomy} economy/6`,
+          `${player.batting.usualRate} usual SR / ${player.bowling.usualEconomy} usual economy/6`,
+          `${player.batting.consistency}% / ${player.bowling.consistency}%`,
+          `${player.batting.reliability}% / ${player.bowling.reliability}%`,
+        ]);
+      } else {
+        const isBatter = category === 'Batters';
+        rows.push([
+          category, player.rank, player.player, player.teams.join(' / '), player.score,
+          isBatter ? player.score : '', isBatter ? '' : player.score,
+          player.pressureBalls, player.pressureMatches,
+          isBatter ? player.pressureRate : player.pressureEconomy,
+          isBatter ? player.usualRate : player.usualEconomy,
+          `${player.consistency}%`, `${player.reliability}%`,
+        ]);
+      }
     }
   }
   const csv = rows.map((row) => row.map((cell) => `"${String(cell).replaceAll('"', '""')}"`).join(',')).join('\r\n');
@@ -322,15 +415,15 @@ function exportCsv() {
   link.href = url;
   link.download = 'supeRR-pressure-rankings.csv';
   link.click();
-  URL.revokeObjectURL(url);
-  announce('Top-ten rankings exported as CSV.');
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  announce('Top-ten batter, bowler, and all-rounder rankings exported as CSV.');
 }
 
 function setupNavigation() {
   document.querySelectorAll('.nav-link').forEach((link) => {
     link.addEventListener('click', () => {
       const view = link.dataset.view;
-      if (view === 'batters' || view === 'bowlers') {
+      if (view === 'batters' || view === 'bowlers' || view === 'allrounders') {
         state.view = view;
         state.kind = view;
         state.selectedId = null;

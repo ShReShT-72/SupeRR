@@ -37,6 +37,23 @@ This analysis defines pressure from the live innings state before a delivery, th
 | 9 | Kagiso Rabada | 57.3 | 8.52 | 9.52 | 276 | 27 | 59% | 82% |
 | 10 | Adam Zampa | 57.1 | 7.88 | 8.86 | 416 | 30 | 67% | 85% |
 
+### Top 10 all-rounders
+
+Players must independently meet the selected eligibility threshold as both a batter and a bowler. The composite index is the equal-weight mean of their two final indexes, each of which already includes its own sample-reliability adjustment.
+
+| Rank | Player | Composite index | Batting index | Bowling index | Batting pressure balls | Bowling pressure balls | Batting matches | Bowling matches |
+|---:|---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | Washington Sundar | 54.0 | 48.5 | 59.4 | 141 | 135 | 14 | 12 |
+| 2 | Sikandar Raza | 52.4 | 50.3 | 54.4 | 115 | 94 | 12 | 10 |
+| 3 | Ravichandran Ashwin | 51.5 | 52.6 | 50.4 | 60 | 479 | 9 | 33 |
+| 4 | Ravindra Jadeja | 51.3 | 52.4 | 50.2 | 255 | 368 | 18 | 28 |
+| 5 | Moeen Ali | 50.7 | 50.8 | 50.5 | 164 | 103 | 13 | 8 |
+| 6 | Nitish Reddy | 50.1 | 53.6 | 46.5 | 108 | 100 | 11 | 10 |
+| 7 | Cameron Green | 49.0 | 51.0 | 47.0 | 163 | 160 | 12 | 19 |
+| 8 | Sam Curran | 48.1 | 50.2 | 45.9 | 200 | 453 | 18 | 43 |
+| 9 | Shivam Dube | 47.7 | 48.9 | 46.4 | 684 | 152 | 59 | 16 |
+| 10 | Axar Patel | 47.3 | 42.7 | 51.8 | 197 | 454 | 19 | 42 |
+
 ## Data and scope
 
 The calculation joins `ball_by_ball.csv` to `matches.csv` and `competitions.csv`. IPL is identified by the competition name; T20I is identified by the competition format. Other competitions carrying a generic T20 label and records with unknown seasons are excluded. The in-scope data contains **819 matches** and **189,683 deliveries**: **79,974 pressure** and **109,709 ordinary**. The supplied ball-by-ball file has 200,999 raw rows; the difference is excluded competitions or out-of-scope records, not missing rows.
@@ -57,7 +74,7 @@ The finish phase captures high-leverage deliveries in either innings. The wicket
 
 ## Performance and ranking
 
-Players who represented Pakistan in T20Is in the supplied data are excluded from both lists. The source has no dedicated nationality field, so Pakistan T20I team representation is used as the nationality proxy; 53 player IDs are excluded. This filter is applied before scoring and format-season standardization. Players are analyzed by format and season. A player-format-season segment must have at least **60 pressure balls**, **8 matches containing pressure batting/bowling**, and **60 ordinary balls**. After format-season roll-up, 58 batter profiles and 124 bowler profiles qualify in the all-format/all-season view. The dashboard also offers 36-ball/5-match and 90-ball/10-match sensitivity settings.
+Players who represented Pakistan in T20Is in the supplied data are excluded from all lists. The source has no dedicated nationality field, so Pakistan T20I team representation is used as the nationality proxy; 53 player IDs are excluded. This filter is applied before scoring and format-season standardization. Players are analyzed by format and season. A player-format-season segment must have at least **60 pressure balls**, **8 matches containing pressure batting/bowling**, and **60 ordinary balls**. After format-season roll-up, 58 batter profiles and 124 bowler profiles qualify; 12 players qualify in both disciplines for the all-rounder list. The dashboard also offers 36-ball/5-match and 90-ball/10-match sensitivity settings.
 
 For batters the inputs are pressure strike rate, strike-rate change from the player's ordinary baseline, improvement in outs per 100 balls, and positive-match share. For bowlers they are lower pressure economy rate, economy improvement from the player's ordinary baseline, pressure wickets per 100 legal balls, and positive-match share. Inputs are direction-aligned and standardized as z-scores against eligible players in the same format-season pool. The weighted blend is:
 
@@ -68,6 +85,8 @@ Segment scores are combined for a player using pressure-ball volume as the weigh
 `sqrt((pressure balls / (pressure balls + 60)) × (pressure matches / (pressure matches + 6)))`
 
 The displayed index is `clip(50 + 10 × weighted raw rating × reliability, 0, 100)`. The unshrunk field midpoint is 50. Reliability is a heuristic shrinkage factor, not a statistical confidence interval.
+
+All-rounders must qualify for both the batter and bowler lists under the same format, season, and sample filters. Their composite index is `0.50 × batting index + 0.50 × bowling index`. Since each component index is already reliability-adjusted, this averages the two final discipline indexes without giving either discipline extra weight. The dashboard displays both component indexes and sample sizes alongside the composite. This is a data-based dual-discipline ranking, not an official player-role classification.
 
 For positive-match share, a batter's pressure segment is compared with their pooled ordinary rates. A match counts positive when `(pressure SR − usual SR) − 2 × (pressure outs/ball − usual outs/ball) > 0`. A bowler's match counts positive when `(usual economy − pressure economy) + 1.5 × (pressure wickets/100 balls − usual wickets/100 balls) > 0`. The share is the fraction of that player's pressure-exposed matches passing the test.
 
