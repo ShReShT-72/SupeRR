@@ -7127,39 +7127,21 @@
     ]
   },
   "exclusionFlip": {
-    "summary": "The exclusions are three adjacent conditions in scoring.mjs, not one line. The smallest edit replaces those three lines by the single line `true`.",
+    "summary": "One line in scoring.mjs switches the player exclusions off. The change is `true` to `false` on the APPLY_PLAYER_EXCLUSIONS line.",
     "file": "scoring.mjs",
-    "linesToReplace": [
-      {
-        "line": 54,
-        "text": "    !pakistanPlayers.has(String(record.playerId))"
-      },
-      {
-        "line": 55,
-        "text": "    && !IPL_RETIRED_PLAYER_IDS.has(String(record.playerId))"
-      },
-      {
-        "line": 56,
-        "text": "    && !IPL_2027_NONPLAYER_IDS.has(String(record.playerId))"
-      }
-    ],
-    "within": "  const selected = records.filter((record) => (",
-    "replacementForTheThreeLines": "    true",
-    "resultingCode": [
-      "  const selected = records.filter((record) => (",
-      "    true",
-      "    && (format === 'All' || record.format === format)"
-    ],
+    "line": 6,
+    "before": "const APPLY_PLAYER_EXCLUSIONS = true;",
+    "after": "const APPLY_PLAYER_EXCLUSIONS = false;",
     "editCheckedBySensitivityScript": true,
     "checkDescription": "sensitivity.mjs applies this exact edit to a copy of scoring.mjs in memory and confirms the batter, bowler and all-rounder lists equal the noExclusion lists in this file.",
-    "whatTheEditDoes": "Keeps the format and season filters, drops the Pakistan T20I, IPL retiree and Mohit Sharma filters. The constants and the ratingRules text that mention the exclusions become unused; they are harmless.",
+    "whatTheEditDoes": "Keeps the format and season filters and drops the three exclusion groups: the Pakistan T20I players, the five IPL retirees and Mohit Sharma. The dashboard imports scoring.mjs, so it shows the no-exclusion lists as soon as the line is changed. The text lists of excluded names (ratingRules, the report, README.md, index.html method step 06) do not change by themselves.",
     "analysisDataNeedsRegenerating": "No. The exclusions are applied in scoring.mjs after analysis_data.json is built, so do not run analyze.mjs for this change.",
     "commands": [
-      "1. Edit scoring.mjs as above (the dashboard, which imports scoring.mjs, then shows the no-exclusion lists at once).",
-      "2. node sensitivity.mjs --print-top10   (prints the top-10 batters and bowlers that scoring.mjs now gives; they must equal noExclusion.batters.top10 and noExclusion.bowlers.top10 in sensitivity_data.json)",
-      "3. Do not re-run `node sensitivity.mjs` without arguments after the edit: it describes the exclusions-on primary list and stops with an error if the three conditions are missing. To rebuild sensitivity_data.json, restore scoring.mjs first (git checkout -- scoring.mjs).",
-      "4. Refresh the report: methodology_report.md, methodology_report.html and methodology_report.pdf are written by hand (the PDF is the html printed to PDF). Copy the tables from noExclusion in sensitivity_data.json, make the no-exclusion lists the primary tables, and make the exclusion list the sensitivity table.",
-      "5. Static text that also mentions the exclusions: README.md, index.html (method step 06) and the executive summary and limitations text in the report. The Unstop dropdown entries must be changed to the no-exclusion names."
+      "1. In scoring.mjs change `const APPLY_PLAYER_EXCLUSIONS = true;` to `const APPLY_PLAYER_EXCLUSIONS = false;`.",
+      "2. node sensitivity.mjs --print-top10   (prints the top-10 batters and bowlers that scoring.mjs now gives; they must equal noExclusion.batters.top10 and noExclusion.bowlers.top10 in sensitivity_data.json, which holds the full metrics).",
+      "3. Do not run `node sensitivity.mjs` or `node charts.mjs` without arguments while the line says false: both describe the submitted exclusions-on lists and stop with an error. Change the line back to true before rebuilding sensitivity_data.json or the charts.",
+      "4. Report: methodology_report.md, methodology_report.html and methodology_report.pdf are written by hand (the PDF is the html printed to PDF). The no-exclusion lists with full metrics are already in the report section \"Primary lists versus no exclusions\". To submit them, move those tables into the top-10 section, update the exclusion text, and print the PDF again.",
+      "5. Static text that also mentions the exclusions: README.md, index.html (method step 06) and the exclusion paragraphs in the report. The Unstop dropdown entries must be changed to the no-exclusion names."
     ]
   }
 }

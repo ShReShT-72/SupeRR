@@ -129,7 +129,8 @@ function movement(primary, alternative) {
 
 // ---------- scoring variants built from scoring.mjs text ----------
 const scoringSource = await readFile(resolve(codeDir, 'scoring.mjs'), 'utf8');
-const EXCLUSION_CONDITION = /!(?:pakistanPlayers|IPL_RETIRED_PLAYER_IDS|IPL_2027_NONPLAYER_IDS)\.has\(String\(record\.playerId\)\)\s*&&\s*/g;
+const EXCLUSION_SWITCH = 'const APPLY_PLAYER_EXCLUSIONS = true;';
+const EXCLUSION_SWITCH_OFF = 'const APPLY_PLAYER_EXCLUSIONS = false;';
 const HOOK_ANCHOR = '    const rollups = new Map();';
 const BENCHMARK_LINE = '      const benchmark = `${player.format}:${player.season}`;';
 
@@ -150,9 +151,9 @@ if (process.argv.includes('--print-top10')) {
   process.exit(0);
 }
 
-if ((scoringSource.match(EXCLUSION_CONDITION) ?? []).length !== 3) {
-  throw new Error('scoring.mjs no longer has the three player-exclusion conditions. '
-    + 'sensitivity.mjs describes the primary list with exclusions on; restore scoring.mjs or use --print-top10.');
+if (scoringSource.split(EXCLUSION_SWITCH).length !== 2) {
+  throw new Error(`scoring.mjs does not contain the line "${EXCLUSION_SWITCH}" exactly once. `
+    + 'sensitivity.mjs describes the primary list with exclusions on; restore scoring.mjs (git checkout -- scoring.mjs) or use --print-top10.');
 }
 if (scoringSource.split(HOOK_ANCHOR).length !== 2 || scoringSource.split(BENCHMARK_LINE).length !== 2) {
   throw new Error('scoring.mjs changed shape: the pool (strata) lines that sensitivity.mjs hooks into were not found exactly once.');
@@ -162,7 +163,7 @@ const instrumentedSource = scoringSource
   .replace(HOOK_ANCHOR, `    globalThis.__sensitivityPoolHook?.(kind, strata);\n${HOOK_ANCHOR}`)
   .replace(BENCHMARK_LINE, '      const benchmark = globalThis.__sensitivityBenchmark?.(player) ?? `${player.format}:${player.season}`;');
 const ratePlayersOn = (await loadModule(instrumentedSource)).ratePlayers;
-const ratePlayersOff = (await loadModule(instrumentedSource.replace(EXCLUSION_CONDITION, ''))).ratePlayers;
+const ratePlayersOff = (await loadModule(instrumentedSource.replace(EXCLUSION_SWITCH, EXCLUSION_SWITCH_OFF))).ratePlayers;
 const { ratePlayers: ratePlayersShipped } = await import(new URL('./scoring.mjs', import.meta.url).href);
 
 // ---------- inputs ----------
@@ -681,35 +682,29 @@ otherEvidence.summary = [
 
 // ---------- exclusion flip ----------
 const sourceLines = scoringSource.split(/\r?\n/);
-const conditionTexts = [
-  '!pakistanPlayers.has(String(record.playerId))',
-  '&& !IPL_RETIRED_PLAYER_IDS.has(String(record.playerId))',
-  '&& !IPL_2027_NONPLAYER_IDS.has(String(record.playerId))',
-];
-const firstLine = sourceLines.findIndex((line) => line.trim() === conditionTexts[0]);
-if (firstLine < 0 || conditionTexts.some((text, offset) => sourceLines[firstLine + offset]?.trim() !== text)) throw new Error('exclusion lines in scoring.mjs are not the expected three consecutive lines');
-const flippedLines = [...sourceLines.slice(0, firstLine), '    true', ...sourceLines.slice(firstLine + 3)];
+const switchLine = sourceLines.findIndex((line) => line === EXCLUSION_SWITCH);
+if (switchLine < 0) throw new Error('the APPLY_PLAYER_EXCLUSIONS line in scoring.mjs was not found');
+const flippedLines = sourceLines.map((line, index) => (index === switchLine ? EXCLUSION_SWITCH_OFF : line));
 const flippedRated = (await loadModule(flippedLines.join('\n'))).ratePlayers(records);
 const flipMatchesNoExclusionLists = JSON.stringify([flippedRated.batters, flippedRated.bowlers, flippedRated.allrounders])
   === JSON.stringify([scenarioRated.exclusionsOff_otherPenalty.batters, scenarioRated.exclusionsOff_otherPenalty.bowlers, scenarioRated.exclusionsOff_otherPenalty.allrounders]);
 
 const exclusionFlip = {
-  summary: 'The exclusions are three adjacent conditions in scoring.mjs, not one line. The smallest edit replaces those three lines by the single line `true`.',
+  summary: 'One line in scoring.mjs switches the player exclusions off. The change is `true` to `false` on the APPLY_PLAYER_EXCLUSIONS line.',
   file: 'scoring.mjs',
-  linesToReplace: conditionTexts.map((text, offset) => ({ line: firstLine + 1 + offset, text: sourceLines[firstLine + offset] })),
-  within: sourceLines[firstLine - 1],
-  replacementForTheThreeLines: '    true',
-  resultingCode: [sourceLines[firstLine - 1], '    true', sourceLines[firstLine + 3]],
+  line: switchLine + 1,
+  before: sourceLines[switchLine],
+  after: EXCLUSION_SWITCH_OFF,
   editCheckedBySensitivityScript: flipMatchesNoExclusionLists,
   checkDescription: 'sensitivity.mjs applies this exact edit to a copy of scoring.mjs in memory and confirms the batter, bowler and all-rounder lists equal the noExclusion lists in this file.',
-  whatTheEditDoes: 'Keeps the format and season filters, drops the Pakistan T20I, IPL retiree and Mohit Sharma filters. The constants and the ratingRules text that mention the exclusions become unused; they are harmless.',
+  whatTheEditDoes: 'Keeps the format and season filters and drops the three exclusion groups: the Pakistan T20I players, the five IPL retirees and Mohit Sharma. The dashboard imports scoring.mjs, so it shows the no-exclusion lists as soon as the line is changed. The text lists of excluded names (ratingRules, the report, README.md, index.html method step 06) do not change by themselves.',
   analysisDataNeedsRegenerating: 'No. The exclusions are applied in scoring.mjs after analysis_data.json is built, so do not run analyze.mjs for this change.',
   commands: [
-    '1. Edit scoring.mjs as above (the dashboard, which imports scoring.mjs, then shows the no-exclusion lists at once).',
-    '2. node sensitivity.mjs --print-top10   (prints the top-10 batters and bowlers that scoring.mjs now gives; they must equal noExclusion.batters.top10 and noExclusion.bowlers.top10 in sensitivity_data.json)',
-    '3. Do not re-run `node sensitivity.mjs` without arguments after the edit: it describes the exclusions-on primary list and stops with an error if the three conditions are missing. To rebuild sensitivity_data.json, restore scoring.mjs first (git checkout -- scoring.mjs).',
-    '4. Refresh the report: methodology_report.md, methodology_report.html and methodology_report.pdf are written by hand (the PDF is the html printed to PDF). Copy the tables from noExclusion in sensitivity_data.json, make the no-exclusion lists the primary tables, and make the exclusion list the sensitivity table.',
-    '5. Static text that also mentions the exclusions: README.md, index.html (method step 06) and the executive summary and limitations text in the report. The Unstop dropdown entries must be changed to the no-exclusion names.',
+    '1. In scoring.mjs change `const APPLY_PLAYER_EXCLUSIONS = true;` to `const APPLY_PLAYER_EXCLUSIONS = false;`.',
+    '2. node sensitivity.mjs --print-top10   (prints the top-10 batters and bowlers that scoring.mjs now gives; they must equal noExclusion.batters.top10 and noExclusion.bowlers.top10 in sensitivity_data.json, which holds the full metrics).',
+    '3. Do not run `node sensitivity.mjs` or `node charts.mjs` without arguments while the line says false: both describe the submitted exclusions-on lists and stop with an error. Change the line back to true before rebuilding sensitivity_data.json or the charts.',
+    '4. Report: methodology_report.md, methodology_report.html and methodology_report.pdf are written by hand (the PDF is the html printed to PDF). The no-exclusion lists with full metrics are already in the report section "Primary lists versus no exclusions". To submit them, move those tables into the top-10 section, update the exclusion text, and print the PDF again.',
+    '5. Static text that also mentions the exclusions: README.md, index.html (method step 06) and the exclusion paragraphs in the report. The Unstop dropdown entries must be changed to the no-exclusion names.',
   ],
 };
 
