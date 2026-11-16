@@ -60,9 +60,15 @@ Two assumptions tested.
 
 other
 
- extras type and how to standardise the small T20I pools were each tested against a rule that was written down before the
+ extras type and how to standardise the small T20I pools were each tested. The pool test used a criterion committed before
 
-result was known. Both tests kept the submitted method, so the lists in this report are unchanged. The tests are in "Evidence for the two decisions".
+any candidate ran. The 
+
+other
+
+ test used a decision rule that was fixed in the working plan before the committed run but after a scouting run had shown the direction of the result, and it was
+
+not committed beforehand. Both tests kept the submitted method, so the lists in this report are unchanged. The tests are in "Evidence for the two decisions".
 
 Outside Round 1.
 
@@ -1368,9 +1374,15 @@ much each one changes the result, which names stay in the top ten under every co
 
 other
 
- reading and the small-pool rule were also tested
+ reading and the small-pool rule were also tested.
 
-against criteria written down beforehand, and "Evidence for the two decisions" gives the tests and the outcome. Nothing in this section changes the method or the submitted lists.
+The pool criterion was committed before any candidate ran and the 
+
+other
+
+ decision rule was not committed beforehand. "Evidence for the two decisions" gives the tests and the outcome. Nothing in this section
+
+changes the method or the submitted lists.
 
 Submitted lists versus the exclusion-filtered alternative
 
@@ -4894,21 +4906,35 @@ Two parts of the method rested on an assumption: how to read the undocumented
 
 other
 
- extras type, and how to standardise the small T20I pools. Each was tested with a rule that was written down before the result
+ extras type, and how to standardise the small T20I pools. Each was tested against a stated rule, and in both cases the
 
-was known, and in both cases the submitted method was kept. The lists, figures and tables elsewhere in this report are therefore the ones the submitted method gives, unchanged by these tests. In every table below the
-
-primary (submitted) method is 
+submitted method was kept. The pool criterion was committed before any candidate ran. The 
 
 other
 
- read as an illegal ball with a one-run penalty, and each format-season pool standardised against its own players (
+ rule was fixed in the working plan before the committed run, after a scouting run had shown the direction of the
+
+result, and was not committed beforehand, so the 
+
+other
+
+ decision rests on the regression result (the interval for 
+
+other
+
+ contains 1), not on a pre-registered test. The lists, figures and tables elsewhere in this report
+
+are therefore the ones the submitted method gives, unchanged by these tests. In every table below the primary (submitted) method is 
+
+other
+
+ read as an illegal ball with a one-run penalty, and each format-season pool
+
+standardised against its own players (
 
 own-pool
 
-). Every other setting is an alternative that was
-
-tested and not adopted.
+). Every other setting is an alternative that was tested and not adopted.
 
 Decision 1: the 
 
@@ -5124,17 +5150,19 @@ other
 
 Overstep
 
-, a no-ball with a known one-run penalty. The rule written beforehand: a if the 95% interval (HC1 robust standard errors) of the 
+, a no-ball with a known one-run penalty. The decision rule, fixed in the working plan before the committed run and after a scouting run had shown the direction (it was not committed beforehand): a if the
+
+95% interval (HC1 robust standard errors) of the 
 
 other
 
- coefficient contains 1 and excludes 0, b if it contains 0 and excludes
-
-1, otherwise undecided and the submitted a is kept; the result counts only if the 
+ coefficient contains 1 and excludes 0, b if it contains 0 and excludes 1, otherwise undecided and the submitted a is kept; the result counts only if the
 
 Overstep
 
  interval contains 1.
+
+=== PAGE 14 ===
 
 FIT
 
@@ -5206,8 +5234,6 @@ In-scope matches only (837)
 
 a
 
-=== PAGE 14 ===
-
 The 
 
 other
@@ -5218,19 +5244,31 @@ Overstep
 
  control, 0.90 (0.56 to 1.23), contains 1,
 
-so the test is valid. The rule picks a in all four fits. The wide, leg-bye and bye coefficients (1.16, 1.30 and 2.06) are above one because overthrows and extra runs are not stored, which is why the residual standard deviation
+so the test is valid. The rule picks a in all four fits. The wide, leg-bye and bye coefficients (1.16, 1.30 and 2.06) are above one, and the interval for wide (1.09 to 1.23) excludes 1, so the regression does not return one run
 
-is 2.9 runs and the interval for 
-
-other
-
- is wide. The exact checks agree but cannot decide: the margin is reproduced exactly in 6 of 12 matches under a and 5 of 12 under b and c, and the only match decided by runs that
-
-contains an 
+for those types. The probable cause is that overthrow and other extra runs are not stored, which would also explain why the residual standard deviation is 2.9 runs and the interval for 
 
 other
 
- row (India won by 61 runs) gives a difference of 61 with the penalty run and 60 without it. The wicket-won chases fit the target in 12 of 16 under a and 11 of 16 under b and c.
+ is wide, but this was not
+
+tested. Only the 
+
+Overstep
+
+ control, a type with a known one-run value, shows that the regression can return 1, and the 
+
+other
+
+ result counts only because that control holds. The exact checks agree but cannot
+
+decide: the margin is reproduced exactly in 6 of 12 matches under a and 5 of 12 under b and c, and the only match decided by runs that contains an 
+
+other
+
+ row (India won by 61 runs) gives a difference of 61 with the
+
+penalty run and 60 without it. The wicket-won chases fit the target in 12 of 16 under a and 11 of 16 under b and c.
 
 Decision.
 
@@ -5526,6 +5564,8 @@ What the candidates would have changed.
 
 Mark Chapman gets 76% of his pressure balls from the pool of five, and C1 and C3 would put him first in S1 (58.9 and 58.5 against 56.0 and seventh) and C2 fourth (57.2).
 
+=== PAGE 15 ===
+
 METHOD
 
 SETTING
@@ -5635,8 +5675,6 @@ Mohammad Nabi (was 9, now 14); Rinku Singh
 Mohammad Nabi: 9 to 14
 
 0
-
-=== PAGE 15 ===
 
 Decision.
 
@@ -5984,6 +6022,8 @@ Sudharsan and Nitish Reddy from the batter list and Kagiso Rabada from the bowle
 
 Sai Sudharsan and Nitish Reddy from the batter list and Rabada from the bowler list.
 
+=== PAGE 16 ===
+
 Switch the exclusions on (optional alternative, not the submitted ranking)
 
 Marked section: an option for the submitter, not part of the submitted ranking.
@@ -6113,8 +6153,6 @@ Positive-match share is the fraction of a player's pressure-exposed matches that
 usual wickets/100 balls) > 0
 
 .
-
-=== PAGE 16 ===
 
 Run-outs, retired hurt/out (including the source spelling 
 

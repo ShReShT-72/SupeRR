@@ -44,9 +44,14 @@ ok   Chapman 76% of pressure balls in the pool of five
 ok   commit order: bcbf2ee < c83ff91 < 1a98041
 ok   pool_preregistration.md is unchanged since the pre-registration commit
 ok   md data-scope and limitations sentences present
-ok   md: 35 evidence phrases present
-ok   html: 35 evidence phrases present
-ok   pdf: 35 evidence phrases present
+ok   md: 41 evidence phrases present
+ok   md: no stale pre-registration claim for the other test
+ok   html: 41 evidence phrases present
+ok   html: no stale pre-registration claim for the other test
+ok   pdf: 41 evidence phrases present
+ok   pdf: no stale pre-registration claim for the other test
+ok   README.md: no stale pre-registration claim
+ok   index.html: no stale pre-registration claim
 ok   md table other_regression: 4 rows compared
 ok   html table other_regression: 4 rows compared
 ok   md table pool_methods: 4 rows compared

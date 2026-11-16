@@ -68,6 +68,13 @@ P(`The other coefficient in the main fit is ${o.estimate.toFixed(2)}, with a 95%
 P(`the Overstep control, ${ov.estimate.toFixed(2)} (${fr(ov)}), contains 1`);
 P(`(${reg.main.coefficients.wide.estimate.toFixed(2)}, ${reg.main.coefficients.legbyes.estimate.toFixed(2)} and ${reg.main.coefficients.byes.estimate.toFixed(2)})`);
 P(`the residual standard deviation is ${reg.main.residualSD.toFixed(1)} runs`);
+// provenance of the other rule (not pre-registered) and the untested overthrow explanation
+P('fixed in the working plan before the committed run');
+P('after a scouting run had shown the direction');
+P('was not committed beforehand');
+P(`the interval for wide (${reg.main.coefficients.wide.robustHC1CI95[0].toFixed(2)} to ${reg.main.coefficients.wide.robustHC1CI95[1].toFixed(2)}) excludes 1`);
+P('but this was not tested');
+P('The pool criterion was committed before any candidate ran');
 const ex = oe.T4a_T4b_marginReconstruction;
 P(`reproduced exactly in ${ex.exactMargin.a.all} of ${ex.counts.runWonMatches} matches under a and ${ex.exactMargin.b.all} of ${ex.counts.runWonMatches} under b and c`);
 const mWith = ex.runWonMatchesWithOtherRow[0];
@@ -168,6 +175,13 @@ for (const [name, text] of surfaces) {
     if (!text.includes(want)) { bad += 1; say(`  MISSING in ${name}: ${want}`); }
   }
   check(`${name}: ${phrases.length} evidence phrases present`, bad === 0, `${bad} missing`);
+  // the old claim that the other rule was written down before the result was known must be gone
+  const stale = ['written down before the result was known', 'The rule written beforehand', 'The other reading and the small-pool rule were also tested against criteria written down beforehand', 'because overthrows and extra runs are not stored'].filter((p) => text.includes(p));
+  check(`${name}: no stale pre-registration claim for the other test`, stale.length === 0, stale.join('; '));
+}
+for (const [name, text] of [['README.md', readme.replace(/`/g, '')], ['index.html', read('index.html')]]) {
+  const stale = ['written down first', 'written down beforehand'].filter((p) => text.includes(p));
+  check(`${name}: no stale pre-registration claim`, stale.length === 0, stale.join('; '));
 }
 
 // ---------- tables ----------
