@@ -69,6 +69,19 @@ This is a provisional fit list built from players mapped to other IPL franchises
 
 The supplied 2026 RR XI data shows Jaiswal and Sooryavanshi opening, Jurel at three and keeping, with Parag, Hetmyer, Ferreira, and Jadeja in the middle order. The shortlist therefore emphasizes middle-order batting first, then conditional keeper returns and domestic pace depth. The sheets do not establish auction availability. No player qualified for the all-rounder pressure list from IPL 2026 alone.
 
+### The Next Wave: Uncapped Fallbacks
+
+These are fallback candidates, not a confirmed auction list. 2026 coverage describes them as uncapped, and none has an India T20I row in the supplied data; this does not verify all-format cap status or IPL 2027 registration.
+
+| Role fit | Player | 2026 IPL team | IPL index 2022–26 | Pressure sample | Pressure output | Watch note |
+|---|---|---|---:|---|---|---|
+| Domestic middle order | Ayush Badoni, right-hand batter / off-spin | Lucknow Super Giants | 51.5 | 125 balls / 9 matches | 168.8 batting SR | Flexible No. 4–6 profile; no qualifying 2026 pressure-index sample. |
+| Power-hitter flyer | Aniket Verma, middle-order batter | Sunrisers Hyderabad | 51.5 | 64 balls / 10 matches | 187.5 batting SR | Explosive pressure output, but only 64 balls in the qualifying sample; no 2026 index. |
+| Domestic pace | Rasikh Salam, fast bowler | Royal Challengers Bengaluru | 56.2 | 137 balls / 11 matches | 9.20 economy / 6 | Strong 2026 pressure index; check retention and auction registration. |
+| Domestic pace | Kartik Tyagi, fast bowler | Kolkata Knight Riders | 52.8 | 181 balls / 13 matches | 9.25 economy / 6 | Larger qualifying sample; pressure economy is a watch item, not a clear strength. |
+
+“Uncapped” labels are provisional: the data has no all-format cap history, and the final IPL 2027 registered-player list is not included in the supplied files. No IPL-2026 player qualified for the all-rounder pressure list under the default sample threshold.
+
 ## Data and scope
 
 The calculation joins `ball_by_ball.csv` to `matches.csv` and `competitions.csv`. IPL is identified by the competition name; T20I is identified by the competition format. Other competitions carrying a generic T20 label and records with unknown seasons are excluded. The in-scope data contains **819 matches** and **189,683 deliveries**: **79,974 pressure** and **109,709 ordinary**. The supplied ball-by-ball file has 200,999 raw rows; the difference is excluded competitions or out-of-scope records, not missing rows.
