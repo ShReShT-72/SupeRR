@@ -54,7 +54,7 @@ Players must independently meet the selected eligibility threshold as both a bat
 | 9 | Axar Patel | 47.2 | 42.7 | 51.7 | 197 | 454 | 19 | 42 |
 | 10 | Roston Chase | 46.6 | 41.2 | 52.0 | 186 | 62 | 19 | 8 |
 
-## RR 2027 target watchlist
+## The Royal Radar: 2027 Auction Watchlist
 
 This is a provisional fit list built from players mapped to other IPL franchises in 2026, IPL-only pressure indexes, and the supplied RR 2022–2026 team history. Fit tiers are qualitative role assessments, not a mathematically combined target score. **Availability is unconfirmed:** 2026 squad membership does not establish 2027 release, retention, registration, or auction availability. Confirm those details, the purse, and overseas slots before making an actual bid list.
 
