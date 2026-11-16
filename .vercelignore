@@ -1,0 +1,16 @@
+# Files Vercel does not need to upload or serve. The dashboard runs from
+# index.html, dashboard.js, styles.css, scoring.mjs and analysis_data.json.
+# Large raw CSVs (read only by analyze.mjs, not by the dashboard)
+/ball_by_ball.csv
+/playing_eleven.csv
+/competition_team_player_mapping.csv
+/matches.csv
+/teams.csv
+/competitions.csv
+# Local work folders
+/.agents
+/.git
+/.github
+/.vercel
+/node_modules
+/screenshots
