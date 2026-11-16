@@ -1,9 +1,9 @@
 const MIN_PRESSURE_BALLS = 60;
 const MIN_PRESSURE_MATCHES = 8;
 const MIN_USUAL_BALLS = 60;
-// true: the submitted lists, without the 53 Pakistan T20I players, five IPL retirees and Mohit Sharma.
-// false: the no-exclusion lists (see "Flip the exclusions" in methodology_report.md and README.md).
-const APPLY_PLAYER_EXCLUSIONS = true;
+// false: the submitted lists, which use only the supplied data with no availability or nationality filter.
+// true: the alternative lists, without the 53 Pakistan T20I players, five IPL retirees and Mohit Sharma (see "Switch the exclusions on" in methodology_report.md and README.md).
+const APPLY_PLAYER_EXCLUSIONS = false;
 const IPL_RETIRED_PLAYERS = [
   { playerId: '494', player: 'Kieron Pollard' },
   { playerId: '161', player: 'Dwayne Bravo' },
