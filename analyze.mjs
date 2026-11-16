@@ -48,16 +48,26 @@ function number(value, fallback = 0) {
   return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+function seasonYear(season) {
+  const match = /^\s*(\d{4})/.exec(String(season ?? ''));
+  return match ? Number(match[1]) : 0;
+}
+
 function truthy(value) {
   return value === 'true' || value === '1';
 }
 
+// Extra deliveries that are re-bowled: not a legal ball, and one penalty run is charged to the bowler.
+// 'other' (extras1_runs code 5) is a no-ball variant: batters score off it, and counting it as legal
+// puts 7 or more legal balls in 244 overs.
+const ILLEGAL_EXTRA_TYPES = ['wide', 'overstep', 'noballs', 'no-ball', 'other'];
+
 function isLegalBall(extraType) {
-  return extraType !== 'wide' && extraType !== 'overstep' && extraType !== 'noballs' && extraType !== 'no-ball';
+  return !ILLEGAL_EXTRA_TYPES.includes(extraType);
 }
 
 function bowlerPenalty(extraType) {
-  return ['wide', 'overstep', 'noballs', 'no-ball'].includes(extraType) ? 1 : 0;
+  return ILLEGAL_EXTRA_TYPES.includes(extraType) ? 1 : 0;
 }
 
 function getCompetitionFormat(competition) {
@@ -84,7 +94,7 @@ function createRecord(playerId, playerName, kind, match, competition) {
     kind,
     matchId: match.match_id,
     date: match.match_date,
-    season: number(competition.season),
+    season: seasonYear(competition.season),
     format: getCompetitionFormat(competition),
     competition: competition.comp_name,
     opposition: '',
@@ -96,7 +106,7 @@ function createRecord(playerId, playerName, kind, match, competition) {
 function creditedWicket(row) {
   const dismissal = (row.dismissal_type ?? '').trim().toLowerCase().replace(/[\s_-]/g, '');
   return truthy(row.is_wicket) && ![
-    'runout', 'retiredhurt', 'retiredout', 'obstructingthefield', 'obstractingthefield', 'timedout', 'handledtheball',
+    'runout', 'retiredhurt', 'retiredout', 'retireout', 'obstructingthefield', 'obstractingthefield', 'timedout', 'handledtheball',
   ].includes(dismissal);
 }
 
@@ -159,7 +169,7 @@ function processInnings() {
   }
 
   const format = getCompetitionFormat(competition);
-  if (!['IPL', 'T20I'].includes(format) || number(competition.season) < 2022) {
+  if (!['IPL', 'T20I'].includes(format) || seasonYear(competition.season) < 2022) {
     inningsRows = [];
     return;
   }
