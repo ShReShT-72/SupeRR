@@ -2,7 +2,11 @@
   "name": "superr-selector-dashboard",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
+    "analyze": "node analyze.mjs",
     "start": "node server.mjs",
     "dev": "node server.mjs"
   }
