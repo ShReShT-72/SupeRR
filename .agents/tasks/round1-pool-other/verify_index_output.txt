@@ -1,0 +1,28 @@
+ok   default view: 10 ranking rows equal scoring.mjs top-10 batters
+ok   default view: matches 837
+ok   default view: deliveries 193,988
+ok   default view: pressure balls 81,806
+ok   default view: 66 eligible
+ok   default view: profile panel shows rank 1 player
+ok   static radar rows: 10 rows equal scoring.mjs (IPL or all-format index, sample, 2026 values)
+ok   static note: Nitish Reddy IPL-2026 all-rounder composite 51.5, batting 53.0, bowling 50.0
+ok   index.html: Outside Round 1 notice kept
+ok   README: switch on line 6 of scoring.mjs
+ok   README: 53 Pakistan T20I players, five IPL retirees
+ok   README mentions other_evidence.mjs
+ok   README mentions other_evidence_data.json
+ok   README mentions pool_methods.mjs
+ok   README mentions pool_methods_data.json
+ok   README mentions pool_preregistration.md
+ok   README mentions --pool-methods
+ok   README mentions POOL_METHOD
+ok   README mentions --write
+ok   file listed in README exists: other_evidence.mjs
+ok   file listed in README exists: other_evidence_data.json
+ok   file listed in README exists: pool_methods.mjs
+ok   file listed in README exists: pool_methods_data.json
+ok   file listed in README exists: pool_preregistration.md
+ok   README names no top-10 list that differs from scoring.mjs (it holds no player lists)
+ok   index.html step 01 and 07 name the tested decisions
+
+INDEX/README FAILS: 0

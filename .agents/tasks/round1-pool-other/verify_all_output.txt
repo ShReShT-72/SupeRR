@@ -1,0 +1,35 @@
+# Table check: scoring.mjs vs md and html
+scoring.mjs switch as shipped: false
+shipped ratePlayers equals switch=false run: true
+
+## Submitted (no exclusions) top-10 lists
+ok   md batters: 10 rows compared, 0 mismatches
+ok   html batters: 10 rows compared, 0 mismatches
+ok   md bowlers: 10 rows compared, 0 mismatches
+ok   html bowlers: 10 rows compared, 0 mismatches
+ok   md all-rounders: 10 rows compared, 0 mismatches
+ok   html all-rounders: 10 rows compared, 0 mismatches
+
+## Alternative (exclusions on) top-10 lists with full metrics
+ok   md alternative batters: 10 rows compared, 0 mismatches
+ok   html alternative batters: 10 rows compared, 0 mismatches
+ok   md alternative bowlers: 10 rows compared, 0 mismatches
+ok   html alternative bowlers: 10 rows compared, 0 mismatches
+ok   md alternative all-rounders: 10 rows compared, 0 mismatches
+ok   html alternative all-rounders: 10 rows compared, 0 mismatches
+
+## sensitivity_data.json
+ok   primaryCheck.batters equals scoring.mjs (switch false)
+ok   exclusionAlternative.batters.top10 equals scoring.mjs with the switch set to true
+ok   primaryCheck.bowlers equals scoring.mjs (switch false)
+ok   exclusionAlternative.bowlers.top10 equals scoring.mjs with the switch set to true
+ok   exclusionAlternative.allrounders.top10 equals scoring.mjs with the switch set to true
+flip edit flag in json: true
+
+## Side-by-side table (submitted vs alternative)
+ok   md side-by-side batters: 10 rows compared, 0 mismatches
+ok   html side-by-side batters: 10 rows compared, 0 mismatches
+ok   md side-by-side bowlers: 10 rows compared, 0 mismatches
+ok   html side-by-side bowlers: 10 rows compared, 0 mismatches
+
+TOTAL MISMATCHES: 0

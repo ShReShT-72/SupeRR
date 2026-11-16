@@ -1,0 +1,16 @@
+ok   PDF top 10 batters (submitted): 10 rows, 0 missing, page(s) 1
+ok   PDF top 10 bowlers (submitted): 10 rows, 0 missing, page(s) 2
+ok   PDF top 10 all-rounders (submitted): 10 rows, 0 missing, page(s) 3
+ok   PDF alternative batters (exclusions on): 10 rows, 0 missing, page(s) 6
+ok   PDF alternative bowlers (exclusions on): 10 rows, 0 missing, page(s) 6
+ok   PDF alternative all-rounders (exclusions on): 10 rows, 0 missing, page(s) 7
+ok   PDF side-by-side batters: 10 rows, 0 missing, page(s) 5
+ok   PDF side-by-side bowlers: 10 rows, 0 missing, page(s) 6
+ok   PDF contains: "The submitted ranking uses only the supplied data"
+ok   PDF contains: "kept only on the dashboard and is outside the Round 1 submission"
+ok   PDF contains: "Switch the exclusions on"
+ok   PDF absent: "Flip the exclusions" present=false
+ok   PDF absent: "primary lists below exclude" present=false
+ok   PDF absent: "No-exclusion top 10 lists" present=false
+info PDF only in the before-fixes row: "60 / 122 / 11" present=true
+PDF pages: 16; total missing/failed: 0
