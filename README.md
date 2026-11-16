@@ -1,11 +1,11 @@
 ﻿# SupeRR Selector Dashboard
 
-Round 1 entry for SupeRR Selector Season 2. The project ranks batters and bowlers by how they perform under pressure compared with their usual level, using the supplied IPL and T20I ball-by-ball data from 2022 to 2026.
+Round 1 entry for SupeRR Selector Season 2. The project ranks batters and bowlers by how they perform under pressure compared with their usual level, using the supplied IPL and T20I ball-by-ball data from 2022 to 2026. The submitted lists use only the supplied data and apply no player exclusions; the exclusion-filtered ranking is an alternative (see below). The Royal Radar and Raw Talent section of the dashboard is outside the Round 1 submission.
 
 - `analyze.mjs` classifies every delivery as pressure or ordinary and writes `analysis_data.json`.
 - `scoring.mjs` turns those records into the batter, bowler and all-rounder rankings.
 - `index.html`, `dashboard.js` and `styles.css` are a static dashboard that loads `analysis_data.json` and ranks players in the browser.
-- `sensitivity.mjs` writes `sensitivity_data.json` (small-pool, `other`-extras, no-exclusion and robust-core checks). `charts.mjs` draws `charts/*.svg` and the sensitivity tables in the methodology report from the two JSON files.
+- `sensitivity.mjs` writes `sensitivity_data.json` (small-pool, `other`-extras, exclusion-alternative and robust-core checks). `charts.mjs` draws `charts/*.svg` and the sensitivity tables in the methodology report from the two JSON files.
 
 ## Requirements
 
@@ -35,18 +35,18 @@ msedge --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=methodolog
 
 The report text around the charts and tables is written by hand; `charts.mjs` only replaces what sits between the `<!-- chart:NAME -->` and `<!-- table:NAME -->` marker comments.
 
-## Flip the exclusions (optional, not part of the submitted ranking)
+## Switch the exclusions on (optional alternative, not the submitted ranking)
 
-The submitted lists exclude the 53 Pakistan T20I players, five IPL retirees (Pollard, Bravo, Rayudu, Karthik, Ashwin) and Mohit Sharma. To rank without them, change one line in `scoring.mjs` (line 6):
+The submitted lists apply no player exclusions (`APPLY_PLAYER_EXCLUSIONS = false`). The alternative lists exclude the 53 Pakistan T20I players, five IPL retirees (Pollard, Bravo, Rayudu, Karthik, Ashwin) and Mohit Sharma. To rank with them, change one line in `scoring.mjs` (line 6):
 
 ```js
-const APPLY_PLAYER_EXCLUSIONS = false;   // submitted lists: true
+const APPLY_PLAYER_EXCLUSIONS = true;   // submitted lists: false
 ```
 
-- `analysis_data.json` is not regenerated; the dashboard shows the no-exclusion lists at once.
-- `node sensitivity.mjs --print-top10` prints the lists `scoring.mjs` now gives. They equal the no-exclusion tables in the report (section "No-exclusion top 10 lists with full metrics") and `noExclusion` in `sensitivity_data.json`.
-- While the line says `false`, `node sensitivity.mjs` and `node charts.mjs` stop with an error because they describe the submitted lists. Set it back to `true` first.
-- The report, `README.md`, `index.html` (method step 06) and the Unstop entries are written by hand. The report section "Flip the exclusions" lists the no-exclusion names and the steps.
+- `analysis_data.json` is not regenerated; the dashboard shows the exclusion-filtered lists at once.
+- `node sensitivity.mjs --print-top10` prints the lists `scoring.mjs` now gives. They equal the alternative tables in the report (section "Alternative: top 10 lists with the exclusions applied") and `exclusionAlternative` in `sensitivity_data.json`.
+- While the line says `true`, `node sensitivity.mjs` and `node charts.mjs` stop with an error because they describe the submitted lists. Set it back to `false` first.
+- The report, `README.md`, `index.html` (method step 06) and the Unstop entries are written by hand. The report section "Switch the exclusions on" lists the exclusion-filtered names and the steps.
 
 ## Run the dashboard locally
 

@@ -100,6 +100,8 @@ h1 em, h2 em { color: #72874a; font-weight: 600; }
 .target-section { padding: 54px 0 48px; border-top: 1px solid var(--line); scroll-margin-top: 18px; }
 .target-caveat { margin: 0 0 14px; padding: 12px 14px; border-left: 3px solid var(--orange); background: rgba(255,255,255,.72); color: var(--ink-soft); font-size: 11px; line-height: 1.55; }
 .target-caveat strong { color: var(--ink); }
+.outside-round { margin: 0 0 24px; padding: 14px 16px; border: 1px solid var(--orange); border-left-width: 6px; background: #fff3ee; color: var(--ink); font-size: 12px; line-height: 1.6; }
+.outside-round strong { display: block; margin-bottom: 4px; color: var(--orange); font: 500 10px var(--mono); letter-spacing: 1.2px; }
 .target-table-wrap { overflow-x: auto; border: 1px solid var(--line); background: rgba(255,255,255,.75); }
 .target-table { width: 100%; min-width: 1030px; border-collapse: collapse; font-size: 10px; }
 .target-table th { padding: 10px 11px; border-bottom: 1px solid var(--line); color: var(--muted); font: 8px var(--mono); letter-spacing: .5px; text-align: left; vertical-align: bottom; }
