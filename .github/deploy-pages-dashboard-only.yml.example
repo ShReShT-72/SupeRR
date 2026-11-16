@@ -1,0 +1,52 @@
+# OPTIONAL, NOT ACTIVE. This file sits outside .github/workflows/ on purpose, so GitHub does not run it.
+#
+# What it does: publishes only the dashboard files to GitHub Pages. The raw CSVs
+# (ball_by_ball.csv, matches.csv, ...) and the scripts are left out, unlike
+# deploy-pages.yml, which publishes the whole folder.
+#
+# To use it (only if the competition terms do not allow the raw CSVs to be redistributed):
+#   1. Replace the contents of .github/workflows/deploy-pages.yml with this file
+#      (or delete deploy-pages.yml and save this file as .github/workflows/deploy-pages.yml).
+#      Keep only one Pages workflow in .github/workflows/.
+#   2. Commit and push to main. The next run publishes the reduced site.
+#   3. Files already published stay in the git history; removing them from the site does not remove them from the repository.
+name: Deploy dashboard-only static site to GitHub Pages
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Collect the dashboard files
+        run: |
+          mkdir _site
+          cp index.html dashboard.js styles.css scoring.mjs analysis_data.json favicon.svg _site/
+          cp methodology_report.html methodology_report.md methodology_report.pdf .nojekyll _site/
+          cp -r charts _site/charts
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
