@@ -395,10 +395,10 @@ const pct = (share) => `${Math.round(share * 100)}%`;
 const BATTER_COLUMNS = [['Rank', 'l'], ['Player', 'l'], ['Index', 'r'], ['Pressure SR', 'r'], ['Usual SR', 'r'], ['Pressure balls', 'r'], ['Pressure matches', 'r'], ['Positive-match share', 'r'], ['Sample reliability', 'r'], ['Rank in submitted list', 'r']];
 const BOWLER_COLUMNS = [['Rank', 'l'], ['Player', 'l'], ['Index', 'r'], ['Pressure econ/6', 'r'], ['Usual econ/6', 'r'], ['Pressure balls', 'r'], ['Pressure matches', 'r'], ['Positive-match share', 'r'], ['Sample reliability', 'r'], ['Rank in submitted list', 'r']];
 const ALLROUNDER_COLUMNS = [['Rank', 'l'], ['Player', 'l'], ['Composite index', 'r'], ['Batting index', 'r'], ['Bowling index', 'r'], ['Batting pressure balls', 'r'], ['Bowling pressure balls', 'r'], ['Batting matches', 'r'], ['Bowling matches', 'r'], ['Rank in submitted list', 'r']];
-const allrounderRows = (list) => list.map((p) => [p.rank, p.player, n1(p.index), n1(p.battingIndex), n1(p.bowlingIndex), p.battingPressureBalls, p.bowlingPressureBalls, p.battingMatches, p.bowlingMatches, primaryRankOf('allrounders', p.playerId) ?? 'not eligible']);
-const fullRows = (kind, list, key) => list.map((p) => (kind === 'batter'
-  ? [p.rank, p.player, n1(p.index), n1(p.pressureSR), n1(p.usualSR), p.pressureBalls, p.pressureMatches, `${p.positiveMatchSharePct}%`, `${p.reliabilityPct}%`, primaryRankOf(key, p.playerId) ?? 'not eligible']
-  : [p.rank, p.player, n1(p.index), n2(p.pressureEconomy), n2(p.usualEconomy), p.pressureBalls, p.pressureMatches, `${p.positiveMatchSharePct}%`, `${p.reliabilityPct}%`, primaryRankOf(key, p.playerId) ?? 'not eligible']));
+const allrounderRows = (list, missing = 'not eligible') => list.map((p) => [p.rank, p.player, n1(p.index), n1(p.battingIndex), n1(p.bowlingIndex), p.battingPressureBalls, p.bowlingPressureBalls, p.battingMatches, p.bowlingMatches, primaryRankOf('allrounders', p.playerId) ?? missing]);
+const fullRows = (kind, list, key, missing = 'not eligible') => list.map((p) => (kind === 'batter'
+  ? [p.rank, p.player, n1(p.index), n1(p.pressureSR), n1(p.usualSR), p.pressureBalls, p.pressureMatches, `${p.positiveMatchSharePct}%`, `${p.reliabilityPct}%`, primaryRankOf(key, p.playerId) ?? missing]
+  : [p.rank, p.player, n1(p.index), n2(p.pressureEconomy), n2(p.usualEconomy), p.pressureBalls, p.pressureMatches, `${p.positiveMatchSharePct}%`, `${p.reliabilityPct}%`, primaryRankOf(key, p.playerId) ?? missing]));
 
 function poolTableRows() {
   const bowlers = new Map(sensitivity.poolSizes.bowlers.map((pool) => [pool.pool, pool]));
@@ -539,9 +539,9 @@ const tables = [
   { name: 'pool_methods', columns: POOL_METHOD_COLUMNS, rows: poolMethodRows(), plain: true },
   { name: 'pool_rules', columns: POOL_RULE_COLUMNS, rows: poolRuleRows(), text: true },
   { name: 'pool_effects', columns: POOL_EFFECT_COLUMNS, rows: poolEffectRows(), text: true },
-  { name: 'noexcl_batters', columns: BATTER_COLUMNS, rows: fullRows('batter', sensitivity.noExclusionAlternative.batters.top10, 'batters'), rankFirst: true },
-  { name: 'noexcl_bowlers', columns: BOWLER_COLUMNS, rows: fullRows('bowler', sensitivity.noExclusionAlternative.bowlers.top10, 'bowlers'), rankFirst: true },
-  { name: 'noexcl_allrounders', columns: ALLROUNDER_COLUMNS, rows: allrounderRows(sensitivity.noExclusionAlternative.allrounders.top10), rankFirst: true },
+  { name: 'noexcl_batters', columns: BATTER_COLUMNS, rows: fullRows('batter', sensitivity.noExclusionAlternative.batters.top10, 'batters', 'excluded'), rankFirst: true },
+  { name: 'noexcl_bowlers', columns: BOWLER_COLUMNS, rows: fullRows('bowler', sensitivity.noExclusionAlternative.bowlers.top10, 'bowlers', 'excluded'), rankFirst: true },
+  { name: 'noexcl_allrounders', columns: ALLROUNDER_COLUMNS, rows: allrounderRows(sensitivity.noExclusionAlternative.allrounders.top10, 'excluded'), rankFirst: true },
   { name: 'other_batters', columns: BATTER_COLUMNS, rows: fullRows('batter', sensitivity.otherAlternative.exclusionsOn.batters.top10, 'batters'), rankFirst: true },
   { name: 'other_bowlers', columns: BOWLER_COLUMNS, rows: fullRows('bowler', sensitivity.otherAlternative.exclusionsOn.bowlers.top10, 'bowlers'), rankFirst: true },
   { name: 'robust_batters', columns: ROBUST_COLUMNS, rows: robustRows('batters'), plain: true },
