@@ -452,6 +452,71 @@ Players are standardised (z-scores) only against the other eligible players of t
 
 **Finding.** Thin T20I batter pools make the places of Mark Chapman (7th) and, to a smaller degree, Suryakumar Yadav (6th) and Namboori Tilak Varma (10th) less certain than their indexes suggest. Fakhar Zaman (4th), Ryan Burl (5th) and Glenn Phillips (8th) rest on T20I pools of 11 or 12 players. Rishabh Pant, Sanju Samson, Cooper Connolly and David Miller are not exposed to this. No bowler pool is thin; the bowler places at 9 and 10 are fragile because of small samples. The method and the submitted lists were not changed on this basis.
 
+### Evidence for the two decisions
+
+<!-- table:other_tests -->
+
+| Test | What is counted | a: illegal ball, +1 run (submitted) | b: illegal ball, no run (alternative) | c: legal ball (rejected) |
+|---|---|---:|---:|---:|
+| T1 Free hit | Non-run-out wicket on the ball after the row (5.12% after a normal ball) | 0 of 261 | 0 of 261 | about 13.4 expected (P = 1.1e-6) |
+| T1 control | Same count after an Overstep (no-ball) row | 0 of 574 | 0 of 574 | about 29.4 expected (P = 8.0e-14) |
+| T2 Wickets on the row | Dismissals on `other` rows that are run-outs | 3 of 3 | 3 of 3 | P = 0.00015 if dismissals were as on normal balls |
+| T3 Over length | Overs with an `other` row that are not the last over of an innings (216): exactly six legal balls | 216 of 216 | 216 of 216 | 0 of 216 (209 have 7, 6 have 8, 1 has 9) |
+| T3 Innings length | Innings that must have used all 20 overs and contain an `other` row (139): exactly 120 legal balls | 137 of 139 | 137 of 139 | 0 of 139 |
+| T4 Run margin (exact) | Winning margin equals innings 1 minus innings 2 (12 usable matches, 1 with an `other` row) | 6 of 12 | 5 of 12 | 5 of 12 |
+| T4 Chase end (exact) | Wicket-won chases (16) whose last ball is consistent with the target (3 with an `other` row) | 12 of 16 | 11 of 16 | 11 of 16 |
+
+<!-- /table:other_tests -->
+
+<!-- table:other_regression -->
+
+| Fit | Matches (with an `other` row) | `other` coefficient | `other` 95% CI (HC1) | Overstep control | Overstep 95% CI (HC1) | Rule picks |
+|---|---:|---:|---:|---:|---:|---:|
+| All matches, main fit | 394 (107) | 1.11 | 0.66 to 1.56 | 0.90 | 0.56 to 1.23 | a |
+| Without the extras_2_runs regressor | 394 (107) | 1.31 | 0.84 to 1.78 | 1.04 | 0.67 to 1.42 | a |
+| Five largest residuals dropped | 389 (107) | 1.11 | 0.66 to 1.55 | 0.93 | 0.59 to 1.27 | a |
+| In-scope matches only (837) | 382 (105) | 1.08 | 0.63 to 1.54 | 0.88 | 0.54 to 1.22 | a |
+
+<!-- /table:other_regression -->
+
+<!-- table:pool_rules -->
+
+| Rule | Pre-registered requirement | C1 format-fallback | C2 shrunk | C3 adjacent-fallback |
+|---:|---|---:|---:|---:|
+| 1 | Pool-thinning error M1 at most 0.85 times own-pool in all four cells (S1 and S2, batters and bowlers) | fail | pass | fail |
+| 2 | S2 batters: top-10 retention (M2) up by 0.02 or more, or rank displacement (M3) down by 10% or more | pass | fail | pass |
+| 3 | No harm in any cell: retention (M2) no more than 0.01 lower, rank displacement (M3) no more than 0.5 ranks higher, leave-one-out exit rate (M4) no more than 0.005 higher, season correlation (M5) no more than 0.02 lower | fail | fail | fail |
+| 4 | Eligible counts (batters, bowlers, all-rounders) identical to own-pool, S1 and S2 | pass | pass | pass |
+| 5 | Players with no profile in a thin pool: index change at most 1.0 and rank change at most 5, S1 and S2 | pass | fail | pass |
+| 6 | Players with a profile in a thin pool: index change at most 5.0, S1 and S2 | pass | pass | pass |
+| 7 | S1: at most 3 top-10 names change in each list (batters, bowlers, all-rounders) | pass | pass | pass |
+
+<!-- /table:pool_rules -->
+
+<!-- table:pool_methods -->
+
+| Pool method | M1 ratio (M1), S1 batters | S1 bowlers | S2 batters | S2 bowlers | Rules failed | Result |
+|---|---:|---:|---:|---:|---:|---:|
+| own-pool (primary, submitted) | 1.000 (0.240) | 1.000 (0.341) | 1.000 (0.226) | 1.000 (0.342) | - | kept |
+| C1 format-fallback (alternative) | 1.022 (0.245) | 0.822 (0.280) | 0.669 (0.151) | 0.736 (0.252) | 1, 3 | rejected |
+| C2 shrunk (alternative) | 0.684 (0.164) | 0.695 (0.237) | 0.682 (0.154) | 0.681 (0.233) | 2, 3, 5 | rejected |
+| C3 adjacent-fallback (alternative) | 1.000 (0.240) | 0.868 (0.296) | 0.699 (0.158) | 0.828 (0.283) | 1, 3 | rejected |
+
+<!-- /table:pool_methods -->
+
+<!-- table:pool_effects -->
+
+| Method | Setting | Batters entering the top 10 | Batters leaving the top 10 | Largest move inside the own-pool top 10 | Bowler and all-rounder names changed |
+|---|---|---|---|---|---:|
+| C1 format-fallback | S1 submitted | Jos Buttler (10, was 11) | Namboori Tilak Varma (was 10, now 13) | Mark Chapman: 7 to 1 | 0 |
+| C1 format-fallback | S2 exclusions on | Jos Buttler (9, was 12); Nitish Reddy (10, was 13) | Mohammad Nabi (was 9, now 11); Rinku Singh (was 10, now 12) | Mark Chapman: 5 to 1 | 0 |
+| C2 shrunk | S1 submitted | Jos Buttler (10, was 11) | Namboori Tilak Varma (was 10, now 12) | Mark Chapman: 7 to 4 | 0 |
+| C2 shrunk | S2 exclusions on | Jos Buttler (10, was 12) | Rinku Singh (was 10, now 13) | Rinku Singh: 10 to 13 | 1 |
+| C3 adjacent-fallback | S1 submitted | none | none | Mark Chapman: 7 to 1 | 0 |
+| C3 adjacent-fallback | S2 exclusions on | Namboori Tilak Varma (9, was 11); Jos Buttler (10, was 12) | Mohammad Nabi (was 9, now 14); Rinku Singh (was 10, now 13) | Mohammad Nabi: 9 to 14 | 0 |
+
+<!-- /table:pool_effects -->
+
 ### Thresholds, exclusions, and the pipeline fixes
 
 Each row applies the same scoring to the analysis data before the pipeline fixes (819 matches: season labels such as `2022/23` were dropped, `other` extras counted as legal balls, `Retire Out` credited to bowlers) and after them (this report, 837 matches). The last column counts how many of a row's top ten names also appear in the 60/8 top ten of the same data version and exclusion setting. The rows with exclusions Off are the submitted setting; the rows with exclusions On are the alternative.

@@ -416,6 +416,55 @@
     </tbody></table></div>
 <!-- /table:pool_variants -->
     <p><strong>Finding.</strong> Thin T20I batter pools make the places of Mark Chapman (7th) and, to a smaller degree, Suryakumar Yadav (6th) and Namboori Tilak Varma (10th) less certain than their indexes suggest. Fakhar Zaman (4th), Ryan Burl (5th) and Glenn Phillips (8th) rest on T20I pools of 11 or 12 players. Rishabh Pant, Sanju Samson, Cooper Connolly and David Miller are not exposed to this. No bowler pool is thin; the bowler places at 9 and 10 are fragile because of small samples. The method and the submitted lists were not changed on this basis.</p>
+    <h3>Evidence for the two decisions</h3>
+    <!-- table:other_tests -->
+<div class="table-wrap text"><table><thead><tr><th>TEST</th><th>WHAT IS COUNTED</th><th>A: ILLEGAL BALL, +1 RUN (SUBMITTED)</th><th>B: ILLEGAL BALL, NO RUN (ALTERNATIVE)</th><th>C: LEGAL BALL (REJECTED)</th></tr></thead><tbody>
+      <tr><td>T1 Free hit</td><td>Non-run-out wicket on the ball after the row (5.12% after a normal ball)</td><td>0 of 261</td><td>0 of 261</td><td>about 13.4 expected (P = 1.1e-6)</td></tr>
+      <tr><td>T1 control</td><td>Same count after an Overstep (no-ball) row</td><td>0 of 574</td><td>0 of 574</td><td>about 29.4 expected (P = 8.0e-14)</td></tr>
+      <tr><td>T2 Wickets on the row</td><td>Dismissals on `other` rows that are run-outs</td><td>3 of 3</td><td>3 of 3</td><td>P = 0.00015 if dismissals were as on normal balls</td></tr>
+      <tr><td>T3 Over length</td><td>Overs with an `other` row that are not the last over of an innings (216): exactly six legal balls</td><td>216 of 216</td><td>216 of 216</td><td>0 of 216 (209 have 7, 6 have 8, 1 has 9)</td></tr>
+      <tr><td>T3 Innings length</td><td>Innings that must have used all 20 overs and contain an `other` row (139): exactly 120 legal balls</td><td>137 of 139</td><td>137 of 139</td><td>0 of 139</td></tr>
+      <tr><td>T4 Run margin (exact)</td><td>Winning margin equals innings 1 minus innings 2 (12 usable matches, 1 with an `other` row)</td><td>6 of 12</td><td>5 of 12</td><td>5 of 12</td></tr>
+      <tr><td>T4 Chase end (exact)</td><td>Wicket-won chases (16) whose last ball is consistent with the target (3 with an `other` row)</td><td>12 of 16</td><td>11 of 16</td><td>11 of 16</td></tr>
+    </tbody></table></div>
+<!-- /table:other_tests -->
+    <!-- table:other_regression -->
+<div class="table-wrap plain"><table><thead><tr><th>FIT</th><th>MATCHES (WITH AN `OTHER` ROW)</th><th>`OTHER` COEFFICIENT</th><th>`OTHER` 95% CI (HC1)</th><th>OVERSTEP CONTROL</th><th>OVERSTEP 95% CI (HC1)</th><th>RULE PICKS</th></tr></thead><tbody>
+      <tr><td>All matches, main fit</td><td>394 (107)</td><td>1.11</td><td>0.66 to 1.56</td><td>0.90</td><td>0.56 to 1.23</td><td>a</td></tr>
+      <tr><td>Without the extras_2_runs regressor</td><td>394 (107)</td><td>1.31</td><td>0.84 to 1.78</td><td>1.04</td><td>0.67 to 1.42</td><td>a</td></tr>
+      <tr><td>Five largest residuals dropped</td><td>389 (107)</td><td>1.11</td><td>0.66 to 1.55</td><td>0.93</td><td>0.59 to 1.27</td><td>a</td></tr>
+      <tr><td>In-scope matches only (837)</td><td>382 (105)</td><td>1.08</td><td>0.63 to 1.54</td><td>0.88</td><td>0.54 to 1.22</td><td>a</td></tr>
+    </tbody></table></div>
+<!-- /table:other_regression -->
+    <!-- table:pool_rules -->
+<div class="table-wrap text"><table><thead><tr><th>RULE</th><th>PRE-REGISTERED REQUIREMENT</th><th>C1 FORMAT-FALLBACK</th><th>C2 SHRUNK</th><th>C3 ADJACENT-FALLBACK</th></tr></thead><tbody>
+      <tr><td>1</td><td>Pool-thinning error M1 at most 0.85 times own-pool in all four cells (S1 and S2, batters and bowlers)</td><td>fail</td><td>pass</td><td>fail</td></tr>
+      <tr><td>2</td><td>S2 batters: top-10 retention (M2) up by 0.02 or more, or rank displacement (M3) down by 10% or more</td><td>pass</td><td>fail</td><td>pass</td></tr>
+      <tr><td>3</td><td>No harm in any cell: retention (M2) no more than 0.01 lower, rank displacement (M3) no more than 0.5 ranks higher, leave-one-out exit rate (M4) no more than 0.005 higher, season correlation (M5) no more than 0.02 lower</td><td>fail</td><td>fail</td><td>fail</td></tr>
+      <tr><td>4</td><td>Eligible counts (batters, bowlers, all-rounders) identical to own-pool, S1 and S2</td><td>pass</td><td>pass</td><td>pass</td></tr>
+      <tr><td>5</td><td>Players with no profile in a thin pool: index change at most 1.0 and rank change at most 5, S1 and S2</td><td>pass</td><td>fail</td><td>pass</td></tr>
+      <tr><td>6</td><td>Players with a profile in a thin pool: index change at most 5.0, S1 and S2</td><td>pass</td><td>pass</td><td>pass</td></tr>
+      <tr><td>7</td><td>S1: at most 3 top-10 names change in each list (batters, bowlers, all-rounders)</td><td>pass</td><td>pass</td><td>pass</td></tr>
+    </tbody></table></div>
+<!-- /table:pool_rules -->
+    <!-- table:pool_methods -->
+<div class="table-wrap plain"><table><thead><tr><th>POOL METHOD</th><th>M1 RATIO (M1), S1 BATTERS</th><th>S1 BOWLERS</th><th>S2 BATTERS</th><th>S2 BOWLERS</th><th>RULES FAILED</th><th>RESULT</th></tr></thead><tbody>
+      <tr><td>own-pool (primary, submitted)</td><td>1.000 (0.240)</td><td>1.000 (0.341)</td><td>1.000 (0.226)</td><td>1.000 (0.342)</td><td>-</td><td>kept</td></tr>
+      <tr><td>C1 format-fallback (alternative)</td><td>1.022 (0.245)</td><td>0.822 (0.280)</td><td>0.669 (0.151)</td><td>0.736 (0.252)</td><td>1, 3</td><td>rejected</td></tr>
+      <tr><td>C2 shrunk (alternative)</td><td>0.684 (0.164)</td><td>0.695 (0.237)</td><td>0.682 (0.154)</td><td>0.681 (0.233)</td><td>2, 3, 5</td><td>rejected</td></tr>
+      <tr><td>C3 adjacent-fallback (alternative)</td><td>1.000 (0.240)</td><td>0.868 (0.296)</td><td>0.699 (0.158)</td><td>0.828 (0.283)</td><td>1, 3</td><td>rejected</td></tr>
+    </tbody></table></div>
+<!-- /table:pool_methods -->
+    <!-- table:pool_effects -->
+<div class="table-wrap text"><table><thead><tr><th>METHOD</th><th>SETTING</th><th>BATTERS ENTERING THE TOP 10</th><th>BATTERS LEAVING THE TOP 10</th><th>LARGEST MOVE INSIDE THE OWN-POOL TOP 10</th><th>BOWLER AND ALL-ROUNDER NAMES CHANGED</th></tr></thead><tbody>
+      <tr><td>C1 format-fallback</td><td>S1 submitted</td><td>Jos Buttler (10, was 11)</td><td>Namboori Tilak Varma (was 10, now 13)</td><td>Mark Chapman: 7 to 1</td><td>0</td></tr>
+      <tr><td>C1 format-fallback</td><td>S2 exclusions on</td><td>Jos Buttler (9, was 12); Nitish Reddy (10, was 13)</td><td>Mohammad Nabi (was 9, now 11); Rinku Singh (was 10, now 12)</td><td>Mark Chapman: 5 to 1</td><td>0</td></tr>
+      <tr><td>C2 shrunk</td><td>S1 submitted</td><td>Jos Buttler (10, was 11)</td><td>Namboori Tilak Varma (was 10, now 12)</td><td>Mark Chapman: 7 to 4</td><td>0</td></tr>
+      <tr><td>C2 shrunk</td><td>S2 exclusions on</td><td>Jos Buttler (10, was 12)</td><td>Rinku Singh (was 10, now 13)</td><td>Rinku Singh: 10 to 13</td><td>1</td></tr>
+      <tr><td>C3 adjacent-fallback</td><td>S1 submitted</td><td>none</td><td>none</td><td>Mark Chapman: 7 to 1</td><td>0</td></tr>
+      <tr><td>C3 adjacent-fallback</td><td>S2 exclusions on</td><td>Namboori Tilak Varma (9, was 11); Jos Buttler (10, was 12)</td><td>Mohammad Nabi (was 9, now 14); Rinku Singh (was 10, now 13)</td><td>Mohammad Nabi: 9 to 14</td><td>0</td></tr>
+    </tbody></table></div>
+<!-- /table:pool_effects -->
     <h3>Thresholds, exclusions, and the pipeline fixes</h3>
     <p>Each row applies the same scoring to the analysis data before the pipeline fixes (819 matches: season labels such as <code>2022/23</code> were dropped, <code>other</code> extras counted as legal balls, <code>Retire Out</code> credited to bowlers) and after them (this report, 837 matches). The last column counts how many of a row's top ten names also appear in the 60/8 top ten of the same data version and exclusion setting. The rows with exclusions Off are the submitted setting; the rows with exclusions On are the alternative.</p>
     <div class="table-wrap text"><table><thead><tr><th>SETTING</th><th>EXCLUSIONS</th><th>DATA</th><th>ELIGIBLE BAT / BOWL / AR</th><th>TOP 3 BATTERS (INDEX)</th><th>TOP 3 BOWLERS (INDEX)</th><th>TOP-10 NAMES SHARED WITH DEFAULT LIST, BAT / BOWL</th></tr></thead><tbody>

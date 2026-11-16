@@ -2,7 +2,8 @@
 // Reproduces every number in .agents/tasks/round1-pool-other/partA_evidence.md from the supplied CSV files.
 //   node other_evidence.mjs            prints the numbers as markdown
 //   node other_evidence.mjs --json     prints the same numbers as JSON
-// Node built-ins only. It does not write any file and does not change analyze.mjs or analysis_data.json.
+//   node other_evidence.mjs --write    writes the same numbers to other_evidence_data.json (read by sensitivity.mjs and charts.mjs)
+// Node built-ins only. Without --write it writes no file; it never changes analyze.mjs or analysis_data.json.
 //
 // Interpretations of an `other` row:
 //   a  illegal ball (not one of the 6 in an over) and one penalty run, like a no-ball (the submitted behaviour)
@@ -12,7 +13,7 @@
 // compare with are the winning margins in matches.csv `result` ("Won by 61 runs", "Won by 4 Wkts").
 // Runs of byes, leg-byes and penalties are not stored on those rows and wide overthrows are not stored either,
 // so exact reconstruction is only possible in matches without them (tests T4a, T4b).
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const root = process.cwd();
@@ -494,7 +495,10 @@ const result = {
   inScopeMatches: runAll('in-scope matches (IPL and T20I, 2022 to 2026)', (id) => inScopeMatchIds.has(id)),
 };
 
-if (process.argv.includes('--json')) {
+if (process.argv.includes('--write')) {
+  writeFileSync(resolve(root, 'other_evidence_data.json'), `${JSON.stringify(result, null, 1)}\n`);
+  console.log('Wrote other_evidence_data.json');
+} else if (process.argv.includes('--json')) {
   console.log(JSON.stringify(result, null, 1));
 } else {
   const fmt = (label, value) => `${label}\n\n\`\`\`json\n${JSON.stringify(value, null, 1)}\n\`\`\`\n`;

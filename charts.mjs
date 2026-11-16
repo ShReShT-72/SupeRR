@@ -3,8 +3,10 @@
 //   node charts.mjs           writes charts/*.svg and refreshes the chart and table blocks in methodology_report.md and .html
 //   node charts.mjs --check   changes nothing; exits with an error if any chart file or report block differs from what this script generates
 //
-// Inputs: analysis_data.json (through scoring.mjs, exactly as the dashboard ranks) and sensitivity_data.json
-// (written by sensitivity.mjs). Run from the data folder. Node 18 or newer. Two runs give identical output.
+// Inputs: analysis_data.json (through scoring.mjs, exactly as the dashboard ranks), sensitivity_data.json
+// (written by sensitivity.mjs), other_evidence_data.json (node other_evidence.mjs --write) and pool_methods_data.json
+// (node sensitivity.mjs --pool-methods). The primary (submitted) method is labelled as such in every table; the rest are
+// alternatives that were tested and not adopted. Run from the data folder. Node 18 or newer. Two runs give identical output.
 //
 // A block in the report sits between two marker comments, `<!-- chart:NAME -->` and `<!-- /chart:NAME -->`
 // (or `table:NAME` for the data tables built from sensitivity_data.json).
@@ -440,7 +442,103 @@ function robustRows(key) {
 }
 const ROBUST_COLUMNS = [['Player', 'l'], ['Submitted list (no exclusions)', 'r'], ['No exclusions, no penalty run', 'r'], ['Alternative: exclusions on', 'r'], ['Exclusions on, no penalty run', 'r'], ['Top 10 in', 'r'], ['Robust core', 'r']];
 
+// ---------- evidence tables: the `other` extras decision (other_evidence_data.json) and the pool-method decision (pool_methods_data.json) ----------
+// Primary (submitted) = `other` is an illegal ball with a +1 penalty run (a) and each pool is standardised against its own players (own-pool).
+// Everything else in these tables is an alternative that was tested and not adopted.
+const otherEvidence = JSON.parse(await readFile(resolve(root, 'other_evidence_data.json'), 'utf8'));
+const poolMethods = JSON.parse(await readFile(resolve(root, 'pool_methods_data.json'), 'utf8'));
+
+function otherTestRows() {
+  const e = otherEvidence.allMatches;
+  const hit = e.T1_freeHit.byTypeOfPreviousBall;
+  const flt = (value) => Number(value).toExponential(1);
+  const base = e.T1_freeHit;
+  const ownRow = e.T2_ownRowDismissals;
+  const over = e.T3_overLength;
+  const per = over.legalBallsPerOver_ifOtherIsLegal_notLastOvers;
+  const inn = e.T3b_inningsBallCount;
+  const exact = e.T4a_T4b_marginReconstruction;
+  const counts = exact.counts;
+  const otherRows = ownRow.other;
+  const same = (value) => [value, value];
+  return [
+    ['T1 Free hit', `Non-run-out wicket on the ball after the row (${(base.baseRate * 100).toFixed(2)}% after a normal ball)`, ...same(`${hit.other.nonRunOutWicketOnNextBall} of ${hit.other.n}`), `about ${hit.other.expectedAtNoneRate} expected (P = ${flt(hit.other.exactBinomialProbabilityOfThisFewOrFewer)})`],
+    ['T1 control', `Same count after an Overstep (no-ball) row`, ...same(`${hit.Overstep.nonRunOutWicketOnNextBall} of ${hit.Overstep.n}`), `about ${hit.Overstep.expectedAtNoneRate} expected (P = ${flt(hit.Overstep.exactBinomialProbabilityOfThisFewOrFewer)})`],
+    ['T2 Wickets on the row', 'Dismissals on `other` rows that are run-outs', ...same(`${otherRows.dismissalTypes.RunOut ?? 0} of ${otherRows.wicketRows}`), `P = ${ownRow.probabilityAllOtherWicketsAreRunOutsIfNormal} if dismissals were as on normal balls`],
+    ['T3 Over length', `Overs with an \`other\` row that are not the last over of an innings (${over.oversWithAnOtherRow_excludingLastOverOfInnings}): exactly six legal balls`, ...same(`${over.interpretationAB_otherIsIllegal.oversWithExactlySixLegalBalls} of ${over.oversWithAnOtherRow_excludingLastOverOfInnings}`), `${over.interpretationC_otherIsLegal.oversWithExactlySixLegalBalls} of ${over.oversWithAnOtherRow_excludingLastOverOfInnings} (${per[7]} have 7, ${per[8]} have 8, ${per[9]} ${per[9] === 1 ? 'has' : 'have'} 9)`],
+    ['T3 Innings length', `Innings that must have used all 20 overs and contain an \`other\` row (${inn.withOtherRow.innings}): exactly 120 legal balls`, ...same(`${inn.withOtherRow.legal120_AB} of ${inn.withOtherRow.innings}`), `${inn.withOtherRow.legal120_C} of ${inn.withOtherRow.innings}`],
+    ['T4 Run margin (exact)', `Winning margin equals innings 1 minus innings 2 (${counts.runWonMatches} usable matches, ${counts.runWonMatchesWithOther} with an \`other\` row)`, `${exact.exactMargin.a.all} of ${counts.runWonMatches}`, `${exact.exactMargin.b.all} of ${counts.runWonMatches}`, `${exact.exactMargin.c.all} of ${counts.runWonMatches}`],
+    ['T4 Chase end (exact)', `Wicket-won chases (${counts.chaseWonMatches}) whose last ball is consistent with the target (${counts.chaseWonMatchesWithOther} with an \`other\` row)`, `${exact.wicketChaseEndConsistency.a.ok} of ${counts.chaseWonMatches}`, `${exact.wicketChaseEndConsistency.b.ok} of ${counts.chaseWonMatches}`, `${exact.wicketChaseEndConsistency.c.ok} of ${counts.chaseWonMatches}`],
+  ];
+}
+const OTHER_TEST_COLUMNS = [['Test', 'l'], ['What is counted', 'l'], ['a: illegal ball, +1 run (submitted)', 'r'], ['b: illegal ball, no run (alternative)', 'r'], ['c: legal ball (rejected)', 'r']];
+
+function otherRegressionRows() {
+  const fit = (label, scope, key, ruleKey) => {
+    const t = otherEvidence[scope].T4c_regression;
+    const other = t[key].coefficients.other;
+    const control = t[key].coefficients.Overstep;
+    const ci = (c) => `${c.robustHC1CI95[0].toFixed(2)} to ${c.robustHC1CI95[1].toFixed(2)}`;
+    return [label, `${t[key].n} (${t[key].ofWhichWithAnOtherRow})`, other.estimate.toFixed(2), ci(other), control.estimate.toFixed(2), ci(control), t[ruleKey].verdict === 'a' ? 'a' : t[ruleKey].verdict];
+  };
+  return [
+    fit('All matches, main fit', 'allMatches', 'main', 'ruleOnMain'),
+    fit('Without the extras_2_runs regressor', 'allMatches', 'withoutExtras2Regressor', 'ruleWithoutExtras2'),
+    fit('Five largest residuals dropped', 'allMatches', 'dropFiveLargestResiduals', 'ruleDropFive'),
+    fit('In-scope matches only (837)', 'inScopeMatches', 'main', 'ruleOnMain'),
+  ];
+}
+const OTHER_REGRESSION_COLUMNS = [['Fit', 'l'], ['Matches (with an `other` row)', 'r'], ['`other` coefficient', 'r'], ['`other` 95% CI (HC1)', 'r'], ['Overstep control', 'r'], ['Overstep 95% CI (HC1)', 'r'], ['Rule picks', 'r']];
+
+const POOL_CELLS = [['S1', 'batters'], ['S1', 'bowlers'], ['S2', 'batters'], ['S2', 'bowlers']];
+const poolMethodRows = () => poolMethods.methods.map((m) => {
+  const own = poolMethods.methods[0].metrics;
+  const evaluation = poolMethods.decision.evaluation[m.method];
+  const failed = evaluation ? [...new Set(evaluation.failedRules.map((rule) => rule.split(':')[0]))].sort().join(', ') : '';
+  return [
+    m.role === 'primary' ? `${m.method} (primary, submitted)` : `${m.code} ${m.method} (alternative)`,
+    ...POOL_CELLS.map(([setting, kind]) => `${(m.metrics[setting][kind].M1_poolThinningError / own[setting][kind].M1_poolThinningError).toFixed(3)} (${m.metrics[setting][kind].M1_poolThinningError.toFixed(3)})`),
+    evaluation ? failed : '-',
+    evaluation ? (evaluation.passes ? 'passes all rules' : 'rejected') : 'kept',
+  ];
+});
+const POOL_METHOD_COLUMNS = [['Pool method', 'l'], ['M1 ratio (M1), S1 batters', 'r'], ['S1 bowlers', 'r'], ['S2 batters', 'r'], ['S2 bowlers', 'r'], ['Rules failed', 'r'], ['Result', 'r']];
+
+function poolRuleRows() {
+  const t = poolMethods.preregistered.thresholds;
+  const rules = {
+    1: `Pool-thinning error M1 at most ${t.m1Ratio} times own-pool in all four cells (S1 and S2, batters and bowlers)`,
+    2: `S2 batters: top-10 retention (M2) up by ${t.m2Rise} or more, or rank displacement (M3) down by ${t.m3Fall * 100}% or more`,
+    3: `No harm in any cell: retention (M2) no more than ${t.m2Harm} lower, rank displacement (M3) no more than ${t.m3Harm} ranks higher, leave-one-out exit rate (M4) no more than ${t.m4Harm} higher, season correlation (M5) no more than ${t.m5Harm} lower`,
+    4: 'Eligible counts (batters, bowlers, all-rounders) identical to own-pool, S1 and S2',
+    5: `Players with no profile in a thin pool: index change at most ${t.largePoolIndex.toFixed(1)} and rank change at most ${t.largePoolRank}, S1 and S2`,
+    6: `Players with a profile in a thin pool: index change at most ${t.thinPoolIndex.toFixed(1)}, S1 and S2`,
+    7: `S1: at most ${t.s1NamesChanged} top-10 names change in each list (batters, bowlers, all-rounders)`,
+  };
+  const candidates = poolMethods.methods.filter((m) => m.role !== 'primary');
+  return Object.entries(rules).map(([number, rule]) => [number, rule, ...candidates.map((m) => (poolMethods.decision.evaluation[m.method].failedRules.some((failed) => failed.startsWith(`${number}:`)) ? 'fail' : 'pass'))]);
+}
+const POOL_RULE_COLUMNS = [['Rule', 'r'], ['Pre-registered requirement', 'l'], ['C1 format-fallback', 'r'], ['C2 shrunk', 'r'], ['C3 adjacent-fallback', 'r']];
+
+function poolEffectRows() {
+  const entered = (list) => (list.length ? list.map((p) => `${p.player} (${p.rank}, was ${p.rankInOtherList})`).join('; ') : 'none');
+  const left = (list) => (list.length ? list.map((p) => `${p.player} (was ${p.rank}, now ${p.rankInOtherList ?? 'not eligible'})`).join('; ') : 'none');
+  return poolMethods.methods.filter((m) => m.role !== 'primary').flatMap((m) => ['S1', 'S2'].map((setting) => {
+    const batters = m.top10VersusBase[setting].batters;
+    const moves = batters.ranksOfBaseTop10.map((r) => ({ ...r, change: r.rank === null ? Infinity : Math.abs(r.rank - r.baseRank) }));
+    const biggest = moves.reduce((a, b) => (b.change > a.change ? b : a));
+    const changedOther = ['bowlers', 'allrounders'].reduce((sum, kind) => sum + m.top10VersusBase[setting][kind].entered.length, 0);
+    return [`${m.code} ${m.method}`, setting === 'S1' ? 'S1 submitted' : 'S2 exclusions on', entered(batters.entered), left(batters.left), `${biggest.player}: ${biggest.baseRank} to ${biggest.rank ?? 'not eligible'}`, changedOther];
+  }));
+}
+const POOL_EFFECT_COLUMNS = [['Method', 'l'], ['Setting', 'l'], ['Batters entering the top 10', 'l'], ['Batters leaving the top 10', 'l'], ['Largest move inside the own-pool top 10', 'l'], ['Bowler and all-rounder names changed', 'r']];
+
 const tables = [
+  { name: 'other_tests', columns: OTHER_TEST_COLUMNS, rows: otherTestRows(), text: true },
+  { name: 'other_regression', columns: OTHER_REGRESSION_COLUMNS, rows: otherRegressionRows(), plain: true },
+  { name: 'pool_methods', columns: POOL_METHOD_COLUMNS, rows: poolMethodRows(), plain: true },
+  { name: 'pool_rules', columns: POOL_RULE_COLUMNS, rows: poolRuleRows(), text: true },
+  { name: 'pool_effects', columns: POOL_EFFECT_COLUMNS, rows: poolEffectRows(), text: true },
   { name: 'exclusions_batters', columns: BATTER_COLUMNS, rows: fullRows('batter', sensitivity.exclusionAlternative.batters.top10, 'batters'), rankFirst: true },
   { name: 'exclusions_bowlers', columns: BOWLER_COLUMNS, rows: fullRows('bowler', sensitivity.exclusionAlternative.bowlers.top10, 'bowlers'), rankFirst: true },
   { name: 'exclusions_allrounders', columns: ALLROUNDER_COLUMNS, rows: allrounderRows(sensitivity.exclusionAlternative.allrounders.top10), rankFirst: true },
@@ -457,7 +555,7 @@ const tables = [
 const mdTable = (table) => {
   const head = `| ${table.columns.map(([label]) => label).join(' | ')} |`;
   const rule = `|${table.columns.map(([, align]) => (align === 'r' ? '---:' : '---')).join('|')}|`;
-  const body = table.rows.map((row) => `| ${row.join(' | ')} |`);
+  const body = table.rows.map((row) => `| ${row.map((cell) => String(cell).replace(/\|/g, '\\|')).join(' | ')} |`);
   return [head, rule, ...body].join('\n');
 };
 const htmlTable = (table) => {

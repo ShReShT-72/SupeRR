@@ -7224,7 +7224,80 @@
           "margin": 61
         }
       ],
-      "verdict": "inconclusive: the check does not reproduce the margin in many matches that have no `other` row, so it cannot decide the penalty question"
+      "verdict": "low power: exact reconstruction fails in many matches that have no `other` row (the data holds no innings totals and no overthrow, bye or leg-bye runs), so it cannot decide the penalty question alone; the decisive tests are in decisiveTests"
+    },
+    "decisiveTests": {
+      "source": "other_evidence_data.json (node other_evidence.mjs --write); all matches in ball_by_ball.csv",
+      "interpretations": {
+        "a": "illegal ball, +1 penalty run (primary, submitted)",
+        "b": "illegal ball, no penalty run (alternative, otherAlternative)",
+        "c": "legal ball, no penalty (rejected)"
+      },
+      "freeHit": {
+        "otherNonRunOutWicketOnNextBall": "0 of 261",
+        "overstepNonRunOutWicketOnNextBall": "0 of 574",
+        "baseRate": 0.0512
+      },
+      "overLength": {
+        "notLastOversWithAnOtherRow": 216,
+        "exactlySixLegalBallsIfIllegal": 216,
+        "exactlySixLegalBallsIfLegal": 0
+      },
+      "regression": {
+        "otherCoefficient": 1.108,
+        "otherRobustCI95": [
+          0.656,
+          1.559
+        ],
+        "overstepControlCoefficient": 0.897,
+        "overstepControlRobustCI95": [
+          0.561,
+          1.233
+        ],
+        "verdicts": {
+          "main": "a",
+          "withoutExtras2": "a",
+          "dropFiveLargestResiduals": "a"
+        }
+      },
+      "decision": "keep a (illegal ball, +1 penalty run): c is rejected by the free-hit, over-length and 120-ball tests; the regression coefficient for `other` has a 95% CI containing 1 and excluding 0. analyze.mjs and analysis_data.json are unchanged."
+    },
+    "poolMethodComparison": {
+      "source": "pool_methods_data.json (node sensitivity.mjs --pool-methods); criterion fixed in pool_preregistration.md before any candidate ran",
+      "primary": "own-pool (each format-season pool is standardised against its own players, as submitted)",
+      "alternatives": {
+        "format-fallback": {
+          "code": "C1",
+          "passes": false,
+          "failedRules": [
+            "1: M1 S1 batters 0.245 vs 0.24 (ratio 1.022)",
+            "3: M4 S2 batters",
+            "3: M2a S2 bowlers"
+          ]
+        },
+        "shrunk": {
+          "code": "C2",
+          "passes": false,
+          "failedRules": [
+            "3: M2a S2 bowlers",
+            "3: M4 S2 bowlers",
+            "2: S2 batters M2 rise 0.012, M3 relative fall 0.072",
+            "5: large-pool index change 1.6 (Brian Bennett (batter)) S1",
+            "5: large-pool rank change 8 (Mujeeb Ur Rahman (bowler)) S1"
+          ]
+        },
+        "adjacent-fallback": {
+          "code": "C3",
+          "passes": false,
+          "failedRules": [
+            "1: M1 S1 batters 0.24 vs 0.24 (ratio 1)",
+            "1: M1 S1 bowlers 0.296 vs 0.341 (ratio 0.868)",
+            "3: M2a S2 batters",
+            "3: M4 S2 batters"
+          ]
+        }
+      },
+      "decision": "KEEP_CURRENT"
     },
     "inScopeEffect": {
       "note": "Pressure deliveries in the 837 in-scope matches with the penalty run (primary) and without it.",
@@ -7237,7 +7310,7 @@
       "Batter runs are recorded on 136 of the 264 'other' rows (26 sixes, 42 fours); on Overstep rows 337 of 576; wides never carry batter runs (0 of 7714).",
       "3 'other' rows carry a wicket: 3 RunOut. For Overstep rows: 5 RunOut.",
       "254 overs contain an 'other' row. If 'other' were a legal ball, 243 of them would have more than six legal balls (216 of the 216 that are not the last over of an innings); treated as illegal, 243 have exactly six (216 of 216 not-last overs). Overs with no 'other' row have exactly six in 100.0% of 30410 finished overs.",
-      "No row says how many runs the 'other' extra is worth: 'runs' is the batter's runs on every extras type, so the +1 penalty is a rule-based assumption (a no-ball costs the bowler one run), not something read from a column. Run-margin check: inconclusive (5 of 11 calibration matches reproduce the margin; 1 match with an 'other' row qualifies, and its margin 61 equals the difference 61 with the penalty run and 60 without it).",
+      "No row says how many runs the 'other' extra is worth: 'runs' is the batter's runs on every extras type, so the +1 penalty is a rule-based assumption (a no-ball costs the bowler one run), not something read from a column. Exact run-margin reconstruction has low power (5 of 11 calibration matches reproduce the margin; 1 match with an 'other' row qualifies, and its margin 61 equals the difference 61 with the penalty run and 60 without it). The decisive tests are in decisiveTests: keep a (illegal ball, +1 penalty run): c is rejected by the free-hit, over-length and 120-ball tests; the regression coefficient for `other` has a 95% CI containing 1 and excluding 0. analyze.mjs and analysis_data.json are unchanged.",
       "In the in-scope data the penalty run adds 70 pressure deliveries (81736 to 81806)."
     ]
   },

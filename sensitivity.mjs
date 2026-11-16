@@ -6,6 +6,10 @@
 //   node sensitivity.mjs --pool-methods runs the stability tests for own-pool (primary) and the three pool-method alternatives
 //                                       (pool_preregistration.md), writes pool_methods_data.json
 //
+// Labels: the primary (submitted) method is `other` = illegal ball with a +1 penalty run, each pool standardised against its own players,
+// no player exclusions. Every other setting here is an alternative. otherEvidence.decisiveTests reads other_evidence_data.json
+// (node other_evidence.mjs --write) and poolMethodComparison reads pool_methods_data.json (--pool-methods); both must exist before a full run.
+//
 // Run from the data folder (the one holding ball_by_ball.csv, matches.csv, analysis_data.json).
 // Node 18 or newer, no npm dependencies. The output has no timestamps: two runs give identical files.
 import { execFileSync } from 'node:child_process';
@@ -688,8 +692,46 @@ const otherEvidence = {
     matchesWithOther: otherMatches,
     verdict: calibration.margin_equals_total_difference / calibration.matches >= 0.9
       ? 'usable'
-      : 'inconclusive: the check does not reproduce the margin in many matches that have no `other` row, so it cannot decide the penalty question',
+      : 'low power: exact reconstruction fails in many matches that have no `other` row (the data holds no innings totals and no overthrow, bye or leg-bye runs), so it cannot decide the penalty question alone; the decisive tests are in decisiveTests',
   },
+  // The decisive tests (free hit, own-row dismissals, over length, run-margin regression) live in other_evidence.mjs;
+  // its output other_evidence_data.json is summarised here. Decision: `other` stays an illegal ball with a +1 penalty run (a).
+  decisiveTests: await (async () => {
+    const evidence = JSON.parse(await readFile(resolve(root, 'other_evidence_data.json'), 'utf8')).allMatches;
+    const reg = evidence.T4c_regression;
+    return {
+      source: 'other_evidence_data.json (node other_evidence.mjs --write); all matches in ball_by_ball.csv',
+      interpretations: { a: 'illegal ball, +1 penalty run (primary, submitted)', b: 'illegal ball, no penalty run (alternative, otherAlternative)', c: 'legal ball, no penalty (rejected)' },
+      freeHit: {
+        otherNonRunOutWicketOnNextBall: `${evidence.T1_freeHit.byTypeOfPreviousBall.other.nonRunOutWicketOnNextBall} of ${evidence.T1_freeHit.byTypeOfPreviousBall.other.n}`,
+        overstepNonRunOutWicketOnNextBall: `${evidence.T1_freeHit.byTypeOfPreviousBall.Overstep.nonRunOutWicketOnNextBall} of ${evidence.T1_freeHit.byTypeOfPreviousBall.Overstep.n}`,
+        baseRate: evidence.T1_freeHit.baseRate,
+      },
+      overLength: {
+        notLastOversWithAnOtherRow: evidence.T3_overLength.oversWithAnOtherRow_excludingLastOverOfInnings,
+        exactlySixLegalBallsIfIllegal: evidence.T3_overLength.interpretationAB_otherIsIllegal.oversWithExactlySixLegalBalls,
+        exactlySixLegalBallsIfLegal: evidence.T3_overLength.interpretationC_otherIsLegal.oversWithExactlySixLegalBalls,
+      },
+      regression: {
+        otherCoefficient: reg.main.coefficients.other.estimate,
+        otherRobustCI95: reg.main.coefficients.other.robustHC1CI95,
+        overstepControlCoefficient: reg.main.coefficients.Overstep.estimate,
+        overstepControlRobustCI95: reg.main.coefficients.Overstep.robustHC1CI95,
+        verdicts: { main: reg.ruleOnMain.verdict, withoutExtras2: reg.ruleWithoutExtras2.verdict, dropFiveLargestResiduals: reg.ruleDropFive.verdict },
+      },
+      decision: 'keep a (illegal ball, +1 penalty run): c is rejected by the free-hit, over-length and 120-ball tests; the regression coefficient for `other` has a 95% CI containing 1 and excluding 0. analyze.mjs and analysis_data.json are unchanged.',
+    };
+  })(),
+  // Thin T20I pool comparison (pool_methods_data.json, node sensitivity.mjs --pool-methods): own-pool is primary, C1 to C3 alternatives.
+  poolMethodComparison: await (async () => {
+    const pools = JSON.parse(await readFile(resolve(root, 'pool_methods_data.json'), 'utf8'));
+    return {
+      source: 'pool_methods_data.json (node sensitivity.mjs --pool-methods); criterion fixed in pool_preregistration.md before any candidate ran',
+      primary: 'own-pool (each format-season pool is standardised against its own players, as submitted)',
+      alternatives: Object.fromEntries(Object.entries(pools.decision.evaluation).map(([method, entry]) => [method, { code: entry.code, passes: entry.passes, failedRules: entry.failedRules }])),
+      decision: pools.decision.result,
+    };
+  })(),
   inScopeEffect: {
     note: 'Pressure deliveries in the 837 in-scope matches with the penalty run (primary) and without it.',
     pressureDeliveriesWithPenalty: analysis.dataQuality.pressureDeliveries,
@@ -703,7 +745,7 @@ otherEvidence.summary = [
   `Batter runs are recorded on ${profiles.other.rowsWithBatterRuns} of the ${profiles.other.rows} 'other' rows (${profiles.other.isSix['true'] ?? 0} sixes, ${profiles.other.isFour['true'] ?? 0} fours); on Overstep rows ${profiles.overstep.rowsWithBatterRuns} of ${profiles.overstep.rows}; wides never carry batter runs (${profiles.wide.rowsWithBatterRuns} of ${profiles.wide.rows}).`,
   `${profiles.other.wicketRows} 'other' rows carry a wicket: ${Object.entries(profiles.other.dismissalTypesOnWicketRows).map(([k, v]) => `${v} ${k}`).join(', ')}. For Overstep rows: ${Object.entries(profiles.overstep.dismissalTypesOnWicketRows).map(([k, v]) => `${v} ${k}`).join(', ')}.`,
   `${ov.oversWithAnOtherRow} overs contain an 'other' row. If 'other' were a legal ball, ${ov.oversWithMoreThanSixLegalBalls_ifOtherIsLegal_includingLastOvers} of them would have more than six legal balls (${ov.oversWithMoreThanSixLegalBalls_ifOtherIsLegal} of the ${ov.oversWithAnOtherRow_excludingLastOverOfInnings} that are not the last over of an innings); treated as illegal, ${ov.oversWithExactlySixLegalBalls_ifOtherIsIllegal_includingLastOvers} have exactly six (${ov.oversWithExactlySixLegalBalls_ifOtherIsIllegal} of ${ov.oversWithAnOtherRow_excludingLastOverOfInnings} not-last overs). Overs with no 'other' row have exactly six in ${(ov.baselineOversWithoutOtherRow.shareWithExactlySixLegalBalls * 100).toFixed(1)}% of ${ov.baselineOversWithoutOtherRow.finishedOvers} finished overs.`,
-  `No row says how many runs the 'other' extra is worth: 'runs' is the batter's runs on every extras type, so the +1 penalty is a rule-based assumption (a no-ball costs the bowler one run), not something read from a column. Run-margin check: ${otherEvidence.runMarginCheck.verdict.startsWith('usable') ? 'usable' : 'inconclusive'} (${calibration.margin_equals_total_difference} of ${calibration.matches} calibration matches reproduce the margin; ${otherMatches.length} match with an 'other' row qualifies${otherMatches.length === 1 ? `, and its margin ${otherMatches[0].margin} equals the difference ${otherMatches[0].differenceWithPenalty} with the penalty run and ${otherMatches[0].differenceWithoutPenalty} without it` : ''}).`,
+  `No row says how many runs the 'other' extra is worth: 'runs' is the batter's runs on every extras type, so the +1 penalty is a rule-based assumption (a no-ball costs the bowler one run), not something read from a column. Exact run-margin reconstruction has low power (${calibration.margin_equals_total_difference} of ${calibration.matches} calibration matches reproduce the margin; ${otherMatches.length} match with an 'other' row qualifies${otherMatches.length === 1 ? `, and its margin ${otherMatches[0].margin} equals the difference ${otherMatches[0].differenceWithPenalty} with the penalty run and ${otherMatches[0].differenceWithoutPenalty} without it` : ''}). The decisive tests are in decisiveTests: ${otherEvidence.decisiveTests.decision}`,
   `In the in-scope data the penalty run adds ${otherEvidence.inScopeEffect.difference} pressure deliveries (${otherEvidence.inScopeEffect.pressureDeliveriesWithoutPenalty} to ${otherEvidence.inScopeEffect.pressureDeliveriesWithPenalty}).`,
 ];
 
