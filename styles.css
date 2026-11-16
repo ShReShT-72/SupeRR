@@ -110,6 +110,8 @@ h1 em, h2 em { color: #72874a; font-weight: 600; }
 .fit-priority, .fit-depth, .fit-conditional { display: inline-block; padding: 4px 6px; background: #edf2e8; color: #43583a !important; font: 8px var(--mono); white-space: nowrap; }
 .fit-depth { background: #f8eee9; color: #9e4b38 !important; }
 .fit-conditional { background: #f0f1ec; color: #69756d !important; }
+.fit-trade { display: inline-block; padding: 4px 6px; background: #fff3cd; color: #7a5c00 !important; font: 8px var(--mono); white-space: nowrap; }
+.fit-scout { display: inline-block; padding: 4px 6px; background: #e8f0fe; color: #2a4a9e !important; font: 8px var(--mono); white-space: nowrap; }
 .target-method-note { margin: 10px 0 0; color: var(--muted); font-size: 9px; line-height: 1.5; }
 .target-subheading { margin: 28px 0 10px; font-family: var(--serif); font-size: 21px; font-weight: 600; }
 .section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 25px; margin-bottom: 23px; }

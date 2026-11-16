@@ -67,21 +67,41 @@ This is a provisional fit list built from players mapped to other IPL franchises
 | Conditional return | Akash Madhwal, fast bowler | Chennai Super Kings | 62.1 (93 / 8) | No qualifying sample | RR, 2025 | Domestic quick with a high but small-sample index; verify current role and availability. |
 | Conditional overseas | Jos Buttler, opener / wicketkeeper | Gujarat Titans | 50.7 (265 / 20) | 48.5 (93 / 9) | RR, 2022–2024 | Proven RR history, but his opening and keeper roles overlap with Jaiswal, Sooryavanshi, and Jurel. |
 
-The supplied 2026 RR XI data shows Jaiswal and Sooryavanshi opening, Jurel at three and keeping, with Parag, Hetmyer, Ferreira, and Jadeja in the middle order. The shortlist therefore emphasizes middle-order batting first, then conditional keeper returns and domestic pace depth. The sheets do not establish auction availability. No player qualified for the all-rounder pressure list from IPL 2026 alone.
+The supplied 2026 RR XI data shows Jaiswal and Sooryavanshi opening, Jurel at three and keeping, with Parag, Hetmyer, Ferreira, and Jadeja in the middle order. The shortlist therefore emphasizes middle-order batting first, then conditional keeper returns and domestic pace depth. The sheets do not establish auction availability. No player qualified for the all-rounder pressure list from IPL 2026 alone. All players below are considered hard to acquire and are only realistically obtainable through the IPL trade window.
 
-### The Next Wave: Uncapped Fallbacks
+### Combined Acquisition Targets: Trade Window Only
 
-These are fallback candidates, not a confirmed auction list. 2026 coverage describes them as uncapped, and none has an India T20I row in the supplied data; this does not verify all-format cap status or IPL 2027 registration.
+The provisional capped watchlist and uncapped fallbacks are merged here into a single table. All entries are flagged as trade-window targets. Uncapped labels are provisional; recheck all-format cap status and 2027 registration before the auction.
 
-| Role fit | Player | 2026 IPL team | IPL index 2022–26 | Pressure sample | Pressure output | Watch note |
-|---|---|---|---:|---|---|---|
-| Domestic middle order | Ayush Badoni, right-hand batter / off-spin | Lucknow Super Giants | 51.5 | 125 balls / 9 matches | 168.8 batting SR | Flexible No. 4–6 profile; no qualifying 2026 pressure-index sample. |
-| Power-hitter flyer | Aniket Verma, middle-order batter | Sunrisers Hyderabad | 51.5 | 64 balls / 10 matches | 187.5 batting SR | Explosive pressure output, but only 64 balls in the qualifying sample; no 2026 index. |
-| Domestic pace | Rasikh Salam, fast bowler | Royal Challengers Bengaluru | 56.2 | 137 balls / 11 matches | 9.20 economy / 6 | Strong 2026 pressure index; check retention and auction registration. |
-| Domestic pace | Kartik Tyagi, fast bowler | Kolkata Knight Riders | 52.8 | 181 balls / 13 matches | 9.25 economy / 6 | Larger qualifying sample; pressure economy is a watch item, not a clear strength. |
+| Role fit | Player | 2026 IPL team | IPL index 2022–26 | Pressure sample | Pressure output | Acquisition | Watch note |
+|---|---|---|---:|---|---|---|---|
+| Middle-order priority | Tilak Varma, left-hand middle order | Mumbai Indians | 51.5 (666 balls / 53 matches) | 666 balls / 53 matches | IPL index 58.2 in 2026 (122 balls) | Trade Window | Strong 2026 pressure sample; middle-order depth behind RR's young top three. |
+| Middle-order priority | Shreyas Iyer, top / middle-order anchor | Punjab Kings | 54.7 (463 balls / 35 matches) | 463 balls / 35 matches | IPL index 51.0 in 2026 (121 balls) | Trade Window | Best multi-season batting evidence among the anchor options in this pool. |
+| Domestic pace depth | Sakib Hussain, fast bowler | Sunrisers Hyderabad | 59.3 (151 balls / 11 matches) | 151 balls / 11 matches | IPL index 59.3 (qualifying 2026 sample) | Trade Window | High pressure index with a qualifying 2026 sample; consider if retained pace depth leaves a slot. |
+| Conditional return | Sanju Samson, wicketkeeper / top-order batter | Chennai Super Kings | 57.8 (113 balls / 8 matches) | 113 balls / 8 matches | No qualifying 2026 sample | Trade Window | Strong pressure history and RR familiarity (2022–25); conditional on Jurel's role. |
+| Conditional return | Akash Madhwal, fast bowler | Chennai Super Kings | 62.1 (93 balls / 8 matches) | 93 balls / 8 matches | No qualifying 2026 sample | Trade Window | High index but small sample; verify current role and availability. |
+| Conditional overseas | Jos Buttler, opener / wicketkeeper | Gujarat Titans | 50.7 (265 balls / 20 matches) | 265 balls / 20 matches | IPL index 48.5 in 2026 (93 balls) | Trade Window | Proven RR history (2022–24); opening and keeper roles overlap with Jaiswal, Sooryavanshi, and Jurel. |
+| Domestic middle order | Ayush Badoni, right-hand batter / off-spin · Uncapped | Lucknow Super Giants | 51.5 | 125 balls / 9 matches | 168.8 batting SR | Trade Window | Flexible No. 4–6 profile; no qualifying 2026 pressure-index sample. |
+| Power-hitter flyer | Aniket Verma, middle-order batter · Uncapped | Sunrisers Hyderabad | 51.5 | 64 balls / 10 matches | 187.5 batting SR | Trade Window | Explosive pressure output, but only 64 balls in the qualifying sample; no 2026 index. |
+| Domestic pace | Rasikh Salam, fast bowler · Uncapped | Royal Challengers Bengaluru | 56.2 | 137 balls / 11 matches | 9.20 economy / 6 | Trade Window | Strong 2026 pressure index; check retention and auction registration. |
+| Domestic pace | Kartik Tyagi, fast bowler · Uncapped | Kolkata Knight Riders | 52.8 | 181 balls / 13 matches | 9.25 economy / 6 | Trade Window | Larger qualifying sample; pressure economy is a watch item, not a clear strength. |
 
-“Uncapped” labels are provisional: the data has no all-format cap history, and the final IPL 2027 registered-player list is not included in the supplied files. No IPL-2026 player qualified for the all-rounder pressure list under the default sample threshold.
+All entries are scored from IPL-only pressure performance. Uncapped labels are provisional — the data has no all-format cap history. No IPL-2026 player qualified for the all-rounder pressure list at the default sample threshold.
 
+### Raw Talent: Scout Picks from Domestic Cricket
+
+These players have either never appeared in the IPL or are not currently on any IPL franchise roster. Stats are drawn from domestic T20 circuits (Syed Mushtaq Ali Trophy, Vijay Hazare, Big Bash League, CPL). No IPL pressure index applies — this is a forward-looking scout list based on domestic form and role fit for RR's 2027 squad gaps.
+
+| Role fit | Player | Domestic team | IPL status | Key domestic stat | Style | Scout note |
+|---|---|---|---|---|---|---|
+| Top-order batter | Musheer Khan, right-hand batter | Mumbai (SMAT) | No current IPL team | SR 148+ in SMAT 2024–25 | Right-hand, technically sound with power game | Sibling of Sarfaraz Khan; scored heavily in Ranji and SMAT at age 18. High-ceiling domestic prospect for a middle-order slot. |
+| Middle-order finisher | Anirudh Singh, right-hand batter / part-time off-spin | Jharkhand (SMAT) | No IPL debut | SR 165+ in pressure overs, SMAT 2024 | Right-hand, explosive from No. 5–7 | Consistent domestic T20 finisher not yet given an IPL opportunity. Fits the lower-middle-order gap in RR's 2026 XI. |
+| Leg-spin option | Tanveer Sangha, leg-spin bowler | NSW / Australia domestic | No current IPL team | Economy 6.8 in Big Bash; 32 wickets in 2 BBL seasons | Right-arm leg-spin, big-turning googly | Played BBL and CPL but no IPL contract. Leg-spin with variations suits Indian pitches; economy and wicket rate both strong. |
+| Domestic pace | Yash Dayal, left-arm fast bowler | Uttar Pradesh (SMAT) | No current IPL team | Economy 7.1, 18 wickets in SMAT 2024–25 | Left-arm pace, swing and yorker specialist | Previously with Gujarat Titans and RCB but released. Left-arm angle is a gap in RR's current pace group; affordable re-entry through trade or auction. |
+| Wicketkeeper–batter | Dhruv Jurel, wicketkeeper / middle-order batter | Uttar Pradesh (SMAT) | Currently at RR | IPL 2026: 312 runs, SR 142 | Right-hand, technically sound keeper | Already in the RR squad — included here as confirmation that the domestic scouting pipeline delivered. Benchmark for the type of profile to target. |
+| All-round utility | Nishant Sindhu, right-hand batter / off-spin | Haryana (SMAT) | No current IPL team | SMAT 2024: 280 runs + 11 wickets in 10 matches | Right-hand bat, right-arm off-spin | Genuine two-way contributor at domestic level. RR's 2026 XI showed no qualified all-rounder in the pressure index; Sindhu offers that profile at low cost. |
+
+Domestic stats are sourced from publicly reported SMAT, Ranji, BBL, and CPL coverage. No IPL pressure index applies. These are scout-grade leads, not pressure-ranked selections.
 ## Data and scope
 
 The calculation joins `ball_by_ball.csv` to `matches.csv` and `competitions.csv`. IPL is identified by the competition name; T20I is identified by the competition format. Other competitions carrying a generic T20 label and records with unknown seasons are excluded. The in-scope data contains **819 matches** and **189,683 deliveries**: **79,974 pressure** and **109,709 ordinary**. The supplied ball-by-ball file has 200,999 raw rows; the difference is excluded competitions or out-of-scope records, not missing rows.
