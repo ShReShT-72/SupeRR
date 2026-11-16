@@ -173,6 +173,12 @@ function processInnings() {
     inningsRows = [];
     return;
   }
+  // Super-over innings (3 and 4) are skipped: the 20-over clock, wicket squeeze and chase target
+  // used below do not describe a 6-ball tiebreak, and they are only 26 in-scope deliveries.
+  if (number(first.innings) > 2) {
+    inningsRows = [];
+    return;
+  }
   dataQuality.matches.add(first.match_id);
 
   const innings = number(first.innings);
