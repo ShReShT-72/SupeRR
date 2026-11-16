@@ -3,11 +3,12 @@
 //
 //   node sensitivity.mjs              writes sensitivity_data.json (about 3 minutes, deterministic)
 //   node sensitivity.mjs --print-top10  prints the top ten lists that scoring.mjs gives right now
-//   node sensitivity.mjs --pool-methods runs the stability tests for own-pool (primary) and the three pool-method alternatives
-//                                       (pool_preregistration.md), writes pool_methods_data.json
+//   node sensitivity.mjs --pool-methods refuses to run here: pool_methods_data.json was produced with S1 (no exclusions) and
+//                                       S2 (exclusions on) as the two settings and its S1 check needs the earlier sensitivity_data.json
+//                                       (commit ce1f3b3); see pool_preregistration.md
 //
 // Labels: the primary (submitted) method is `other` = illegal ball with a +1 penalty run, each pool standardised against its own players,
-// no player exclusions. Every other setting here is an alternative. otherEvidence.decisiveTests reads other_evidence_data.json
+// player exclusions on (APPLY_PLAYER_EXCLUSIONS = true in scoring.mjs). Every other setting here is an alternative. otherEvidence.decisiveTests reads other_evidence_data.json
 // (node other_evidence.mjs --write) and poolMethodComparison reads pool_methods_data.json (--pool-methods); both must exist before a full run.
 //
 // Run from the data folder (the one holding ball_by_ball.csv, matches.csv, analysis_data.json).
@@ -26,15 +27,15 @@ const SEED = 20261116; // fixed PRNG seed (mulberry32). Change it and every resa
 const BOOTSTRAP_RUNS = 1000;
 const POOL_DELETE_RUNS = 1000;
 const POOL_DELETE_FRACTION = 0.2;
-const MIN_POOL_SIZES = [8, 12, 13]; // 8 drops exactly the thin pools (5 and 6 players); no pool holds 7 to 10 players
+const MIN_POOL_SIZES = [8, 11, 13]; // 8 drops the pools of 5 and 6 players; 11 also drops the pools of 10; 13 also drops the pools of 12 (no pool holds 7, 8, 9 or 11 players)
 const THIN_POOL_MAX = 10; // a format-season pool with this many eligible players or fewer is called thin
 const TOP = 10;
 const KINDS = [['batter', 'batters'], ['bowler', 'bowlers']];
 const SCENARIOS = [
-  ['exclusionsOff_otherPenalty', 'primary (submitted): no exclusions, `other` = illegal ball + 1 penalty run'],
-  ['exclusionsOff_otherNoPenalty', 'no exclusions, `other` = illegal ball, no penalty run'],
-  ['exclusionsOn_otherPenalty', 'alternative: exclusions on, `other` = illegal ball + 1 penalty run'],
+  ['exclusionsOn_otherPenalty', 'primary (submitted): exclusions on, `other` = illegal ball + 1 penalty run'],
   ['exclusionsOn_otherNoPenalty', 'exclusions on, `other` = illegal ball, no penalty run'],
+  ['exclusionsOff_otherPenalty', 'alternative: no exclusions, `other` = illegal ball + 1 penalty run'],
+  ['exclusionsOff_otherNoPenalty', 'no exclusions, `other` = illegal ball, no penalty run'],
 ];
 
 // ---------- helpers ----------
@@ -148,8 +149,8 @@ function movement(primary, alternative) {
 
 // ---------- scoring variants built from scoring.mjs text ----------
 const scoringSource = await readFile(resolve(codeDir, 'scoring.mjs'), 'utf8');
-const EXCLUSION_SWITCH = 'const APPLY_PLAYER_EXCLUSIONS = false;'; // as submitted: no player exclusions
-const EXCLUSION_SWITCH_ON = 'const APPLY_PLAYER_EXCLUSIONS = true;'; // the alternative
+const EXCLUSION_SWITCH = 'const APPLY_PLAYER_EXCLUSIONS = true;'; // as submitted: player exclusions on
+const EXCLUSION_SWITCH_OFF = 'const APPLY_PLAYER_EXCLUSIONS = false;'; // the no-exclusion alternative
 const HOOK_ANCHOR = '    const rollups = new Map();';
 const BENCHMARK_LINE = '      const benchmark = `${player.format}:${player.season}`;';
 
@@ -172,32 +173,24 @@ if (process.argv.includes('--print-top10')) {
 
 if (scoringSource.split(EXCLUSION_SWITCH).length !== 2) {
   throw new Error(`scoring.mjs does not contain the line "${EXCLUSION_SWITCH}" exactly once. `
-    + 'sensitivity.mjs describes the primary (submitted) list with no exclusions; restore scoring.mjs (git checkout -- scoring.mjs) or use --print-top10.');
+    + 'sensitivity.mjs describes the primary (submitted) list with the exclusions on; restore scoring.mjs (git checkout -- scoring.mjs) or use --print-top10.');
 }
 if (scoringSource.split(HOOK_ANCHOR).length !== 2 || scoringSource.split(BENCHMARK_LINE).length !== 2) {
   throw new Error('scoring.mjs changed shape: the pool (strata) lines that sensitivity.mjs hooks into were not found exactly once.');
 }
 if (process.argv.includes('--pool-methods')) {
-  // Stability tests for the pool-standardisation methods of scoring.mjs: own-pool (primary, as submitted) and the three
-  // alternatives, under the criterion fixed in pool_preregistration.md. Writes pool_methods_data.json; does not touch sensitivity_data.json.
-  const { runPoolMethods } = await import(new URL('./pool_methods.mjs', import.meta.url).href);
-  const poolRecords = JSON.parse(await readFile(resolve(root, 'analysis_data.json'), 'utf8')).records;
-  const committed = JSON.parse(await readFile(resolve(root, 'sensitivity_data.json'), 'utf8'));
-  const result = await runPoolMethods({
-    scoringSource, records: poolRecords, committed, mulberry32, loadModule, exclusionSwitch: EXCLUSION_SWITCH, exclusionSwitchOn: EXCLUSION_SWITCH_ON,
-    log: (message) => console.error(`[pool-methods] ${message}`),
-  });
-  await writeFile(resolve(process.env.POOL_METHODS_SMOKE ? tmpdir() : root, 'pool_methods_data.json'), `${JSON.stringify(result, null, 2)}\n`);
-  console.log('Wrote pool_methods_data.json');
-  console.log(`decision: ${result.decision.result} (${result.decision.reasoning})`);
-  process.exit(0);
+  // pool_methods_data.json is the documented result of the pre-registered comparison, run with S1 = no exclusions and S2 = exclusions on
+  // at the commit before the exclusions were switched on. Its harness checks S1 against the rankStability of the no-exclusion
+  // sensitivity_data.json, which this checkout no longer holds, so the comparison is not rerun here.
+  throw new Error('--pool-methods is not available with the exclusions on: pool_methods_data.json was produced with S1 (no exclusions) and S2 (exclusions on) '
+    + 'from the sensitivity_data.json of commit ce1f3b3. Check out that commit to repeat it. The decision stays as documented in pool_preregistration.md.');
 }
 // Two hooks that are inert unless sensitivity.mjs sets them: one reports the pools, one lets a variant choose the pool a profile is standardised in.
 const instrumentedSource = scoringSource
   .replace(HOOK_ANCHOR, `    globalThis.__sensitivityPoolHook?.(kind, strata);\n${HOOK_ANCHOR}`)
   .replace(BENCHMARK_LINE, '      const benchmark = globalThis.__sensitivityBenchmark?.(player) ?? `${player.format}:${player.season}`;');
 const ratePlayersPrimary = (await loadModule(instrumentedSource)).ratePlayers;
-const ratePlayersExcluded = (await loadModule(instrumentedSource.replace(EXCLUSION_SWITCH, EXCLUSION_SWITCH_ON))).ratePlayers;
+const ratePlayersNoExclusion = (await loadModule(instrumentedSource.replace(EXCLUSION_SWITCH, EXCLUSION_SWITCH_OFF))).ratePlayers;
 const { ratePlayers: ratePlayersShipped } = await import(new URL('./scoring.mjs', import.meta.url).href);
 
 // ---------- inputs ----------
@@ -282,7 +275,7 @@ function poolTable(kind) {
   });
 }
 const poolSizes = {
-  note: `Eligible players per format-season pool, no exclusions (the submitted setting), 60 pressure balls / 8 matches / 60 ordinary balls. A pool with ${THIN_POOL_MAX} or fewer players is flagged thin. Each player is standardised (z-scores) only against the others in the same pool.`,
+  note: `Eligible players per format-season pool, exclusions on (the submitted setting), 60 pressure balls / 8 matches / 60 ordinary balls. A pool with ${THIN_POOL_MAX} or fewer players is flagged thin. Each player is standardised (z-scores) only against the others in the same pool.`,
   batters: poolTable('batter'),
   bowlers: poolTable('bowler'),
 };
@@ -495,13 +488,13 @@ const poolingSeasons = {
 
 // ---------- `other` alternative and no-exclusion scenarios ----------
 const scenarioRated = {
-  exclusionsOff_otherPenalty: primaryRated,
-  exclusionsOff_otherNoPenalty: rate(ratePlayersPrimary, recordsNoPenalty),
-  exclusionsOn_otherPenalty: rate(ratePlayersExcluded, records),
-  exclusionsOn_otherNoPenalty: rate(ratePlayersExcluded, recordsNoPenalty),
+  exclusionsOn_otherPenalty: primaryRated,
+  exclusionsOn_otherNoPenalty: rate(ratePlayersPrimary, recordsNoPenalty),
+  exclusionsOff_otherPenalty: rate(ratePlayersNoExclusion, records),
+  exclusionsOff_otherNoPenalty: rate(ratePlayersNoExclusion, recordsNoPenalty),
 };
 
-function scenarioBlock(name, comparedWith = 'exclusionsOff_otherPenalty') {
+function scenarioBlock(name, comparedWith = 'exclusionsOn_otherPenalty') {
   const rated = scenarioRated[name];
   const base = scenarioRated[comparedWith];
   const block = {
@@ -524,16 +517,16 @@ const otherAlternative = {
     alternativeOrdinaryDeliveries: noPenaltyQuality.ordinaryDeliveries,
     matches: noPenaltyQuality.matches,
   },
-  exclusionsOff: scenarioBlock('exclusionsOff_otherNoPenalty', 'exclusionsOff_otherPenalty'),
   exclusionsOn: scenarioBlock('exclusionsOn_otherNoPenalty', 'exclusionsOn_otherPenalty'),
+  exclusionsOff: scenarioBlock('exclusionsOff_otherNoPenalty', 'exclusionsOff_otherPenalty'),
 };
 
-const exclusionAlternative = {
-  note: 'The alternative to the submitted lists: same method and thresholds, with the three exclusion groups applied (the 53 Pakistan T20I players, the five IPL retirees, Mohit Sharma). Columns are the same as the primary tables; versusPrimary compares with the submitted (no-exclusion) lists.',
-  ...scenarioBlock('exclusionsOn_otherPenalty', 'exclusionsOff_otherPenalty'),
+const noExclusionAlternative = {
+  note: 'The alternative to the submitted lists: same method and thresholds, with none of the three exclusion groups applied (the 53 Pakistan T20I players, the five IPL retirees, Mohit Sharma). Columns are the same as the primary tables; versusPrimary compares with the submitted (exclusions on) lists.',
+  ...scenarioBlock('exclusionsOff_otherPenalty', 'exclusionsOn_otherPenalty'),
   allrounders: {
-    top10: scenarioRated.exclusionsOn_otherPenalty.allrounders.slice(0, TOP).map(allrounderRow),
-    versusPrimary: movement(scenarioRated.exclusionsOff_otherPenalty.allrounders, scenarioRated.exclusionsOn_otherPenalty.allrounders),
+    top10: scenarioRated.exclusionsOff_otherPenalty.allrounders.slice(0, TOP).map(allrounderRow),
+    versusPrimary: movement(scenarioRated.exclusionsOn_otherPenalty.allrounders, scenarioRated.exclusionsOff_otherPenalty.allrounders),
   },
 };
 
@@ -550,10 +543,10 @@ for (const [kind, key] of KINDS) {
   const all = [...union.keys()].map(describe);
   robustCore[key] = {
     core: all.filter((entry) => entry.scenariosInTop10 === SCENARIOS.length)
-      .sort((a, b) => (a.ranks.exclusionsOff_otherPenalty ?? 99) - (b.ranks.exclusionsOff_otherPenalty ?? 99)),
+      .sort((a, b) => (a.ranks.exclusionsOn_otherPenalty ?? 99) - (b.ranks.exclusionsOn_otherPenalty ?? 99)),
     primaryTop10NotInCore: primaryTop[key].map((p) => describe(id(p))).filter((entry) => entry.scenariosInTop10 < SCENARIOS.length)
       .map((entry) => ({ ...entry, missingFrom: SCENARIOS.filter(([name]) => entry.ranks[name] === null).map(([name]) => name) })),
-    otherNamesInSomeScenario: all.filter((entry) => entry.ranks.exclusionsOff_otherPenalty === null)
+    otherNamesInSomeScenario: all.filter((entry) => entry.ranks.exclusionsOn_otherPenalty === null)
       .sort((a, b) => b.scenariosInTop10 - a.scenariosInTop10 || a.player.localeCompare(b.player)),
   };
 }
@@ -753,32 +746,32 @@ otherEvidence.summary = [
 const sourceLines = scoringSource.split(/\r?\n/);
 const switchLine = sourceLines.findIndex((line) => line === EXCLUSION_SWITCH);
 if (switchLine < 0) throw new Error('the APPLY_PLAYER_EXCLUSIONS line in scoring.mjs was not found');
-const flippedLines = sourceLines.map((line, index) => (index === switchLine ? EXCLUSION_SWITCH_ON : line));
+const flippedLines = sourceLines.map((line, index) => (index === switchLine ? EXCLUSION_SWITCH_OFF : line));
 const flippedRated = (await loadModule(flippedLines.join('\n'))).ratePlayers(records);
 const flipMatchesAlternativeLists = JSON.stringify([flippedRated.batters, flippedRated.bowlers, flippedRated.allrounders])
-  === JSON.stringify([scenarioRated.exclusionsOn_otherPenalty.batters, scenarioRated.exclusionsOn_otherPenalty.bowlers, scenarioRated.exclusionsOn_otherPenalty.allrounders]);
+  === JSON.stringify([scenarioRated.exclusionsOff_otherPenalty.batters, scenarioRated.exclusionsOff_otherPenalty.bowlers, scenarioRated.exclusionsOff_otherPenalty.allrounders]);
 
 const exclusionFlip = {
-  summary: 'One line in scoring.mjs switches the player exclusions on. The submitted lists use no exclusions. The change is `false` to `true` on the APPLY_PLAYER_EXCLUSIONS line.',
+  summary: 'One line in scoring.mjs switches the player exclusions off. The submitted lists use the exclusions. The change is `true` to `false` on the APPLY_PLAYER_EXCLUSIONS line.',
   file: 'scoring.mjs',
   line: switchLine + 1,
   before: sourceLines[switchLine],
-  after: EXCLUSION_SWITCH_ON,
+  after: EXCLUSION_SWITCH_OFF,
   editCheckedBySensitivityScript: flipMatchesAlternativeLists,
-  checkDescription: 'sensitivity.mjs applies this exact edit to a copy of scoring.mjs in memory and confirms the batter, bowler and all-rounder lists equal the exclusionAlternative lists in this file.',
-  whatTheEditDoes: 'Keeps the format and season filters and applies the three exclusion groups: the Pakistan T20I players, the five IPL retirees and Mohit Sharma. The dashboard imports scoring.mjs, so it shows the exclusion-filtered lists as soon as the line is changed. The text lists of the submitted names (the report, README.md, index.html) do not change by themselves.',
+  checkDescription: 'sensitivity.mjs applies this exact edit to a copy of scoring.mjs in memory and confirms the batter, bowler and all-rounder lists equal the noExclusionAlternative lists in this file.',
+  whatTheEditDoes: 'Keeps the format and season filters and drops the three exclusion groups: the Pakistan T20I players, the five IPL retirees and Mohit Sharma. The dashboard imports scoring.mjs, so it shows the no-exclusion lists as soon as the line is changed. The text lists of the submitted names (the report, README.md, index.html) do not change by themselves.',
   analysisDataNeedsRegenerating: 'No. The exclusions are applied in scoring.mjs after analysis_data.json is built, so do not run analyze.mjs for this change.',
   commands: [
-    '1. In scoring.mjs change `const APPLY_PLAYER_EXCLUSIONS = false;` to `const APPLY_PLAYER_EXCLUSIONS = true;`.',
-    '2. node sensitivity.mjs --print-top10   (prints the top-10 batters and bowlers that scoring.mjs now gives; they must equal exclusionAlternative.batters.top10 and exclusionAlternative.bowlers.top10 in sensitivity_data.json, which holds the full metrics).',
-    '3. Do not run `node sensitivity.mjs` or `node charts.mjs` without arguments while the line says true: both describe the submitted no-exclusion lists and stop with an error. Change the line back to false before rebuilding sensitivity_data.json or the charts.',
-    '4. Report: methodology_report.md, methodology_report.html and methodology_report.pdf are written by hand (the PDF is the html printed to PDF). The exclusion-filtered lists with full metrics are already in the report section "Alternative: top 10 lists with the exclusions applied". To submit them, move those tables into the top-10 section, update the exclusion text, and print the PDF again.',
-    '5. Static text that also mentions the exclusions: README.md, index.html (method step 06) and the exclusion paragraphs in the report. The Unstop dropdown entries must be changed to the exclusion-filtered names.',
+    '1. In scoring.mjs change `const APPLY_PLAYER_EXCLUSIONS = true;` to `const APPLY_PLAYER_EXCLUSIONS = false;`.',
+    '2. node sensitivity.mjs --print-top10   (prints the top-10 batters and bowlers that scoring.mjs now gives; they must equal noExclusionAlternative.batters.top10 and noExclusionAlternative.bowlers.top10 in sensitivity_data.json, which holds the full metrics).',
+    '3. Do not run `node sensitivity.mjs` or `node charts.mjs` without arguments while the line says false: both describe the submitted exclusions-on lists and stop with an error. Change the line back to true before rebuilding sensitivity_data.json or the charts.',
+    '4. Report: methodology_report.md, methodology_report.html and methodology_report.pdf are written by hand (the PDF is the html printed to PDF). The no-exclusion lists with full metrics are already in the report section "Alternative: top 10 lists with no exclusions". To submit them, move those tables into the top-10 section, update the exclusion text, and print the PDF again.',
+    '5. Static text that also mentions the exclusions: README.md, index.html (method step 06) and the exclusion paragraphs in the report. The Unstop dropdown entries must be changed to the no-exclusion names.',
   ],
 };
 // ---------- write ----------
 const output = {
-  about: 'Sensitivity checks for the Round 1 pressure index. The primary (submitted) lists are the no-exclusion lists. Nothing here changes the primary method or the primary lists. Regenerate with `node sensitivity.mjs` from the data folder.',
+  about: 'Sensitivity checks for the Round 1 pressure index. The primary (submitted) lists are the exclusions-on lists. Nothing here changes the primary method or the primary lists. Regenerate with `node sensitivity.mjs` from the data folder.',
   reproducibility: {
     command: 'node sensitivity.mjs',
     seed: SEED,
@@ -797,7 +790,7 @@ const output = {
     },
   },
   primaryCheck: {
-    description: 'Primary (submitted) lists as computed here (scoring.mjs on analysis_data.json, no player exclusions, 60 balls / 8 matches).',
+    description: 'Primary (submitted) lists as computed here (scoring.mjs on analysis_data.json, player exclusions on, 60 balls / 8 matches).',
     matchesScoringModule: primaryMatchesScoringModule,
     eligible: { batters: primaryRated.batters.length, bowlers: primaryRated.bowlers.length, allrounders: primaryRated.allrounders.length },
     batters: primaryTop.batters.map((p) => fullRow('batter', p)),
@@ -808,7 +801,7 @@ const output = {
   minimumPoolSize,
   poolingSeasons,
   otherAlternative,
-  exclusionAlternative,
+  noExclusionAlternative,
   robustCore,
   otherEvidence,
   exclusionFlip,

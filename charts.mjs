@@ -5,7 +5,7 @@
 //
 // Inputs: analysis_data.json (through scoring.mjs, exactly as the dashboard ranks), sensitivity_data.json
 // (written by sensitivity.mjs), other_evidence_data.json (node other_evidence.mjs --write) and pool_methods_data.json
-// (node sensitivity.mjs --pool-methods). The primary (submitted) method is labelled as such in every table; the rest are
+// (written once by node sensitivity.mjs --pool-methods, at the earlier settings S1 and S2). The primary (submitted) method is labelled as such in every table; the rest are
 // alternatives that were tested and not adopted. Run from the data folder. Node 18 or newer. Two runs give identical output.
 //
 // A block in the report sits between two marker comments, `<!-- chart:NAME -->` and `<!-- /chart:NAME -->`
@@ -29,7 +29,7 @@ const primaryTop = { batters: rated.batters.slice(0, 10), bowlers: rated.bowlers
 const sameList = (live, saved) => live.length === saved.length && live.every((p, i) => String(p.playerId) === String(saved[i].playerId) && p.score === saved[i].index);
 if (!sameList(primaryTop.batters, sensitivity.primaryCheck.batters) || !sameList(primaryTop.bowlers, sensitivity.primaryCheck.bowlers)) {
   throw new Error('scoring.mjs gives different top-10 lists from sensitivity_data.json (primaryCheck). '
-    + 'If scoring.mjs has APPLY_PLAYER_EXCLUSIONS = true, set it back to false; otherwise rerun `node sensitivity.mjs`.');
+    + 'If scoring.mjs has APPLY_PLAYER_EXCLUSIONS = false, set it back to true; otherwise rerun `node sensitivity.mjs`.');
 }
 
 // ---------- drawing helpers ----------
@@ -196,25 +196,25 @@ function leagueChart() {
 const ids = (list) => new Map(list.slice(0, 10).map((p) => [String(p.playerId), p.rank]));
 const thresholds = [[36, 5], [90, 10]].map(([minBalls, minMatches]) => ratePlayers(records, { minBalls, minMatches }));
 const COLUMNS = [
-  { key: 'primary', head: ['Submitted', 'no exclusions', 'other +1 run'], scenario: true },
-  { key: 'otherNoPenalty', head: ['No excl.,', 'other:', 'no penalty run'], scenario: true },
-  { key: 'exclusionsOn', head: ['Alternative', 'exclusions on', 'other +1 run'], scenario: true },
-  { key: 'exclusionsOnNoPenalty', head: ['Excl. on,', 'other:', 'no penalty run'], scenario: true },
-  { key: 'balls36', head: ['36 balls', '5 matches', 'no excl.'], scenario: false },
-  { key: 'balls90', head: ['90 balls', '10 matches', 'no excl.'], scenario: false },
+  { key: 'primary', head: ['Submitted', 'exclusions on', 'other +1 run'], scenario: true },
+  { key: 'otherNoPenalty', head: ['Excl. on,', 'other:', 'no penalty run'], scenario: true },
+  { key: 'exclusionsOff', head: ['Alternative', 'no exclusions', 'other +1 run'], scenario: true },
+  { key: 'exclusionsOffNoPenalty', head: ['No excl.,', 'other:', 'no penalty run'], scenario: true },
+  { key: 'balls36', head: ['36 balls', '5 matches', 'excl. on'], scenario: false },
+  { key: 'balls90', head: ['90 balls', '10 matches', 'excl. on'], scenario: false },
 ];
 
 function membershipChart(kind, key, label) {
   const lists = {
     primary: ids(rated[key]),
-    otherNoPenalty: ids(sensitivity.otherAlternative.exclusionsOff[key].top10),
-    exclusionsOn: ids(sensitivity.exclusionAlternative[key].top10),
-    exclusionsOnNoPenalty: ids(sensitivity.otherAlternative.exclusionsOn[key].top10),
+    otherNoPenalty: ids(sensitivity.otherAlternative.exclusionsOn[key].top10),
+    exclusionsOff: ids(sensitivity.noExclusionAlternative[key].top10),
+    exclusionsOffNoPenalty: ids(sensitivity.otherAlternative.exclusionsOff[key].top10),
     balls36: ids(thresholds[0][key]),
     balls90: ids(thresholds[1][key]),
   };
   const names = new Map();
-  for (const list of [rated[key], ...thresholds.map((t) => t[key]), sensitivity.otherAlternative.exclusionsOff[key].top10, sensitivity.exclusionAlternative[key].top10, sensitivity.otherAlternative.exclusionsOn[key].top10]) {
+  for (const list of [rated[key], ...thresholds.map((t) => t[key]), sensitivity.otherAlternative.exclusionsOn[key].top10, sensitivity.noExclusionAlternative[key].top10, sensitivity.otherAlternative.exclusionsOff[key].top10]) {
     for (const p of list) names.set(String(p.playerId), p.player);
   }
   const everyone = new Set(COLUMNS.flatMap((column) => [...lists[column.key].keys()]));
@@ -367,7 +367,7 @@ const charts = [
   {
     ...membershipChart('batter', 'batters', 'batters'),
     alt: 'Top-10 membership of batters across settings',
-    caption: 'Figure 4. Top-10 batters across six settings. The first four columns are the robust-core test (player exclusions on or off, and the "other" extras type with or without the penalty run). The last two columns change the sample thresholds with no exclusions.',
+    caption: 'Figure 4. Top-10 batters across six settings. The first four columns are the robust-core test (player exclusions on or off, and the "other" extras type with or without the penalty run). The last two columns change the sample thresholds with the exclusions on.',
   },
   {
     ...membershipChart('bowler', 'bowlers', 'bowlers'),
@@ -434,13 +434,13 @@ const VARIANT_COLUMNS = [['Setting', 'l'], ['Eligible bat / bowl', 'r'], ['Top-1
 function robustRows(key) {
   const core = sensitivity.robustCore[key];
   const everyone = [...core.core, ...core.primaryTop10NotInCore, ...core.otherNamesInSomeScenario];
-  const order = ['exclusionsOff_otherPenalty', 'exclusionsOff_otherNoPenalty', 'exclusionsOn_otherPenalty', 'exclusionsOn_otherNoPenalty'];
+  const order = ['exclusionsOn_otherPenalty', 'exclusionsOn_otherNoPenalty', 'exclusionsOff_otherPenalty', 'exclusionsOff_otherNoPenalty'];
   const best = (entry) => Math.min(...order.map((scenario) => entry.ranks[scenario] ?? 99));
   return everyone
-    .sort((a, b) => b.scenariosInTop10 - a.scenariosInTop10 || (a.ranks.exclusionsOff_otherPenalty ?? 99) - (b.ranks.exclusionsOff_otherPenalty ?? 99) || best(a) - best(b) || a.player.localeCompare(b.player))
+    .sort((a, b) => b.scenariosInTop10 - a.scenariosInTop10 || (a.ranks.exclusionsOn_otherPenalty ?? 99) - (b.ranks.exclusionsOn_otherPenalty ?? 99) || best(a) - best(b) || a.player.localeCompare(b.player))
     .map((entry) => [entry.player, ...order.map((scenario) => entry.ranks[scenario] ?? '-'), `${entry.scenariosInTop10} of 4`, entry.scenariosInTop10 === 4 ? 'core' : '']);
 }
-const ROBUST_COLUMNS = [['Player', 'l'], ['Submitted list (no exclusions)', 'r'], ['No exclusions, no penalty run', 'r'], ['Alternative: exclusions on', 'r'], ['Exclusions on, no penalty run', 'r'], ['Top 10 in', 'r'], ['Robust core', 'r']];
+const ROBUST_COLUMNS = [['Player', 'l'], ['Submitted list (exclusions on)', 'r'], ['Exclusions on, no penalty run', 'r'], ['Alternative: no exclusions', 'r'], ['No exclusions, no penalty run', 'r'], ['Top 10 in', 'r'], ['Robust core', 'r']];
 
 // ---------- evidence tables: the `other` extras decision (other_evidence_data.json) and the pool-method decision (pool_methods_data.json) ----------
 // Primary (submitted) = `other` is an illegal ball with a +1 penalty run (a) and each pool is standardised against its own players (own-pool).
@@ -528,7 +528,7 @@ function poolEffectRows() {
     const moves = batters.ranksOfBaseTop10.map((r) => ({ ...r, change: r.rank === null ? Infinity : Math.abs(r.rank - r.baseRank) }));
     const biggest = moves.reduce((a, b) => (b.change > a.change ? b : a));
     const changedOther = ['bowlers', 'allrounders'].reduce((sum, kind) => sum + m.top10VersusBase[setting][kind].entered.length, 0);
-    return [`${m.code} ${m.method}`, setting === 'S1' ? 'S1 submitted' : 'S2 exclusions on', entered(batters.entered), left(batters.left), `${biggest.player}: ${biggest.baseRank} to ${biggest.rank ?? 'not eligible'}`, changedOther];
+    return [`${m.code} ${m.method}`, setting === 'S1' ? 'S1 no exclusions' : 'S2 exclusions on', entered(batters.entered), left(batters.left), `${biggest.player}: ${biggest.baseRank} to ${biggest.rank ?? 'not eligible'}`, changedOther];
   }));
 }
 const POOL_EFFECT_COLUMNS = [['Method', 'l'], ['Setting', 'l'], ['Batters entering the top 10', 'l'], ['Batters leaving the top 10', 'l'], ['Largest move inside the own-pool top 10', 'l'], ['Bowler and all-rounder names changed', 'r']];
@@ -539,11 +539,11 @@ const tables = [
   { name: 'pool_methods', columns: POOL_METHOD_COLUMNS, rows: poolMethodRows(), plain: true },
   { name: 'pool_rules', columns: POOL_RULE_COLUMNS, rows: poolRuleRows(), text: true },
   { name: 'pool_effects', columns: POOL_EFFECT_COLUMNS, rows: poolEffectRows(), text: true },
-  { name: 'exclusions_batters', columns: BATTER_COLUMNS, rows: fullRows('batter', sensitivity.exclusionAlternative.batters.top10, 'batters'), rankFirst: true },
-  { name: 'exclusions_bowlers', columns: BOWLER_COLUMNS, rows: fullRows('bowler', sensitivity.exclusionAlternative.bowlers.top10, 'bowlers'), rankFirst: true },
-  { name: 'exclusions_allrounders', columns: ALLROUNDER_COLUMNS, rows: allrounderRows(sensitivity.exclusionAlternative.allrounders.top10), rankFirst: true },
-  { name: 'other_batters', columns: BATTER_COLUMNS, rows: fullRows('batter', sensitivity.otherAlternative.exclusionsOff.batters.top10, 'batters'), rankFirst: true },
-  { name: 'other_bowlers', columns: BOWLER_COLUMNS, rows: fullRows('bowler', sensitivity.otherAlternative.exclusionsOff.bowlers.top10, 'bowlers'), rankFirst: true },
+  { name: 'noexcl_batters', columns: BATTER_COLUMNS, rows: fullRows('batter', sensitivity.noExclusionAlternative.batters.top10, 'batters'), rankFirst: true },
+  { name: 'noexcl_bowlers', columns: BOWLER_COLUMNS, rows: fullRows('bowler', sensitivity.noExclusionAlternative.bowlers.top10, 'bowlers'), rankFirst: true },
+  { name: 'noexcl_allrounders', columns: ALLROUNDER_COLUMNS, rows: allrounderRows(sensitivity.noExclusionAlternative.allrounders.top10), rankFirst: true },
+  { name: 'other_batters', columns: BATTER_COLUMNS, rows: fullRows('batter', sensitivity.otherAlternative.exclusionsOn.batters.top10, 'batters'), rankFirst: true },
+  { name: 'other_bowlers', columns: BOWLER_COLUMNS, rows: fullRows('bowler', sensitivity.otherAlternative.exclusionsOn.bowlers.top10, 'bowlers'), rankFirst: true },
   { name: 'robust_batters', columns: ROBUST_COLUMNS, rows: robustRows('batters'), plain: true },
   { name: 'robust_bowlers', columns: ROBUST_COLUMNS, rows: robustRows('bowlers'), plain: true },
   { name: 'pool_sizes', columns: [['Pool', 'l'], ['Eligible batters', 'r'], ['Median pressure balls per batter', 'r'], ['Batter pool thin', 'r'], ['Eligible bowlers', 'r'], ['Median pressure balls per bowler', 'r']], rows: poolTableRows(), plain: true },
