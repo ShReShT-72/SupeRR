@@ -1,9 +1,0 @@
-{
-  "verdict": "APPROVED",
-  "findings": [
-    "docs/partB (minor, non-blocking, confirmed): decision.md omits some top-10 order changes for rejected candidates: C2 in S2 (Pant 1st to 2nd, Samson 2nd to 3rd, Suryakumar Yadav 6th to 5th), the S1 order shifts under C1, C2 and C3, and the S1 C2 bowler swap (Nawaz and Narine). Add them or point to the report's pool_effects table. No candidate was adopted, so no submitted list is affected.",
-    "partA (informational, non-blocking, confirmed, disclosed): the other rule was fixed after a scouting run and was not committed beforehand, so that test is not pre-registered. The report, README and index now say so; keep that wording and do not describe the other test as pre-registered anywhere.",
-    "docs/partB (informational, non-blocking, confirmed, disclosed): scoring.mjs keeps the poolMethod option (default own-pool, output byte-identical to 450bd1a) although the plan said to leave scoring.mjs untouched on KEEP_CURRENT. The option is needed for node sensitivity.mjs --pool-methods. The user decides whether to merge it."
-  ],
-  "reviewDoc": "c:/Users/shreshtb/Documents/6af3166e7b922_data_pack/.agents/tasks/round1-pool-other/review.md"
-}

@@ -10,9 +10,5 @@ desktop.ini
 *.log
 .vercel
 
-# Local agent work folders. Not committed. round1-pool-other is the one folder
-# that was already tracked before this file existed, so it stays visible to git.
-.agents/*
-!.agents/tasks/
-.agents/tasks/*
-!.agents/tasks/round1-pool-other/
+# Local agent work folders. Never committed.
+.agents/
