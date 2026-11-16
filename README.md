@@ -5,7 +5,8 @@ Round 1 entry for SupeRR Selector Season 2. The project ranks batters and bowler
 - `analyze.mjs` classifies every delivery as pressure or ordinary and writes `analysis_data.json`.
 - `scoring.mjs` turns those records into the batter, bowler and all-rounder rankings.
 - `index.html`, `dashboard.js` and `styles.css` are a static dashboard that loads `analysis_data.json` and ranks players in the browser.
-- `sensitivity.mjs` writes `sensitivity_data.json` (small-pool, `other`-extras, exclusion-alternative and robust-core checks). `charts.mjs` draws `charts/*.svg` and the sensitivity tables in the methodology report from the two JSON files.
+- `sensitivity.mjs` writes `sensitivity_data.json` (small-pool, `other`-extras, exclusion-alternative and robust-core checks). `charts.mjs` draws `charts/*.svg` and the sensitivity and evidence tables in the methodology report from the four JSON files (`analysis_data.json` through `scoring.mjs`, `sensitivity_data.json`, `other_evidence_data.json`, `pool_methods_data.json`).
+- Two assumptions were tested against rules written down first, and both tests kept the submitted method: `other_evidence.mjs` (how to read the undocumented `other` extras type; decision: illegal ball with a one-run penalty, as submitted) and `node sensitivity.mjs --pool-methods` (three alternative standardisations for the small T20I pools, `POOL_METHOD` in `scoring.mjs`; decision: keep `own-pool`, criterion in `pool_preregistration.md`). The submitted lists are unchanged.
 
 ## Requirements
 
@@ -26,6 +27,12 @@ node sensitivity.mjs    # about 5 minutes, deterministic: rewrites sensitivity_d
 node charts.mjs         # rewrites charts/*.svg and the chart and table blocks in methodology_report.md and .html
 node charts.mjs --check # compares without writing; exits with an error on any difference
 ```
+The two evidence files that `sensitivity.mjs` and `charts.mjs` read are rewritten separately:
+```bash
+node other_evidence.mjs --write       # tests of the `other` extras type -> other_evidence_data.json (a few seconds)
+node sensitivity.mjs --pool-methods   # pool-rule comparison, own-pool vs three alternatives -> pool_methods_data.json (about 11 minutes)
+```
+`node other_evidence.mjs` without `--write` prints the numbers as markdown. `ratePlayers(records, { poolMethod })` in `scoring.mjs` takes `own-pool` (default, submitted), `format-fallback`, `shrunk` or `adjacent-fallback`.
 
 The PDF is the html printed with headless Edge (adjust the path to `msedge.exe` if needed):
 
@@ -66,8 +73,10 @@ Then open:
 | `analyze.mjs` | Builds `analysis_data.json` from the CSV files. |
 | `analysis_data.json` | Generated player-match records and data-quality counts. |
 | `sensitivity.mjs`, `sensitivity_data.json` | Sensitivity checks and their output (no timestamps). |
+| `other_evidence.mjs`, `other_evidence_data.json` | Tests of how to read the `other` extras type (free hit, over length, run-margin regression) and their output. |
+| `pool_methods.mjs`, `pool_methods_data.json`, `pool_preregistration.md` | Pool-rule comparison for the small T20I pools (run with `node sensitivity.mjs --pool-methods`), its output and the criterion fixed before it ran. |
 | `charts.mjs`, `charts/` | Report charts (SVG) and the code that places charts and sensitivity tables in the report. |
-| `scoring.mjs` | Ratings, eligibility rules and player exclusions (`APPLY_PLAYER_EXCLUSIONS` switch on line 6). |
+| `scoring.mjs` | Ratings, eligibility rules, pool standardisation (`POOL_METHOD`, default `own-pool`) and player exclusions (`APPLY_PLAYER_EXCLUSIONS` switch on line 6). |
 | `index.html`, `dashboard.js`, `styles.css` | Dashboard. |
 | `server.mjs` | Small local static server for `npm start`. |
 | `ball_by_ball.csv`, `matches.csv`, `competitions.csv` | Inputs read by `analyze.mjs`. |
