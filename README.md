@@ -1,6 +1,14 @@
 ﻿# SupeRR Selector Dashboard
 
-Round 1 entry for SupeRR Selector Season 2. The project ranks batters and bowlers by how they perform under pressure compared with their usual level, using the supplied IPL and T20I ball-by-ball data from 2022 to 2026. The submitted lists use only the supplied data and apply no player exclusions; the exclusion-filtered ranking is an alternative (see below). The Royal Radar and Raw Talent section of the dashboard is outside the Round 1 submission.
+Round 1 entry for SupeRR Selector Season 2. The project ranks batters and bowlers by how they perform under pressure compared with their usual level, using the supplied IPL and T20I ball-by-ball data from 2022 to 2026.
+The submitted lists use only the supplied data and apply no player exclusions; the exclusion-filtered ranking is an alternative (see below). The Royal Radar and Raw Talent section of the dashboard is outside the Round 1 submission.
+A static dashboard (`index.html`) loads `analysis_data.json` and ranks the players in the browser; the method is written up in the methodology report.
+
+- Live dashboard: https://shresht-72.github.io/SupeRR/
+- Methodology report: [HTML](methodology_report.html), [Markdown](methodology_report.md), [PDF](methodology_report.pdf)
+- Screenshots: [`screenshots/`](screenshots/) (see "Screenshots" below)
+- Quick start: `npm start`, then open http://127.0.0.1:4173. Regenerate the analysis with `node analyze.mjs`.
+
 
 - `analyze.mjs` classifies every delivery as pressure or ordinary and writes `analysis_data.json`.
 - `scoring.mjs` turns those records into the batter, bowler and all-rounder rankings.
@@ -58,13 +66,16 @@ const APPLY_PLAYER_EXCLUSIONS = true;   // submitted lists: false
 ## Run the dashboard locally
 
 ```bash
-npm install
 npm start
 ```
+
+There is nothing to install: the project has no npm dependencies. `npm start` runs `node server.mjs`, which serves this folder on http://127.0.0.1:4173 and listens on the local machine only. Set `PORT` to change the port, or `HOST=0.0.0.0` to let other machines on the network open it. The server answers `GET` and `HEAD` only, returns 403 for `..` paths and 404 for dotfiles such as `/.git/config`.
 
 Then open:
 
 - http://127.0.0.1:4173
+
+`npm test` runs `node charts.mjs --check`, which compares the charts and tables in the report with what the data and `scoring.mjs` produce.
 
 ## Files
 
@@ -77,8 +88,13 @@ Then open:
 | `pool_methods.mjs`, `pool_methods_data.json`, `pool_preregistration.md` | Pool-rule comparison for the small T20I pools (run with `node sensitivity.mjs --pool-methods`), its output and the criterion fixed before it ran. |
 | `charts.mjs`, `charts/` | Report charts (SVG) and the code that places charts and sensitivity tables in the report. |
 | `scoring.mjs` | Ratings, eligibility rules, pool standardisation (`POOL_METHOD`, default `own-pool`) and player exclusions (`APPLY_PLAYER_EXCLUSIONS` switch on line 6). |
-| `index.html`, `dashboard.js`, `styles.css` | Dashboard. |
+| `index.html`, `dashboard.js`, `styles.css`, `favicon.svg` | Dashboard and its icon. |
 | `server.mjs` | Small local static server for `npm start`. |
+| `vercel.json`, `.vercelignore` | Vercel static deployment settings and the files Vercel does not need. |
+| `.github/workflows/deploy-pages.yml` | GitHub Pages deployment (publishes the whole folder). |
+| `.github/deploy-pages-dashboard-only.yml.example` | Optional, not active: Pages workflow that publishes only the dashboard files. |
+| `screenshots/` | Four PNG screenshots (dashboard default view, top batters, top bowlers, report page one). |
+| `LICENSE`, `package.json`, `.gitignore` | MIT licence, scripts and metadata, ignore rules. |
 | `ball_by_ball.csv`, `matches.csv`, `competitions.csv` | Inputs read by `analyze.mjs`. |
 | `competition_team_player_mapping.csv`, `playing_eleven.csv`, `teams.csv` | Supplied data pack files that `analyze.mjs` does not read. |
 | `methodology_report.md`, `.html`, `.pdf` | Methodology report in three formats. |
@@ -92,23 +108,64 @@ Then open:
 
 The live site is published with GitHub Pages: https://shresht-72.github.io/SupeRR/
 
-## Deploy publicly
+## Screenshots
 
-This app is ready for deployment to a public web host such as Vercel or Netlify.
+`screenshots/` holds four 1440 px wide PNG images taken with headless Edge from the dashboard files in this repository: `01-dashboard-default.png` (default view), `02-top-batters.png`, `03-top-bowlers.png` and `04-report-page-one.png` (first screen of the HTML report). The batters and bowlers images show the dashboard after the Batters or Bowlers tab is selected. They show the top ten of each list (the all-rounders tab is not pictured).
 
-### Option A: Vercel
+## Deploy the dashboard
 
-1. Push the project to a GitHub repository.
-2. Import the repo in Vercel.
-3. Deploy the project.
-4. Use the generated public URL.
+The dashboard is a static site. It needs only these files, all in the repository root:
 
-### Option B: Netlify
+- `index.html`, `dashboard.js`, `styles.css`, `scoring.mjs` and `analysis_data.json` (the page loads `analysis_data.json` and `scoring.mjs` in the browser and calculates the rankings there).
+- Optional extras: `favicon.svg` (browser tab icon), `methodology_report.html`, `.md` and `.pdf` with the `charts/` folder (the "Open report" links).
 
-1. Push the project to GitHub.
-2. Import it in Netlify.
-3. Set the build command to: npm install
-4. Set the publish directory to: .
-5. Deploy.
+The raw CSV files (`ball_by_ball.csv`, `matches.csv`, `competitions.csv`, `playing_eleven.csv`, `teams.csv`, `competition_team_player_mapping.csv`) are not needed to run the dashboard. Only `node analyze.mjs` reads some of them. `styles.css` loads its fonts from Google Fonts; without internet access the page falls back to system fonts.
 
-> A local machine address like http://127.0.0.1:4173 is not public. To open the app from any machine at any time, it must be hosted on a public server.
+### A. GitHub Pages (already set up)
+
+The workflow `.github/workflows/deploy-pages.yml` publishes the repository on every push to `main`, and it can be started by hand from the Actions tab.
+
+1. On GitHub open the repository, then **Settings**, then **Pages** (under "Code, planning, and automation").
+2. Under "Build and deployment", set **Source** to **GitHub Actions**. ([GitHub docs: configuring a publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site))
+3. Push to `main`, or open the **Actions** tab, choose "Deploy static dashboard to GitHub Pages" and click **Run workflow**.
+4. When the run is green, the URL is shown in the `deploy` job (environment `github-pages`) and on the Settings > Pages page. For this repository it is https://shresht-72.github.io/SupeRR/ (pattern: `https://<user>.github.io/<repository>/`).
+
+### B. Vercel
+
+This repository deploys to Vercel as static files with no serverless function: `vercel.json` sets no framework, no build command and the output directory `.`, and `.vercelignore` keeps the six raw CSVs and the `.agents`, `.git` and `.github` folders out of the upload ([Vercel docs on .vercelignore](https://vercel.com/docs/deployments/vercel-ignore)).
+
+From the Vercel dashboard:
+
+1. Sign in at https://vercel.com, choose **Add New > Project** and import the GitHub repository `ShReShT-72/SupeRR`.
+2. Set **Framework Preset** to **Other**. Leave **Build Command** empty (no override) and set **Output Directory** to `.`. `vercel.json` already contains these values.
+3. Click **Deploy**. Vercel shows the project URL (`https://<project>.vercel.app`) when the deployment finishes.
+
+From the command line:
+
+```bash
+npm install -g vercel   # once
+vercel login            # once
+vercel --prod           # run in this folder; accept the defaults, answer "no" to any build or framework override
+```
+
+Check after deploying: open `/` (dashboard with 66 batters in the default list) and `/analysis_data.json`. If `/matches.csv` also opens, the CSVs were uploaded; the CLI honours `.vercelignore`, and for deployments from a Git import you can delete the CSVs from the repository or use the dashboard-only approach in section "Data terms" below.
+
+### C. Netlify or Cloudflare Pages
+
+- Netlify: make a folder that holds only the files listed above (plus `charts/` and the report files if you want them), then drag it onto https://app.netlify.com/drop.
+- Cloudflare Pages: **Workers & Pages > Create > Pages > Connect to Git**, pick the repository, leave the build command empty and set the build output directory to the repository root (`/`).
+
+### What was and was not tested
+
+Tested here: the exact Vercel file set (all tracked files minus what `.vercelignore` excludes, 32 files) was served from a temporary folder with a plain static server and loaded in headless Edge. The page fetched `analysis_data.json` and `scoring.mjs` with status 200, ran the scoring in the browser and showed the same top-10 batters and bowlers as `scoring.mjs`, and every relative link in `index.html`, the report and the Markdown report resolved. `node server.mjs` was tested separately.
+Not tested: a real deployment on Vercel, GitHub Pages (the live site predates this change), Netlify or Cloudflare Pages, and how Vercel treats `.vercelignore` for Git imports.
+
+### Data terms: raw CSVs on GitHub Pages
+
+`deploy-pages.yml` uploads the whole repository folder, so the raw CSV files from the data pack are public on the Pages site (for example `/matches.csv`), as well as in the repository itself. If the competition terms do not allow redistributing them, switch to the dashboard-only workflow that is prepared but **not applied**: `.github/deploy-pages-dashboard-only.yml.example`. It is a copy of the current workflow whose only change is that it copies the dashboard, report and chart files into a `_site` folder and publishes that. It sits outside `.github/workflows/`, so GitHub does not run it. The header of the file lists the steps. The file list it copies was checked against the repository; the workflow itself has not been run on GitHub. Removing files from the site does not remove them from the repository or its git history.
+
+## Licence
+
+The code and the methodology report are released under the MIT licence (see `LICENSE`, copyright 2026 ShReShT-72).
+
+NOTICE: the licence covers the code and the report only. The supplied competition data files (the CSV files, and `analysis_data.json` derived from them) are not covered by it and stay under the competition's own terms.
