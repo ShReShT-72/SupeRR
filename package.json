@@ -2,6 +2,13 @@
   "name": "superr-selector-dashboard",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
+  "description": "SupeRR Selector Season 2, Round 1: batter and bowler rankings by performance under pressure.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShReShT-72/SupeRR.git"
+  },
+  "homepage": "https://shresht-72.github.io/SupeRR/",
   "engines": {
     "node": ">=18"
   },
@@ -10,6 +17,7 @@
     "sensitivity": "node sensitivity.mjs",
     "charts": "node charts.mjs",
     "start": "node server.mjs",
-    "dev": "node server.mjs"
+    "dev": "node server.mjs",
+    "test": "node charts.mjs --check"
   }
 }
