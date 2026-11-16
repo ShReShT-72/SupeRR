@@ -97,6 +97,20 @@ h1 em, h2 em { color: #72874a; font-weight: 600; }
 .note-mark { display: grid; flex: 0 0 30px; height: 30px; place-items: center; background: var(--orange); color: white; font-size: 17px; }
 .stat-note p { max-width: 255px; margin: 0; color: var(--ink-soft); font-family: var(--serif); font-size: 13px; font-style: italic; line-height: 1.45; }
 .analysis-section { padding-top: 54px; scroll-margin-top: 18px; }
+.target-section { padding: 54px 0 48px; border-top: 1px solid var(--line); scroll-margin-top: 18px; }
+.target-caveat { margin: 0 0 14px; padding: 12px 14px; border-left: 3px solid var(--orange); background: rgba(255,255,255,.72); color: var(--ink-soft); font-size: 11px; line-height: 1.55; }
+.target-caveat strong { color: var(--ink); }
+.target-table-wrap { overflow-x: auto; border: 1px solid var(--line); background: rgba(255,255,255,.75); }
+.target-table { width: 100%; min-width: 1030px; border-collapse: collapse; font-size: 10px; }
+.target-table th { padding: 10px 11px; border-bottom: 1px solid var(--line); color: var(--muted); font: 8px var(--mono); letter-spacing: .5px; text-align: left; vertical-align: bottom; }
+.target-table td { padding: 11px; border-bottom: 1px solid #e8ece6; color: var(--ink-soft); line-height: 1.45; vertical-align: top; }
+.target-table tbody tr:last-child td { border-bottom: 0; }
+.target-table td strong { color: var(--ink); font-size: 10px; }
+.target-table td small { display: block; margin-top: 3px; color: var(--muted); font-size: 8px; line-height: 1.4; }
+.fit-priority, .fit-depth, .fit-conditional { display: inline-block; padding: 4px 6px; background: #edf2e8; color: #43583a !important; font: 8px var(--mono); white-space: nowrap; }
+.fit-depth { background: #f8eee9; color: #9e4b38 !important; }
+.fit-conditional { background: #f0f1ec; color: #69756d !important; }
+.target-method-note { margin: 10px 0 0; color: var(--muted); font-size: 9px; line-height: 1.5; }
 .section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 25px; margin-bottom: 23px; }
 h2 { margin: 9px 0 0; font-family: var(--serif); font-size: 34px; font-weight: 600; letter-spacing: 0; line-height: 1.08; }
 .list-tabs { display: flex; border-bottom: 1px solid #bdc7bc; }
@@ -231,8 +245,9 @@ h2 { margin: 9px 0 0; font-family: var(--serif); font-size: 34px; font-weight: 6
   body { background-size: 24px 24px; }
   .sidebar { grid-template-columns: 1fr; gap: 8px; padding: 9px 14px 0; }
   .brand { display: none; }
-  .primary-nav { justify-content: space-between; }
-  .nav-link { flex: 1; justify-content: center; padding: 0 4px 9px; font-size: 9px; white-space: nowrap; }
+  .primary-nav { justify-content: flex-start; overflow-x: auto; scrollbar-width: none; }
+  .primary-nav::-webkit-scrollbar { display: none; }
+  .nav-link { flex: 0 0 auto; justify-content: center; padding: 0 8px 9px; font-size: 9px; white-space: nowrap; }
   .main-content { padding: 0 16px; }
   .topbar { min-height: 52px; }
   .breadcrumb { font-size: 8px; }

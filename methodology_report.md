@@ -54,6 +54,21 @@ Players must independently meet the selected eligibility threshold as both a bat
 | 9 | Axar Patel | 47.2 | 42.7 | 51.7 | 197 | 454 | 19 | 42 |
 | 10 | Roston Chase | 46.6 | 41.2 | 52.0 | 186 | 62 | 19 | 8 |
 
+## RR 2027 target watchlist
+
+This is a provisional fit list built from players mapped to other IPL franchises in 2026, IPL-only pressure indexes, and the supplied RR 2022–2026 team history. Fit tiers are qualitative role assessments, not a mathematically combined target score. **Availability is unconfirmed:** 2026 squad membership does not establish 2027 release, retention, registration, or auction availability. Confirm those details, the purse, and overseas slots before making an actual bid list.
+
+| Fit | Player / role | 2026 IPL team | IPL index 2022–26 | IPL index 2026 | RR history | Why monitor |
+|---|---|---|---:|---:|---|---|
+| Middle-order priority | Tilak Varma, left-hand middle order | Mumbai Indians | 51.5 (666 balls / 53 matches) | 58.2 (122 / 11) | No RR tenure in supplied 2022–25 mapping | Strong recent pressure sample; a middle-order option behind RR's young top three. |
+| Middle-order priority | Shreyas Iyer, top / middle-order anchor | Punjab Kings | 54.7 (463 / 35) | 51.0 (121 / 10) | No RR tenure in supplied 2022–25 mapping | Best multi-season batting evidence among these anchor options. |
+| Domestic pace depth | Sakib Hussain, fast bowler | Sunrisers Hyderabad | 59.3 (151 / 11) | 59.3 (151 / 11) | No RR tenure in supplied 2022–25 mapping | High pressure index with a qualifying 2026 sample; monitor if retained pace depth leaves a slot. |
+| Conditional return | Sanju Samson, wicketkeeper / top-order batter | Chennai Super Kings | 57.8 (113 / 8) | No qualifying sample | RR, 2022–2025 | Strong pressure history and RR familiarity, but Jurel kept wicket in all 16 supplied 2026 RR XIs. |
+| Conditional return | Akash Madhwal, fast bowler | Chennai Super Kings | 62.1 (93 / 8) | No qualifying sample | RR, 2025 | Domestic quick with a high but small-sample index; verify current role and availability. |
+| Conditional overseas | Jos Buttler, opener / wicketkeeper | Gujarat Titans | 50.7 (265 / 20) | 48.5 (93 / 9) | RR, 2022–2024 | Proven RR history, but his opening and keeper roles overlap with Jaiswal, Sooryavanshi, and Jurel. |
+
+The supplied 2026 RR XI data shows Jaiswal and Sooryavanshi opening, Jurel at three and keeping, with Parag, Hetmyer, Ferreira, and Jadeja in the middle order. The shortlist therefore emphasizes middle-order batting first, then conditional keeper returns and domestic pace depth. The sheets do not establish auction availability. No player qualified for the all-rounder pressure list from IPL 2026 alone.
+
 ## Data and scope
 
 The calculation joins `ball_by_ball.csv` to `matches.csv` and `competitions.csv`. IPL is identified by the competition name; T20I is identified by the competition format. Other competitions carrying a generic T20 label and records with unknown seasons are excluded. The in-scope data contains **819 matches** and **189,683 deliveries**: **79,974 pressure** and **109,709 ordinary**. The supplied ball-by-ball file has 200,999 raw rows; the difference is excluded competitions or out-of-scope records, not missing rows.

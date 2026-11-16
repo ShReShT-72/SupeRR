@@ -429,6 +429,10 @@ function setupNavigation() {
         state.selectedId = null;
         render();
         document.querySelector('#analysis').scrollIntoView({ behavior: 'smooth' });
+      } else if (view === 'targets') {
+        state.view = view;
+        render();
+        document.querySelector('#rr-targets').scrollIntoView({ behavior: 'smooth' });
       } else if (view === 'methodology') {
         state.view = view;
         render();
