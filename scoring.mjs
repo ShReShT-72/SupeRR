@@ -312,14 +312,3 @@ export function ratePlayers(records, { format = 'All', season = 'All', minBalls 
   allrounders.forEach((player, index) => { player.rank = index + 1; });
   return { ...rankings, allrounders };
 }
-
-export const ratingRules = {
-  minPressureBalls: MIN_PRESSURE_BALLS,
-  minPressureMatches: MIN_PRESSURE_MATCHES,
-  minUsualBalls: MIN_USUAL_BALLS,
-  excludedIplRetirees: IPL_RETIRED_PLAYERS.map((player) => player.player),
-  excludedIpl2027NonPlayers: ['Mohit Sharma'],
-  battingWeights: '35% pressure strike rate, 30% strike-rate change vs own usual rate, 20% dismissal-rate improvement, 15% positive-match share.',
-  bowlingWeights: '35% pressure economy, 30% economy change vs own usual economy, 20% pressure wickets per 100 legal balls, 15% positive-match share.',
-  shrinkage: 'Weighted z-score is shrunk toward the pool mean using pressure-ball and pressure-match sample reliability.',
-};
