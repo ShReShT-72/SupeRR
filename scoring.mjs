@@ -9,6 +9,7 @@ const IPL_RETIRED_PLAYERS = [
   { playerId: '305', player: 'Ravichandran Ashwin' },
 ];
 const IPL_RETIRED_PLAYER_IDS = new Set(IPL_RETIRED_PLAYERS.map((player) => player.playerId));
+const IPL_2027_NONPLAYER_IDS = new Set(['2878']);
 
 function emptyTotals() {
   return { balls: 0, runs: 0, outs: 0, conceded: 0, wickets: 0 };
@@ -52,6 +53,7 @@ export function ratePlayers(records, { format = 'All', season = 'All', minBalls 
   const selected = records.filter((record) => (
     !pakistanPlayers.has(String(record.playerId))
     && !IPL_RETIRED_PLAYER_IDS.has(String(record.playerId))
+    && !IPL_2027_NONPLAYER_IDS.has(String(record.playerId))
     && (format === 'All' || record.format === format)
     && (season === 'All' || String(record.season) === String(season))
   ));
@@ -253,6 +255,7 @@ export const ratingRules = {
   minPressureMatches: MIN_PRESSURE_MATCHES,
   minUsualBalls: MIN_USUAL_BALLS,
   excludedIplRetirees: IPL_RETIRED_PLAYERS.map((player) => player.player),
+  excludedIpl2027NonPlayers: ['Mohit Sharma'],
   battingWeights: '35% pressure strike rate, 30% strike-rate change vs own usual rate, 20% dismissal-rate improvement, 15% positive-match share.',
   bowlingWeights: '35% pressure economy, 30% economy change vs own usual economy, 20% pressure wickets per 100 legal balls, 15% positive-match share.',
   shrinkage: 'Weighted z-score is shrunk toward the pool mean using pressure-ball and pressure-match sample reliability.',
