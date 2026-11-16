@@ -1,0 +1,6610 @@
+{
+  "about": "Pool-method comparison for the thin T20I pools, produced by `node sensitivity.mjs --pool-methods`. Primary = own-pool (the method used for the submitted lists). Alternatives = format-fallback (C1), shrunk (C2), adjacent-fallback (C3). The criterion in `preregistered` was fixed before any candidate was run (pool_preregistration.md). No timestamps.",
+  "preregistered": {
+    "document": "pool_preregistration.md",
+    "settings": {
+      "S1": "submitted: no exclusions",
+      "S2": "APPLY_PLAYER_EXCLUSIONS true"
+    },
+    "seeds": {
+      "bootstrap": 20261116,
+      "poolDeletion": 20261117,
+      "poolThinning": 20261118,
+      "pairCi": 20261119
+    },
+    "runs": {
+      "bootstrap": 1000,
+      "poolDeletion": 1000,
+      "poolThinning": 500,
+      "pairCiDraws": 1000
+    },
+    "poolDeletionFraction": 0.2,
+    "thinPoolMax": 10,
+    "thinningKeep": 8,
+    "pseudoCount": 5,
+    "rules": {
+      "1": "M1 candidate <= 0.85 x M1 BASE in all four cells (S1, S2 x batters, bowlers)",
+      "2": "S2 batters: mean(M2a, M2b) rises by >= 0.02, or mean(M3a, M3b) falls by >= 10% relative",
+      "3": "no harm in all four cells: M2a, M2b >= BASE - 0.01; M3a, M3b <= BASE + 0.5; M4 <= BASE + 0.005; M5-all >= BASE - 0.02",
+      "4": "eligible counts (batters, bowlers, all-rounders) identical to BASE, S1 and S2",
+      "5": "large-pool players (no profile in a thin stratum): max |index change| <= 1.0 and max |rank change| <= 5, S1 and S2",
+      "6": "players with a profile in a thin stratum: max |index change| <= 5.0, S1 and S2",
+      "7": "S1: at most 3 top-10 names change per list (batters, bowlers, all-rounders)"
+    },
+    "thresholds": {
+      "m1Ratio": 0.85,
+      "m2Rise": 0.02,
+      "m3Fall": 0.1,
+      "m2Harm": 0.01,
+      "m3Harm": 0.5,
+      "m4Harm": 0.005,
+      "m5Harm": 0.02,
+      "largePoolIndex": 1,
+      "largePoolRank": 5,
+      "thinPoolIndex": 5,
+      "s1NamesChanged": 3,
+      "tieMargin": 0.02
+    },
+    "decision": "Candidates failing any rule are rejected. One passer: adopt. Several: larger mean relative M1 reduction over the four cells; within 2 percentage points: fewer S1 indexes changed, then simpler (C1, C3, C2). None: KEEP_CURRENT."
+  },
+  "reproduction": {
+    "baseS1MatchesCommittedSensitivityData": true,
+    "mismatches": []
+  },
+  "poolSizes": {
+    "S1": {
+      "batters": [
+        {
+          "pool": "IPL:2022",
+          "eligiblePlayers": 17,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2023",
+          "eligiblePlayers": 13,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2024",
+          "eligiblePlayers": 12,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2025",
+          "eligiblePlayers": 17,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2026",
+          "eligiblePlayers": 12,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2022",
+          "eligiblePlayers": 12,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2023",
+          "eligiblePlayers": 5,
+          "thin": true
+        },
+        {
+          "pool": "T20I:2024",
+          "eligiblePlayers": 11,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2025",
+          "eligiblePlayers": 12,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2026",
+          "eligiblePlayers": 6,
+          "thin": true
+        }
+      ],
+      "bowlers": [
+        {
+          "pool": "IPL:2022",
+          "eligiblePlayers": 35,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2023",
+          "eligiblePlayers": 35,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2024",
+          "eligiblePlayers": 33,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2025",
+          "eligiblePlayers": 36,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2026",
+          "eligiblePlayers": 32,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2022",
+          "eligiblePlayers": 40,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2023",
+          "eligiblePlayers": 12,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2024",
+          "eligiblePlayers": 25,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2025",
+          "eligiblePlayers": 40,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2026",
+          "eligiblePlayers": 12,
+          "thin": false
+        }
+      ]
+    },
+    "S2": {
+      "batters": [
+        {
+          "pool": "IPL:2022",
+          "eligiblePlayers": 16,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2023",
+          "eligiblePlayers": 13,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2024",
+          "eligiblePlayers": 12,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2025",
+          "eligiblePlayers": 17,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2026",
+          "eligiblePlayers": 12,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2022",
+          "eligiblePlayers": 10,
+          "thin": true
+        },
+        {
+          "pool": "T20I:2023",
+          "eligiblePlayers": 5,
+          "thin": true
+        },
+        {
+          "pool": "T20I:2024",
+          "eligiblePlayers": 10,
+          "thin": true
+        },
+        {
+          "pool": "T20I:2025",
+          "eligiblePlayers": 10,
+          "thin": true
+        },
+        {
+          "pool": "T20I:2026",
+          "eligiblePlayers": 6,
+          "thin": true
+        }
+      ],
+      "bowlers": [
+        {
+          "pool": "IPL:2022",
+          "eligiblePlayers": 34,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2023",
+          "eligiblePlayers": 33,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2024",
+          "eligiblePlayers": 31,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2025",
+          "eligiblePlayers": 36,
+          "thin": false
+        },
+        {
+          "pool": "IPL:2026",
+          "eligiblePlayers": 32,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2022",
+          "eligiblePlayers": 36,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2023",
+          "eligiblePlayers": 12,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2024",
+          "eligiblePlayers": 22,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2025",
+          "eligiblePlayers": 32,
+          "thin": false
+        },
+        {
+          "pool": "T20I:2026",
+          "eligiblePlayers": 12,
+          "thin": false
+        }
+      ]
+    }
+  },
+  "methods": [
+    {
+      "method": "own-pool",
+      "code": "BASE",
+      "role": "primary",
+      "label": "current method: each stratum standardised against its own pool",
+      "metrics": {
+        "S1": {
+          "batters": {
+            "M1_poolThinningError": 0.2396,
+            "M1detail": {
+              "rmse": 0.182,
+              "fullDataCompositeSd": 0.7596,
+              "profileComparisons": 37500
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9163,
+            "M2b_top10RetentionBootstrap": 0.4489,
+            "M3a_rankDisplacementPoolDeletion": 0.889,
+            "M3b_rankDisplacementBootstrap": 16.756,
+            "M4_leaveOneOutExitRate": 0.0258,
+            "M4detail": {
+              "exits": 17,
+              "dropRuns": 66
+            },
+            "M5_allPairs": {
+              "r": -0.1362,
+              "pairs": 32,
+              "ci95": [
+                -0.483,
+                0.259
+              ]
+            },
+            "M5_thinPairs": {
+              "r": -0.35,
+              "pairs": 7,
+              "ci95": [
+                -0.892,
+                0.462
+              ]
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 1,
+                "shareInTop10": 0.589
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 2,
+                "shareInTop10": 0.304
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 3,
+                "shareInTop10": 0.494
+              },
+              {
+                "player": "Fakhar Zaman",
+                "playerId": "2921",
+                "rank": 4,
+                "shareInTop10": 0.51
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 5,
+                "shareInTop10": 0.475
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 0.585
+              },
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 7,
+                "shareInTop10": 0.629
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 8,
+                "shareInTop10": 0.419
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 9,
+                "shareInTop10": 0.347
+              },
+              {
+                "player": "Namboori Tilak Varma",
+                "playerId": "7897",
+                "rank": 10,
+                "shareInTop10": 0.137
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Fakhar Zaman",
+                "playerId": "2921",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 7,
+                "shareInTop10": 0.994
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 8,
+                "shareInTop10": 0.924
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 9,
+                "shareInTop10": 0.991
+              },
+              {
+                "player": "Namboori Tilak Varma",
+                "playerId": "7897",
+                "rank": 10,
+                "shareInTop10": 0.254
+              }
+            ]
+          },
+          "bowlers": {
+            "M1_poolThinningError": 0.3411,
+            "M1detail": {
+              "rmse": 0.2595,
+              "fullDataCompositeSd": 0.7608,
+              "profileComparisons": 40000
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9404,
+            "M2b_top10RetentionBootstrap": 0.5384,
+            "M3a_rankDisplacementPoolDeletion": 0.626,
+            "M3b_rankDisplacementBootstrap": 22.338,
+            "M4_leaveOneOutExitRate": 0.0118,
+            "M4detail": {
+              "exits": 16,
+              "dropRuns": 136
+            },
+            "M5_allPairs": {
+              "r": 0.094,
+              "pairs": 96,
+              "ci95": [
+                -0.121,
+                0.282
+              ]
+            },
+            "M5_thinPairs": {
+              "r": null,
+              "pairs": 0,
+              "ci95": null
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 1,
+                "shareInTop10": 0.592
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 0.941
+              },
+              {
+                "player": "Mohammad Nawaz",
+                "playerId": "2490",
+                "rank": 3,
+                "shareInTop10": 0.884
+              },
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 4,
+                "shareInTop10": 0.379
+              },
+              {
+                "player": "Abrar Ahmed",
+                "playerId": "5979",
+                "rank": 5,
+                "shareInTop10": 0.742
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 6,
+                "shareInTop10": 0.42
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 7,
+                "shareInTop10": 0.479
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 8,
+                "shareInTop10": 0.396
+              },
+              {
+                "player": "Mohit Sharma",
+                "playerId": "2878",
+                "rank": 9,
+                "shareInTop10": 0.232
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 10,
+                "shareInTop10": 0.319
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mohammad Nawaz",
+                "playerId": "2490",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Abrar Ahmed",
+                "playerId": "5979",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 8,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mohit Sharma",
+                "playerId": "2878",
+                "rank": 9,
+                "shareInTop10": 0.994
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 10,
+                "shareInTop10": 0.41
+              }
+            ]
+          }
+        },
+        "S2": {
+          "batters": {
+            "M1_poolThinningError": 0.2261,
+            "M1detail": {
+              "rmse": 0.1711,
+              "fullDataCompositeSd": 0.7569,
+              "profileComparisons": 37500
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9204,
+            "M2b_top10RetentionBootstrap": 0.4439,
+            "M3a_rankDisplacementPoolDeletion": 1.011,
+            "M3b_rankDisplacementBootstrap": 16.33,
+            "M4_leaveOneOutExitRate": 0.0133,
+            "M4detail": {
+              "exits": 8,
+              "dropRuns": 60
+            },
+            "M5_allPairs": {
+              "r": -0.1209,
+              "pairs": 32,
+              "ci95": [
+                -0.468,
+                0.268
+              ]
+            },
+            "M5_thinPairs": {
+              "r": 0.0982,
+              "pairs": 10,
+              "ci95": [
+                -0.726,
+                0.73
+              ]
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 1,
+                "shareInTop10": 0.612
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 2,
+                "shareInTop10": 0.318
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 3,
+                "shareInTop10": 0.508
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 4,
+                "shareInTop10": 0.461
+              },
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 5,
+                "shareInTop10": 0.664
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 0.598
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 7,
+                "shareInTop10": 0.455
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 8,
+                "shareInTop10": 0.384
+              },
+              {
+                "player": "Mohammad Nabi",
+                "playerId": "1107",
+                "rank": 9,
+                "shareInTop10": 0.2
+              },
+              {
+                "player": "Rinku Singh",
+                "playerId": "4708",
+                "rank": 10,
+                "shareInTop10": 0.239
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 5,
+                "shareInTop10": 0.997
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 7,
+                "shareInTop10": 0.97
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 8,
+                "shareInTop10": 0.969
+              },
+              {
+                "player": "Mohammad Nabi",
+                "playerId": "1107",
+                "rank": 9,
+                "shareInTop10": 0.825
+              },
+              {
+                "player": "Rinku Singh",
+                "playerId": "4708",
+                "rank": 10,
+                "shareInTop10": 0.443
+              }
+            ]
+          },
+          "bowlers": {
+            "M1_poolThinningError": 0.3419,
+            "M1detail": {
+              "rmse": 0.2575,
+              "fullDataCompositeSd": 0.7532,
+              "profileComparisons": 40000
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9629,
+            "M2b_top10RetentionBootstrap": 0.49,
+            "M3a_rankDisplacementPoolDeletion": 0.641,
+            "M3b_rankDisplacementBootstrap": 22.351,
+            "M4_leaveOneOutExitRate": 0.0008,
+            "M4detail": {
+              "exits": 1,
+              "dropRuns": 122
+            },
+            "M5_allPairs": {
+              "r": 0.1193,
+              "pairs": 91,
+              "ci95": [
+                -0.094,
+                0.331
+              ]
+            },
+            "M5_thinPairs": {
+              "r": null,
+              "pairs": 0,
+              "ci95": null
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 1,
+                "shareInTop10": 0.43
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 0.967
+              },
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 3,
+                "shareInTop10": 0.623
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 4,
+                "shareInTop10": 0.518
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 5,
+                "shareInTop10": 0.551
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 6,
+                "shareInTop10": 0.498
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 7,
+                "shareInTop10": 0.43
+              },
+              {
+                "player": "Adam Zampa",
+                "playerId": "2636",
+                "rank": 8,
+                "shareInTop10": 0.508
+              },
+              {
+                "player": "Rasikh Salam",
+                "playerId": "7327",
+                "rank": 9,
+                "shareInTop10": 0.172
+              },
+              {
+                "player": "Benjamin Lister",
+                "playerId": "6515",
+                "rank": 10,
+                "shareInTop10": 0.203
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Adam Zampa",
+                "playerId": "2636",
+                "rank": 8,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Rasikh Salam",
+                "playerId": "7327",
+                "rank": 9,
+                "shareInTop10": 0.813
+              },
+              {
+                "player": "Benjamin Lister",
+                "playerId": "6515",
+                "rank": 10,
+                "shareInTop10": 0.816
+              }
+            ]
+          }
+        }
+      },
+      "sideEffectsVersusBase": null,
+      "evaluation": null,
+      "top10": {
+        "S1": {
+          "batters": [
+            {
+              "rank": 1,
+              "player": "Rishabh Pant",
+              "playerId": "4703",
+              "index": 58.4,
+              "pressureBalls": 217,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 2,
+              "player": "Sanju Samson",
+              "playerId": "2258",
+              "index": 58.3,
+              "pressureBalls": 113,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 3,
+              "player": "Cooper Connolly",
+              "playerId": "8654",
+              "index": 58.2,
+              "pressureBalls": 120,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 4,
+              "player": "Fakhar Zaman",
+              "playerId": "2921",
+              "index": 57.7,
+              "pressureBalls": 116,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 5,
+              "player": "Ryan Burl",
+              "playerId": "2463",
+              "index": 57,
+              "pressureBalls": 120,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 6,
+              "player": "Suryakumar Yadav",
+              "playerId": "1699",
+              "index": 56.4,
+              "pressureBalls": 724,
+              "pressureMatches": 41
+            },
+            {
+              "rank": 7,
+              "player": "Mark Chapman",
+              "playerId": "3374",
+              "index": 56,
+              "pressureBalls": 311,
+              "pressureMatches": 20
+            },
+            {
+              "rank": 8,
+              "player": "Glenn Phillips",
+              "playerId": "4853",
+              "index": 54.5,
+              "pressureBalls": 237,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 9,
+              "player": "David Miller",
+              "playerId": "1077",
+              "index": 54.4,
+              "pressureBalls": 220,
+              "pressureMatches": 14
+            },
+            {
+              "rank": 10,
+              "player": "Namboori Tilak Varma",
+              "playerId": "7897",
+              "index": 53.1,
+              "pressureBalls": 1048,
+              "pressureMatches": 77
+            }
+          ],
+          "bowlers": [
+            {
+              "rank": 1,
+              "player": "Umran Malik",
+              "playerId": "25048",
+              "index": 61.4,
+              "pressureBalls": 97,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 2,
+              "player": "Sunil Narine",
+              "playerId": "781",
+              "index": 61.3,
+              "pressureBalls": 684,
+              "pressureMatches": 53
+            },
+            {
+              "rank": 3,
+              "player": "Mohammad Nawaz",
+              "playerId": "2490",
+              "index": 61.2,
+              "pressureBalls": 186,
+              "pressureMatches": 15
+            },
+            {
+              "rank": 4,
+              "player": "Akash Madhwal",
+              "playerId": "8177",
+              "index": 60.9,
+              "pressureBalls": 93,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 5,
+              "player": "Abrar Ahmed",
+              "playerId": "5979",
+              "index": 60.6,
+              "pressureBalls": 232,
+              "pressureMatches": 18
+            },
+            {
+              "rank": 6,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 59.7,
+              "pressureBalls": 136,
+              "pressureMatches": 12
+            },
+            {
+              "rank": 7,
+              "player": "Sakib Hussain",
+              "playerId": "35318",
+              "index": 58.9,
+              "pressureBalls": 150,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 8,
+              "player": "Kuldeep Yadav",
+              "playerId": "3644",
+              "index": 58.2,
+              "pressureBalls": 634,
+              "pressureMatches": 51
+            },
+            {
+              "rank": 9,
+              "player": "Mohit Sharma",
+              "playerId": "2878",
+              "index": 58,
+              "pressureBalls": 345,
+              "pressureMatches": 23
+            },
+            {
+              "rank": 10,
+              "player": "Mohammad Saifuddin",
+              "playerId": "38855",
+              "index": 57.1,
+              "pressureBalls": 71,
+              "pressureMatches": 8
+            }
+          ],
+          "allrounders": [
+            {
+              "rank": 1,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 53.6,
+              "battingIndex": 47.4,
+              "bowlingIndex": 59.7
+            },
+            {
+              "rank": 2,
+              "player": "Sikandar Raza",
+              "playerId": "2984",
+              "index": 51.9,
+              "battingIndex": 49.6,
+              "bowlingIndex": 54.1
+            },
+            {
+              "rank": 3,
+              "player": "Ravindra Jadeja",
+              "playerId": "152",
+              "index": 51.5,
+              "battingIndex": 52.6,
+              "bowlingIndex": 50.4
+            },
+            {
+              "rank": 4,
+              "player": "Ravichandran Ashwin",
+              "playerId": "305",
+              "index": 51.1,
+              "battingIndex": 51.6,
+              "bowlingIndex": 50.6
+            },
+            {
+              "rank": 5,
+              "player": "Moeen Ali",
+              "playerId": "1596",
+              "index": 50.7,
+              "battingIndex": 51,
+              "bowlingIndex": 50.4
+            },
+            {
+              "rank": 6,
+              "player": "Nitish Reddy",
+              "playerId": "8221",
+              "index": 49.9,
+              "battingIndex": 53,
+              "bowlingIndex": 46.8
+            },
+            {
+              "rank": 7,
+              "player": "Cameron Green",
+              "playerId": "5939",
+              "index": 49.1,
+              "battingIndex": 51,
+              "bowlingIndex": 47.1
+            },
+            {
+              "rank": 8,
+              "player": "Axar Patel",
+              "playerId": "2876",
+              "index": 48.3,
+              "battingIndex": 42.9,
+              "bowlingIndex": 53.7
+            },
+            {
+              "rank": 9,
+              "player": "Sam Curran",
+              "playerId": "4409",
+              "index": 47.9,
+              "battingIndex": 50.5,
+              "bowlingIndex": 45.3
+            },
+            {
+              "rank": 10,
+              "player": "Shivam Dube",
+              "playerId": "4755",
+              "index": 47.3,
+              "battingIndex": 48.7,
+              "bowlingIndex": 45.8
+            }
+          ]
+        },
+        "S2": {
+          "batters": [
+            {
+              "rank": 1,
+              "player": "Rishabh Pant",
+              "playerId": "4703",
+              "index": 58.4,
+              "pressureBalls": 217,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 2,
+              "player": "Sanju Samson",
+              "playerId": "2258",
+              "index": 58.3,
+              "pressureBalls": 113,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 3,
+              "player": "Cooper Connolly",
+              "playerId": "8654",
+              "index": 58.2,
+              "pressureBalls": 120,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 4,
+              "player": "Ryan Burl",
+              "playerId": "2463",
+              "index": 56.5,
+              "pressureBalls": 120,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 5,
+              "player": "Mark Chapman",
+              "playerId": "3374",
+              "index": 56.3,
+              "pressureBalls": 311,
+              "pressureMatches": 20
+            },
+            {
+              "rank": 6,
+              "player": "Suryakumar Yadav",
+              "playerId": "1699",
+              "index": 56.1,
+              "pressureBalls": 724,
+              "pressureMatches": 41
+            },
+            {
+              "rank": 7,
+              "player": "Glenn Phillips",
+              "playerId": "4853",
+              "index": 54.8,
+              "pressureBalls": 237,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 8,
+              "player": "David Miller",
+              "playerId": "1077",
+              "index": 54.5,
+              "pressureBalls": 220,
+              "pressureMatches": 14
+            },
+            {
+              "rank": 9,
+              "player": "Mohammad Nabi",
+              "playerId": "1107",
+              "index": 54,
+              "pressureBalls": 126,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 10,
+              "player": "Rinku Singh",
+              "playerId": "4708",
+              "index": 53.3,
+              "pressureBalls": 367,
+              "pressureMatches": 34
+            }
+          ],
+          "bowlers": [
+            {
+              "rank": 1,
+              "player": "Akash Madhwal",
+              "playerId": "8177",
+              "index": 61.8,
+              "pressureBalls": 93,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 2,
+              "player": "Sunil Narine",
+              "playerId": "781",
+              "index": 61.3,
+              "pressureBalls": 684,
+              "pressureMatches": 53
+            },
+            {
+              "rank": 3,
+              "player": "Umran Malik",
+              "playerId": "25048",
+              "index": 61.3,
+              "pressureBalls": 97,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 4,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 60.6,
+              "pressureBalls": 136,
+              "pressureMatches": 12
+            },
+            {
+              "rank": 5,
+              "player": "Sakib Hussain",
+              "playerId": "35318",
+              "index": 58.9,
+              "pressureBalls": 150,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 6,
+              "player": "Kuldeep Yadav",
+              "playerId": "3644",
+              "index": 58.3,
+              "pressureBalls": 634,
+              "pressureMatches": 51
+            },
+            {
+              "rank": 7,
+              "player": "Mohammad Saifuddin",
+              "playerId": "38855",
+              "index": 57.8,
+              "pressureBalls": 71,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 8,
+              "player": "Adam Zampa",
+              "playerId": "2636",
+              "index": 57.7,
+              "pressureBalls": 418,
+              "pressureMatches": 30
+            },
+            {
+              "rank": 9,
+              "player": "Rasikh Salam",
+              "playerId": "7327",
+              "index": 56.3,
+              "pressureBalls": 137,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 10,
+              "player": "Benjamin Lister",
+              "playerId": "6515",
+              "index": 56.3,
+              "pressureBalls": 78,
+              "pressureMatches": 9
+            }
+          ],
+          "allrounders": [
+            {
+              "rank": 1,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 54,
+              "battingIndex": 47.4,
+              "bowlingIndex": 60.6
+            },
+            {
+              "rank": 2,
+              "player": "Sikandar Raza",
+              "playerId": "2984",
+              "index": 52.5,
+              "battingIndex": 50.5,
+              "bowlingIndex": 54.5
+            },
+            {
+              "rank": 3,
+              "player": "Ravindra Jadeja",
+              "playerId": "152",
+              "index": 51.5,
+              "battingIndex": 52.6,
+              "bowlingIndex": 50.4
+            },
+            {
+              "rank": 4,
+              "player": "Moeen Ali",
+              "playerId": "1596",
+              "index": 50.4,
+              "battingIndex": 50.6,
+              "bowlingIndex": 50.2
+            },
+            {
+              "rank": 5,
+              "player": "Nitish Reddy",
+              "playerId": "8221",
+              "index": 49.9,
+              "battingIndex": 53,
+              "bowlingIndex": 46.8
+            },
+            {
+              "rank": 6,
+              "player": "Cameron Green",
+              "playerId": "5939",
+              "index": 49,
+              "battingIndex": 51,
+              "bowlingIndex": 47
+            },
+            {
+              "rank": 7,
+              "player": "Axar Patel",
+              "playerId": "2876",
+              "index": 48.4,
+              "battingIndex": 42.8,
+              "bowlingIndex": 54
+            },
+            {
+              "rank": 8,
+              "player": "Sam Curran",
+              "playerId": "4409",
+              "index": 48,
+              "battingIndex": 50.5,
+              "bowlingIndex": 45.5
+            },
+            {
+              "rank": 9,
+              "player": "Shivam Dube",
+              "playerId": "4755",
+              "index": 47.5,
+              "battingIndex": 48.6,
+              "bowlingIndex": 46.3
+            },
+            {
+              "rank": 10,
+              "player": "Roston Chase",
+              "playerId": "2687",
+              "index": 46.1,
+              "battingIndex": 40.2,
+              "bowlingIndex": 52
+            }
+          ]
+        }
+      },
+      "top10VersusBase": null
+    },
+    {
+      "method": "format-fallback",
+      "code": "C1",
+      "role": "alternative",
+      "label": "a stratum with 10 or fewer eligible profiles uses all seasons of the same format",
+      "metrics": {
+        "S1": {
+          "batters": {
+            "M1_poolThinningError": 0.2448,
+            "M1detail": {
+              "rmse": 0.1873,
+              "fullDataCompositeSd": 0.7652,
+              "profileComparisons": 37500
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9421,
+            "M2b_top10RetentionBootstrap": 0.47,
+            "M3a_rankDisplacementPoolDeletion": 1.107,
+            "M3b_rankDisplacementBootstrap": 16.449,
+            "M4_leaveOneOutExitRate": 0.0303,
+            "M4detail": {
+              "exits": 20,
+              "dropRuns": 66
+            },
+            "M5_allPairs": {
+              "r": -0.1141,
+              "pairs": 32,
+              "ci95": [
+                -0.482,
+                0.271
+              ]
+            },
+            "M5_thinPairs": {
+              "r": -0.4233,
+              "pairs": 7,
+              "ci95": [
+                -0.962,
+                0.688
+              ]
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 1,
+                "shareInTop10": 0.812
+              },
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 2,
+                "shareInTop10": 0.584
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 3,
+                "shareInTop10": 0.296
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 4,
+                "shareInTop10": 0.5
+              },
+              {
+                "player": "Fakhar Zaman",
+                "playerId": "2921",
+                "rank": 5,
+                "shareInTop10": 0.486
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 0.68
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 7,
+                "shareInTop10": 0.444
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 8,
+                "shareInTop10": 0.408
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 9,
+                "shareInTop10": 0.346
+              },
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "shareInTop10": 0.144
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Fakhar Zaman",
+                "playerId": "2921",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 8,
+                "shareInTop10": 1
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 9,
+                "shareInTop10": 0.973
+              },
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "shareInTop10": 0.448
+              }
+            ]
+          },
+          "bowlers": {
+            "M1_poolThinningError": 0.2803,
+            "M1detail": {
+              "rmse": 0.2132,
+              "fullDataCompositeSd": 0.7608,
+              "profileComparisons": 40000
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9489,
+            "M2b_top10RetentionBootstrap": 0.538,
+            "M3a_rankDisplacementPoolDeletion": 0.603,
+            "M3b_rankDisplacementBootstrap": 22.339,
+            "M4_leaveOneOutExitRate": 0.0118,
+            "M4detail": {
+              "exits": 16,
+              "dropRuns": 136
+            },
+            "M5_allPairs": {
+              "r": 0.094,
+              "pairs": 96,
+              "ci95": [
+                -0.121,
+                0.282
+              ]
+            },
+            "M5_thinPairs": {
+              "r": null,
+              "pairs": 0,
+              "ci95": null
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 1,
+                "shareInTop10": 0.591
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 0.94
+              },
+              {
+                "player": "Mohammad Nawaz",
+                "playerId": "2490",
+                "rank": 3,
+                "shareInTop10": 0.884
+              },
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 4,
+                "shareInTop10": 0.379
+              },
+              {
+                "player": "Abrar Ahmed",
+                "playerId": "5979",
+                "rank": 5,
+                "shareInTop10": 0.742
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 6,
+                "shareInTop10": 0.42
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 7,
+                "shareInTop10": 0.478
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 8,
+                "shareInTop10": 0.397
+              },
+              {
+                "player": "Mohit Sharma",
+                "playerId": "2878",
+                "rank": 9,
+                "shareInTop10": 0.232
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 10,
+                "shareInTop10": 0.317
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mohammad Nawaz",
+                "playerId": "2490",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Abrar Ahmed",
+                "playerId": "5979",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 8,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mohit Sharma",
+                "playerId": "2878",
+                "rank": 9,
+                "shareInTop10": 0.997
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 10,
+                "shareInTop10": 0.492
+              }
+            ]
+          }
+        },
+        "S2": {
+          "batters": {
+            "M1_poolThinningError": 0.1513,
+            "M1detail": {
+              "rmse": 0.114,
+              "fullDataCompositeSd": 0.7536,
+              "profileComparisons": 37500
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9565,
+            "M2b_top10RetentionBootstrap": 0.455,
+            "M3a_rankDisplacementPoolDeletion": 0.949,
+            "M3b_rankDisplacementBootstrap": 16.087,
+            "M4_leaveOneOutExitRate": 0.0267,
+            "M4detail": {
+              "exits": 16,
+              "dropRuns": 60
+            },
+            "M5_allPairs": {
+              "r": -0.124,
+              "pairs": 32,
+              "ci95": [
+                -0.465,
+                0.204
+              ]
+            },
+            "M5_thinPairs": {
+              "r": 0.0851,
+              "pairs": 10,
+              "ci95": [
+                -0.798,
+                0.747
+              ]
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 1,
+                "shareInTop10": 0.828
+              },
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 2,
+                "shareInTop10": 0.621
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 3,
+                "shareInTop10": 0.317
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 4,
+                "shareInTop10": 0.525
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 5,
+                "shareInTop10": 0.717
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 6,
+                "shareInTop10": 0.404
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 7,
+                "shareInTop10": 0.44
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 8,
+                "shareInTop10": 0.393
+              },
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 9,
+                "shareInTop10": 0.177
+              },
+              {
+                "player": "Nitish Reddy",
+                "playerId": "8221",
+                "rank": 10,
+                "shareInTop10": 0.128
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 8,
+                "shareInTop10": 0.995
+              },
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 9,
+                "shareInTop10": 0.742
+              },
+              {
+                "player": "Nitish Reddy",
+                "playerId": "8221",
+                "rank": 10,
+                "shareInTop10": 0.828
+              }
+            ]
+          },
+          "bowlers": {
+            "M1_poolThinningError": 0.2516,
+            "M1detail": {
+              "rmse": 0.1895,
+              "fullDataCompositeSd": 0.7532,
+              "profileComparisons": 40000
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9231,
+            "M2b_top10RetentionBootstrap": 0.4903,
+            "M3a_rankDisplacementPoolDeletion": 0.674,
+            "M3b_rankDisplacementBootstrap": 22.319,
+            "M4_leaveOneOutExitRate": 0.0008,
+            "M4detail": {
+              "exits": 1,
+              "dropRuns": 122
+            },
+            "M5_allPairs": {
+              "r": 0.1193,
+              "pairs": 91,
+              "ci95": [
+                -0.094,
+                0.331
+              ]
+            },
+            "M5_thinPairs": {
+              "r": null,
+              "pairs": 0,
+              "ci95": null
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 1,
+                "shareInTop10": 0.43
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 0.967
+              },
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 3,
+                "shareInTop10": 0.623
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 4,
+                "shareInTop10": 0.519
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 5,
+                "shareInTop10": 0.55
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 6,
+                "shareInTop10": 0.499
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 7,
+                "shareInTop10": 0.428
+              },
+              {
+                "player": "Adam Zampa",
+                "playerId": "2636",
+                "rank": 8,
+                "shareInTop10": 0.508
+              },
+              {
+                "player": "Rasikh Salam",
+                "playerId": "7327",
+                "rank": 9,
+                "shareInTop10": 0.171
+              },
+              {
+                "player": "Benjamin Lister",
+                "playerId": "6515",
+                "rank": 10,
+                "shareInTop10": 0.208
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Adam Zampa",
+                "playerId": "2636",
+                "rank": 8,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Rasikh Salam",
+                "playerId": "7327",
+                "rank": 9,
+                "shareInTop10": 0.881
+              },
+              {
+                "player": "Benjamin Lister",
+                "playerId": "6515",
+                "rank": 10,
+                "shareInTop10": 0.35
+              }
+            ]
+          }
+        }
+      },
+      "sideEffectsVersusBase": {
+        "S1": {
+          "eligible": {
+            "batters": 66,
+            "bowlers": 136,
+            "allrounders": 12
+          },
+          "eligibleIdentical": true,
+          "largePoolMaxIndexChange": {
+            "max": 0,
+            "player": null
+          },
+          "largePoolMaxRankChange": {
+            "max": 2,
+            "player": "Ryan Burl (batter)"
+          },
+          "thinPoolMaxIndexChange": {
+            "max": 2.9,
+            "player": "Mark Chapman (batter)"
+          },
+          "indexesChangedBatterAndBowler": 11,
+          "largePoolIndexesChanged": 0,
+          "top10NamesChanged": {
+            "batters": 1,
+            "bowlers": 0,
+            "allrounders": 0
+          }
+        },
+        "S2": {
+          "eligible": {
+            "batters": 60,
+            "bowlers": 122,
+            "allrounders": 11
+          },
+          "eligibleIdentical": true,
+          "largePoolMaxIndexChange": {
+            "max": 0,
+            "player": null
+          },
+          "largePoolMaxRankChange": {
+            "max": 3,
+            "player": "Jos Buttler (batter)"
+          },
+          "thinPoolMaxIndexChange": {
+            "max": 3,
+            "player": "Brian Bennett (batter)"
+          },
+          "indexesChangedBatterAndBowler": 26,
+          "largePoolIndexesChanged": 0,
+          "top10NamesChanged": {
+            "batters": 2,
+            "bowlers": 0,
+            "allrounders": 0
+          }
+        }
+      },
+      "evaluation": {
+        "code": "C1",
+        "passes": false,
+        "failedRules": [
+          "1: M1 S1 batters 0.245 vs 0.24 (ratio 1.022)",
+          "3: M4 S2 batters",
+          "3: M2a S2 bowlers"
+        ],
+        "meanRelativeM1Reduction": 0.1879,
+        "m1RelativeReductionByCell": {
+          "S1.batters": -0.0217,
+          "S1.bowlers": 0.1784,
+          "S2.batters": 0.3308,
+          "S2.bowlers": 0.2643
+        },
+        "s1IndexesChanged": 11
+      },
+      "top10": {
+        "S1": {
+          "batters": [
+            {
+              "rank": 1,
+              "player": "Mark Chapman",
+              "playerId": "3374",
+              "index": 58.9,
+              "pressureBalls": 311,
+              "pressureMatches": 20
+            },
+            {
+              "rank": 2,
+              "player": "Rishabh Pant",
+              "playerId": "4703",
+              "index": 58.4,
+              "pressureBalls": 217,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 3,
+              "player": "Sanju Samson",
+              "playerId": "2258",
+              "index": 58.3,
+              "pressureBalls": 113,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 4,
+              "player": "Cooper Connolly",
+              "playerId": "8654",
+              "index": 58.2,
+              "pressureBalls": 120,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 5,
+              "player": "Fakhar Zaman",
+              "playerId": "2921",
+              "index": 57.7,
+              "pressureBalls": 116,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 6,
+              "player": "Suryakumar Yadav",
+              "playerId": "1699",
+              "index": 57.6,
+              "pressureBalls": 724,
+              "pressureMatches": 41
+            },
+            {
+              "rank": 7,
+              "player": "Ryan Burl",
+              "playerId": "2463",
+              "index": 57,
+              "pressureBalls": 120,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 8,
+              "player": "Glenn Phillips",
+              "playerId": "4853",
+              "index": 54.5,
+              "pressureBalls": 237,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 9,
+              "player": "David Miller",
+              "playerId": "1077",
+              "index": 54.4,
+              "pressureBalls": 220,
+              "pressureMatches": 14
+            },
+            {
+              "rank": 10,
+              "player": "Jos Buttler",
+              "playerId": "813",
+              "index": 53.1,
+              "pressureBalls": 344,
+              "pressureMatches": 28
+            }
+          ],
+          "bowlers": [
+            {
+              "rank": 1,
+              "player": "Umran Malik",
+              "playerId": "25048",
+              "index": 61.4,
+              "pressureBalls": 97,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 2,
+              "player": "Sunil Narine",
+              "playerId": "781",
+              "index": 61.3,
+              "pressureBalls": 684,
+              "pressureMatches": 53
+            },
+            {
+              "rank": 3,
+              "player": "Mohammad Nawaz",
+              "playerId": "2490",
+              "index": 61.2,
+              "pressureBalls": 186,
+              "pressureMatches": 15
+            },
+            {
+              "rank": 4,
+              "player": "Akash Madhwal",
+              "playerId": "8177",
+              "index": 60.9,
+              "pressureBalls": 93,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 5,
+              "player": "Abrar Ahmed",
+              "playerId": "5979",
+              "index": 60.6,
+              "pressureBalls": 232,
+              "pressureMatches": 18
+            },
+            {
+              "rank": 6,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 59.7,
+              "pressureBalls": 136,
+              "pressureMatches": 12
+            },
+            {
+              "rank": 7,
+              "player": "Sakib Hussain",
+              "playerId": "35318",
+              "index": 58.9,
+              "pressureBalls": 150,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 8,
+              "player": "Kuldeep Yadav",
+              "playerId": "3644",
+              "index": 58.2,
+              "pressureBalls": 634,
+              "pressureMatches": 51
+            },
+            {
+              "rank": 9,
+              "player": "Mohit Sharma",
+              "playerId": "2878",
+              "index": 58,
+              "pressureBalls": 345,
+              "pressureMatches": 23
+            },
+            {
+              "rank": 10,
+              "player": "Mohammad Saifuddin",
+              "playerId": "38855",
+              "index": 57.1,
+              "pressureBalls": 71,
+              "pressureMatches": 8
+            }
+          ],
+          "allrounders": [
+            {
+              "rank": 1,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 53.6,
+              "battingIndex": 47.4,
+              "bowlingIndex": 59.7
+            },
+            {
+              "rank": 2,
+              "player": "Sikandar Raza",
+              "playerId": "2984",
+              "index": 51.9,
+              "battingIndex": 49.6,
+              "bowlingIndex": 54.1
+            },
+            {
+              "rank": 3,
+              "player": "Ravindra Jadeja",
+              "playerId": "152",
+              "index": 51.5,
+              "battingIndex": 52.6,
+              "bowlingIndex": 50.4
+            },
+            {
+              "rank": 4,
+              "player": "Ravichandran Ashwin",
+              "playerId": "305",
+              "index": 51.1,
+              "battingIndex": 51.6,
+              "bowlingIndex": 50.6
+            },
+            {
+              "rank": 5,
+              "player": "Moeen Ali",
+              "playerId": "1596",
+              "index": 50.7,
+              "battingIndex": 51,
+              "bowlingIndex": 50.4
+            },
+            {
+              "rank": 6,
+              "player": "Nitish Reddy",
+              "playerId": "8221",
+              "index": 49.9,
+              "battingIndex": 53,
+              "bowlingIndex": 46.8
+            },
+            {
+              "rank": 7,
+              "player": "Cameron Green",
+              "playerId": "5939",
+              "index": 49.1,
+              "battingIndex": 51,
+              "bowlingIndex": 47.1
+            },
+            {
+              "rank": 8,
+              "player": "Axar Patel",
+              "playerId": "2876",
+              "index": 48.3,
+              "battingIndex": 42.9,
+              "bowlingIndex": 53.7
+            },
+            {
+              "rank": 9,
+              "player": "Sam Curran",
+              "playerId": "4409",
+              "index": 47.9,
+              "battingIndex": 50.5,
+              "bowlingIndex": 45.3
+            },
+            {
+              "rank": 10,
+              "player": "Shivam Dube",
+              "playerId": "4755",
+              "index": 47,
+              "battingIndex": 48.1,
+              "bowlingIndex": 45.8
+            }
+          ]
+        },
+        "S2": {
+          "batters": [
+            {
+              "rank": 1,
+              "player": "Mark Chapman",
+              "playerId": "3374",
+              "index": 58.4,
+              "pressureBalls": 311,
+              "pressureMatches": 20
+            },
+            {
+              "rank": 2,
+              "player": "Rishabh Pant",
+              "playerId": "4703",
+              "index": 58.4,
+              "pressureBalls": 217,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 3,
+              "player": "Sanju Samson",
+              "playerId": "2258",
+              "index": 58.3,
+              "pressureBalls": 113,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 4,
+              "player": "Cooper Connolly",
+              "playerId": "8654",
+              "index": 58.2,
+              "pressureBalls": 120,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 5,
+              "player": "Suryakumar Yadav",
+              "playerId": "1699",
+              "index": 57.6,
+              "pressureBalls": 724,
+              "pressureMatches": 41
+            },
+            {
+              "rank": 6,
+              "player": "Ryan Burl",
+              "playerId": "2463",
+              "index": 55.4,
+              "pressureBalls": 120,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 7,
+              "player": "Glenn Phillips",
+              "playerId": "4853",
+              "index": 55,
+              "pressureBalls": 237,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 8,
+              "player": "David Miller",
+              "playerId": "1077",
+              "index": 54.5,
+              "pressureBalls": 220,
+              "pressureMatches": 14
+            },
+            {
+              "rank": 9,
+              "player": "Jos Buttler",
+              "playerId": "813",
+              "index": 53,
+              "pressureBalls": 344,
+              "pressureMatches": 28
+            },
+            {
+              "rank": 10,
+              "player": "Nitish Reddy",
+              "playerId": "8221",
+              "index": 53,
+              "pressureBalls": 108,
+              "pressureMatches": 11
+            }
+          ],
+          "bowlers": [
+            {
+              "rank": 1,
+              "player": "Akash Madhwal",
+              "playerId": "8177",
+              "index": 61.8,
+              "pressureBalls": 93,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 2,
+              "player": "Sunil Narine",
+              "playerId": "781",
+              "index": 61.3,
+              "pressureBalls": 684,
+              "pressureMatches": 53
+            },
+            {
+              "rank": 3,
+              "player": "Umran Malik",
+              "playerId": "25048",
+              "index": 61.3,
+              "pressureBalls": 97,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 4,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 60.6,
+              "pressureBalls": 136,
+              "pressureMatches": 12
+            },
+            {
+              "rank": 5,
+              "player": "Sakib Hussain",
+              "playerId": "35318",
+              "index": 58.9,
+              "pressureBalls": 150,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 6,
+              "player": "Kuldeep Yadav",
+              "playerId": "3644",
+              "index": 58.3,
+              "pressureBalls": 634,
+              "pressureMatches": 51
+            },
+            {
+              "rank": 7,
+              "player": "Mohammad Saifuddin",
+              "playerId": "38855",
+              "index": 57.8,
+              "pressureBalls": 71,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 8,
+              "player": "Adam Zampa",
+              "playerId": "2636",
+              "index": 57.7,
+              "pressureBalls": 418,
+              "pressureMatches": 30
+            },
+            {
+              "rank": 9,
+              "player": "Rasikh Salam",
+              "playerId": "7327",
+              "index": 56.3,
+              "pressureBalls": 137,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 10,
+              "player": "Benjamin Lister",
+              "playerId": "6515",
+              "index": 56.3,
+              "pressureBalls": 78,
+              "pressureMatches": 9
+            }
+          ],
+          "allrounders": [
+            {
+              "rank": 1,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 54,
+              "battingIndex": 47.4,
+              "bowlingIndex": 60.6
+            },
+            {
+              "rank": 2,
+              "player": "Sikandar Raza",
+              "playerId": "2984",
+              "index": 52.3,
+              "battingIndex": 50.1,
+              "bowlingIndex": 54.5
+            },
+            {
+              "rank": 3,
+              "player": "Ravindra Jadeja",
+              "playerId": "152",
+              "index": 51.5,
+              "battingIndex": 52.6,
+              "bowlingIndex": 50.4
+            },
+            {
+              "rank": 4,
+              "player": "Moeen Ali",
+              "playerId": "1596",
+              "index": 51.1,
+              "battingIndex": 51.9,
+              "bowlingIndex": 50.2
+            },
+            {
+              "rank": 5,
+              "player": "Nitish Reddy",
+              "playerId": "8221",
+              "index": 49.9,
+              "battingIndex": 53,
+              "bowlingIndex": 46.8
+            },
+            {
+              "rank": 6,
+              "player": "Cameron Green",
+              "playerId": "5939",
+              "index": 49,
+              "battingIndex": 51,
+              "bowlingIndex": 47
+            },
+            {
+              "rank": 7,
+              "player": "Sam Curran",
+              "playerId": "4409",
+              "index": 48,
+              "battingIndex": 50.5,
+              "bowlingIndex": 45.5
+            },
+            {
+              "rank": 8,
+              "player": "Axar Patel",
+              "playerId": "2876",
+              "index": 47.7,
+              "battingIndex": 41.4,
+              "bowlingIndex": 54
+            },
+            {
+              "rank": 9,
+              "player": "Shivam Dube",
+              "playerId": "4755",
+              "index": 47.1,
+              "battingIndex": 47.8,
+              "bowlingIndex": 46.3
+            },
+            {
+              "rank": 10,
+              "player": "Roston Chase",
+              "playerId": "2687",
+              "index": 46.1,
+              "battingIndex": 40.2,
+              "bowlingIndex": 52
+            }
+          ]
+        }
+      },
+      "top10VersusBase": {
+        "S1": {
+          "batters": {
+            "entered": [
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "index": 53.1,
+                "rankInOtherList": 11,
+                "indexInOtherList": 53.1
+              }
+            ],
+            "left": [
+              {
+                "player": "Namboori Tilak Varma",
+                "playerId": "7897",
+                "rank": 10,
+                "index": 53.1,
+                "rankInOtherList": 13,
+                "indexInOtherList": 52.9
+              }
+            ],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Rishabh Pant",
+                "baseRank": 1,
+                "baseIndex": 58.4,
+                "rank": 2,
+                "index": 58.4
+              },
+              {
+                "player": "Sanju Samson",
+                "baseRank": 2,
+                "baseIndex": 58.3,
+                "rank": 3,
+                "index": 58.3
+              },
+              {
+                "player": "Cooper Connolly",
+                "baseRank": 3,
+                "baseIndex": 58.2,
+                "rank": 4,
+                "index": 58.2
+              },
+              {
+                "player": "Fakhar Zaman",
+                "baseRank": 4,
+                "baseIndex": 57.7,
+                "rank": 5,
+                "index": 57.7
+              },
+              {
+                "player": "Ryan Burl",
+                "baseRank": 5,
+                "baseIndex": 57,
+                "rank": 7,
+                "index": 57
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "baseRank": 6,
+                "baseIndex": 56.4,
+                "rank": 6,
+                "index": 57.6
+              },
+              {
+                "player": "Mark Chapman",
+                "baseRank": 7,
+                "baseIndex": 56,
+                "rank": 1,
+                "index": 58.9
+              },
+              {
+                "player": "Glenn Phillips",
+                "baseRank": 8,
+                "baseIndex": 54.5,
+                "rank": 8,
+                "index": 54.5
+              },
+              {
+                "player": "David Miller",
+                "baseRank": 9,
+                "baseIndex": 54.4,
+                "rank": 9,
+                "index": 54.4
+              },
+              {
+                "player": "Namboori Tilak Varma",
+                "baseRank": 10,
+                "baseIndex": 53.1,
+                "rank": 13,
+                "index": 52.9
+              }
+            ]
+          },
+          "bowlers": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Umran Malik",
+                "baseRank": 1,
+                "baseIndex": 61.4,
+                "rank": 1,
+                "index": 61.4
+              },
+              {
+                "player": "Sunil Narine",
+                "baseRank": 2,
+                "baseIndex": 61.3,
+                "rank": 2,
+                "index": 61.3
+              },
+              {
+                "player": "Mohammad Nawaz",
+                "baseRank": 3,
+                "baseIndex": 61.2,
+                "rank": 3,
+                "index": 61.2
+              },
+              {
+                "player": "Akash Madhwal",
+                "baseRank": 4,
+                "baseIndex": 60.9,
+                "rank": 4,
+                "index": 60.9
+              },
+              {
+                "player": "Abrar Ahmed",
+                "baseRank": 5,
+                "baseIndex": 60.6,
+                "rank": 5,
+                "index": 60.6
+              },
+              {
+                "player": "Washington Sundar",
+                "baseRank": 6,
+                "baseIndex": 59.7,
+                "rank": 6,
+                "index": 59.7
+              },
+              {
+                "player": "Sakib Hussain",
+                "baseRank": 7,
+                "baseIndex": 58.9,
+                "rank": 7,
+                "index": 58.9
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "baseRank": 8,
+                "baseIndex": 58.2,
+                "rank": 8,
+                "index": 58.2
+              },
+              {
+                "player": "Mohit Sharma",
+                "baseRank": 9,
+                "baseIndex": 58,
+                "rank": 9,
+                "index": 58
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "baseRank": 10,
+                "baseIndex": 57.1,
+                "rank": 10,
+                "index": 57.1
+              }
+            ]
+          },
+          "allrounders": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Washington Sundar",
+                "baseRank": 1,
+                "baseIndex": 53.6,
+                "rank": 1,
+                "index": 53.6
+              },
+              {
+                "player": "Sikandar Raza",
+                "baseRank": 2,
+                "baseIndex": 51.9,
+                "rank": 2,
+                "index": 51.9
+              },
+              {
+                "player": "Ravindra Jadeja",
+                "baseRank": 3,
+                "baseIndex": 51.5,
+                "rank": 3,
+                "index": 51.5
+              },
+              {
+                "player": "Ravichandran Ashwin",
+                "baseRank": 4,
+                "baseIndex": 51.1,
+                "rank": 4,
+                "index": 51.1
+              },
+              {
+                "player": "Moeen Ali",
+                "baseRank": 5,
+                "baseIndex": 50.7,
+                "rank": 5,
+                "index": 50.7
+              },
+              {
+                "player": "Nitish Reddy",
+                "baseRank": 6,
+                "baseIndex": 49.9,
+                "rank": 6,
+                "index": 49.9
+              },
+              {
+                "player": "Cameron Green",
+                "baseRank": 7,
+                "baseIndex": 49.1,
+                "rank": 7,
+                "index": 49.1
+              },
+              {
+                "player": "Axar Patel",
+                "baseRank": 8,
+                "baseIndex": 48.3,
+                "rank": 8,
+                "index": 48.3
+              },
+              {
+                "player": "Sam Curran",
+                "baseRank": 9,
+                "baseIndex": 47.9,
+                "rank": 9,
+                "index": 47.9
+              },
+              {
+                "player": "Shivam Dube",
+                "baseRank": 10,
+                "baseIndex": 47.3,
+                "rank": 10,
+                "index": 47
+              }
+            ]
+          }
+        },
+        "S2": {
+          "batters": {
+            "entered": [
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 9,
+                "index": 53,
+                "rankInOtherList": 12,
+                "indexInOtherList": 53
+              },
+              {
+                "player": "Nitish Reddy",
+                "playerId": "8221",
+                "rank": 10,
+                "index": 53,
+                "rankInOtherList": 13,
+                "indexInOtherList": 53
+              }
+            ],
+            "left": [
+              {
+                "player": "Mohammad Nabi",
+                "playerId": "1107",
+                "rank": 9,
+                "index": 54,
+                "rankInOtherList": 11,
+                "indexInOtherList": 52.9
+              },
+              {
+                "player": "Rinku Singh",
+                "playerId": "4708",
+                "rank": 10,
+                "index": 53.3,
+                "rankInOtherList": 12,
+                "indexInOtherList": 52.8
+              }
+            ],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Rishabh Pant",
+                "baseRank": 1,
+                "baseIndex": 58.4,
+                "rank": 2,
+                "index": 58.4
+              },
+              {
+                "player": "Sanju Samson",
+                "baseRank": 2,
+                "baseIndex": 58.3,
+                "rank": 3,
+                "index": 58.3
+              },
+              {
+                "player": "Cooper Connolly",
+                "baseRank": 3,
+                "baseIndex": 58.2,
+                "rank": 4,
+                "index": 58.2
+              },
+              {
+                "player": "Ryan Burl",
+                "baseRank": 4,
+                "baseIndex": 56.5,
+                "rank": 6,
+                "index": 55.4
+              },
+              {
+                "player": "Mark Chapman",
+                "baseRank": 5,
+                "baseIndex": 56.3,
+                "rank": 1,
+                "index": 58.4
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "baseRank": 6,
+                "baseIndex": 56.1,
+                "rank": 5,
+                "index": 57.6
+              },
+              {
+                "player": "Glenn Phillips",
+                "baseRank": 7,
+                "baseIndex": 54.8,
+                "rank": 7,
+                "index": 55
+              },
+              {
+                "player": "David Miller",
+                "baseRank": 8,
+                "baseIndex": 54.5,
+                "rank": 8,
+                "index": 54.5
+              },
+              {
+                "player": "Mohammad Nabi",
+                "baseRank": 9,
+                "baseIndex": 54,
+                "rank": 11,
+                "index": 52.9
+              },
+              {
+                "player": "Rinku Singh",
+                "baseRank": 10,
+                "baseIndex": 53.3,
+                "rank": 12,
+                "index": 52.8
+              }
+            ]
+          },
+          "bowlers": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Akash Madhwal",
+                "baseRank": 1,
+                "baseIndex": 61.8,
+                "rank": 1,
+                "index": 61.8
+              },
+              {
+                "player": "Sunil Narine",
+                "baseRank": 2,
+                "baseIndex": 61.3,
+                "rank": 2,
+                "index": 61.3
+              },
+              {
+                "player": "Umran Malik",
+                "baseRank": 3,
+                "baseIndex": 61.3,
+                "rank": 3,
+                "index": 61.3
+              },
+              {
+                "player": "Washington Sundar",
+                "baseRank": 4,
+                "baseIndex": 60.6,
+                "rank": 4,
+                "index": 60.6
+              },
+              {
+                "player": "Sakib Hussain",
+                "baseRank": 5,
+                "baseIndex": 58.9,
+                "rank": 5,
+                "index": 58.9
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "baseRank": 6,
+                "baseIndex": 58.3,
+                "rank": 6,
+                "index": 58.3
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "baseRank": 7,
+                "baseIndex": 57.8,
+                "rank": 7,
+                "index": 57.8
+              },
+              {
+                "player": "Adam Zampa",
+                "baseRank": 8,
+                "baseIndex": 57.7,
+                "rank": 8,
+                "index": 57.7
+              },
+              {
+                "player": "Rasikh Salam",
+                "baseRank": 9,
+                "baseIndex": 56.3,
+                "rank": 9,
+                "index": 56.3
+              },
+              {
+                "player": "Benjamin Lister",
+                "baseRank": 10,
+                "baseIndex": 56.3,
+                "rank": 10,
+                "index": 56.3
+              }
+            ]
+          },
+          "allrounders": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Washington Sundar",
+                "baseRank": 1,
+                "baseIndex": 54,
+                "rank": 1,
+                "index": 54
+              },
+              {
+                "player": "Sikandar Raza",
+                "baseRank": 2,
+                "baseIndex": 52.5,
+                "rank": 2,
+                "index": 52.3
+              },
+              {
+                "player": "Ravindra Jadeja",
+                "baseRank": 3,
+                "baseIndex": 51.5,
+                "rank": 3,
+                "index": 51.5
+              },
+              {
+                "player": "Moeen Ali",
+                "baseRank": 4,
+                "baseIndex": 50.4,
+                "rank": 4,
+                "index": 51.1
+              },
+              {
+                "player": "Nitish Reddy",
+                "baseRank": 5,
+                "baseIndex": 49.9,
+                "rank": 5,
+                "index": 49.9
+              },
+              {
+                "player": "Cameron Green",
+                "baseRank": 6,
+                "baseIndex": 49,
+                "rank": 6,
+                "index": 49
+              },
+              {
+                "player": "Axar Patel",
+                "baseRank": 7,
+                "baseIndex": 48.4,
+                "rank": 8,
+                "index": 47.7
+              },
+              {
+                "player": "Sam Curran",
+                "baseRank": 8,
+                "baseIndex": 48,
+                "rank": 7,
+                "index": 48
+              },
+              {
+                "player": "Shivam Dube",
+                "baseRank": 9,
+                "baseIndex": 47.5,
+                "rank": 9,
+                "index": 47.1
+              },
+              {
+                "player": "Roston Chase",
+                "baseRank": 10,
+                "baseIndex": 46.1,
+                "rank": 10,
+                "index": 46.1
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "method": "shrunk",
+      "code": "C2",
+      "role": "alternative",
+      "label": "every stratum: mean and variance shrunk toward all seasons of the format, pseudo-count 5",
+      "metrics": {
+        "S1": {
+          "batters": {
+            "M1_poolThinningError": 0.164,
+            "M1detail": {
+              "rmse": 0.1213,
+              "fullDataCompositeSd": 0.7394,
+              "profileComparisons": 37500
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9558,
+            "M2b_top10RetentionBootstrap": 0.4663,
+            "M3a_rankDisplacementPoolDeletion": 0.584,
+            "M3b_rankDisplacementBootstrap": 16.437,
+            "M4_leaveOneOutExitRate": 0.0061,
+            "M4detail": {
+              "exits": 4,
+              "dropRuns": 66
+            },
+            "M5_allPairs": {
+              "r": -0.1338,
+              "pairs": 32,
+              "ci95": [
+                -0.476,
+                0.242
+              ]
+            },
+            "M5_thinPairs": {
+              "r": -0.4161,
+              "pairs": 7,
+              "ci95": [
+                -0.952,
+                0.485
+              ]
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 1,
+                "shareInTop10": 0.515
+              },
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 2,
+                "shareInTop10": 0.595
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 3,
+                "shareInTop10": 0.3
+              },
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 4,
+                "shareInTop10": 0.723
+              },
+              {
+                "player": "Fakhar Zaman",
+                "playerId": "2921",
+                "rank": 5,
+                "shareInTop10": 0.5
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 0.647
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 7,
+                "shareInTop10": 0.444
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 8,
+                "shareInTop10": 0.43
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 9,
+                "shareInTop10": 0.349
+              },
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "shareInTop10": 0.16
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Fakhar Zaman",
+                "playerId": "2921",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 8,
+                "shareInTop10": 1
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 9,
+                "shareInTop10": 0.997
+              },
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "shareInTop10": 0.561
+              }
+            ]
+          },
+          "bowlers": {
+            "M1_poolThinningError": 0.2372,
+            "M1detail": {
+              "rmse": 0.1791,
+              "fullDataCompositeSd": 0.7552,
+              "profileComparisons": 40000
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9736,
+            "M2b_top10RetentionBootstrap": 0.5432,
+            "M3a_rankDisplacementPoolDeletion": 0.479,
+            "M3b_rankDisplacementBootstrap": 22.204,
+            "M4_leaveOneOutExitRate": 0.0007,
+            "M4detail": {
+              "exits": 1,
+              "dropRuns": 136
+            },
+            "M5_allPairs": {
+              "r": 0.1017,
+              "pairs": 96,
+              "ci95": [
+                -0.119,
+                0.288
+              ]
+            },
+            "M5_thinPairs": {
+              "r": null,
+              "pairs": 0,
+              "ci95": null
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 1,
+                "shareInTop10": 0.603
+              },
+              {
+                "player": "Mohammad Nawaz",
+                "playerId": "2490",
+                "rank": 2,
+                "shareInTop10": 0.894
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 3,
+                "shareInTop10": 0.936
+              },
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 4,
+                "shareInTop10": 0.379
+              },
+              {
+                "player": "Abrar Ahmed",
+                "playerId": "5979",
+                "rank": 5,
+                "shareInTop10": 0.766
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 6,
+                "shareInTop10": 0.416
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 7,
+                "shareInTop10": 0.475
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 8,
+                "shareInTop10": 0.397
+              },
+              {
+                "player": "Mohit Sharma",
+                "playerId": "2878",
+                "rank": 9,
+                "shareInTop10": 0.22
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 10,
+                "shareInTop10": 0.346
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mohammad Nawaz",
+                "playerId": "2490",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Abrar Ahmed",
+                "playerId": "5979",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 8,
+                "shareInTop10": 0.999
+              },
+              {
+                "player": "Mohit Sharma",
+                "playerId": "2878",
+                "rank": 9,
+                "shareInTop10": 0.993
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 10,
+                "shareInTop10": 0.744
+              }
+            ]
+          }
+        },
+        "S2": {
+          "batters": {
+            "M1_poolThinningError": 0.1541,
+            "M1detail": {
+              "rmse": 0.1134,
+              "fullDataCompositeSd": 0.7362,
+              "profileComparisons": 37500
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9337,
+            "M2b_top10RetentionBootstrap": 0.4545,
+            "M3a_rankDisplacementPoolDeletion": 0.498,
+            "M3b_rankDisplacementBootstrap": 15.585,
+            "M4_leaveOneOutExitRate": 0.0117,
+            "M4detail": {
+              "exits": 7,
+              "dropRuns": 60
+            },
+            "M5_allPairs": {
+              "r": -0.1298,
+              "pairs": 32,
+              "ci95": [
+                -0.468,
+                0.244
+              ]
+            },
+            "M5_thinPairs": {
+              "r": 0.0767,
+              "pairs": 10,
+              "ci95": [
+                -0.801,
+                0.733
+              ]
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 1,
+                "shareInTop10": 0.533
+              },
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 2,
+                "shareInTop10": 0.629
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 3,
+                "shareInTop10": 0.318
+              },
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 4,
+                "shareInTop10": 0.759
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 5,
+                "shareInTop10": 0.672
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 6,
+                "shareInTop10": 0.44
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 7,
+                "shareInTop10": 0.467
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 8,
+                "shareInTop10": 0.393
+              },
+              {
+                "player": "Mohammad Nabi",
+                "playerId": "1107",
+                "rank": 9,
+                "shareInTop10": 0.14
+              },
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "shareInTop10": 0.194
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 8,
+                "shareInTop10": 0.996
+              },
+              {
+                "player": "Mohammad Nabi",
+                "playerId": "1107",
+                "rank": 9,
+                "shareInTop10": 0.684
+              },
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "shareInTop10": 0.657
+              }
+            ]
+          },
+          "bowlers": {
+            "M1_poolThinningError": 0.2327,
+            "M1detail": {
+              "rmse": 0.1741,
+              "fullDataCompositeSd": 0.7482,
+              "profileComparisons": 40000
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9367,
+            "M2b_top10RetentionBootstrap": 0.4894,
+            "M3a_rankDisplacementPoolDeletion": 0.448,
+            "M3b_rankDisplacementBootstrap": 20.35,
+            "M4_leaveOneOutExitRate": 0.0123,
+            "M4detail": {
+              "exits": 15,
+              "dropRuns": 122
+            },
+            "M5_allPairs": {
+              "r": 0.1239,
+              "pairs": 91,
+              "ci95": [
+                -0.085,
+                0.336
+              ]
+            },
+            "M5_thinPairs": {
+              "r": null,
+              "pairs": 0,
+              "ci95": null
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 1,
+                "shareInTop10": 0.43
+              },
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 2,
+                "shareInTop10": 0.633
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 3,
+                "shareInTop10": 0.965
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 4,
+                "shareInTop10": 0.517
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 5,
+                "shareInTop10": 0.551
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 6,
+                "shareInTop10": 0.517
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 7,
+                "shareInTop10": 0.446
+              },
+              {
+                "player": "Adam Zampa",
+                "playerId": "2636",
+                "rank": 8,
+                "shareInTop10": 0.498
+              },
+              {
+                "player": "Rasikh Salam",
+                "playerId": "7327",
+                "rank": 9,
+                "shareInTop10": 0.169
+              },
+              {
+                "player": "Varun Chakravarthy",
+                "playerId": "6256",
+                "rank": 10,
+                "shareInTop10": 0.168
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Adam Zampa",
+                "playerId": "2636",
+                "rank": 8,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Rasikh Salam",
+                "playerId": "7327",
+                "rank": 9,
+                "shareInTop10": 0.906
+              },
+              {
+                "player": "Varun Chakravarthy",
+                "playerId": "6256",
+                "rank": 10,
+                "shareInTop10": 0.461
+              }
+            ]
+          }
+        }
+      },
+      "sideEffectsVersusBase": {
+        "S1": {
+          "eligible": {
+            "batters": 66,
+            "bowlers": 136,
+            "allrounders": 12
+          },
+          "eligibleIdentical": true,
+          "largePoolMaxIndexChange": {
+            "max": 1.6,
+            "player": "Brian Bennett (batter)"
+          },
+          "largePoolMaxRankChange": {
+            "max": 8,
+            "player": "Mujeeb Ur Rahman (bowler)"
+          },
+          "thinPoolMaxIndexChange": {
+            "max": 1.2,
+            "player": "Mark Chapman (batter)"
+          },
+          "indexesChangedBatterAndBowler": 148,
+          "largePoolIndexesChanged": 137,
+          "top10NamesChanged": {
+            "batters": 1,
+            "bowlers": 0,
+            "allrounders": 0
+          }
+        },
+        "S2": {
+          "eligible": {
+            "batters": 60,
+            "bowlers": 122,
+            "allrounders": 11
+          },
+          "eligibleIdentical": true,
+          "largePoolMaxIndexChange": {
+            "max": 0.6,
+            "player": "Sanju Samson (batter)"
+          },
+          "largePoolMaxRankChange": {
+            "max": 5,
+            "player": "Mujeeb Ur Rahman (bowler)"
+          },
+          "thinPoolMaxIndexChange": {
+            "max": 1.6,
+            "player": "Brian Bennett (batter)"
+          },
+          "indexesChangedBatterAndBowler": 129,
+          "largePoolIndexesChanged": 102,
+          "top10NamesChanged": {
+            "batters": 1,
+            "bowlers": 1,
+            "allrounders": 0
+          }
+        }
+      },
+      "evaluation": {
+        "code": "C2",
+        "passes": false,
+        "failedRules": [
+          "3: M2a S2 bowlers",
+          "3: M4 S2 bowlers",
+          "2: S2 batters M2 rise 0.012, M3 relative fall 0.072",
+          "5: large-pool index change 1.6 (Brian Bennett (batter)) S1",
+          "5: large-pool rank change 8 (Mujeeb Ur Rahman (bowler)) S1"
+        ],
+        "meanRelativeM1Reduction": 0.3145,
+        "m1RelativeReductionByCell": {
+          "S1.batters": 0.3154,
+          "S1.bowlers": 0.3047,
+          "S2.batters": 0.3185,
+          "S2.bowlers": 0.3195
+        },
+        "s1IndexesChanged": 148
+      },
+      "top10": {
+        "S1": {
+          "batters": [
+            {
+              "rank": 1,
+              "player": "Cooper Connolly",
+              "playerId": "8654",
+              "index": 58.4,
+              "pressureBalls": 120,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 2,
+              "player": "Rishabh Pant",
+              "playerId": "4703",
+              "index": 58.3,
+              "pressureBalls": 217,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 3,
+              "player": "Sanju Samson",
+              "playerId": "2258",
+              "index": 57.7,
+              "pressureBalls": 113,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 4,
+              "player": "Mark Chapman",
+              "playerId": "3374",
+              "index": 57.2,
+              "pressureBalls": 311,
+              "pressureMatches": 20
+            },
+            {
+              "rank": 5,
+              "player": "Fakhar Zaman",
+              "playerId": "2921",
+              "index": 57,
+              "pressureBalls": 116,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 6,
+              "player": "Suryakumar Yadav",
+              "playerId": "1699",
+              "index": 56.7,
+              "pressureBalls": 724,
+              "pressureMatches": 41
+            },
+            {
+              "rank": 7,
+              "player": "Ryan Burl",
+              "playerId": "2463",
+              "index": 56.5,
+              "pressureBalls": 120,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 8,
+              "player": "Glenn Phillips",
+              "playerId": "4853",
+              "index": 54.7,
+              "pressureBalls": 237,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 9,
+              "player": "David Miller",
+              "playerId": "1077",
+              "index": 54.5,
+              "pressureBalls": 220,
+              "pressureMatches": 14
+            },
+            {
+              "rank": 10,
+              "player": "Jos Buttler",
+              "playerId": "813",
+              "index": 53.2,
+              "pressureBalls": 344,
+              "pressureMatches": 28
+            }
+          ],
+          "bowlers": [
+            {
+              "rank": 1,
+              "player": "Umran Malik",
+              "playerId": "25048",
+              "index": 61.5,
+              "pressureBalls": 97,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 2,
+              "player": "Mohammad Nawaz",
+              "playerId": "2490",
+              "index": 61.4,
+              "pressureBalls": 186,
+              "pressureMatches": 15
+            },
+            {
+              "rank": 3,
+              "player": "Sunil Narine",
+              "playerId": "781",
+              "index": 61.2,
+              "pressureBalls": 684,
+              "pressureMatches": 53
+            },
+            {
+              "rank": 4,
+              "player": "Akash Madhwal",
+              "playerId": "8177",
+              "index": 60.9,
+              "pressureBalls": 93,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 5,
+              "player": "Abrar Ahmed",
+              "playerId": "5979",
+              "index": 60.8,
+              "pressureBalls": 232,
+              "pressureMatches": 18
+            },
+            {
+              "rank": 6,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 59.7,
+              "pressureBalls": 136,
+              "pressureMatches": 12
+            },
+            {
+              "rank": 7,
+              "player": "Sakib Hussain",
+              "playerId": "35318",
+              "index": 58.8,
+              "pressureBalls": 150,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 8,
+              "player": "Kuldeep Yadav",
+              "playerId": "3644",
+              "index": 58.2,
+              "pressureBalls": 634,
+              "pressureMatches": 51
+            },
+            {
+              "rank": 9,
+              "player": "Mohit Sharma",
+              "playerId": "2878",
+              "index": 57.9,
+              "pressureBalls": 345,
+              "pressureMatches": 23
+            },
+            {
+              "rank": 10,
+              "player": "Mohammad Saifuddin",
+              "playerId": "38855",
+              "index": 57.3,
+              "pressureBalls": 71,
+              "pressureMatches": 8
+            }
+          ],
+          "allrounders": [
+            {
+              "rank": 1,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 53.7,
+              "battingIndex": 47.7,
+              "bowlingIndex": 59.7
+            },
+            {
+              "rank": 2,
+              "player": "Sikandar Raza",
+              "playerId": "2984",
+              "index": 51.9,
+              "battingIndex": 49.7,
+              "bowlingIndex": 54.1
+            },
+            {
+              "rank": 3,
+              "player": "Ravindra Jadeja",
+              "playerId": "152",
+              "index": 51.4,
+              "battingIndex": 52.5,
+              "bowlingIndex": 50.3
+            },
+            {
+              "rank": 4,
+              "player": "Ravichandran Ashwin",
+              "playerId": "305",
+              "index": 51.2,
+              "battingIndex": 51.7,
+              "bowlingIndex": 50.6
+            },
+            {
+              "rank": 5,
+              "player": "Moeen Ali",
+              "playerId": "1596",
+              "index": 50.8,
+              "battingIndex": 51.3,
+              "bowlingIndex": 50.2
+            },
+            {
+              "rank": 6,
+              "player": "Nitish Reddy",
+              "playerId": "8221",
+              "index": 49.8,
+              "battingIndex": 53.1,
+              "bowlingIndex": 46.5
+            },
+            {
+              "rank": 7,
+              "player": "Cameron Green",
+              "playerId": "5939",
+              "index": 49,
+              "battingIndex": 50.8,
+              "bowlingIndex": 47.1
+            },
+            {
+              "rank": 8,
+              "player": "Axar Patel",
+              "playerId": "2876",
+              "index": 48.2,
+              "battingIndex": 42.8,
+              "bowlingIndex": 53.5
+            },
+            {
+              "rank": 9,
+              "player": "Sam Curran",
+              "playerId": "4409",
+              "index": 47.9,
+              "battingIndex": 50.5,
+              "bowlingIndex": 45.3
+            },
+            {
+              "rank": 10,
+              "player": "Shivam Dube",
+              "playerId": "4755",
+              "index": 47.1,
+              "battingIndex": 48.3,
+              "bowlingIndex": 45.9
+            }
+          ]
+        },
+        "S2": {
+          "batters": [
+            {
+              "rank": 1,
+              "player": "Cooper Connolly",
+              "playerId": "8654",
+              "index": 58.4,
+              "pressureBalls": 120,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 2,
+              "player": "Rishabh Pant",
+              "playerId": "4703",
+              "index": 58.3,
+              "pressureBalls": 217,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 3,
+              "player": "Sanju Samson",
+              "playerId": "2258",
+              "index": 57.7,
+              "pressureBalls": 113,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 4,
+              "player": "Mark Chapman",
+              "playerId": "3374",
+              "index": 57.2,
+              "pressureBalls": 311,
+              "pressureMatches": 20
+            },
+            {
+              "rank": 5,
+              "player": "Suryakumar Yadav",
+              "playerId": "1699",
+              "index": 56.5,
+              "pressureBalls": 724,
+              "pressureMatches": 41
+            },
+            {
+              "rank": 6,
+              "player": "Ryan Burl",
+              "playerId": "2463",
+              "index": 56.1,
+              "pressureBalls": 120,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 7,
+              "player": "Glenn Phillips",
+              "playerId": "4853",
+              "index": 54.8,
+              "pressureBalls": 237,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 8,
+              "player": "David Miller",
+              "playerId": "1077",
+              "index": 54.6,
+              "pressureBalls": 220,
+              "pressureMatches": 14
+            },
+            {
+              "rank": 9,
+              "player": "Mohammad Nabi",
+              "playerId": "1107",
+              "index": 53.4,
+              "pressureBalls": 126,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 10,
+              "player": "Jos Buttler",
+              "playerId": "813",
+              "index": 53.2,
+              "pressureBalls": 344,
+              "pressureMatches": 28
+            }
+          ],
+          "bowlers": [
+            {
+              "rank": 1,
+              "player": "Akash Madhwal",
+              "playerId": "8177",
+              "index": 61.6,
+              "pressureBalls": 93,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 2,
+              "player": "Umran Malik",
+              "playerId": "25048",
+              "index": 61.4,
+              "pressureBalls": 97,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 3,
+              "player": "Sunil Narine",
+              "playerId": "781",
+              "index": 61.2,
+              "pressureBalls": 684,
+              "pressureMatches": 53
+            },
+            {
+              "rank": 4,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 60.5,
+              "pressureBalls": 136,
+              "pressureMatches": 12
+            },
+            {
+              "rank": 5,
+              "player": "Sakib Hussain",
+              "playerId": "35318",
+              "index": 58.9,
+              "pressureBalls": 150,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 6,
+              "player": "Kuldeep Yadav",
+              "playerId": "3644",
+              "index": 58.4,
+              "pressureBalls": 634,
+              "pressureMatches": 51
+            },
+            {
+              "rank": 7,
+              "player": "Mohammad Saifuddin",
+              "playerId": "38855",
+              "index": 58,
+              "pressureBalls": 71,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 8,
+              "player": "Adam Zampa",
+              "playerId": "2636",
+              "index": 57.6,
+              "pressureBalls": 418,
+              "pressureMatches": 30
+            },
+            {
+              "rank": 9,
+              "player": "Rasikh Salam",
+              "playerId": "7327",
+              "index": 56.3,
+              "pressureBalls": 137,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 10,
+              "player": "Varun Chakravarthy",
+              "playerId": "6256",
+              "index": 55.9,
+              "pressureBalls": 732,
+              "pressureMatches": 57
+            }
+          ],
+          "allrounders": [
+            {
+              "rank": 1,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 54.1,
+              "battingIndex": 47.7,
+              "bowlingIndex": 60.5
+            },
+            {
+              "rank": 2,
+              "player": "Sikandar Raza",
+              "playerId": "2984",
+              "index": 52.4,
+              "battingIndex": 50.2,
+              "bowlingIndex": 54.5
+            },
+            {
+              "rank": 3,
+              "player": "Ravindra Jadeja",
+              "playerId": "152",
+              "index": 51.5,
+              "battingIndex": 52.5,
+              "bowlingIndex": 50.4
+            },
+            {
+              "rank": 4,
+              "player": "Moeen Ali",
+              "playerId": "1596",
+              "index": 50.5,
+              "battingIndex": 51,
+              "bowlingIndex": 50
+            },
+            {
+              "rank": 5,
+              "player": "Nitish Reddy",
+              "playerId": "8221",
+              "index": 49.9,
+              "battingIndex": 53.2,
+              "bowlingIndex": 46.5
+            },
+            {
+              "rank": 6,
+              "player": "Cameron Green",
+              "playerId": "5939",
+              "index": 49,
+              "battingIndex": 50.8,
+              "bowlingIndex": 47.1
+            },
+            {
+              "rank": 7,
+              "player": "Axar Patel",
+              "playerId": "2876",
+              "index": 48.3,
+              "battingIndex": 42.7,
+              "bowlingIndex": 53.8
+            },
+            {
+              "rank": 8,
+              "player": "Sam Curran",
+              "playerId": "4409",
+              "index": 48,
+              "battingIndex": 50.5,
+              "bowlingIndex": 45.5
+            },
+            {
+              "rank": 9,
+              "player": "Shivam Dube",
+              "playerId": "4755",
+              "index": 47.3,
+              "battingIndex": 48.3,
+              "bowlingIndex": 46.3
+            },
+            {
+              "rank": 10,
+              "player": "Roston Chase",
+              "playerId": "2687",
+              "index": 46.4,
+              "battingIndex": 40.6,
+              "bowlingIndex": 52.2
+            }
+          ]
+        }
+      },
+      "top10VersusBase": {
+        "S1": {
+          "batters": {
+            "entered": [
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "index": 53.2,
+                "rankInOtherList": 11,
+                "indexInOtherList": 53.1
+              }
+            ],
+            "left": [
+              {
+                "player": "Namboori Tilak Varma",
+                "playerId": "7897",
+                "rank": 10,
+                "index": 53.1,
+                "rankInOtherList": 12,
+                "indexInOtherList": 53
+              }
+            ],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Rishabh Pant",
+                "baseRank": 1,
+                "baseIndex": 58.4,
+                "rank": 2,
+                "index": 58.3
+              },
+              {
+                "player": "Sanju Samson",
+                "baseRank": 2,
+                "baseIndex": 58.3,
+                "rank": 3,
+                "index": 57.7
+              },
+              {
+                "player": "Cooper Connolly",
+                "baseRank": 3,
+                "baseIndex": 58.2,
+                "rank": 1,
+                "index": 58.4
+              },
+              {
+                "player": "Fakhar Zaman",
+                "baseRank": 4,
+                "baseIndex": 57.7,
+                "rank": 5,
+                "index": 57
+              },
+              {
+                "player": "Ryan Burl",
+                "baseRank": 5,
+                "baseIndex": 57,
+                "rank": 7,
+                "index": 56.5
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "baseRank": 6,
+                "baseIndex": 56.4,
+                "rank": 6,
+                "index": 56.7
+              },
+              {
+                "player": "Mark Chapman",
+                "baseRank": 7,
+                "baseIndex": 56,
+                "rank": 4,
+                "index": 57.2
+              },
+              {
+                "player": "Glenn Phillips",
+                "baseRank": 8,
+                "baseIndex": 54.5,
+                "rank": 8,
+                "index": 54.7
+              },
+              {
+                "player": "David Miller",
+                "baseRank": 9,
+                "baseIndex": 54.4,
+                "rank": 9,
+                "index": 54.5
+              },
+              {
+                "player": "Namboori Tilak Varma",
+                "baseRank": 10,
+                "baseIndex": 53.1,
+                "rank": 12,
+                "index": 53
+              }
+            ]
+          },
+          "bowlers": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Umran Malik",
+                "baseRank": 1,
+                "baseIndex": 61.4,
+                "rank": 1,
+                "index": 61.5
+              },
+              {
+                "player": "Sunil Narine",
+                "baseRank": 2,
+                "baseIndex": 61.3,
+                "rank": 3,
+                "index": 61.2
+              },
+              {
+                "player": "Mohammad Nawaz",
+                "baseRank": 3,
+                "baseIndex": 61.2,
+                "rank": 2,
+                "index": 61.4
+              },
+              {
+                "player": "Akash Madhwal",
+                "baseRank": 4,
+                "baseIndex": 60.9,
+                "rank": 4,
+                "index": 60.9
+              },
+              {
+                "player": "Abrar Ahmed",
+                "baseRank": 5,
+                "baseIndex": 60.6,
+                "rank": 5,
+                "index": 60.8
+              },
+              {
+                "player": "Washington Sundar",
+                "baseRank": 6,
+                "baseIndex": 59.7,
+                "rank": 6,
+                "index": 59.7
+              },
+              {
+                "player": "Sakib Hussain",
+                "baseRank": 7,
+                "baseIndex": 58.9,
+                "rank": 7,
+                "index": 58.8
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "baseRank": 8,
+                "baseIndex": 58.2,
+                "rank": 8,
+                "index": 58.2
+              },
+              {
+                "player": "Mohit Sharma",
+                "baseRank": 9,
+                "baseIndex": 58,
+                "rank": 9,
+                "index": 57.9
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "baseRank": 10,
+                "baseIndex": 57.1,
+                "rank": 10,
+                "index": 57.3
+              }
+            ]
+          },
+          "allrounders": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Washington Sundar",
+                "baseRank": 1,
+                "baseIndex": 53.6,
+                "rank": 1,
+                "index": 53.7
+              },
+              {
+                "player": "Sikandar Raza",
+                "baseRank": 2,
+                "baseIndex": 51.9,
+                "rank": 2,
+                "index": 51.9
+              },
+              {
+                "player": "Ravindra Jadeja",
+                "baseRank": 3,
+                "baseIndex": 51.5,
+                "rank": 3,
+                "index": 51.4
+              },
+              {
+                "player": "Ravichandran Ashwin",
+                "baseRank": 4,
+                "baseIndex": 51.1,
+                "rank": 4,
+                "index": 51.2
+              },
+              {
+                "player": "Moeen Ali",
+                "baseRank": 5,
+                "baseIndex": 50.7,
+                "rank": 5,
+                "index": 50.8
+              },
+              {
+                "player": "Nitish Reddy",
+                "baseRank": 6,
+                "baseIndex": 49.9,
+                "rank": 6,
+                "index": 49.8
+              },
+              {
+                "player": "Cameron Green",
+                "baseRank": 7,
+                "baseIndex": 49.1,
+                "rank": 7,
+                "index": 49
+              },
+              {
+                "player": "Axar Patel",
+                "baseRank": 8,
+                "baseIndex": 48.3,
+                "rank": 8,
+                "index": 48.2
+              },
+              {
+                "player": "Sam Curran",
+                "baseRank": 9,
+                "baseIndex": 47.9,
+                "rank": 9,
+                "index": 47.9
+              },
+              {
+                "player": "Shivam Dube",
+                "baseRank": 10,
+                "baseIndex": 47.3,
+                "rank": 10,
+                "index": 47.1
+              }
+            ]
+          }
+        },
+        "S2": {
+          "batters": {
+            "entered": [
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "index": 53.2,
+                "rankInOtherList": 12,
+                "indexInOtherList": 53
+              }
+            ],
+            "left": [
+              {
+                "player": "Rinku Singh",
+                "playerId": "4708",
+                "rank": 10,
+                "index": 53.3,
+                "rankInOtherList": 13,
+                "indexInOtherList": 52.9
+              }
+            ],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Rishabh Pant",
+                "baseRank": 1,
+                "baseIndex": 58.4,
+                "rank": 2,
+                "index": 58.3
+              },
+              {
+                "player": "Sanju Samson",
+                "baseRank": 2,
+                "baseIndex": 58.3,
+                "rank": 3,
+                "index": 57.7
+              },
+              {
+                "player": "Cooper Connolly",
+                "baseRank": 3,
+                "baseIndex": 58.2,
+                "rank": 1,
+                "index": 58.4
+              },
+              {
+                "player": "Ryan Burl",
+                "baseRank": 4,
+                "baseIndex": 56.5,
+                "rank": 6,
+                "index": 56.1
+              },
+              {
+                "player": "Mark Chapman",
+                "baseRank": 5,
+                "baseIndex": 56.3,
+                "rank": 4,
+                "index": 57.2
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "baseRank": 6,
+                "baseIndex": 56.1,
+                "rank": 5,
+                "index": 56.5
+              },
+              {
+                "player": "Glenn Phillips",
+                "baseRank": 7,
+                "baseIndex": 54.8,
+                "rank": 7,
+                "index": 54.8
+              },
+              {
+                "player": "David Miller",
+                "baseRank": 8,
+                "baseIndex": 54.5,
+                "rank": 8,
+                "index": 54.6
+              },
+              {
+                "player": "Mohammad Nabi",
+                "baseRank": 9,
+                "baseIndex": 54,
+                "rank": 9,
+                "index": 53.4
+              },
+              {
+                "player": "Rinku Singh",
+                "baseRank": 10,
+                "baseIndex": 53.3,
+                "rank": 13,
+                "index": 52.9
+              }
+            ]
+          },
+          "bowlers": {
+            "entered": [
+              {
+                "player": "Varun Chakravarthy",
+                "playerId": "6256",
+                "rank": 10,
+                "index": 55.9,
+                "rankInOtherList": 11,
+                "indexInOtherList": 55.8
+              }
+            ],
+            "left": [
+              {
+                "player": "Benjamin Lister",
+                "playerId": "6515",
+                "rank": 10,
+                "index": 56.3,
+                "rankInOtherList": 11,
+                "indexInOtherList": 55.9
+              }
+            ],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Akash Madhwal",
+                "baseRank": 1,
+                "baseIndex": 61.8,
+                "rank": 1,
+                "index": 61.6
+              },
+              {
+                "player": "Sunil Narine",
+                "baseRank": 2,
+                "baseIndex": 61.3,
+                "rank": 3,
+                "index": 61.2
+              },
+              {
+                "player": "Umran Malik",
+                "baseRank": 3,
+                "baseIndex": 61.3,
+                "rank": 2,
+                "index": 61.4
+              },
+              {
+                "player": "Washington Sundar",
+                "baseRank": 4,
+                "baseIndex": 60.6,
+                "rank": 4,
+                "index": 60.5
+              },
+              {
+                "player": "Sakib Hussain",
+                "baseRank": 5,
+                "baseIndex": 58.9,
+                "rank": 5,
+                "index": 58.9
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "baseRank": 6,
+                "baseIndex": 58.3,
+                "rank": 6,
+                "index": 58.4
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "baseRank": 7,
+                "baseIndex": 57.8,
+                "rank": 7,
+                "index": 58
+              },
+              {
+                "player": "Adam Zampa",
+                "baseRank": 8,
+                "baseIndex": 57.7,
+                "rank": 8,
+                "index": 57.6
+              },
+              {
+                "player": "Rasikh Salam",
+                "baseRank": 9,
+                "baseIndex": 56.3,
+                "rank": 9,
+                "index": 56.3
+              },
+              {
+                "player": "Benjamin Lister",
+                "baseRank": 10,
+                "baseIndex": 56.3,
+                "rank": 11,
+                "index": 55.9
+              }
+            ]
+          },
+          "allrounders": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Washington Sundar",
+                "baseRank": 1,
+                "baseIndex": 54,
+                "rank": 1,
+                "index": 54.1
+              },
+              {
+                "player": "Sikandar Raza",
+                "baseRank": 2,
+                "baseIndex": 52.5,
+                "rank": 2,
+                "index": 52.4
+              },
+              {
+                "player": "Ravindra Jadeja",
+                "baseRank": 3,
+                "baseIndex": 51.5,
+                "rank": 3,
+                "index": 51.5
+              },
+              {
+                "player": "Moeen Ali",
+                "baseRank": 4,
+                "baseIndex": 50.4,
+                "rank": 4,
+                "index": 50.5
+              },
+              {
+                "player": "Nitish Reddy",
+                "baseRank": 5,
+                "baseIndex": 49.9,
+                "rank": 5,
+                "index": 49.9
+              },
+              {
+                "player": "Cameron Green",
+                "baseRank": 6,
+                "baseIndex": 49,
+                "rank": 6,
+                "index": 49
+              },
+              {
+                "player": "Axar Patel",
+                "baseRank": 7,
+                "baseIndex": 48.4,
+                "rank": 7,
+                "index": 48.3
+              },
+              {
+                "player": "Sam Curran",
+                "baseRank": 8,
+                "baseIndex": 48,
+                "rank": 8,
+                "index": 48
+              },
+              {
+                "player": "Shivam Dube",
+                "baseRank": 9,
+                "baseIndex": 47.5,
+                "rank": 9,
+                "index": 47.3
+              },
+              {
+                "player": "Roston Chase",
+                "baseRank": 10,
+                "baseIndex": 46.1,
+                "rank": 10,
+                "index": 46.4
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "method": "adjacent-fallback",
+      "code": "C3",
+      "role": "alternative",
+      "label": "a stratum with 10 or fewer eligible profiles uses the adjacent seasons, then all seasons if still thin",
+      "metrics": {
+        "S1": {
+          "batters": {
+            "M1_poolThinningError": 0.2397,
+            "M1detail": {
+              "rmse": 0.1831,
+              "fullDataCompositeSd": 0.7639,
+              "profileComparisons": 37500
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9273,
+            "M2b_top10RetentionBootstrap": 0.4627,
+            "M3a_rankDisplacementPoolDeletion": 1.176,
+            "M3b_rankDisplacementBootstrap": 16.3,
+            "M4_leaveOneOutExitRate": 0.0015,
+            "M4detail": {
+              "exits": 1,
+              "dropRuns": 66
+            },
+            "M5_allPairs": {
+              "r": -0.1193,
+              "pairs": 32,
+              "ci95": [
+                -0.474,
+                0.266
+              ]
+            },
+            "M5_thinPairs": {
+              "r": -0.4109,
+              "pairs": 7,
+              "ci95": [
+                -0.968,
+                0.599
+              ]
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 1,
+                "shareInTop10": 0.761
+              },
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 2,
+                "shareInTop10": 0.581
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 3,
+                "shareInTop10": 0.296
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 4,
+                "shareInTop10": 0.497
+              },
+              {
+                "player": "Fakhar Zaman",
+                "playerId": "2921",
+                "rank": 5,
+                "shareInTop10": 0.498
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 0.639
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 7,
+                "shareInTop10": 0.45
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 8,
+                "shareInTop10": 0.421
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 9,
+                "shareInTop10": 0.342
+              },
+              {
+                "player": "Namboori Tilak Varma",
+                "playerId": "7897",
+                "rank": 10,
+                "shareInTop10": 0.142
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Fakhar Zaman",
+                "playerId": "2921",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 8,
+                "shareInTop10": 0.958
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 9,
+                "shareInTop10": 0.972
+              },
+              {
+                "player": "Namboori Tilak Varma",
+                "playerId": "7897",
+                "rank": 10,
+                "shareInTop10": 0.343
+              }
+            ]
+          },
+          "bowlers": {
+            "M1_poolThinningError": 0.2961,
+            "M1detail": {
+              "rmse": 0.2252,
+              "fullDataCompositeSd": 0.7608,
+              "profileComparisons": 40000
+            },
+            "M2a_top10RetentionPoolDeletion": 0.9489,
+            "M2b_top10RetentionBootstrap": 0.5378,
+            "M3a_rankDisplacementPoolDeletion": 0.604,
+            "M3b_rankDisplacementBootstrap": 22.346,
+            "M4_leaveOneOutExitRate": 0.0118,
+            "M4detail": {
+              "exits": 16,
+              "dropRuns": 136
+            },
+            "M5_allPairs": {
+              "r": 0.094,
+              "pairs": 96,
+              "ci95": [
+                -0.121,
+                0.282
+              ]
+            },
+            "M5_thinPairs": {
+              "r": null,
+              "pairs": 0,
+              "ci95": null
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 1,
+                "shareInTop10": 0.59
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 0.94
+              },
+              {
+                "player": "Mohammad Nawaz",
+                "playerId": "2490",
+                "rank": 3,
+                "shareInTop10": 0.884
+              },
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 4,
+                "shareInTop10": 0.379
+              },
+              {
+                "player": "Abrar Ahmed",
+                "playerId": "5979",
+                "rank": 5,
+                "shareInTop10": 0.742
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 6,
+                "shareInTop10": 0.42
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 7,
+                "shareInTop10": 0.477
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 8,
+                "shareInTop10": 0.398
+              },
+              {
+                "player": "Mohit Sharma",
+                "playerId": "2878",
+                "rank": 9,
+                "shareInTop10": 0.231
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 10,
+                "shareInTop10": 0.317
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mohammad Nawaz",
+                "playerId": "2490",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Abrar Ahmed",
+                "playerId": "5979",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 8,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mohit Sharma",
+                "playerId": "2878",
+                "rank": 9,
+                "shareInTop10": 0.997
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 10,
+                "shareInTop10": 0.492
+              }
+            ]
+          }
+        },
+        "S2": {
+          "batters": {
+            "M1_poolThinningError": 0.158,
+            "M1detail": {
+              "rmse": 0.1191,
+              "fullDataCompositeSd": 0.7539,
+              "profileComparisons": 37500
+            },
+            "M2a_top10RetentionPoolDeletion": 0.8965,
+            "M2b_top10RetentionBootstrap": 0.4539,
+            "M3a_rankDisplacementPoolDeletion": 0.986,
+            "M3b_rankDisplacementBootstrap": 14.542,
+            "M4_leaveOneOutExitRate": 0.035,
+            "M4detail": {
+              "exits": 21,
+              "dropRuns": 60
+            },
+            "M5_allPairs": {
+              "r": -0.1341,
+              "pairs": 32,
+              "ci95": [
+                -0.45,
+                0.205
+              ]
+            },
+            "M5_thinPairs": {
+              "r": 0.0421,
+              "pairs": 10,
+              "ci95": [
+                -0.872,
+                0.776
+              ]
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 1,
+                "shareInTop10": 0.614
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 2,
+                "shareInTop10": 0.318
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 3,
+                "shareInTop10": 0.522
+              },
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 4,
+                "shareInTop10": 0.8
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 5,
+                "shareInTop10": 0.454
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 0.667
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 7,
+                "shareInTop10": 0.387
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 8,
+                "shareInTop10": 0.442
+              },
+              {
+                "player": "Namboori Tilak Varma",
+                "playerId": "7897",
+                "rank": 9,
+                "shareInTop10": 0.161
+              },
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "shareInTop10": 0.174
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Rishabh Pant",
+                "playerId": "4703",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sanju Samson",
+                "playerId": "2258",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Cooper Connolly",
+                "playerId": "8654",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mark Chapman",
+                "playerId": "3374",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Ryan Burl",
+                "playerId": "2463",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "playerId": "1699",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "David Miller",
+                "playerId": "1077",
+                "rank": 7,
+                "shareInTop10": 0.99
+              },
+              {
+                "player": "Glenn Phillips",
+                "playerId": "4853",
+                "rank": 8,
+                "shareInTop10": 0.985
+              },
+              {
+                "player": "Namboori Tilak Varma",
+                "playerId": "7897",
+                "rank": 9,
+                "shareInTop10": 0.495
+              },
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "shareInTop10": 0.495
+              }
+            ]
+          },
+          "bowlers": {
+            "M1_poolThinningError": 0.2832,
+            "M1detail": {
+              "rmse": 0.2133,
+              "fullDataCompositeSd": 0.7532,
+              "profileComparisons": 40000
+            },
+            "M2a_top10RetentionPoolDeletion": 0.973,
+            "M2b_top10RetentionBootstrap": 0.4906,
+            "M3a_rankDisplacementPoolDeletion": 0.574,
+            "M3b_rankDisplacementBootstrap": 22.276,
+            "M4_leaveOneOutExitRate": 0.0008,
+            "M4detail": {
+              "exits": 1,
+              "dropRuns": 122
+            },
+            "M5_allPairs": {
+              "r": 0.1193,
+              "pairs": 91,
+              "ci95": [
+                -0.094,
+                0.331
+              ]
+            },
+            "M5_thinPairs": {
+              "r": null,
+              "pairs": 0,
+              "ci95": null
+            },
+            "bootstrapSharesTop10": [
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 1,
+                "shareInTop10": 0.43
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 0.967
+              },
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 3,
+                "shareInTop10": 0.623
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 4,
+                "shareInTop10": 0.518
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 5,
+                "shareInTop10": 0.55
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 6,
+                "shareInTop10": 0.497
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 7,
+                "shareInTop10": 0.428
+              },
+              {
+                "player": "Adam Zampa",
+                "playerId": "2636",
+                "rank": 8,
+                "shareInTop10": 0.507
+              },
+              {
+                "player": "Rasikh Salam",
+                "playerId": "7327",
+                "rank": 9,
+                "shareInTop10": 0.171
+              },
+              {
+                "player": "Benjamin Lister",
+                "playerId": "6515",
+                "rank": 10,
+                "shareInTop10": 0.215
+              }
+            ],
+            "poolDeletionSharesTop10": [
+              {
+                "player": "Akash Madhwal",
+                "playerId": "8177",
+                "rank": 1,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sunil Narine",
+                "playerId": "781",
+                "rank": 2,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Umran Malik",
+                "playerId": "25048",
+                "rank": 3,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Washington Sundar",
+                "playerId": "4823",
+                "rank": 4,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Sakib Hussain",
+                "playerId": "35318",
+                "rank": 5,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "playerId": "3644",
+                "rank": 6,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "playerId": "38855",
+                "rank": 7,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Adam Zampa",
+                "playerId": "2636",
+                "rank": 8,
+                "shareInTop10": 1
+              },
+              {
+                "player": "Rasikh Salam",
+                "playerId": "7327",
+                "rank": 9,
+                "shareInTop10": 0.807
+              },
+              {
+                "player": "Benjamin Lister",
+                "playerId": "6515",
+                "rank": 10,
+                "shareInTop10": 0.923
+              }
+            ]
+          }
+        }
+      },
+      "sideEffectsVersusBase": {
+        "S1": {
+          "eligible": {
+            "batters": 66,
+            "bowlers": 136,
+            "allrounders": 12
+          },
+          "eligibleIdentical": true,
+          "largePoolMaxIndexChange": {
+            "max": 0,
+            "player": null
+          },
+          "largePoolMaxRankChange": {
+            "max": 2,
+            "player": "Ryan Burl (batter)"
+          },
+          "thinPoolMaxIndexChange": {
+            "max": 2.5,
+            "player": "Mark Chapman (batter)"
+          },
+          "indexesChangedBatterAndBowler": 10,
+          "largePoolIndexesChanged": 0,
+          "top10NamesChanged": {
+            "batters": 0,
+            "bowlers": 0,
+            "allrounders": 0
+          }
+        },
+        "S2": {
+          "eligible": {
+            "batters": 60,
+            "bowlers": 122,
+            "allrounders": 11
+          },
+          "eligibleIdentical": true,
+          "largePoolMaxIndexChange": {
+            "max": 0,
+            "player": null
+          },
+          "largePoolMaxRankChange": {
+            "max": 3,
+            "player": "Aiden Markram (batter)"
+          },
+          "thinPoolMaxIndexChange": {
+            "max": 3.1,
+            "player": "Brian Bennett (batter)"
+          },
+          "indexesChangedBatterAndBowler": 29,
+          "largePoolIndexesChanged": 0,
+          "top10NamesChanged": {
+            "batters": 2,
+            "bowlers": 0,
+            "allrounders": 0
+          }
+        }
+      },
+      "evaluation": {
+        "code": "C3",
+        "passes": false,
+        "failedRules": [
+          "1: M1 S1 batters 0.24 vs 0.24 (ratio 1)",
+          "1: M1 S1 bowlers 0.296 vs 0.341 (ratio 0.868)",
+          "3: M2a S2 batters",
+          "3: M4 S2 batters"
+        ],
+        "meanRelativeM1Reduction": 0.1512,
+        "m1RelativeReductionByCell": {
+          "S1.batters": -0.0003,
+          "S1.bowlers": 0.1321,
+          "S2.batters": 0.3012,
+          "S2.bowlers": 0.1717
+        },
+        "s1IndexesChanged": 10
+      },
+      "top10": {
+        "S1": {
+          "batters": [
+            {
+              "rank": 1,
+              "player": "Mark Chapman",
+              "playerId": "3374",
+              "index": 58.5,
+              "pressureBalls": 311,
+              "pressureMatches": 20
+            },
+            {
+              "rank": 2,
+              "player": "Rishabh Pant",
+              "playerId": "4703",
+              "index": 58.4,
+              "pressureBalls": 217,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 3,
+              "player": "Sanju Samson",
+              "playerId": "2258",
+              "index": 58.3,
+              "pressureBalls": 113,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 4,
+              "player": "Cooper Connolly",
+              "playerId": "8654",
+              "index": 58.2,
+              "pressureBalls": 120,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 5,
+              "player": "Fakhar Zaman",
+              "playerId": "2921",
+              "index": 57.7,
+              "pressureBalls": 116,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 6,
+              "player": "Suryakumar Yadav",
+              "playerId": "1699",
+              "index": 57.1,
+              "pressureBalls": 724,
+              "pressureMatches": 41
+            },
+            {
+              "rank": 7,
+              "player": "Ryan Burl",
+              "playerId": "2463",
+              "index": 57,
+              "pressureBalls": 120,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 8,
+              "player": "Glenn Phillips",
+              "playerId": "4853",
+              "index": 54.5,
+              "pressureBalls": 237,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 9,
+              "player": "David Miller",
+              "playerId": "1077",
+              "index": 54.4,
+              "pressureBalls": 220,
+              "pressureMatches": 14
+            },
+            {
+              "rank": 10,
+              "player": "Namboori Tilak Varma",
+              "playerId": "7897",
+              "index": 53.4,
+              "pressureBalls": 1048,
+              "pressureMatches": 77
+            }
+          ],
+          "bowlers": [
+            {
+              "rank": 1,
+              "player": "Umran Malik",
+              "playerId": "25048",
+              "index": 61.4,
+              "pressureBalls": 97,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 2,
+              "player": "Sunil Narine",
+              "playerId": "781",
+              "index": 61.3,
+              "pressureBalls": 684,
+              "pressureMatches": 53
+            },
+            {
+              "rank": 3,
+              "player": "Mohammad Nawaz",
+              "playerId": "2490",
+              "index": 61.2,
+              "pressureBalls": 186,
+              "pressureMatches": 15
+            },
+            {
+              "rank": 4,
+              "player": "Akash Madhwal",
+              "playerId": "8177",
+              "index": 60.9,
+              "pressureBalls": 93,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 5,
+              "player": "Abrar Ahmed",
+              "playerId": "5979",
+              "index": 60.6,
+              "pressureBalls": 232,
+              "pressureMatches": 18
+            },
+            {
+              "rank": 6,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 59.7,
+              "pressureBalls": 136,
+              "pressureMatches": 12
+            },
+            {
+              "rank": 7,
+              "player": "Sakib Hussain",
+              "playerId": "35318",
+              "index": 58.9,
+              "pressureBalls": 150,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 8,
+              "player": "Kuldeep Yadav",
+              "playerId": "3644",
+              "index": 58.2,
+              "pressureBalls": 634,
+              "pressureMatches": 51
+            },
+            {
+              "rank": 9,
+              "player": "Mohit Sharma",
+              "playerId": "2878",
+              "index": 58,
+              "pressureBalls": 345,
+              "pressureMatches": 23
+            },
+            {
+              "rank": 10,
+              "player": "Mohammad Saifuddin",
+              "playerId": "38855",
+              "index": 57.1,
+              "pressureBalls": 71,
+              "pressureMatches": 8
+            }
+          ],
+          "allrounders": [
+            {
+              "rank": 1,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 53.6,
+              "battingIndex": 47.4,
+              "bowlingIndex": 59.7
+            },
+            {
+              "rank": 2,
+              "player": "Sikandar Raza",
+              "playerId": "2984",
+              "index": 51.9,
+              "battingIndex": 49.6,
+              "bowlingIndex": 54.1
+            },
+            {
+              "rank": 3,
+              "player": "Ravindra Jadeja",
+              "playerId": "152",
+              "index": 51.5,
+              "battingIndex": 52.6,
+              "bowlingIndex": 50.4
+            },
+            {
+              "rank": 4,
+              "player": "Ravichandran Ashwin",
+              "playerId": "305",
+              "index": 51.1,
+              "battingIndex": 51.6,
+              "bowlingIndex": 50.6
+            },
+            {
+              "rank": 5,
+              "player": "Moeen Ali",
+              "playerId": "1596",
+              "index": 50.7,
+              "battingIndex": 51,
+              "bowlingIndex": 50.4
+            },
+            {
+              "rank": 6,
+              "player": "Nitish Reddy",
+              "playerId": "8221",
+              "index": 49.9,
+              "battingIndex": 53,
+              "bowlingIndex": 46.8
+            },
+            {
+              "rank": 7,
+              "player": "Cameron Green",
+              "playerId": "5939",
+              "index": 49.1,
+              "battingIndex": 51,
+              "bowlingIndex": 47.1
+            },
+            {
+              "rank": 8,
+              "player": "Axar Patel",
+              "playerId": "2876",
+              "index": 48.3,
+              "battingIndex": 42.9,
+              "bowlingIndex": 53.7
+            },
+            {
+              "rank": 9,
+              "player": "Sam Curran",
+              "playerId": "4409",
+              "index": 47.9,
+              "battingIndex": 50.5,
+              "bowlingIndex": 45.3
+            },
+            {
+              "rank": 10,
+              "player": "Shivam Dube",
+              "playerId": "4755",
+              "index": 47.1,
+              "battingIndex": 48.4,
+              "bowlingIndex": 45.8
+            }
+          ]
+        },
+        "S2": {
+          "batters": [
+            {
+              "rank": 1,
+              "player": "Rishabh Pant",
+              "playerId": "4703",
+              "index": 58.4,
+              "pressureBalls": 217,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 2,
+              "player": "Sanju Samson",
+              "playerId": "2258",
+              "index": 58.3,
+              "pressureBalls": 113,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 3,
+              "player": "Cooper Connolly",
+              "playerId": "8654",
+              "index": 58.2,
+              "pressureBalls": 120,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 4,
+              "player": "Mark Chapman",
+              "playerId": "3374",
+              "index": 58.1,
+              "pressureBalls": 311,
+              "pressureMatches": 20
+            },
+            {
+              "rank": 5,
+              "player": "Ryan Burl",
+              "playerId": "2463",
+              "index": 56.7,
+              "pressureBalls": 120,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 6,
+              "player": "Suryakumar Yadav",
+              "playerId": "1699",
+              "index": 56.3,
+              "pressureBalls": 724,
+              "pressureMatches": 41
+            },
+            {
+              "rank": 7,
+              "player": "David Miller",
+              "playerId": "1077",
+              "index": 54.5,
+              "pressureBalls": 220,
+              "pressureMatches": 14
+            },
+            {
+              "rank": 8,
+              "player": "Glenn Phillips",
+              "playerId": "4853",
+              "index": 54.2,
+              "pressureBalls": 237,
+              "pressureMatches": 17
+            },
+            {
+              "rank": 9,
+              "player": "Namboori Tilak Varma",
+              "playerId": "7897",
+              "index": 53.2,
+              "pressureBalls": 1048,
+              "pressureMatches": 77
+            },
+            {
+              "rank": 10,
+              "player": "Jos Buttler",
+              "playerId": "813",
+              "index": 53,
+              "pressureBalls": 344,
+              "pressureMatches": 28
+            }
+          ],
+          "bowlers": [
+            {
+              "rank": 1,
+              "player": "Akash Madhwal",
+              "playerId": "8177",
+              "index": 61.8,
+              "pressureBalls": 93,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 2,
+              "player": "Sunil Narine",
+              "playerId": "781",
+              "index": 61.3,
+              "pressureBalls": 684,
+              "pressureMatches": 53
+            },
+            {
+              "rank": 3,
+              "player": "Umran Malik",
+              "playerId": "25048",
+              "index": 61.3,
+              "pressureBalls": 97,
+              "pressureMatches": 9
+            },
+            {
+              "rank": 4,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 60.6,
+              "pressureBalls": 136,
+              "pressureMatches": 12
+            },
+            {
+              "rank": 5,
+              "player": "Sakib Hussain",
+              "playerId": "35318",
+              "index": 58.9,
+              "pressureBalls": 150,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 6,
+              "player": "Kuldeep Yadav",
+              "playerId": "3644",
+              "index": 58.3,
+              "pressureBalls": 634,
+              "pressureMatches": 51
+            },
+            {
+              "rank": 7,
+              "player": "Mohammad Saifuddin",
+              "playerId": "38855",
+              "index": 57.8,
+              "pressureBalls": 71,
+              "pressureMatches": 8
+            },
+            {
+              "rank": 8,
+              "player": "Adam Zampa",
+              "playerId": "2636",
+              "index": 57.7,
+              "pressureBalls": 418,
+              "pressureMatches": 30
+            },
+            {
+              "rank": 9,
+              "player": "Rasikh Salam",
+              "playerId": "7327",
+              "index": 56.3,
+              "pressureBalls": 137,
+              "pressureMatches": 11
+            },
+            {
+              "rank": 10,
+              "player": "Benjamin Lister",
+              "playerId": "6515",
+              "index": 56.3,
+              "pressureBalls": 78,
+              "pressureMatches": 9
+            }
+          ],
+          "allrounders": [
+            {
+              "rank": 1,
+              "player": "Washington Sundar",
+              "playerId": "4823",
+              "index": 54,
+              "battingIndex": 47.4,
+              "bowlingIndex": 60.6
+            },
+            {
+              "rank": 2,
+              "player": "Sikandar Raza",
+              "playerId": "2984",
+              "index": 52.4,
+              "battingIndex": 50.2,
+              "bowlingIndex": 54.5
+            },
+            {
+              "rank": 3,
+              "player": "Ravindra Jadeja",
+              "playerId": "152",
+              "index": 51.5,
+              "battingIndex": 52.6,
+              "bowlingIndex": 50.4
+            },
+            {
+              "rank": 4,
+              "player": "Moeen Ali",
+              "playerId": "1596",
+              "index": 50.1,
+              "battingIndex": 49.9,
+              "bowlingIndex": 50.2
+            },
+            {
+              "rank": 5,
+              "player": "Nitish Reddy",
+              "playerId": "8221",
+              "index": 49.9,
+              "battingIndex": 53,
+              "bowlingIndex": 46.8
+            },
+            {
+              "rank": 6,
+              "player": "Cameron Green",
+              "playerId": "5939",
+              "index": 49,
+              "battingIndex": 51,
+              "bowlingIndex": 47
+            },
+            {
+              "rank": 7,
+              "player": "Sam Curran",
+              "playerId": "4409",
+              "index": 48,
+              "battingIndex": 50.5,
+              "bowlingIndex": 45.5
+            },
+            {
+              "rank": 8,
+              "player": "Axar Patel",
+              "playerId": "2876",
+              "index": 47.9,
+              "battingIndex": 41.7,
+              "bowlingIndex": 54
+            },
+            {
+              "rank": 9,
+              "player": "Shivam Dube",
+              "playerId": "4755",
+              "index": 47.3,
+              "battingIndex": 48.3,
+              "bowlingIndex": 46.3
+            },
+            {
+              "rank": 10,
+              "player": "Roston Chase",
+              "playerId": "2687",
+              "index": 46.2,
+              "battingIndex": 40.4,
+              "bowlingIndex": 52
+            }
+          ]
+        }
+      },
+      "top10VersusBase": {
+        "S1": {
+          "batters": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Rishabh Pant",
+                "baseRank": 1,
+                "baseIndex": 58.4,
+                "rank": 2,
+                "index": 58.4
+              },
+              {
+                "player": "Sanju Samson",
+                "baseRank": 2,
+                "baseIndex": 58.3,
+                "rank": 3,
+                "index": 58.3
+              },
+              {
+                "player": "Cooper Connolly",
+                "baseRank": 3,
+                "baseIndex": 58.2,
+                "rank": 4,
+                "index": 58.2
+              },
+              {
+                "player": "Fakhar Zaman",
+                "baseRank": 4,
+                "baseIndex": 57.7,
+                "rank": 5,
+                "index": 57.7
+              },
+              {
+                "player": "Ryan Burl",
+                "baseRank": 5,
+                "baseIndex": 57,
+                "rank": 7,
+                "index": 57
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "baseRank": 6,
+                "baseIndex": 56.4,
+                "rank": 6,
+                "index": 57.1
+              },
+              {
+                "player": "Mark Chapman",
+                "baseRank": 7,
+                "baseIndex": 56,
+                "rank": 1,
+                "index": 58.5
+              },
+              {
+                "player": "Glenn Phillips",
+                "baseRank": 8,
+                "baseIndex": 54.5,
+                "rank": 8,
+                "index": 54.5
+              },
+              {
+                "player": "David Miller",
+                "baseRank": 9,
+                "baseIndex": 54.4,
+                "rank": 9,
+                "index": 54.4
+              },
+              {
+                "player": "Namboori Tilak Varma",
+                "baseRank": 10,
+                "baseIndex": 53.1,
+                "rank": 10,
+                "index": 53.4
+              }
+            ]
+          },
+          "bowlers": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Umran Malik",
+                "baseRank": 1,
+                "baseIndex": 61.4,
+                "rank": 1,
+                "index": 61.4
+              },
+              {
+                "player": "Sunil Narine",
+                "baseRank": 2,
+                "baseIndex": 61.3,
+                "rank": 2,
+                "index": 61.3
+              },
+              {
+                "player": "Mohammad Nawaz",
+                "baseRank": 3,
+                "baseIndex": 61.2,
+                "rank": 3,
+                "index": 61.2
+              },
+              {
+                "player": "Akash Madhwal",
+                "baseRank": 4,
+                "baseIndex": 60.9,
+                "rank": 4,
+                "index": 60.9
+              },
+              {
+                "player": "Abrar Ahmed",
+                "baseRank": 5,
+                "baseIndex": 60.6,
+                "rank": 5,
+                "index": 60.6
+              },
+              {
+                "player": "Washington Sundar",
+                "baseRank": 6,
+                "baseIndex": 59.7,
+                "rank": 6,
+                "index": 59.7
+              },
+              {
+                "player": "Sakib Hussain",
+                "baseRank": 7,
+                "baseIndex": 58.9,
+                "rank": 7,
+                "index": 58.9
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "baseRank": 8,
+                "baseIndex": 58.2,
+                "rank": 8,
+                "index": 58.2
+              },
+              {
+                "player": "Mohit Sharma",
+                "baseRank": 9,
+                "baseIndex": 58,
+                "rank": 9,
+                "index": 58
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "baseRank": 10,
+                "baseIndex": 57.1,
+                "rank": 10,
+                "index": 57.1
+              }
+            ]
+          },
+          "allrounders": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Washington Sundar",
+                "baseRank": 1,
+                "baseIndex": 53.6,
+                "rank": 1,
+                "index": 53.6
+              },
+              {
+                "player": "Sikandar Raza",
+                "baseRank": 2,
+                "baseIndex": 51.9,
+                "rank": 2,
+                "index": 51.9
+              },
+              {
+                "player": "Ravindra Jadeja",
+                "baseRank": 3,
+                "baseIndex": 51.5,
+                "rank": 3,
+                "index": 51.5
+              },
+              {
+                "player": "Ravichandran Ashwin",
+                "baseRank": 4,
+                "baseIndex": 51.1,
+                "rank": 4,
+                "index": 51.1
+              },
+              {
+                "player": "Moeen Ali",
+                "baseRank": 5,
+                "baseIndex": 50.7,
+                "rank": 5,
+                "index": 50.7
+              },
+              {
+                "player": "Nitish Reddy",
+                "baseRank": 6,
+                "baseIndex": 49.9,
+                "rank": 6,
+                "index": 49.9
+              },
+              {
+                "player": "Cameron Green",
+                "baseRank": 7,
+                "baseIndex": 49.1,
+                "rank": 7,
+                "index": 49.1
+              },
+              {
+                "player": "Axar Patel",
+                "baseRank": 8,
+                "baseIndex": 48.3,
+                "rank": 8,
+                "index": 48.3
+              },
+              {
+                "player": "Sam Curran",
+                "baseRank": 9,
+                "baseIndex": 47.9,
+                "rank": 9,
+                "index": 47.9
+              },
+              {
+                "player": "Shivam Dube",
+                "baseRank": 10,
+                "baseIndex": 47.3,
+                "rank": 10,
+                "index": 47.1
+              }
+            ]
+          }
+        },
+        "S2": {
+          "batters": {
+            "entered": [
+              {
+                "player": "Namboori Tilak Varma",
+                "playerId": "7897",
+                "rank": 9,
+                "index": 53.2,
+                "rankInOtherList": 11,
+                "indexInOtherList": 53
+              },
+              {
+                "player": "Jos Buttler",
+                "playerId": "813",
+                "rank": 10,
+                "index": 53,
+                "rankInOtherList": 12,
+                "indexInOtherList": 53
+              }
+            ],
+            "left": [
+              {
+                "player": "Mohammad Nabi",
+                "playerId": "1107",
+                "rank": 9,
+                "index": 54,
+                "rankInOtherList": 14,
+                "indexInOtherList": 52.9
+              },
+              {
+                "player": "Rinku Singh",
+                "playerId": "4708",
+                "rank": 10,
+                "index": 53.3,
+                "rankInOtherList": 13,
+                "indexInOtherList": 52.9
+              }
+            ],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Rishabh Pant",
+                "baseRank": 1,
+                "baseIndex": 58.4,
+                "rank": 1,
+                "index": 58.4
+              },
+              {
+                "player": "Sanju Samson",
+                "baseRank": 2,
+                "baseIndex": 58.3,
+                "rank": 2,
+                "index": 58.3
+              },
+              {
+                "player": "Cooper Connolly",
+                "baseRank": 3,
+                "baseIndex": 58.2,
+                "rank": 3,
+                "index": 58.2
+              },
+              {
+                "player": "Ryan Burl",
+                "baseRank": 4,
+                "baseIndex": 56.5,
+                "rank": 5,
+                "index": 56.7
+              },
+              {
+                "player": "Mark Chapman",
+                "baseRank": 5,
+                "baseIndex": 56.3,
+                "rank": 4,
+                "index": 58.1
+              },
+              {
+                "player": "Suryakumar Yadav",
+                "baseRank": 6,
+                "baseIndex": 56.1,
+                "rank": 6,
+                "index": 56.3
+              },
+              {
+                "player": "Glenn Phillips",
+                "baseRank": 7,
+                "baseIndex": 54.8,
+                "rank": 8,
+                "index": 54.2
+              },
+              {
+                "player": "David Miller",
+                "baseRank": 8,
+                "baseIndex": 54.5,
+                "rank": 7,
+                "index": 54.5
+              },
+              {
+                "player": "Mohammad Nabi",
+                "baseRank": 9,
+                "baseIndex": 54,
+                "rank": 14,
+                "index": 52.9
+              },
+              {
+                "player": "Rinku Singh",
+                "baseRank": 10,
+                "baseIndex": 53.3,
+                "rank": 13,
+                "index": 52.9
+              }
+            ]
+          },
+          "bowlers": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Akash Madhwal",
+                "baseRank": 1,
+                "baseIndex": 61.8,
+                "rank": 1,
+                "index": 61.8
+              },
+              {
+                "player": "Sunil Narine",
+                "baseRank": 2,
+                "baseIndex": 61.3,
+                "rank": 2,
+                "index": 61.3
+              },
+              {
+                "player": "Umran Malik",
+                "baseRank": 3,
+                "baseIndex": 61.3,
+                "rank": 3,
+                "index": 61.3
+              },
+              {
+                "player": "Washington Sundar",
+                "baseRank": 4,
+                "baseIndex": 60.6,
+                "rank": 4,
+                "index": 60.6
+              },
+              {
+                "player": "Sakib Hussain",
+                "baseRank": 5,
+                "baseIndex": 58.9,
+                "rank": 5,
+                "index": 58.9
+              },
+              {
+                "player": "Kuldeep Yadav",
+                "baseRank": 6,
+                "baseIndex": 58.3,
+                "rank": 6,
+                "index": 58.3
+              },
+              {
+                "player": "Mohammad Saifuddin",
+                "baseRank": 7,
+                "baseIndex": 57.8,
+                "rank": 7,
+                "index": 57.8
+              },
+              {
+                "player": "Adam Zampa",
+                "baseRank": 8,
+                "baseIndex": 57.7,
+                "rank": 8,
+                "index": 57.7
+              },
+              {
+                "player": "Rasikh Salam",
+                "baseRank": 9,
+                "baseIndex": 56.3,
+                "rank": 9,
+                "index": 56.3
+              },
+              {
+                "player": "Benjamin Lister",
+                "baseRank": 10,
+                "baseIndex": 56.3,
+                "rank": 10,
+                "index": 56.3
+              }
+            ]
+          },
+          "allrounders": {
+            "entered": [],
+            "left": [],
+            "ranksOfBaseTop10": [
+              {
+                "player": "Washington Sundar",
+                "baseRank": 1,
+                "baseIndex": 54,
+                "rank": 1,
+                "index": 54
+              },
+              {
+                "player": "Sikandar Raza",
+                "baseRank": 2,
+                "baseIndex": 52.5,
+                "rank": 2,
+                "index": 52.4
+              },
+              {
+                "player": "Ravindra Jadeja",
+                "baseRank": 3,
+                "baseIndex": 51.5,
+                "rank": 3,
+                "index": 51.5
+              },
+              {
+                "player": "Moeen Ali",
+                "baseRank": 4,
+                "baseIndex": 50.4,
+                "rank": 4,
+                "index": 50.1
+              },
+              {
+                "player": "Nitish Reddy",
+                "baseRank": 5,
+                "baseIndex": 49.9,
+                "rank": 5,
+                "index": 49.9
+              },
+              {
+                "player": "Cameron Green",
+                "baseRank": 6,
+                "baseIndex": 49,
+                "rank": 6,
+                "index": 49
+              },
+              {
+                "player": "Axar Patel",
+                "baseRank": 7,
+                "baseIndex": 48.4,
+                "rank": 8,
+                "index": 47.9
+              },
+              {
+                "player": "Sam Curran",
+                "baseRank": 8,
+                "baseIndex": 48,
+                "rank": 7,
+                "index": 48
+              },
+              {
+                "player": "Shivam Dube",
+                "baseRank": 9,
+                "baseIndex": 47.5,
+                "rank": 9,
+                "index": 47.3
+              },
+              {
+                "player": "Roston Chase",
+                "baseRank": 10,
+                "baseIndex": 46.1,
+                "rank": 10,
+                "index": 46.2
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "decision": {
+    "result": "KEEP_CURRENT",
+    "reasoning": "No candidate meets every pre-registered rule; scoring.mjs keeps own-pool as the default.",
+    "passers": [],
+    "evaluation": {
+      "format-fallback": {
+        "code": "C1",
+        "passes": false,
+        "failedRules": [
+          "1: M1 S1 batters 0.245 vs 0.24 (ratio 1.022)",
+          "3: M4 S2 batters",
+          "3: M2a S2 bowlers"
+        ],
+        "meanRelativeM1Reduction": 0.1879,
+        "m1RelativeReductionByCell": {
+          "S1.batters": -0.0217,
+          "S1.bowlers": 0.1784,
+          "S2.batters": 0.3308,
+          "S2.bowlers": 0.2643
+        },
+        "s1IndexesChanged": 11
+      },
+      "shrunk": {
+        "code": "C2",
+        "passes": false,
+        "failedRules": [
+          "3: M2a S2 bowlers",
+          "3: M4 S2 bowlers",
+          "2: S2 batters M2 rise 0.012, M3 relative fall 0.072",
+          "5: large-pool index change 1.6 (Brian Bennett (batter)) S1",
+          "5: large-pool rank change 8 (Mujeeb Ur Rahman (bowler)) S1"
+        ],
+        "meanRelativeM1Reduction": 0.3145,
+        "m1RelativeReductionByCell": {
+          "S1.batters": 0.3154,
+          "S1.bowlers": 0.3047,
+          "S2.batters": 0.3185,
+          "S2.bowlers": 0.3195
+        },
+        "s1IndexesChanged": 148
+      },
+      "adjacent-fallback": {
+        "code": "C3",
+        "passes": false,
+        "failedRules": [
+          "1: M1 S1 batters 0.24 vs 0.24 (ratio 1)",
+          "1: M1 S1 bowlers 0.296 vs 0.341 (ratio 0.868)",
+          "3: M2a S2 batters",
+          "3: M4 S2 batters"
+        ],
+        "meanRelativeM1Reduction": 0.1512,
+        "m1RelativeReductionByCell": {
+          "S1.batters": -0.0003,
+          "S1.bowlers": 0.1321,
+          "S2.batters": 0.3012,
+          "S2.bowlers": 0.1717
+        },
+        "s1IndexesChanged": 10
+      }
+    }
+  }
+}
