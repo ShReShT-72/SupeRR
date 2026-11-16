@@ -3,6 +3,8 @@
 //
 //   node sensitivity.mjs              writes sensitivity_data.json (about 3 minutes, deterministic)
 //   node sensitivity.mjs --print-top10  prints the top ten lists that scoring.mjs gives right now
+//   node sensitivity.mjs --pool-methods runs the stability tests for own-pool (primary) and the three pool-method alternatives
+//                                       (pool_preregistration.md), writes pool_methods_data.json
 //
 // Run from the data folder (the one holding ball_by_ball.csv, matches.csv, analysis_data.json).
 // Node 18 or newer, no npm dependencies. The output has no timestamps: two runs give identical files.
@@ -170,6 +172,21 @@ if (scoringSource.split(EXCLUSION_SWITCH).length !== 2) {
 }
 if (scoringSource.split(HOOK_ANCHOR).length !== 2 || scoringSource.split(BENCHMARK_LINE).length !== 2) {
   throw new Error('scoring.mjs changed shape: the pool (strata) lines that sensitivity.mjs hooks into were not found exactly once.');
+}
+if (process.argv.includes('--pool-methods')) {
+  // Stability tests for the pool-standardisation methods of scoring.mjs: own-pool (primary, as submitted) and the three
+  // alternatives, under the criterion fixed in pool_preregistration.md. Writes pool_methods_data.json; does not touch sensitivity_data.json.
+  const { runPoolMethods } = await import(new URL('./pool_methods.mjs', import.meta.url).href);
+  const poolRecords = JSON.parse(await readFile(resolve(root, 'analysis_data.json'), 'utf8')).records;
+  const committed = JSON.parse(await readFile(resolve(root, 'sensitivity_data.json'), 'utf8'));
+  const result = await runPoolMethods({
+    scoringSource, records: poolRecords, committed, mulberry32, loadModule, exclusionSwitch: EXCLUSION_SWITCH, exclusionSwitchOn: EXCLUSION_SWITCH_ON,
+    log: (message) => console.error(`[pool-methods] ${message}`),
+  });
+  await writeFile(resolve(process.env.POOL_METHODS_SMOKE ? tmpdir() : root, 'pool_methods_data.json'), `${JSON.stringify(result, null, 2)}\n`);
+  console.log('Wrote pool_methods_data.json');
+  console.log(`decision: ${result.decision.result} (${result.decision.reasoning})`);
+  process.exit(0);
 }
 // Two hooks that are inert unless sensitivity.mjs sets them: one reports the pools, one lets a variant choose the pool a profile is standardised in.
 const instrumentedSource = scoringSource

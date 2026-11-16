@@ -30,6 +30,59 @@ function zScores(players, value) {
   return (item) => standardDeviation === 0 ? 0 : (value(item) - mean) / standardDeviation;
 }
 
+// Pool standardisation. Each player is z-scored in a stratum (one format and season). The pool methods differ only in
+// which mean and SD that z-score uses. Evidence and the pre-registered comparison: pool_preregistration.md, pool_methods_data.json,
+// "Small T20I pools" in methodology_report.md. Run `node sensitivity.mjs --pool-methods` to repeat the comparison.
+//   own-pool          the stratum's own mean and SD (the method used for the lists; documented alternative if another method is the default)
+//   format-fallback   a stratum with THIN_POOL_MAX or fewer eligible profiles uses all seasons of the same format and kind
+//   shrunk            every stratum: mean and variance mixed with the all-seasons values, POOL_PSEUDO_COUNT pseudo-profiles
+//   adjacent-fallback a thin stratum uses the seasons before, same and after; if that is still thin, all seasons of the format
+const POOL_METHOD = 'own-pool';
+const POOL_METHODS = ['own-pool', 'format-fallback', 'shrunk', 'adjacent-fallback'];
+const THIN_POOL_MAX = 10;
+const POOL_PSEUDO_COUNT = 5;
+
+function momentsOf(players, metrics) {
+  return metrics.map((value) => {
+    const values = players.map(value).filter(Number.isFinite);
+    const mean = values.reduce((sum, item) => sum + item, 0) / values.length;
+    const variance = values.reduce((sum, item) => sum + ((item - mean) ** 2), 0) / values.length;
+    return { mean, variance };
+  });
+}
+
+function zFromMoments(metrics, moments) {
+  return metrics.map((value, index) => {
+    const { mean, variance } = moments[index];
+    const standardDeviation = Math.sqrt(variance);
+    return (item) => standardDeviation === 0 ? 0 : (value(item) - mean) / standardDeviation;
+  });
+}
+
+// Returns the four z-score functions (level, change, outcome, consistency) for one stratum.
+function standardiseStratum(poolMethod, measured, measuredStrata, metrics) {
+  if (poolMethod === 'own-pool') return metrics.map((value) => zScores(measured, value));
+  const thin = measured.length <= THIN_POOL_MAX;
+  const own = momentsOf(measured, metrics);
+  const sameFormat = [...measuredStrata.values()].flat().filter((player) => player.format === measured[0].format);
+  if (poolMethod === 'format-fallback') {
+    return thin ? zFromMoments(metrics, momentsOf(sameFormat, metrics)) : metrics.map((value) => zScores(measured, value));
+  }
+  if (poolMethod === 'shrunk') {
+    const all = momentsOf(sameFormat, metrics);
+    const n = measured.length;
+    return zFromMoments(metrics, own.map((moment, index) => ({
+      mean: ((n * moment.mean) + (POOL_PSEUDO_COUNT * all[index].mean)) / (n + POOL_PSEUDO_COUNT),
+      variance: ((n * moment.variance) + (POOL_PSEUDO_COUNT * all[index].variance)) / (n + POOL_PSEUDO_COUNT),
+    })));
+  }
+  // adjacent-fallback
+  if (!thin) return metrics.map((value) => zScores(measured, value));
+  const season = Number(measured[0].season);
+  const adjacent = sameFormat.filter((player) => Math.abs(Number(player.season) - season) <= 1);
+  return zFromMoments(metrics, momentsOf(adjacent.length > THIN_POOL_MAX ? adjacent : sameFormat, metrics));
+}
+
 function rounded(value, digits = 1) {
   const scale = 10 ** digits;
   return Math.round(value * scale) / scale;
@@ -48,7 +101,8 @@ function makeProfile(record) {
   };
 }
 
-export function ratePlayers(records, { format = 'All', season = 'All', minBalls = MIN_PRESSURE_BALLS, minMatches = MIN_PRESSURE_MATCHES } = {}) {
+export function ratePlayers(records, { format = 'All', season = 'All', minBalls = MIN_PRESSURE_BALLS, minMatches = MIN_PRESSURE_MATCHES, poolMethod = POOL_METHOD } = {}) {
+  if (!POOL_METHODS.includes(poolMethod)) throw new Error(`Unknown poolMethod "${poolMethod}"; use one of ${POOL_METHODS.join(', ')}`);
   const grouped = new Map();
   const pakistanPlayers = new Set(records
     .filter((record) => record.format === 'T20I' && record.team === 'Pakistan')
@@ -100,8 +154,15 @@ export function ratePlayers(records, { format = 'All', season = 'All', minBalls 
     }
 
     const rollups = new Map();
-    for (const pool of strata.values()) {
-      const measured = pool.map((player) => {
+    const levelMetric = kind === 'batter' ? (player) => player.pressureRate * 100 : (player) => -player.pressureEconomy;
+    const changeMetric = kind === 'batter'
+      ? (player) => (player.pressureRate - player.usualRate) * 100
+      : (player) => player.usualEconomy - player.pressureEconomy;
+    const outcomeMetric = kind === 'batter'
+      ? (player) => (player.usualDismissal - player.pressureDismissal) * 100
+      : (player) => player.pressureWicketRate;
+    const consistencyMetric = (player) => player.consistency * 100;
+    const measuredStrata = new Map([...strata].map(([stratumKey, pool]) => [stratumKey, pool.map((player) => {
       const pressureRate = player.pressure.balls ? player.pressure.runs / player.pressure.balls : 0;
       const usualRate = player.usual.balls ? player.usual.runs / player.usual.balls : 0;
       const pressureDismissal = player.pressure.balls ? player.pressure.outs / player.pressure.balls : 0;
@@ -138,19 +199,15 @@ export function ratePlayers(records, { format = 'All', season = 'All', minBalls 
         pressureWicketRate,
         consistency: player.pressureMatches ? positiveMatches / player.pressureMatches : 0,
       };
-      });
+    })]));
 
-      const levelMetric = kind === 'batter' ? (player) => player.pressureRate * 100 : (player) => -player.pressureEconomy;
-      const changeMetric = kind === 'batter'
-        ? (player) => (player.pressureRate - player.usualRate) * 100
-        : (player) => player.usualEconomy - player.pressureEconomy;
-      const outcomeMetric = kind === 'batter'
-        ? (player) => (player.usualDismissal - player.pressureDismissal) * 100
-        : (player) => player.pressureWicketRate;
-      const zLevel = zScores(measured, levelMetric);
-      const zChange = zScores(measured, changeMetric);
-      const zOutcome = zScores(measured, outcomeMetric);
-      const zConsistency = zScores(measured, (player) => player.consistency * 100);
+    for (const measured of measuredStrata.values()) {
+      const [zLevel, zChange, zOutcome, zConsistency] = standardiseStratum(
+        poolMethod,
+        measured,
+        measuredStrata,
+        [levelMetric, changeMetric, outcomeMetric, consistencyMetric],
+      );
 
       for (const player of measured) {
         const rawScore = (0.35 * zLevel(player))
