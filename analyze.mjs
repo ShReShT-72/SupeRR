@@ -62,11 +62,18 @@ function truthy(value) {
 // puts 7 or more legal balls in 244 overs.
 const ILLEGAL_EXTRA_TYPES = ['wide', 'overstep', 'noballs', 'no-ball', 'other'];
 
+// Sensitivity switches, used only by sensitivity.mjs. Without them the output is the shipped analysis_data.json.
+//   --other-no-penalty  keep `other` an illegal ball but charge the bowler no penalty run for it
+//   --out=PATH          write the result to PATH instead of analysis_data.json
+const OTHER_PENALTY = !process.argv.includes('--other-no-penalty');
+const outputFile = process.argv.find((argument) => argument.startsWith('--out='))?.slice('--out='.length) ?? 'analysis_data.json';
+
 function isLegalBall(extraType) {
   return !ILLEGAL_EXTRA_TYPES.includes(extraType);
 }
 
 function bowlerPenalty(extraType) {
+  if (extraType === 'other' && !OTHER_PENALTY) return 0;
   return ILLEGAL_EXTRA_TYPES.includes(extraType) ? 1 : 0;
 }
 
@@ -277,9 +284,10 @@ const output = {
     chaseSqueeze: 'Second innings after 3 overs: required rate >= 9.5, or >= 7.5 and at least 2.5 above the current rate.',
   },
   dataQuality: { ...dataQuality, matches: dataQuality.matches.size },
+  ...(OTHER_PENALTY ? {} : { variant: 'other-no-penalty' }),
   records,
 };
 
-await writeFile(resolve(root, 'analysis_data.json'), `${JSON.stringify(output)}\n`);
+await writeFile(resolve(root, outputFile), `${JSON.stringify(output)}\n`);
 console.log(`Wrote ${records.length.toLocaleString()} player-match records from ${dataQuality.ballRows.toLocaleString()} deliveries.`);
 console.log(JSON.stringify(output.dataQuality, null, 2));
