@@ -8,6 +8,7 @@
   "scripts": {
     "analyze": "node analyze.mjs",
     "sensitivity": "node sensitivity.mjs",
+    "charts": "node charts.mjs",
     "start": "node server.mjs",
     "dev": "node server.mjs"
   }
