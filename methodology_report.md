@@ -7,35 +7,37 @@
 
 This analysis defines pressure from the live innings state before a delivery, then compares each player's pressured performance with their ordinary performance. Scores are standardized within format-season pools, include match-to-match consistency, and are shrunk toward the field midpoint when evidence is limited. The dashboard recalculates these lists from the same shared scoring module.
 
+**Exclusion policy.** The primary lists below exclude three groups of players before scoring: 53 players who appear for Pakistan in the supplied T20I data (Pakistan T20I team representation is the nationality proxy), five players with confirmed IPL playing retirements (Kieron Pollard, Dwayne Bravo, Ambati Rayudu, Dinesh Karthik, Ravichandran Ashwin), and Mohit Sharma. The cited IPL.com article says Mohit Sharma announced his retirement from all forms of cricket in December 2025 and is expected to become CSK's bowling coach for IPL 2027. The problem statement does not ask for any of these exclusions. The ranking with no exclusions is shown next to the primary lists in "Sensitivity and exclusions"; it replaces 2 of the ten batters and 3 of the ten bowlers.
+
 ### Top 10 batters
 
 | Rank | Player | Pressure index | Pressure SR | Usual SR | Pressure balls | Pressure matches | Positive-match share | Sample reliability |
 |---:|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | Rishabh Pant | 59.3 | 194.9 | 123.5 | 217 | 17 | 82% | 76% |
-| 2 | Sanju Samson | 57.8 | 188.5 | 136.5 | 113 | 8 | 75% | 61% |
-| 3 | Ryan Burl | 56.5 | 174.2 | 101.8 | 120 | 9 | 67% | 63% |
-| 4 | Mohammad Nabi | 56.2 | 158.7 | 111.8 | 126 | 9 | 89% | 64% |
-| 5 | Suryakumar Yadav | 55.3 | 188.7 | 157.1 | 688 | 37 | 70% | 89% |
-| 6 | Mark Chapman | 55.0 | 166.9 | 106.5 | 236 | 12 | 100% | 73% |
-| 7 | David Miller | 54.6 | 161.5 | 104.5 | 226 | 14 | 71% | 74% |
-| 8 | Sai Sudharsan | 53.8 | 183.5 | 147.6 | 249 | 17 | 71% | 77% |
-| 9 | Nitish Reddy | 53.6 | 194.4 | 135.3 | 108 | 11 | 55% | 64% |
-| 10 | Rinku Singh | 53.1 | 172.1 | 119.8 | 365 | 34 | 50% | 85% |
+| 1 | Rishabh Pant | 58.4 | 194.9 | 123.5 | 217 | 17 | 82% | 76% |
+| 2 | Sanju Samson | 58.3 | 188.5 | 136.5 | 113 | 8 | 75% | 61% |
+| 3 | Cooper Connolly | 58.2 | 194.2 | 142.5 | 120 | 8 | 100% | 62% |
+| 4 | Ryan Burl | 56.5 | 174.2 | 101.8 | 120 | 9 | 67% | 63% |
+| 5 | Mark Chapman | 56.3 | 167.8 | 109.7 | 311 | 20 | 85% | 80% |
+| 6 | Suryakumar Yadav | 56.1 | 193.2 | 157.8 | 724 | 41 | 71% | 90% |
+| 7 | Glenn Phillips | 54.8 | 170.0 | 126.5 | 237 | 17 | 76% | 77% |
+| 8 | David Miller | 54.5 | 164.5 | 101.7 | 220 | 14 | 79% | 74% |
+| 9 | Mohammad Nabi | 54.0 | 158.7 | 111.8 | 126 | 9 | 89% | 64% |
+| 10 | Rinku Singh | 53.3 | 172.8 | 118.3 | 367 | 34 | 53% | 85% |
 
 ### Top 10 bowlers
 
 | Rank | Player | Pressure index | Pressure econ/6 | Usual econ/6 | Pressure balls | Pressure matches | Positive-match share | Sample reliability |
 |---:|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | Akash Madhwal | 62.8 | 7.16 | 10.52 | 93 | 8 | 63% | 59% |
-| 2 | Sunil Narine | 61.7 | 6.23 | 7.36 | 684 | 53 | 62% | 91% |
-| 3 | Umran Malik | 61.6 | 6.18 | 9.98 | 99 | 9 | 56% | 61% |
-| 4 | Washington Sundar | 59.4 | 5.56 | 6.23 | 135 | 12 | 58% | 68% |
-| 5 | Sakib Hussain | 59.3 | 8.23 | 10.88 | 151 | 11 | 82% | 68% |
-| 6 | Kuldeep Yadav | 58.4 | 7.21 | 8.33 | 634 | 51 | 51% | 90% |
+| 1 | Akash Madhwal | 61.8 | 7.35 | 10.50 | 93 | 8 | 63% | 59% |
+| 2 | Sunil Narine | 61.3 | 6.28 | 7.33 | 684 | 53 | 60% | 91% |
+| 3 | Umran Malik | 61.3 | 6.43 | 10.06 | 97 | 9 | 56% | 61% |
+| 4 | Washington Sundar | 60.6 | 5.56 | 6.32 | 136 | 12 | 67% | 68% |
+| 5 | Sakib Hussain | 58.9 | 8.36 | 10.82 | 150 | 11 | 82% | 68% |
+| 6 | Kuldeep Yadav | 58.3 | 7.21 | 8.33 | 634 | 51 | 51% | 90% |
 | 7 | Mohammad Saifuddin | 57.8 | 6.85 | 8.44 | 71 | 8 | 88% | 56% |
-| 8 | Kagiso Rabada | 57.2 | 8.52 | 9.52 | 276 | 27 | 59% | 82% |
-| 9 | Adam Zampa | 57.1 | 7.88 | 8.86 | 416 | 30 | 67% | 85% |
-| 10 | Benjamin Lister | 56.4 | 8.06 | 10.27 | 78 | 9 | 67% | 59% |
+| 8 | Adam Zampa | 57.7 | 7.85 | 8.89 | 418 | 30 | 67% | 85% |
+| 9 | Rasikh Salam | 56.3 | 9.20 | 9.75 | 137 | 11 | 73% | 67% |
+| 10 | Benjamin Lister | 56.3 | 8.23 | 9.07 | 78 | 9 | 78% | 58% |
 
 ### Top 10 all-rounders
 
@@ -43,68 +45,24 @@ Players must independently meet the selected eligibility threshold as both a bat
 
 | Rank | Player | Composite index | Batting index | Bowling index | Batting pressure balls | Bowling pressure balls | Batting matches | Bowling matches |
 |---:|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | Washington Sundar | 54.0 | 48.5 | 59.4 | 141 | 135 | 14 | 12 |
-| 2 | Sikandar Raza | 52.4 | 50.3 | 54.4 | 115 | 94 | 12 | 10 |
-| 3 | Ravindra Jadeja | 51.3 | 52.4 | 50.1 | 255 | 368 | 18 | 28 |
-| 4 | Moeen Ali | 50.7 | 50.8 | 50.5 | 164 | 103 | 13 | 8 |
-| 5 | Nitish Reddy | 50.1 | 53.6 | 46.5 | 108 | 100 | 11 | 10 |
-| 6 | Cameron Green | 49.0 | 51.0 | 46.9 | 163 | 160 | 12 | 19 |
-| 7 | Sam Curran | 48.2 | 50.2 | 46.1 | 200 | 453 | 18 | 43 |
-| 8 | Shivam Dube | 47.7 | 48.9 | 46.4 | 684 | 152 | 59 | 16 |
-| 9 | Axar Patel | 47.2 | 42.7 | 51.7 | 197 | 454 | 19 | 42 |
-| 10 | Roston Chase | 46.6 | 41.2 | 52.0 | 186 | 62 | 19 | 8 |
+| 1 | Washington Sundar | 54.0 | 47.4 | 60.6 | 141 | 136 | 14 | 12 |
+| 2 | Sikandar Raza | 52.5 | 50.5 | 54.5 | 119 | 96 | 12 | 9 |
+| 3 | Ravindra Jadeja | 51.5 | 52.6 | 50.4 | 255 | 369 | 18 | 28 |
+| 4 | Moeen Ali | 50.4 | 50.6 | 50.2 | 164 | 102 | 13 | 8 |
+| 5 | Nitish Reddy | 49.9 | 53.0 | 46.8 | 108 | 173 | 11 | 18 |
+| 6 | Cameron Green | 49.0 | 51.0 | 47.0 | 163 | 160 | 12 | 19 |
+| 7 | Axar Patel | 48.4 | 42.8 | 54.0 | 197 | 681 | 19 | 55 |
+| 8 | Sam Curran | 48.0 | 50.5 | 45.5 | 200 | 453 | 18 | 44 |
+| 9 | Shivam Dube | 47.5 | 48.6 | 46.3 | 684 | 151 | 59 | 16 |
+| 10 | Roston Chase | 46.1 | 40.2 | 52.0 | 186 | 62 | 19 | 8 |
 
-## The Royal Radar: 2027 Transfer Radar
-
-This is a provisional fit list built from players mapped to other IPL franchises in 2026, IPL-only pressure indexes, and the supplied RR 2022–2026 team history. Fit tiers are qualitative role assessments, not a mathematically combined target score. **Availability is unconfirmed:** 2026 squad membership does not establish 2027 release, retention, registration, or auction availability. Confirm those details, the purse, and overseas slots before making an actual bid list.
-
-
-The provisional capped watchlist and uncapped fallbacks are merged here into a single table. All entries are flagged as trade-window targets. Uncapped labels are provisional; recheck all-format cap status and 2027 registration before the auction.
-
-| Role fit | Player | 2026 IPL team | IPL index 2022–26 | Pressure sample | Pressure output | Acquisition | Watch note |
-|---|---|---|---:|---|---|---|---|
-| Middle-order priority | Tilak Varma, left-hand middle order | Mumbai Indians | 51.5 (666 balls / 53 matches) | 666 balls / 53 matches | IPL index 58.2 in 2026 (122 balls) | Trade Window | Strong 2026 pressure sample; middle-order depth behind RR's young top three. |
-| Middle-order priority | Shreyas Iyer, top / middle-order anchor | Punjab Kings | 54.7 (463 balls / 35 matches) | 463 balls / 35 matches | IPL index 51.0 in 2026 (121 balls) | Trade Window | Best multi-season batting evidence among the anchor options in this pool. |
-| Domestic pace depth | Sakib Hussain, fast bowler | Sunrisers Hyderabad | 59.3 (151 balls / 11 matches) | 151 balls / 11 matches | IPL index 59.3 (qualifying 2026 sample) | Trade Window | High pressure index with a qualifying 2026 sample; consider if retained pace depth leaves a slot. |
-| Conditional return | Sanju Samson, wicketkeeper / top-order batter | Chennai Super Kings | 57.8 (113 balls / 8 matches) | 113 balls / 8 matches | No qualifying 2026 sample | Trade Window | Strong pressure history and RR familiarity (2022–25); conditional on Jurel's role. |
-| Conditional return | Akash Madhwal, fast bowler | Chennai Super Kings | 62.1 (93 balls / 8 matches) | 93 balls / 8 matches | No qualifying 2026 sample | Trade Window | High index but small sample; verify current role and availability. |
-| Conditional overseas | Jos Buttler, opener / wicketkeeper | Gujarat Titans | 50.7 (265 balls / 20 matches) | 265 balls / 20 matches | IPL index 48.5 in 2026 (93 balls) | Trade Window | Proven RR history (2022–24); opening and keeper roles overlap with Jaiswal, Sooryavanshi, and Jurel. |
-| Domestic middle order | Ayush Badoni, right-hand batter / off-spin · Uncapped | Lucknow Super Giants | 51.5 | 125 balls / 9 matches | 168.8 batting SR | Trade Window | Flexible No. 4–6 profile; no qualifying 2026 pressure-index sample. |
-| Power-hitter flyer | Aniket Verma, middle-order batter · Uncapped | Sunrisers Hyderabad | 51.5 | 64 balls / 10 matches | 187.5 batting SR | Trade Window | Explosive pressure output, but only 64 balls in the qualifying sample; no 2026 index. |
-| Domestic pace | Rasikh Salam, fast bowler · Uncapped | Royal Challengers Bengaluru | 56.2 | 137 balls / 11 matches | 9.20 economy / 6 | Trade Window | Strong 2026 pressure index; check retention and auction registration. |
-| Domestic pace | Kartik Tyagi, fast bowler · Uncapped | Kolkata Knight Riders | 52.8 | 181 balls / 13 matches | 9.25 economy / 6 | Trade Window | Larger qualifying sample; pressure economy is a watch item, not a clear strength. |
-
-All entries are scored from IPL-only pressure performance. Uncapped labels are provisional — the data has no all-format cap history. No IPL-2026 player qualified for the all-rounder pressure list at the default sample threshold.
-
-### Raw Talent: Scout Picks from Domestic Cricket
-
-These players have either never appeared in the IPL or are not currently on any IPL franchise roster. Stats are drawn from domestic T20 circuits (Syed Mushtaq Ali Trophy, Vijay Hazare, Big Bash League, CPL). No IPL pressure index applies — this is a forward-looking scout list based on domestic form and role fit for RR's 2027 squad gaps.
-
-| Role fit | Player | Domestic team | IPL status | Key domestic stat | Style | Scout note |
-|---|---|---|---|---|---|---|
-| Indian pace — priority | Arzan Nagwaswalla, left-arm fast bowler | Gujarat (SMAT) | No current IPL team | SMAT 2024–25: 20 wickets, economy 7.2 in 12 matches | Left-arm pace, swing and seam both ways | Gujarat left-arm pacer with no IPL franchise; generates swing at good pace. Left-arm angle in the Powerplay addresses RR's most urgent bowling gap. |
-| Indian pace — priority | Vidwath Kaverappa, right-arm fast-medium bowler | Karnataka (SMAT) | No current IPL team | SMAT 2024–25: 22 wickets, economy 7.3 | Right-arm pace, seam movement and back-of-length | Consistent domestic wicket-taker with no current franchise. Karnataka pace has historically translated well to IPL conditions; good value for a first-choice Indian pacer slot. |
-| Indian pace — depth | Gaurav Yadav, right-arm fast bowler | Madhya Pradesh (SMAT) | No IPL debut | SMAT 2024–25: 19 wickets, economy 7.6 in 11 matches | Right-arm pace, back-of-length and yorker threat | Uncapped pace prospect consistently among MP's top wicket-takers in SMAT; no IPL franchise yet. Low-cost entry for a third-pacer or development role. |
-| Indian pace — depth | Chetan Sakariya, left-arm fast-medium bowler | Saurashtra (SMAT) | No current IPL team | SMAT 2024–25: 17 wickets, economy 7.5 in 11 matches | Left-arm pace, swing and death-bowling variations | Released by KKR ahead of IPL 2026; no franchise since. Experienced IPL campaigner with stints at RR, DC, and KKR. Note: flagged on BCCI suspect-action list — verify clearance before bidding. |
-| Middle-order anchor | Ankit Kumar, right-hand top-order batter | Haryana (SMAT) | No current IPL team | SMAT 2025–26: 448 runs in 11 matches, SR 172 | Right-hand, aggressive opening batter | Captain of Haryana, finished second-highest run-scorer in SMAT 2025–26; no IPL franchise. Consistent multi-season performer who fits the top-order anchor role RR currently lack. |
-| Middle-order batter | Nikin Jose, right-hand aggressive middle-order batter | Karnataka (SMAT) | No current IPL team | SMAT 2024–25: SR 161, 390 runs in 11 matches | Right-hand, powerful striker through the off side | Consistently prolific in SMAT for Karnataka; no IPL contract. Aggressive middle-order profile that fits a No. 5 or 6 slot in RR's batting order. |
-| Middle-order finisher | Anirudh Singh, right-hand batter / part-time off-spin | Jharkhand (SMAT) | No IPL debut | SR 165+ in pressure overs, SMAT 2024 | Left-hand, explosive from No. 5–7 | Consistent domestic T20 finisher not yet given an IPL opportunity. Fits the lower-middle-order gap in RR's 2026 XI. |
-| Top-order batter | Arpit Vasavada, left-hand batter | Saurashtra (SMAT) | No current IPL team | SMAT 2024–25: SR 165, 420 runs including 2 fifties | Left-hand, aggressive top-order batter | One of the most consistent performers in Saurashtra's SMAT campaigns; no IPL contract. Left-hand slot at the top provides a different batting dimension to RR's right-heavy order. |
-| Top-order batter | Shaswat Rawat, right-hand aggressive opener | Baroda (SMAT) | No IPL debut | SMAT 2024–25: SR 174, 2 centuries in 10 matches | Left-hand, power-based opener | Explosive Baroda opener among the highest scorers in SMAT over consecutive seasons; no IPL franchise yet. High-upside uncapped pick for a pinch-hitting or backup opener role. |
-| Wicketkeeper–batter | Narayan Jagadeesan, wicketkeeper / top-order batter | Tamil Nadu (SMAT) | No current IPL team | SMAT 2024–25: 520 runs, SR 158, 3 fifties | Right-hand, aggressive keeper-batter | Prolific Tamil Nadu run-scorer and keeper-batter; previously at CSK but released. Fits the backup keeper-batter slot if RR want depth behind Jurel. |
-| Wicketkeeper–batter | Sumit Kumar, wicketkeeper / middle-order batter | Jharkhand (SMAT) | No current IPL team | SMAT 2024–25: SR 155, 6 stumpings in 11 matches | Right-hand, Dhoni-mould keeper-batter | Jharkhand keeper-batter mentored by MS Dhoni; no IPL franchise. Useful backup behind Jurel with solid T20 credentials and clean keeping. |
-| Wicketkeeper–batter | Tushar Raheja, wicketkeeper / middle-order batter | Tamil Nadu (SMAT) | No current IPL team | SMAT 2024–25: SR 162, 6 stumpings in 10 matches | Right-hand, explosive lower-middle-order keeper | Busy gloveman with a sharp T20 strike rate from Tamil Nadu; no IPL contract yet. Useful as a third keeper option or impact finisher off the bench. |
-| Domestic pace | Money Grewal, right-arm fast bowler | Delhi (SMAT) | No current IPL team | DPL 2026: 8 wickets in 6 matches, economy 7.4 | Right-arm pace, generates bounce and awkward angles | Prominent in the Delhi Premier League 2026; has been in DC nets but holds no contracted franchise spot. Aggressive right-arm pacer who could add pace depth to RR's attack at a low base price. |
-| Spin all-rounder | Hrithik Shokeen, left-arm spinner / lower-order bat | Mumbai (SMAT) | No current IPL team | SMAT 2024–25: 16 wickets, economy 6.8 in 11 matches | Right-arm off-break, economical and wicket-taking | Mumbai left-arm spinner with excellent economy in domestic T20s; no IPL franchise. Gives RR a left-arm spin option in the squad without burning an overseas slot. |
-| Middle-order finisher | Shivam Sharma, right-hand batter / left-arm spin | Uttar Pradesh (SMAT) | No current IPL team | SMAT 2024–25: 15 wickets, economy 7.2 in 11 matches | Left-arm spin, handy lower-order bat | UP left-arm spinner with consistent domestic returns and no IPL franchise. Provides a spin-bowling utility option at low cost. |
-Domestic stats are sourced from publicly reported SMAT, Ranji, BBL, and CPL coverage. No IPL pressure index applies. These are scout-grade leads, not pressure-ranked selections.
 ## Data and scope
 
-The calculation joins `ball_by_ball.csv` to `matches.csv` and `competitions.csv`. IPL is identified by the competition name; T20I is identified by the competition format. Other competitions carrying a generic T20 label and records with unknown seasons are excluded. The in-scope data contains **819 matches** and **189,683 deliveries**: **79,974 pressure** and **109,709 ordinary**. The supplied ball-by-ball file has 200,999 raw rows; the difference is excluded competitions or out-of-scope records, not missing rows.
+The calculation joins `ball_by_ball.csv` to `matches.csv` and `competitions.csv`. IPL is identified by the competition name; T20I is identified by the competition format. Other competitions carrying a generic T20 label and records with no readable season are excluded. A season label is read as its leading four-digit year, so a competition labelled `2022/23` belongs to season 2022. Super-over innings (innings 3 and 4) are skipped. The in-scope data contains **837 matches** and **193,988 deliveries**: **81,806 pressure** (42.2%) and **112,182 ordinary**. The supplied ball-by-ball file has 200,999 raw rows; the difference is excluded competitions, skipped super-over innings, or out-of-scope records, not missing rows.
 
-Deliveries are processed in file order. The current delivery is classified first; only then are its score, wicket, and legal-ball effects applied to the innings state. Revised-overs fields greater than 20 are interpreted as legal-ball counts (for example, 114 means 19 overs); smaller nonzero values are treated as overs. Revised targets are used when present; otherwise the innings limit is 20 overs and the second-innings target is one more than the first-innings total. Wides and no-balls do not count as legal balls, and wides do not count as balls faced. Batter runs come from `runs`.
+Deliveries are processed in file order. The current delivery is classified first; only then are its score, wicket, and legal-ball effects applied to the innings state. Revised-overs fields greater than 20 are interpreted as legal-ball counts (for example, 114 means 19 overs); smaller nonzero values are treated as overs. Revised targets are used when present; otherwise the innings limit is 20 overs and the second-innings target is one more than the first-innings total. Wides, no-balls and the `other` extras type do not count as legal balls, and wides do not count as balls faced. Batter runs come from `runs`.
 
-The extras columns are inconsistent: `extras1_runs` is 6 on ordinary deliveries and takes categorical-looking values on tagged extras. It is not treated as a run amount. For innings-state reconstruction and bowler conceded runs, the analyzer adds the known one-run penalty for identified wides and no-balls; these are tagged `wide` and `Overstep` in this dataset. Byes and leg-byes are not charged to bowlers. Because reliable run amounts for these extras are not present in the supplied fields, their runs are omitted from reconstructed chase totals. This makes chase required-rate pressure an approximation.
+The extras columns are inconsistent: `extras1_runs` is 6 on ordinary deliveries and takes categorical-looking values on tagged extras. It is not treated as a run amount. For innings-state reconstruction and bowler conceded runs, the analyzer adds the known one-run penalty for identified wides and no-balls; these are tagged `wide`, `Overstep` and `other` in this dataset. The `other` type (264 rows) is not documented. It is treated as a no-ball because `extras1_runs` has the same code (5) on every one of its rows, batters score off it, and counting it as a legal ball would put seven or more legal balls in 244 overs. Byes and leg-byes are not charged to bowlers. Because reliable run amounts for these extras are not present in the supplied fields, their runs are omitted from reconstructed chase totals. This makes chase required-rate pressure an approximation.
 
 ## Pressure definition
 
@@ -118,9 +76,9 @@ The finish phase captures high-leverage deliveries in either innings. The wicket
 
 ## Performance and ranking
 
-Players who represented Pakistan in T20Is in the supplied data are excluded from all lists. The source has no dedicated nationality field, so Pakistan T20I team representation is used as the nationality proxy; 53 player IDs are excluded. Five players with confirmed IPL playing retirements are also excluded: Kieron Pollard, Dwayne Bravo, Ambati Rayudu, Dinesh Karthik, and Ravichandran Ashwin. Mohit Sharma is separately excluded as a 2027 player candidate because he is reported to join CSK as bowling coach. International-only retirements and unconfirmed rumors are not used. These exclusions are applied before scoring and format-season standardization. Players are analyzed by format and season. A player-format-season segment must have at least **60 pressure balls**, **8 matches containing pressure batting/bowling**, and **60 ordinary balls**. After format-season roll-up, 57 batter profiles and 122 bowler profiles qualify; 11 players qualify in both disciplines for the all-rounder list. The dashboard also offers 36-ball/5-match and 90-ball/10-match sensitivity settings.
+Players who represented Pakistan in T20Is in the supplied data are excluded from the primary lists. The source has no dedicated nationality field, so Pakistan T20I team representation is used as the nationality proxy; 53 player IDs are excluded. Five players with confirmed IPL playing retirements are also excluded: Kieron Pollard, Dwayne Bravo, Ambati Rayudu, Dinesh Karthik, and Ravichandran Ashwin. Mohit Sharma is separately excluded: the cited IPL.com article reports that he announced his retirement from all forms of cricket in December 2025 and is expected to become CSK's bowling coach for IPL 2027. International-only retirements and unconfirmed rumors are not used. The problem statement does not require any of these exclusions, so the lists without them are reported under "Sensitivity and exclusions". These exclusions are applied before scoring and format-season standardization. Players are analyzed by format and season. A player-format-season segment must have at least **60 pressure balls**, **8 matches containing pressure batting/bowling**, and **60 ordinary balls**. After format-season roll-up, 60 batter profiles and 122 bowler profiles qualify; 11 players qualify in both disciplines for the all-rounder list. The dashboard also offers 36-ball/5-match and 90-ball/10-match sensitivity settings; their results are in "Sensitivity and exclusions".
 
-Mohit Sharma's reported 2027 coaching move: [IPL.com](https://www.ipl.com/cricket/news/mohit-sharma-to-join-csk-as-bowling-coach-for-ipl-2027-replaces-eric-simons/).
+Mohit Sharma's retirement and expected CSK coaching role: [IPL.com](https://www.ipl.com/cricket/news/mohit-sharma-to-join-csk-as-bowling-coach-for-ipl-2027-replaces-eric-simons/).
 
 IPL retirement sources: [Mumbai Indians on Kieron Pollard](https://www.mumbaiindians.com/news/kieron-pollard-announces-retirement-from-playing-ipl-appointed-as-batting-coach-for-mumbai-indians); [ESPNcricinfo on Dwayne Bravo](https://www.espncricinfo.com/story/ipl-2023-csk-news-dwayne-bravo-retires-from-ipl-takes-over-as-chennai-super-kings-bowling-coach-1348125); [Cricbuzz on Ambati Rayudu](https://www.cricbuzz.com/cricket-news/126676/ambati-rayudu-to-retire-from-ipl-after-the-final); [ESPNcricinfo on Dinesh Karthik's last IPL season](https://www.espncricinfo.com/story/dinesh-karthik-retires-from-all-representative-cricket-1434318); [News18 on Ravichandran Ashwin](https://www.news18.com/cricket/ravichandran-ashwin-announces-retirement-from-ipl-9530890.html).
 
@@ -138,13 +96,87 @@ All-rounders must qualify for both the batter and bowler lists under the same fo
 
 For positive-match share, a batter's pressure segment is compared with their pooled ordinary rates. A match counts positive when `(pressure SR − usual SR) − 2 × (pressure outs/ball − usual outs/ball) > 0`. A bowler's match counts positive when `(usual economy − pressure economy) + 1.5 × (pressure wickets/100 balls − usual wickets/100 balls) > 0`. The share is the fraction of that player's pressure-exposed matches passing the test.
 
-Bowler wicket credit excludes run-outs, retired hurt/out, timed out, handled-the-ball, and obstructing-the-field dismissals. Labels are normalized for spaces and spelling variations, including `RunOut` and the source typo `Obstracting the field`. A non-striker run-out is charged to that batter's dismissal rate but not given a faced ball.
+Bowler wicket credit excludes run-outs, retired hurt/out (including the source spelling `Retire Out`), timed out, handled-the-ball, and obstructing-the-field dismissals. Labels are normalized for spaces and spelling variations, including `RunOut` and the source typo `Obstracting the field`. A non-striker run-out is charged to that batter's dismissal rate but not given a faced ball.
 
 ## Evidence and interpretation
 
-Rishabh Pant leads the batter list at 59.3, with 217 pressure balls in 17 matches, a 194.9 pressure strike rate versus 123.5 ordinarily, and a positive result in 82% of pressure matches. Suryakumar Yadav has the largest pressure sample in the batter top ten: 688 balls and 89% reliability.
+Rishabh Pant leads the batter list at 58.4, with 217 pressure balls in 17 matches, a 194.9 pressure strike rate versus 123.5 ordinarily, and a positive result in 82% of pressure matches. Sanju Samson and Cooper Connolly are within 0.2 index points of him. Suryakumar Yadav has the largest pressure sample in the batter top ten: 724 balls and 90% reliability.
 
-Akash Madhwal leads the bowling index at 61.9, with a 7.16 pressure economy against 10.52 ordinarily over 93 balls in eight matches. Umran Malik follows closely with 6.18 against 9.98 over 99 balls in nine matches. Sunil Narine offers the strongest repeat-volume evidence in the top ten (684 pressure balls, 91% reliability), while his overall rating is lower than the two leaders. The index therefore distinguishes rate performance from sample certainty.
+Akash Madhwal leads the bowling index at 61.8, with a 7.35 pressure economy against 10.50 ordinarily over 93 balls in eight matches. Sunil Narine and Umran Malik follow at 61.3 each, and Narine ranks higher on pressure balls. Umran Malik's 6.43 pressure economy against 10.06 ordinarily comes from 97 balls in nine matches. Narine offers the strongest repeat-volume evidence in the top ten (684 pressure balls, 91% reliability), while his rating is 0.5 points below Madhwal's. The index therefore distinguishes rate performance from sample certainty.
+
+### League-wide: pressure versus ordinary deliveries
+
+The table sums every in-scope player-match record, including players who are excluded from the rankings or below the eligibility thresholds. Batting counts balls faced (wides excluded). Bowling counts legal balls. Economy is runs per six balls.
+
+| Measure | All, pressure | All, ordinary | IPL, pressure | IPL, ordinary | T20I, pressure | T20I, ordinary |
+|---|---:|---:|---:|---:|---:|---:|
+| Batting strike rate | 148.1 | 134.2 | 156.7 | 139.5 | 140.6 | 129.9 |
+| Batting outs per 100 balls | 7.06 | 4.58 | 6.61 | 4.30 | 7.45 | 4.80 |
+| Bowling economy (runs per 6 balls) | 9.26 | 8.31 | 9.80 | 8.64 | 8.79 | 8.04 |
+| Bowling wickets per 100 balls | 6.56 | 4.45 | 6.13 | 4.18 | 6.94 | 4.65 |
+| Balls faced (batting records) | 78,112 | 108,404 | 36,115 | 48,006 | 41,997 | 60,398 |
+| Balls bowled (bowling records) | 77,653 | 108,039 | 35,907 | 47,835 | 41,746 | 60,204 |
+
+Across the in-scope data, batters score 148.1 runs per 100 balls under pressure against 134.2 otherwise, and are dismissed 7.06 times per 100 balls against 4.58. Bowlers concede 9.26 runs per over under pressure against 8.31, and take 6.56 wickets per 100 balls against 4.45. The direction is the same in IPL and T20I. These are raw league aggregates, not matched by player, opposition, or innings stage. The finish phase is part of the pressure definition, so faster scoring and more wickets late in an innings are expected. The table shows that the pressure rules select deliveries with different outcomes; it does not by itself validate the player index.
+
+## Sensitivity and exclusions
+
+The lists depend on two choices that the problem statement leaves open: the sample thresholds and the player exclusions. This section shows how much each one changes the result.
+
+### Primary lists versus no exclusions
+
+Default thresholds (60 pressure balls, 8 matches), after the pipeline fixes. The primary list excludes the players described in "Performance and ranking". The unfiltered list uses the same method with no player excluded. Eligible profiles (batters / bowlers / all-rounders) are 60 / 122 / 11 with exclusions and 66 / 136 / 12 without.
+
+| Rank | Primary batters (exclusions on) | Index | Unfiltered batters (no exclusions) | Index |
+|---:|---|---:|---|---:|
+| 1 | Rishabh Pant | 58.4 | Rishabh Pant | 58.4 |
+| 2 | Sanju Samson | 58.3 | Sanju Samson | 58.3 |
+| 3 | Cooper Connolly | 58.2 | Cooper Connolly | 58.2 |
+| 4 | Ryan Burl | 56.5 | Fakhar Zaman | 57.7 |
+| 5 | Mark Chapman | 56.3 | Ryan Burl | 57.0 |
+| 6 | Suryakumar Yadav | 56.1 | Suryakumar Yadav | 56.4 |
+| 7 | Glenn Phillips | 54.8 | Mark Chapman | 56.0 |
+| 8 | David Miller | 54.5 | Glenn Phillips | 54.5 |
+| 9 | Mohammad Nabi | 54.0 | David Miller | 54.4 |
+| 10 | Rinku Singh | 53.3 | Namboori Tilak Varma | 53.1 |
+
+| Rank | Primary bowlers (exclusions on) | Index | Unfiltered bowlers (no exclusions) | Index |
+|---:|---|---:|---|---:|
+| 1 | Akash Madhwal | 61.8 | Umran Malik | 61.4 |
+| 2 | Sunil Narine | 61.3 | Sunil Narine | 61.3 |
+| 3 | Umran Malik | 61.3 | Mohammad Nawaz | 61.2 |
+| 4 | Washington Sundar | 60.6 | Akash Madhwal | 60.9 |
+| 5 | Sakib Hussain | 58.9 | Abrar Ahmed | 60.6 |
+| 6 | Kuldeep Yadav | 58.3 | Washington Sundar | 59.7 |
+| 7 | Mohammad Saifuddin | 57.8 | Sakib Hussain | 58.9 |
+| 8 | Adam Zampa | 57.7 | Kuldeep Yadav | 58.2 |
+| 9 | Rasikh Salam | 56.3 | Mohit Sharma | 58.0 |
+| 10 | Benjamin Lister | 56.3 | Mohammad Saifuddin | 57.1 |
+
+Without exclusions, Fakhar Zaman and Namboori Tilak Varma enter the batter top ten in place of Mohammad Nabi and Rinku Singh. In the bowler top ten, Mohammad Nawaz, Abrar Ahmed and Mohit Sharma enter in place of Adam Zampa, Rasikh Salam and Benjamin Lister.
+
+### Thresholds, exclusions, and the pipeline fixes
+
+Each row applies the same scoring to the analysis data before the pipeline fixes (819 matches: season labels such as `2022/23` were dropped, `other` extras counted as legal balls, `Retire Out` credited to bowlers) and after them (this report, 837 matches). The last column counts how many of a row's top ten names also appear in the 60/8 top ten of the same data version and exclusion setting.
+
+| Setting | Exclusions | Data | Eligible bat / bowl / AR | Top 3 batters (index) | Top 3 bowlers (index) | Top-10 names shared with default list, bat / bowl |
+|---|---|---|---:|---|---|---:|
+| 60 balls / 8 matches (default) | On | Before fixes | 57 / 122 / 11 | Rishabh Pant 59.3; Sanju Samson 57.8; Ryan Burl 56.5 | Akash Madhwal 62.8; Sunil Narine 61.7; Umran Malik 61.6 | 10 / 10 |
+| 60 balls / 8 matches (default) | On | After fixes | 60 / 122 / 11 | Rishabh Pant 58.4; Sanju Samson 58.3; Cooper Connolly 58.2 | Akash Madhwal 61.8; Sunil Narine 61.3; Umran Malik 61.3 | 10 / 10 |
+| 60 balls / 8 matches (default) | Off | Before fixes | 61 / 134 / 12 | Rishabh Pant 59.3; Fakhar Zaman 59.3; Sanju Samson 57.8 | Akash Madhwal 61.9; Umran Malik 61.7; Sunil Narine 61.6 | 10 / 10 |
+| 60 balls / 8 matches (default) | Off | After fixes | 66 / 136 / 12 | Rishabh Pant 58.4; Sanju Samson 58.3; Cooper Connolly 58.2 | Umran Malik 61.4; Sunil Narine 61.3; Mohammad Nawaz 61.2 | 10 / 10 |
+| 36 balls / 5 matches | On | Before fixes | 109 / 178 / 16 | Najibullah Zadran 60.9; Vijay Shankar 60.6; Liam Livingstone 59.0 | Akash Madhwal 62.2; Sunil Narine 61.7; Sakib Hussain 58.8 | 3 / 6 |
+| 36 balls / 5 matches | On | After fixes | 108 / 181 / 16 | Najibullah Zadran 60.5; Vijay Shankar 60.4; Liam Livingstone 58.9 | Akash Madhwal 61.4; Sunil Narine 61.2; Sakib Hussain 58.5 | 5 / 6 |
+| 36 balls / 5 matches | Off | Before fixes | 118 / 194 / 17 | Najibullah Zadran 61.2; Vijay Shankar 60.6; Liam Livingstone 59.2 | Sunil Narine 61.7; Akash Madhwal 61.7; Mohammad Nawaz 61.2 | 4 / 6 |
+| 36 balls / 5 matches | Off | After fixes | 118 / 198 / 17 | Najibullah Zadran 60.5; Vijay Shankar 60.4; Fakhar Zaman 59.3 | Mohammad Nawaz 61.4; Sunil Narine 61.3; Akash Madhwal 60.8 | 6 / 7 |
+| 90 balls / 10 matches | On | Before fixes | 33 / 81 / 5 | Suryakumar Yadav 58.4; David Miller 57.5; Mark Chapman 57.3 | Sunil Narine 61.8; Sakib Hussain 58.6; Washington Sundar 58.5 | 4 / 4 |
+| 90 balls / 10 matches | On | After fixes | 35 / 81 / 4 | Suryakumar Yadav 62.0; David Miller 58.6; Mark Chapman 57.3 | Sunil Narine 61.4; Washington Sundar 60.0; Sakib Hussain 58.3 | 3 / 3 |
+| 90 balls / 10 matches | Off | Before fixes | 34 / 91 / 5 | Suryakumar Yadav 58.4; David Miller 57.5; Mark Chapman 57.3 | Mohammad Nawaz 62.5; Sunil Narine 61.9; Abrar Ahmed 61.0 | 4 / 7 |
+| 90 balls / 10 matches | Off | After fixes | 37 / 91 / 4 | Suryakumar Yadav 62.5; David Miller 58.6; Mark Chapman 57.3 | Mohammad Nawaz 62.5; Sunil Narine 61.4; Abrar Ahmed 61.0 | 4 / 6 |
+
+- With exclusions on and the fixes applied, 5 of the default top ten batters and 6 of the default top ten bowlers remain in the top ten at 36 balls / 5 matches. At 90 balls / 10 matches the counts are 3 and 3.
+- Sunil Narine is in the top three bowlers and Sakib Hussain in the top five at all three threshold settings. Akash Madhwal leads at 60/8 and 36/5 but cannot qualify at 90/10, because he has 8 pressure matches and that setting requires 10.
+- At the default setting the fixes bring Cooper Connolly and Glenn Phillips into the batter list and Rasikh Salam into the bowler list, and remove Sai Sudharsan and Nitish Reddy from the batter list and Kagiso Rabada from the bowler list.
 
 ## Reliability and limitations
 
@@ -154,7 +186,12 @@ Akash Madhwal leads the bowling index at 61.9, with a 7.16 pressure economy agai
 - Run-outs are not credited as bowler wickets. Batter runs use `runs`; boundary flags disagree with that value on 23 deliveries, so flags are not used. Missing bye/leg-bye run amounts make chase totals approximate.
 - Revised targets/overs are used when present, but supplied fields do not support full Duckworth-Lewis par scores or ball-level win probability.
 - Scores are rounded for display, so adjacent players can be very close. Exact ties use unrounded index, pressure balls, then player name.
+- Small T20I pools: with exclusions on and the default thresholds, T20I format-season pools hold 5 to 10 eligible batters and 12 to 36 eligible bowlers, against 12 to 17 batters and 31 to 36 bowlers in IPL seasons. A z-score inside a pool of five to ten players moves a lot when one player is added or removed. A plausible consequence is that players whose ranking rests mainly on T20I seasons are ranked higher or lower than a larger pool would give them. This is a hypothesis; its size has not been measured.
+- Season labels: competitions labelled `2022/23`, `2023/24` and `2024/25` (18 matches) are assigned to their first calendar year. Series that run across two calendar years are pooled with that year's other competitions in the format-season z-scores. An earlier version of this analysis dropped these 18 matches; the "Before fixes" rows in the sensitivity table show the effect.
+- The `other` extras type (264 rows) is undocumented. Treating it as a no-ball, with a one-run penalty charged to the bowler, is an inference from the data, not from documentation. The penalty run matters for the batter list: it adds 70 pressure deliveries, which lifts Cooper Connolly over the 60-ball / 8-match threshold. A separate Python re-implementation (not the shipped code) that treated `other` as an illegal ball without the penalty run kept Sai Sudharsan and Nitish Reddy in the batter top ten and left Connolly out.
+- Super overs: innings 3 and 4 (38 rows in six matches, 26 rows in the four matches that are in scope) are skipped. Their balls are neither pressure nor ordinary. Treating every super-over ball as pressure would be a defensible alternative and was not applied.
+- The player exclusions are a selection decision, not a feature of the method. Every list that shows the effect of removing them is in "Sensitivity and exclusions".
 
 ## Reproduction
 
-From the data folder, run `node analyze.mjs` to regenerate `analysis_data.json`. The dashboard and ranked lists use `scoring.mjs`. Run `node server.mjs` and open `http://127.0.0.1:4173`. Filters recalculate rankings; **Export rankings** downloads both top tens as CSV.
+Use Node.js 20 LTS (`package.json` declares Node 18 or newer; the committed `analysis_data.json` was generated with Node 20). From the data folder, with `ball_by_ball.csv`, `matches.csv` and `competitions.csv` present, run `node analyze.mjs` to regenerate `analysis_data.json`. The dashboard and ranked lists use `scoring.mjs`. Run `node server.mjs` and open `http://127.0.0.1:4173`. Filters recalculate rankings. **Export rankings** downloads one CSV with the current top ten batters, bowlers, and all-rounders for the selected filters.
