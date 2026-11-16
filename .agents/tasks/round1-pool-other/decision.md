@@ -56,7 +56,7 @@ Real `node analyze.mjs` (Node 20.20.2) reproduces the committed `analysis_data.j
 
 **Question.** Is an `other` delivery a legal ball, and does it carry a penalty run? Readings: a = illegal ball, +1 run (submitted), b = illegal ball, no run, c = legal ball, no run.
 
-**Tests** (`other_evidence.mjs`, output `other_evidence_data.json`, decision rule fixed in the plan before the run).
+**Tests** (`other_evidence.mjs`, output `other_evidence_data.json`, decision rule fixed in the plan before the committed run but after a scouting regression had shown the direction; the rule was not committed beforehand, so this test is not pre-registered).
 - T0 field audit: no totals, scores or cumulative fields exist. `innings_ball_num` is a row counter (200,999 of 200,999 rows). Byes, leg-byes and overthrow runs are not stored, so exact reconstruction is impossible.
 - T1 free hit: non-run-out wicket on the ball after the row. Normal 5.12%. After `other` 0 of 261 (13.4 expected, P = 1.1e-6). After `Overstep` 0 of 574 (P = 8e-14).
 - T2 wickets on `other` rows: 3 of 3 run-outs (P = 0.00015 if normal).
