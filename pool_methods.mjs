@@ -1,6 +1,7 @@
 // Pool-method comparison for scoring.mjs (thin T20I pools). Called by `node sensitivity.mjs --pool-methods`;
 // it is not meant to be run on its own. The criterion, the candidates and their parameters are fixed in
 // pool_preregistration.md (committed before any candidate was run) and repeated in PREREGISTERED below.
+// Settings: S1 = no exclusions (the submitted setting when this ran), S2 = exclusions on (the submitted setting now).
 // Primary method = own-pool (the method of the submitted lists). The other three are alternatives under test.
 // Output: pool_methods_data.json (no timestamps).
 

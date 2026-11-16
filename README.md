@@ -1,7 +1,7 @@
 ﻿# SupeRR Selector Dashboard
 
 Round 1 entry for SupeRR Selector Season 2. The project ranks batters and bowlers by how they perform under pressure compared with their usual level, using the supplied IPL and T20I ball-by-ball data from 2022 to 2026.
-The submitted lists use only the supplied data and apply no player exclusions; the exclusion-filtered ranking is an alternative (see below). The Royal Radar and Raw Talent section of the dashboard is outside the Round 1 submission.
+The submitted lists exclude the 53 Pakistan T20I players, five confirmed IPL retirees and Mohit Sharma (`APPLY_PLAYER_EXCLUSIONS = true` in `scoring.mjs`); the ranking with no exclusions is a labelled alternative with full metrics in the report (see below). The Royal Radar and Raw Talent section of the dashboard is outside the Round 1 submission.
 A static dashboard (`index.html`) loads `analysis_data.json` and ranks the players in the browser; the method is written up in the methodology report.
 
 - Live dashboard: https://shresht-72.github.io/SupeRR/
@@ -13,8 +13,8 @@ A static dashboard (`index.html`) loads `analysis_data.json` and ranks the playe
 - `analyze.mjs` classifies every delivery as pressure or ordinary and writes `analysis_data.json`.
 - `scoring.mjs` turns those records into the batter, bowler and all-rounder rankings.
 - `index.html`, `dashboard.js` and `styles.css` are a static dashboard that loads `analysis_data.json` and ranks players in the browser.
-- `sensitivity.mjs` writes `sensitivity_data.json` (small-pool, `other`-extras, exclusion-alternative and robust-core checks). `charts.mjs` draws `charts/*.svg` and the sensitivity and evidence tables in the methodology report from the four JSON files (`analysis_data.json` through `scoring.mjs`, `sensitivity_data.json`, `other_evidence_data.json`, `pool_methods_data.json`).
-- Two assumptions were tested, and both tests kept the submitted method. The pool criterion was committed before any candidate ran; the `other` decision rule was fixed in the plan after a scouting run and was not committed beforehand. `other_evidence.mjs` (how to read the undocumented `other` extras type; decision: illegal ball with a one-run penalty, as submitted) and `node sensitivity.mjs --pool-methods` (three alternative standardisations for the small T20I pools, `POOL_METHOD` in `scoring.mjs`; decision: keep `own-pool`, criterion in `pool_preregistration.md`). The submitted lists are unchanged.
+- `sensitivity.mjs` writes `sensitivity_data.json` (small-pool, `other`-extras, no-exclusion-alternative and robust-core checks). `charts.mjs` draws `charts/*.svg` and the sensitivity and evidence tables in the methodology report from the four JSON files (`analysis_data.json` through `scoring.mjs`, `sensitivity_data.json`, `other_evidence_data.json`, `pool_methods_data.json`).
+- Two assumptions were tested, and both tests kept the submitted method. The pool criterion was committed before any candidate ran; the `other` decision rule was fixed in the plan after a scouting run and was not committed beforehand. `other_evidence.mjs` (how to read the undocumented `other` extras type; decision: illegal ball with a one-run penalty, as submitted) and `node sensitivity.mjs --pool-methods` (three alternative standardisations for the small T20I pools, `POOL_METHOD` in `scoring.mjs`; run in the settings S1 (no exclusions) and S2 (exclusions on); decision: keep `own-pool`, criterion in `pool_preregistration.md`). The submitted lists are unchanged.
 
 ## Requirements
 
@@ -38,8 +38,8 @@ node charts.mjs --check # compares without writing; exits with an error on any d
 The two evidence files that `sensitivity.mjs` and `charts.mjs` read are rewritten separately:
 ```bash
 node other_evidence.mjs --write       # tests of the `other` extras type -> other_evidence_data.json (a few seconds)
-node sensitivity.mjs --pool-methods   # pool-rule comparison, own-pool vs three alternatives -> pool_methods_data.json (about 11 minutes)
 ```
+`pool_methods_data.json` (pool-rule comparison, own-pool vs three alternatives, run in S1 with no exclusions and S2 with exclusions on) was written by `node sensitivity.mjs --pool-methods` before the exclusions were switched on. That command now stops with an error, because its check needs the no-exclusion `sensitivity_data.json` of commit ce1f3b3; the decision (keep `own-pool`) stands as documented.
 `node other_evidence.mjs` without `--write` prints the numbers as markdown. `ratePlayers(records, { poolMethod })` in `scoring.mjs` takes `own-pool` (default, submitted), `format-fallback`, `shrunk` or `adjacent-fallback`.
 
 The PDF is the html printed with headless Edge (adjust the path to `msedge.exe` if needed):
@@ -50,18 +50,18 @@ msedge --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=methodolog
 
 The report text around the charts and tables is written by hand; `charts.mjs` only replaces what sits between the `<!-- chart:NAME -->` and `<!-- table:NAME -->` marker comments.
 
-## Switch the exclusions on (optional alternative, not the submitted ranking)
+## Switch the exclusions off (optional alternative, not the submitted ranking)
 
-The submitted lists apply no player exclusions (`APPLY_PLAYER_EXCLUSIONS = false`). The alternative lists exclude the 53 Pakistan T20I players, five IPL retirees (Pollard, Bravo, Rayudu, Karthik, Ashwin) and Mohit Sharma. To rank with them, change one line in `scoring.mjs` (line 6):
+The submitted lists exclude the 53 Pakistan T20I players, five IPL retirees (Pollard, Bravo, Rayudu, Karthik, Ashwin) and Mohit Sharma (`APPLY_PLAYER_EXCLUSIONS = true`). The alternative lists apply none of these exclusions. To rank without them, change one line in `scoring.mjs` (line 6):
 
 ```js
-const APPLY_PLAYER_EXCLUSIONS = true;   // submitted lists: false
+const APPLY_PLAYER_EXCLUSIONS = false;   // submitted lists: true
 ```
 
-- `analysis_data.json` is not regenerated; the dashboard shows the exclusion-filtered lists at once.
-- `node sensitivity.mjs --print-top10` prints the lists `scoring.mjs` now gives. They equal the alternative tables in the report (section "Alternative: top 10 lists with the exclusions applied") and `exclusionAlternative` in `sensitivity_data.json`.
-- While the line says `true`, `node sensitivity.mjs` and `node charts.mjs` stop with an error because they describe the submitted lists. Set it back to `false` first.
-- The report, `README.md`, `index.html` (method step 06) and the Unstop entries are written by hand. The report section "Switch the exclusions on" lists the exclusion-filtered names and the steps.
+- `analysis_data.json` is not regenerated; the dashboard shows the no-exclusion lists at once.
+- `node sensitivity.mjs --print-top10` prints the lists `scoring.mjs` now gives. They equal the alternative tables in the report (section "Alternative: top 10 lists with no exclusions") and `noExclusionAlternative` in `sensitivity_data.json`.
+- While the line says `false`, `node sensitivity.mjs` and `node charts.mjs` stop with an error because they describe the submitted lists. Set it back to `true` first.
+- The report, `README.md`, `index.html` (method step 06) and the Unstop entries are written by hand. The report section "Switch the exclusions off" lists the no-exclusion names and the steps.
 
 ## Run the dashboard locally
 
@@ -85,7 +85,7 @@ Then open:
 | `analysis_data.json` | Generated player-match records and data-quality counts. |
 | `sensitivity.mjs`, `sensitivity_data.json` | Sensitivity checks and their output (no timestamps). |
 | `other_evidence.mjs`, `other_evidence_data.json` | Tests of how to read the `other` extras type (free hit, over length, run-margin regression) and their output. |
-| `pool_methods.mjs`, `pool_methods_data.json`, `pool_preregistration.md` | Pool-rule comparison for the small T20I pools (run with `node sensitivity.mjs --pool-methods`), its output and the criterion fixed before it ran. |
+| `pool_methods.mjs`, `pool_methods_data.json`, `pool_preregistration.md` | Pool-rule comparison for the small T20I pools (written by `node sensitivity.mjs --pool-methods` with S1 no exclusions and S2 exclusions on; the command now stops with an error, see above), its output and the criterion fixed before it ran. |
 | `charts.mjs`, `charts/` | Report charts (SVG) and the code that places charts and sensitivity tables in the report. |
 | `scoring.mjs` | Ratings, eligibility rules, pool standardisation (`POOL_METHOD`, default `own-pool`) and player exclusions (`APPLY_PLAYER_EXCLUSIONS` switch on line 6). |
 | `index.html`, `dashboard.js`, `styles.css`, `favicon.svg` | Dashboard and its icon. |

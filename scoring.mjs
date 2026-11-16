@@ -32,7 +32,7 @@ function zScores(players, value) {
 
 // Pool standardisation. Each player is z-scored in a stratum (one format and season). The pool methods differ only in
 // which mean and SD that z-score uses. Evidence and the pre-registered comparison: pool_preregistration.md, pool_methods_data.json,
-// "Small T20I pools" in methodology_report.md. Run `node sensitivity.mjs --pool-methods` to repeat the comparison.
+// "Small T20I pools" in methodology_report.md. The comparison was run with `node sensitivity.mjs --pool-methods` in S1 (no exclusions) and S2 (exclusions on); that command now stops with an error (README.md).
 //   own-pool          the stratum's own mean and SD (the method used for the lists; documented alternative if another method is the default)
 //   format-fallback   a stratum with THIN_POOL_MAX or fewer eligible profiles uses all seasons of the same format and kind
 //   shrunk            every stratum: mean and variance mixed with the all-seasons values, POOL_PSEUDO_COUNT pseudo-profiles
