@@ -468,11 +468,11 @@ Two parts of the method rested on an assumption: how to read the undocumented `o
 |---|---|---:|---:|---:|
 | T1 Free hit | Non-run-out wicket on the ball after the row (5.12% after a normal ball) | 0 of 261 | 0 of 261 | about 13.4 expected (P = 1.1e-6) |
 | T1 control | Same count after an Overstep (no-ball) row | 0 of 574 | 0 of 574 | about 29.4 expected (P = 8.0e-14) |
-| T2 Wickets on the row | Dismissals on `other` rows that are run-outs | 3 of 3 | 3 of 3 | P = 0.00015 if dismissals were as on normal balls |
-| T3 Over length | Overs with an `other` row that are not the last over of an innings (216): exactly six legal balls | 216 of 216 | 216 of 216 | 0 of 216 (209 have 7, 6 have 8, 1 has 9) |
-| T3 Innings length | Innings that must have used all 20 overs and contain an `other` row (139): exactly 120 legal balls | 137 of 139 | 137 of 139 | 0 of 139 |
-| T4 Run margin (exact) | Winning margin equals innings 1 minus innings 2 (12 usable matches, 1 with an `other` row) | 6 of 12 | 5 of 12 | 5 of 12 |
-| T4 Chase end (exact) | Wicket-won chases (16) whose last ball is consistent with the target (3 with an `other` row) | 12 of 16 | 11 of 16 | 11 of 16 |
+| T2 Wickets on the row | Dismissals on other rows that are run-outs | 3 of 3 | 3 of 3 | P = 0.00015 if dismissals were as on normal balls |
+| T3 Over length | Overs with an other row that are not the last over of an innings (216): exactly six legal balls | 216 of 216 | 216 of 216 | 0 of 216 (209 have 7, 6 have 8, 1 has 9) |
+| T3 Innings length | Innings that must have used all 20 overs and contain an other row (139): exactly 120 legal balls | 137 of 139 | 137 of 139 | 0 of 139 |
+| T4 Run margin (exact) | Winning margin equals innings 1 minus innings 2 (12 usable matches, 1 with an other row) | 6 of 12 | 5 of 12 | 5 of 12 |
+| T4 Chase end (exact) | Wicket-won chases (16) whose last ball is consistent with the target (3 with an other row) | 12 of 16 | 11 of 16 | 11 of 16 |
 
 <!-- /table:other_tests -->
 
@@ -482,7 +482,7 @@ Two parts of the method rested on an assumption: how to read the undocumented `o
 
 <!-- table:other_regression -->
 
-| Fit | Matches (with an `other` row) | `other` coefficient | `other` 95% CI (HC1) | Overstep control | Overstep 95% CI (HC1) | Rule picks |
+| Fit | Matches (with an other row) | other coefficient | other 95% CI (HC1) | Overstep control | Overstep 95% CI (HC1) | Rule picks |
 |---|---:|---:|---:|---:|---:|---:|
 | All matches, main fit | 394 (107) | 1.11 | 0.66 to 1.56 | 0.90 | 0.56 to 1.23 | a |
 | Without the extras_2_runs regressor | 394 (107) | 1.31 | 0.84 to 1.78 | 1.04 | 0.67 to 1.42 | a |
