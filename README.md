@@ -1,7 +1,7 @@
 # SupeRR Selector Dashboard
 
 Round 1 entry for SupeRR Selector Season 2. The project ranks batters and bowlers by how they perform under pressure compared with their usual level, using the supplied ball-by-ball data from 2022 to 2026. The methodology report is IPL-only: it covers the top 10 batters and the top 10 bowlers in the IPL and leaves T20I data out of its rankings and analysis. The dashboard still offers the All, IPL and T20I formats and opens on IPL, so its default lists are the ones in the report.
-The submitted IPL lists exclude the five confirmed IPL retirees (`APPLY_PLAYER_EXCLUSIONS = true` in `scoring.mjs`); Mohit Sharma is not excluded; the ranking with no exclusions is a labelled alternative with full metrics in the report (see below). The same switch also excludes the Pakistan T20I players, which only matters for the dashboard's All and T20I views. The report states that the index measures improvement over a player's own usual level under pressure, not absolute pressure quality, and explains in general terms why a high usual level can rank lower, with Cooper Connolly and Suryakumar Yadav as the worked example. The Royal Radar and Raw Talent section of the dashboard is outside the Round 1 submission.
+The submitted IPL lists exclude five confirmed IPL retirees (`APPLY_PLAYER_EXCLUSIONS = true` in `scoring.mjs`); the ranking with no exclusions is a labelled alternative with full metrics in the report (see below). The same switch also excludes the Pakistan T20I players, which only matters for the dashboard's All and T20I views. The report states that the index measures improvement over a player's own usual level under pressure, not absolute pressure quality, and explains in general terms why a high usual level can rank lower, with Cooper Connolly and Suryakumar Yadav as the worked example. The Royal Radar and Raw Talent section of the dashboard is outside the Round 1 submission.
 A static dashboard (`index.html`) loads `analysis_data.json` and ranks the players in the browser; the method is written up in the methodology report.
 
 - Live dashboard: https://shresht-72.github.io/SupeRR/
@@ -52,7 +52,7 @@ The report text around the charts and tables is written by hand; `charts.mjs` on
 
 ## Switch the exclusions off (optional alternative, not the submitted ranking)
 
-The submitted lists exclude the five IPL retirees (Pollard, Bravo, Rayudu, Karthik, Ashwin; `APPLY_PLAYER_EXCLUSIONS = true`). Mohit Sharma is not excluded; the same switch also covers the Pakistan T20I players, which has no effect on the IPL lists. The alternative lists apply none of these exclusions (only the retirees affect the IPL lists). To rank without them, change one line in `scoring.mjs` (line 6):
+The submitted lists exclude five IPL retirees (Pollard, Bravo, Rayudu, Karthik, Ashwin) (`APPLY_PLAYER_EXCLUSIONS = true`); the same switch also covers the Pakistan T20I players, which has no effect on the IPL lists. The alternative lists apply none of these exclusions. To rank without them, change one line in `scoring.mjs` (line 6):
 
 ```js
 const APPLY_PLAYER_EXCLUSIONS = false;   // submitted lists: true

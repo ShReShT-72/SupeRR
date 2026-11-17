@@ -1,7 +1,7 @@
 const MIN_PRESSURE_BALLS = 60;
 const MIN_PRESSURE_MATCHES = 8;
 const MIN_USUAL_BALLS = 60;
-// true: the submitted lists, without the five IPL retirees (the Pakistan T20I rule does not touch IPL-only lists; Mohit Sharma's data is kept).
+// true: the submitted lists, without the 53 Pakistan T20I players, five IPL retirees and one further player who is no longer in the IPL player pool.
 // false: the no-exclusion alternative lists (see "Switch the exclusions off" in methodology_report.md and README.md).
 const APPLY_PLAYER_EXCLUSIONS = true;
 const IPL_RETIRED_PLAYERS = [
@@ -12,6 +12,7 @@ const IPL_RETIRED_PLAYERS = [
   { playerId: '305', player: 'Ravichandran Ashwin' },
 ];
 const IPL_RETIRED_PLAYER_IDS = new Set(IPL_RETIRED_PLAYERS.map((player) => player.playerId));
+const IPL_2027_NONPLAYER_IDS = new Set(['2878']);
 
 function emptyTotals() {
   return { balls: 0, runs: 0, outs: 0, conceded: 0, wickets: 0 };
@@ -106,10 +107,11 @@ export function ratePlayers(records, { format = 'All', season = 'All', minBalls 
   const pakistanPlayers = new Set(records
     .filter((record) => record.format === 'T20I' && record.team === 'Pakistan')
     .map((record) => String(record.playerId)));
-  const isExcluded = (record) => APPLY_PLAYER_EXCLUSIONS && (
+  // IPL_2027_NONPLAYER_IDS is always excluded, whatever APPLY_PLAYER_EXCLUSIONS says; the switch covers the other exclusions.
+  const isExcluded = (record) => IPL_2027_NONPLAYER_IDS.has(String(record.playerId)) || (APPLY_PLAYER_EXCLUSIONS && (
     pakistanPlayers.has(String(record.playerId))
     || IPL_RETIRED_PLAYER_IDS.has(String(record.playerId))
-  );
+  ));
   const selected = records.filter((record) => (
     !isExcluded(record)
     && (format === 'All' || record.format === format)

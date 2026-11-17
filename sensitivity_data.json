@@ -23,7 +23,7 @@
     "equalsScoringModuleWithIplFormatFilter": true,
     "eligible": {
       "batters": 41,
-      "bowlers": 82,
+      "bowlers": 81,
       "allrounders": 6
     },
     "batters": [
@@ -193,6 +193,38 @@
     "bowlers": [
       {
         "rank": 1,
+        "playerId": "8177",
+        "player": "Akash Madhwal",
+        "teams": [
+          "Mumbai Indians"
+        ],
+        "index": 61.8,
+        "pressureEconomy": 7.35,
+        "usualEconomy": 10.5,
+        "pressureBalls": 93,
+        "pressureMatches": 8,
+        "pressureWickets": 11,
+        "positiveMatchSharePct": 63,
+        "reliabilityPct": 59
+      },
+      {
+        "rank": 2,
+        "playerId": "781",
+        "player": "Sunil Narine",
+        "teams": [
+          "Kolkata Knight Riders"
+        ],
+        "index": 61.3,
+        "pressureEconomy": 6.28,
+        "usualEconomy": 7.33,
+        "pressureBalls": 684,
+        "pressureMatches": 53,
+        "pressureWickets": 40,
+        "positiveMatchSharePct": 60,
+        "reliabilityPct": 91
+      },
+      {
+        "rank": 3,
         "playerId": "25048",
         "player": "Umran Malik",
         "teams": [
@@ -206,38 +238,6 @@
         "pressureWickets": 12,
         "positiveMatchSharePct": 56,
         "reliabilityPct": 61
-      },
-      {
-        "rank": 2,
-        "playerId": "781",
-        "player": "Sunil Narine",
-        "teams": [
-          "Kolkata Knight Riders"
-        ],
-        "index": 61.2,
-        "pressureEconomy": 6.28,
-        "usualEconomy": 7.33,
-        "pressureBalls": 684,
-        "pressureMatches": 53,
-        "pressureWickets": 40,
-        "positiveMatchSharePct": 60,
-        "reliabilityPct": 91
-      },
-      {
-        "rank": 3,
-        "playerId": "8177",
-        "player": "Akash Madhwal",
-        "teams": [
-          "Mumbai Indians"
-        ],
-        "index": 61.2,
-        "pressureEconomy": 7.35,
-        "usualEconomy": 10.5,
-        "pressureBalls": 93,
-        "pressureMatches": 8,
-        "pressureWickets": 11,
-        "positiveMatchSharePct": 63,
-        "reliabilityPct": 59
       },
       {
         "rank": 4,
@@ -257,22 +257,6 @@
       },
       {
         "rank": 5,
-        "playerId": "2878",
-        "player": "Mohit Sharma",
-        "teams": [
-          "Gujarat Titans"
-        ],
-        "index": 58.2,
-        "pressureEconomy": 9.29,
-        "usualEconomy": 9.82,
-        "pressureBalls": 345,
-        "pressureMatches": 23,
-        "pressureWickets": 36,
-        "positiveMatchSharePct": 78,
-        "reliabilityPct": 82
-      },
-      {
-        "rank": 6,
         "playerId": "3628",
         "player": "Kagiso Rabada",
         "teams": [
@@ -289,7 +273,7 @@
         "reliabilityPct": 82
       },
       {
-        "rank": 7,
+        "rank": 6,
         "playerId": "4101",
         "player": "Mitchell Santner",
         "teams": [
@@ -305,7 +289,7 @@
         "reliabilityPct": 62
       },
       {
-        "rank": 8,
+        "rank": 7,
         "playerId": "3644",
         "player": "Kuldeep Yadav",
         "teams": [
@@ -321,7 +305,7 @@
         "reliabilityPct": 89
       },
       {
-        "rank": 9,
+        "rank": 8,
         "playerId": "7327",
         "player": "Rasikh Salam",
         "teams": [
@@ -337,7 +321,7 @@
         "reliabilityPct": 67
       },
       {
-        "rank": 10,
+        "rank": 9,
         "playerId": "4641",
         "player": "Lungi Ngidi",
         "teams": [
@@ -350,6 +334,22 @@
         "pressureMatches": 10,
         "pressureWickets": 10,
         "positiveMatchSharePct": 70,
+        "reliabilityPct": 65
+      },
+      {
+        "rank": 10,
+        "playerId": "5577",
+        "player": "Sai Kishore",
+        "teams": [
+          "Gujarat Titans"
+        ],
+        "index": 55.7,
+        "pressureEconomy": 8.29,
+        "usualEconomy": 9.97,
+        "pressureBalls": 110,
+        "pressureMatches": 11,
+        "pressureWickets": 8,
+        "positiveMatchSharePct": 55,
         "reliabilityPct": 65
       }
     ]
@@ -417,19 +417,19 @@
         "pool": "IPL:2023",
         "format": "IPL",
         "season": 2023,
-        "eligiblePlayers": 34,
+        "eligiblePlayers": 33,
         "thin": false,
-        "pressureBallsInPool": 4448,
-        "medianPressureBallsPerPlayer": 123
+        "pressureBallsInPool": 4249,
+        "medianPressureBallsPerPlayer": 120
       },
       {
         "pool": "IPL:2024",
         "format": "IPL",
         "season": 2024,
-        "eligiblePlayers": 32,
+        "eligiblePlayers": 31,
         "thin": false,
-        "pressureBallsInPool": 4132,
-        "medianPressureBallsPerPlayer": 119
+        "pressureBallsInPool": 3986,
+        "medianPressureBallsPerPlayer": 115
       },
       {
         "pool": "IPL:2025",
@@ -456,7 +456,7 @@
         17
       ],
       "iplBowlerPoolRange": [
-        32,
+        31,
         36
       ],
       "thinBatterPools": 0,
@@ -1049,57 +1049,57 @@
     "bowlers": [
       {
         "rank": 1,
-        "player": "Umran Malik",
-        "playerId": "25048",
-        "index": 61.3,
+        "player": "Akash Madhwal",
+        "playerId": "8177",
+        "index": 61.8,
         "poolExposure": {
           "pools": [
             {
-              "pool": "IPL:2022",
-              "poolSize": 34,
-              "pressureBalls": 97,
+              "pool": "IPL:2023",
+              "poolSize": 33,
+              "pressureBalls": 93,
               "shareOfPlayersPressureBalls": 1
             }
           ],
-          "smallestPoolSize": 34,
+          "smallestPoolSize": 33,
           "shareOfPressureBallsInThinPools": 0
         },
         "leaveOneOut": {
-          "runs": 81,
+          "runs": 80,
           "bestRank": 1,
-          "worstRank": 3,
+          "worstRank": 2,
           "timesOutOfTop10": 0,
           "timesNotEligible": 0,
-          "worstCaseDroppedPlayer": "Mohit Sharma"
+          "worstCaseDroppedPlayer": "Rashid Khan"
         },
         "bootstrap": {
           "runs": 1000,
-          "shareInTop10": 0.665,
-          "notEligibleShare": 0.23,
-          "medianRank": 3,
+          "shareInTop10": 0.465,
+          "notEligibleShare": 0.409,
+          "medianRank": 4,
           "rank5thPercentile": 1,
-          "rank95thPercentile": 22,
+          "rank95thPercentile": 28,
           "bestRank": 1,
-          "worstRank": 77
+          "worstRank": 54
         },
         "poolDeletion": {
           "runs": 1000,
           "shareInTop10": 1,
           "notEligibleShare": 0,
-          "medianRank": 2,
+          "medianRank": 1,
           "rank5thPercentile": 1,
           "rank95thPercentile": 3,
           "bestRank": 1,
           "worstRank": 3
         },
-        "fragility": "moderate",
+        "fragility": "fragile",
         "poolCompositionFragility": "stable"
       },
       {
         "rank": 2,
         "player": "Sunil Narine",
         "playerId": "781",
-        "index": 61.2,
+        "index": 61.3,
         "poolExposure": {
           "pools": [
             {
@@ -1110,13 +1110,13 @@
             },
             {
               "pool": "IPL:2023",
-              "poolSize": 34,
+              "poolSize": 33,
               "pressureBalls": 115,
               "shareOfPlayersPressureBalls": 0.168
             },
             {
               "pool": "IPL:2024",
-              "poolSize": 32,
+              "poolSize": 31,
               "pressureBalls": 192,
               "shareOfPlayersPressureBalls": 0.281
             },
@@ -1133,20 +1133,20 @@
               "shareOfPlayersPressureBalls": 0.173
             }
           ],
-          "smallestPoolSize": 32,
+          "smallestPoolSize": 31,
           "shareOfPressureBallsInThinPools": 0
         },
         "leaveOneOut": {
-          "runs": 81,
+          "runs": 80,
           "bestRank": 1,
           "worstRank": 3,
           "timesOutOfTop10": 0,
           "timesNotEligible": 0,
-          "worstCaseDroppedPlayer": "Patrick Cummins"
+          "worstCaseDroppedPlayer": "Kagiso Rabada"
         },
         "bootstrap": {
           "runs": 1000,
-          "shareInTop10": 0.985,
+          "shareInTop10": 0.986,
           "notEligibleShare": 0,
           "medianRank": 2,
           "rank5thPercentile": 1,
@@ -1169,15 +1169,15 @@
       },
       {
         "rank": 3,
-        "player": "Akash Madhwal",
-        "playerId": "8177",
-        "index": 61.2,
+        "player": "Umran Malik",
+        "playerId": "25048",
+        "index": 61.3,
         "poolExposure": {
           "pools": [
             {
-              "pool": "IPL:2023",
+              "pool": "IPL:2022",
               "poolSize": 34,
-              "pressureBalls": 93,
+              "pressureBalls": 97,
               "shareOfPlayersPressureBalls": 1
             }
           ],
@@ -1185,7 +1185,7 @@
           "shareOfPressureBallsInThinPools": 0
         },
         "leaveOneOut": {
-          "runs": 81,
+          "runs": 80,
           "bestRank": 1,
           "worstRank": 3,
           "timesOutOfTop10": 0,
@@ -1194,13 +1194,13 @@
         },
         "bootstrap": {
           "runs": 1000,
-          "shareInTop10": 0.456,
-          "notEligibleShare": 0.409,
-          "medianRank": 4,
+          "shareInTop10": 0.668,
+          "notEligibleShare": 0.23,
+          "medianRank": 3,
           "rank5thPercentile": 1,
-          "rank95thPercentile": 30,
+          "rank95thPercentile": 22,
           "bestRank": 1,
-          "worstRank": 55
+          "worstRank": 76
         },
         "poolDeletion": {
           "runs": 1000,
@@ -1212,7 +1212,7 @@
           "bestRank": 1,
           "worstRank": 3
         },
-        "fragility": "fragile",
+        "fragility": "moderate",
         "poolCompositionFragility": "stable"
       },
       {
@@ -1233,22 +1233,22 @@
           "shareOfPressureBallsInThinPools": 0
         },
         "leaveOneOut": {
-          "runs": 81,
+          "runs": 80,
           "bestRank": 3,
           "worstRank": 4,
           "timesOutOfTop10": 0,
           "timesNotEligible": 0,
-          "worstCaseDroppedPlayer": "Akash Madhwal"
+          "worstCaseDroppedPlayer": "Kagiso Rabada"
         },
         "bootstrap": {
           "runs": 1000,
-          "shareInTop10": 0.643,
+          "shareInTop10": 0.657,
           "notEligibleShare": 0.012,
           "medianRank": 7,
           "rank5thPercentile": 1,
-          "rank95thPercentile": 28,
+          "rank95thPercentile": 27,
           "bestRank": 1,
-          "worstRank": 53
+          "worstRank": 52
         },
         "poolDeletion": {
           "runs": 1000,
@@ -1256,69 +1256,15 @@
           "notEligibleShare": 0,
           "medianRank": 4,
           "rank5thPercentile": 4,
-          "rank95thPercentile": 5,
+          "rank95thPercentile": 4,
           "bestRank": 4,
-          "worstRank": 6
+          "worstRank": 5
         },
         "fragility": "moderate",
         "poolCompositionFragility": "stable"
       },
       {
         "rank": 5,
-        "player": "Mohit Sharma",
-        "playerId": "2878",
-        "index": 58.2,
-        "poolExposure": {
-          "pools": [
-            {
-              "pool": "IPL:2023",
-              "poolSize": 34,
-              "pressureBalls": 199,
-              "shareOfPlayersPressureBalls": 0.577
-            },
-            {
-              "pool": "IPL:2024",
-              "poolSize": 32,
-              "pressureBalls": 146,
-              "shareOfPlayersPressureBalls": 0.423
-            }
-          ],
-          "smallestPoolSize": 32,
-          "shareOfPressureBallsInThinPools": 0
-        },
-        "leaveOneOut": {
-          "runs": 81,
-          "bestRank": 3,
-          "worstRank": 5,
-          "timesOutOfTop10": 0,
-          "timesNotEligible": 0,
-          "worstCaseDroppedPlayer": "Kagiso Rabada"
-        },
-        "bootstrap": {
-          "runs": 1000,
-          "shareInTop10": 0.356,
-          "notEligibleShare": 0.019,
-          "medianRank": 16,
-          "rank5thPercentile": 2,
-          "rank95thPercentile": 67,
-          "bestRank": 1,
-          "worstRank": 85
-        },
-        "poolDeletion": {
-          "runs": 1000,
-          "shareInTop10": 1,
-          "notEligibleShare": 0,
-          "medianRank": 5,
-          "rank5thPercentile": 4,
-          "rank95thPercentile": 5,
-          "bestRank": 4,
-          "worstRank": 7
-        },
-        "fragility": "fragile",
-        "poolCompositionFragility": "stable"
-      },
-      {
-        "rank": 6,
         "player": "Kagiso Rabada",
         "playerId": "3628",
         "index": 57.3,
@@ -1341,30 +1287,30 @@
           "shareOfPressureBallsInThinPools": 0
         },
         "leaveOneOut": {
-          "runs": 81,
-          "bestRank": 5,
-          "worstRank": 7,
+          "runs": 80,
+          "bestRank": 4,
+          "worstRank": 6,
           "timesOutOfTop10": 0,
           "timesNotEligible": 0,
           "worstCaseDroppedPlayer": "Varun Chakravarthy"
         },
         "bootstrap": {
           "runs": 1000,
-          "shareInTop10": 0.525,
+          "shareInTop10": 0.539,
           "notEligibleShare": 0,
           "medianRank": 10,
           "rank5thPercentile": 2,
-          "rank95thPercentile": 32,
+          "rank95thPercentile": 31,
           "bestRank": 1,
-          "worstRank": 57
+          "worstRank": 56
         },
         "poolDeletion": {
           "runs": 1000,
           "shareInTop10": 1,
           "notEligibleShare": 0,
-          "medianRank": 6,
-          "rank5thPercentile": 6,
-          "rank95thPercentile": 7,
+          "medianRank": 5,
+          "rank5thPercentile": 5,
+          "rank95thPercentile": 6,
           "bestRank": 5,
           "worstRank": 8
         },
@@ -1372,7 +1318,7 @@
         "poolCompositionFragility": "stable"
       },
       {
-        "rank": 7,
+        "rank": 6,
         "player": "Mitchell Santner",
         "playerId": "4101",
         "index": 57.1,
@@ -1389,38 +1335,38 @@
           "shareOfPressureBallsInThinPools": 0
         },
         "leaveOneOut": {
-          "runs": 81,
-          "bestRank": 6,
-          "worstRank": 7,
+          "runs": 80,
+          "bestRank": 5,
+          "worstRank": 6,
           "timesOutOfTop10": 0,
           "timesNotEligible": 0,
           "worstCaseDroppedPlayer": "Kuldeep Yadav"
         },
         "bootstrap": {
           "runs": 1000,
-          "shareInTop10": 0.396,
+          "shareInTop10": 0.395,
           "notEligibleShare": 0.208,
-          "medianRank": 10.5,
+          "medianRank": 11,
           "rank5thPercentile": 1,
-          "rank95thPercentile": 44,
+          "rank95thPercentile": 43,
           "bestRank": 1,
-          "worstRank": 77
+          "worstRank": 76
         },
         "poolDeletion": {
           "runs": 1000,
           "shareInTop10": 1,
           "notEligibleShare": 0,
-          "medianRank": 7,
-          "rank5thPercentile": 6,
-          "rank95thPercentile": 8,
+          "medianRank": 6,
+          "rank5thPercentile": 5,
+          "rank95thPercentile": 7,
           "bestRank": 4,
-          "worstRank": 10
+          "worstRank": 9
         },
         "fragility": "fragile",
         "poolCompositionFragility": "stable"
       },
       {
-        "rank": 8,
+        "rank": 7,
         "player": "Kuldeep Yadav",
         "playerId": "3644",
         "index": 56.6,
@@ -1434,13 +1380,13 @@
             },
             {
               "pool": "IPL:2023",
-              "poolSize": 34,
+              "poolSize": 33,
               "pressureBalls": 103,
               "shareOfPlayersPressureBalls": 0.188
             },
             {
               "pool": "IPL:2024",
-              "poolSize": 32,
+              "poolSize": 31,
               "pressureBalls": 148,
               "shareOfPlayersPressureBalls": 0.271
             },
@@ -1451,22 +1397,22 @@
               "shareOfPlayersPressureBalls": 0.314
             }
           ],
-          "smallestPoolSize": 32,
+          "smallestPoolSize": 31,
           "shareOfPressureBallsInThinPools": 0
         },
         "leaveOneOut": {
-          "runs": 81,
-          "bestRank": 7,
-          "worstRank": 8,
+          "runs": 80,
+          "bestRank": 6,
+          "worstRank": 7,
           "timesOutOfTop10": 0,
           "timesNotEligible": 0,
           "worstCaseDroppedPlayer": "Sakib Hussain"
         },
         "bootstrap": {
           "runs": 1000,
-          "shareInTop10": 0.489,
+          "shareInTop10": 0.505,
           "notEligibleShare": 0,
-          "medianRank": 11,
+          "medianRank": 10,
           "rank5thPercentile": 3,
           "rank95thPercentile": 28,
           "bestRank": 1,
@@ -1476,17 +1422,17 @@
           "runs": 1000,
           "shareInTop10": 1,
           "notEligibleShare": 0,
-          "medianRank": 8,
-          "rank5thPercentile": 7,
-          "rank95thPercentile": 9,
-          "bestRank": 6,
-          "worstRank": 10
+          "medianRank": 7,
+          "rank5thPercentile": 6,
+          "rank95thPercentile": 8,
+          "bestRank": 5,
+          "worstRank": 9
         },
-        "fragility": "fragile",
+        "fragility": "moderate",
         "poolCompositionFragility": "stable"
       },
       {
-        "rank": 9,
+        "rank": 8,
         "player": "Rasikh Salam",
         "playerId": "7327",
         "index": 56.3,
@@ -1503,38 +1449,38 @@
           "shareOfPressureBallsInThinPools": 0
         },
         "leaveOneOut": {
-          "runs": 81,
-          "bestRank": 7,
-          "worstRank": 9,
+          "runs": 80,
+          "bestRank": 6,
+          "worstRank": 8,
           "timesOutOfTop10": 0,
           "timesNotEligible": 0,
           "worstCaseDroppedPlayer": "Lungi Ngidi"
         },
         "bootstrap": {
           "runs": 1000,
-          "shareInTop10": 0.368,
+          "shareInTop10": 0.392,
           "notEligibleShare": 0.004,
-          "medianRank": 13,
+          "medianRank": 12,
           "rank5thPercentile": 4,
           "rank95thPercentile": 33,
           "bestRank": 2,
-          "worstRank": 55
+          "worstRank": 54
         },
         "poolDeletion": {
           "runs": 1000,
-          "shareInTop10": 0.973,
+          "shareInTop10": 0.993,
           "notEligibleShare": 0,
-          "medianRank": 9,
-          "rank5thPercentile": 7,
-          "rank95thPercentile": 10,
-          "bestRank": 7,
+          "medianRank": 8,
+          "rank5thPercentile": 6,
+          "rank95thPercentile": 9,
+          "bestRank": 6,
           "worstRank": 12
         },
         "fragility": "fragile",
         "poolCompositionFragility": "stable"
       },
       {
-        "rank": 10,
+        "rank": 9,
         "player": "Lungi Ngidi",
         "playerId": "4641",
         "index": 55.7,
@@ -1551,31 +1497,79 @@
           "shareOfPressureBallsInThinPools": 0
         },
         "leaveOneOut": {
-          "runs": 81,
-          "bestRank": 9,
-          "worstRank": 12,
-          "timesOutOfTop10": 17,
+          "runs": 80,
+          "bestRank": 8,
+          "worstRank": 11,
+          "timesOutOfTop10": 1,
           "timesNotEligible": 0,
           "worstCaseDroppedPlayer": "Ravindra Jadeja"
         },
         "bootstrap": {
           "runs": 1000,
-          "shareInTop10": 0.342,
+          "shareInTop10": 0.363,
           "notEligibleShare": 0.012,
           "medianRank": 14,
           "rank5thPercentile": 4,
-          "rank95thPercentile": 36,
+          "rank95thPercentile": 35,
           "bestRank": 1,
-          "worstRank": 54
+          "worstRank": 55
         },
         "poolDeletion": {
           "runs": 1000,
-          "shareInTop10": 0.524,
+          "shareInTop10": 0.706,
           "notEligibleShare": 0,
           "medianRank": 10,
-          "rank5thPercentile": 10,
-          "rank95thPercentile": 13,
-          "bestRank": 9,
+          "rank5thPercentile": 9,
+          "rank95thPercentile": 12,
+          "bestRank": 7,
+          "worstRank": 14
+        },
+        "fragility": "fragile",
+        "poolCompositionFragility": "moderate"
+      },
+      {
+        "rank": 10,
+        "player": "Sai Kishore",
+        "playerId": "5577",
+        "index": 55.7,
+        "poolExposure": {
+          "pools": [
+            {
+              "pool": "IPL:2025",
+              "poolSize": 36,
+              "pressureBalls": 110,
+              "shareOfPlayersPressureBalls": 1
+            }
+          ],
+          "smallestPoolSize": 36,
+          "shareOfPressureBallsInThinPools": 0
+        },
+        "leaveOneOut": {
+          "runs": 80,
+          "bestRank": 8,
+          "worstRank": 11,
+          "timesOutOfTop10": 5,
+          "timesNotEligible": 0,
+          "worstCaseDroppedPlayer": "Yuzvendra Chahal"
+        },
+        "bootstrap": {
+          "runs": 1000,
+          "shareInTop10": 0.338,
+          "notEligibleShare": 0.057,
+          "medianRank": 14,
+          "rank5thPercentile": 4,
+          "rank95thPercentile": 38,
+          "bestRank": 1,
+          "worstRank": 66
+        },
+        "poolDeletion": {
+          "runs": 1000,
+          "shareInTop10": 0.722,
+          "notEligibleShare": 0,
+          "medianRank": 10,
+          "rank5thPercentile": 8,
+          "rank95thPercentile": 12,
+          "bestRank": 7,
           "worstRank": 14
         },
         "fragility": "fragile",
@@ -1587,37 +1581,37 @@
         "player": "Harshit Rana",
         "playerId": "29888",
         "primaryRank": 12,
-        "shareInTop10": 0.39
+        "shareInTop10": 0.397
       },
       {
         "player": "Mayank Markande",
         "playerId": "6683",
-        "primaryRank": 13,
-        "shareInTop10": 0.352
+        "primaryRank": 11,
+        "shareInTop10": 0.379
       },
       {
-        "player": "Sai Kishore",
-        "playerId": "5577",
-        "primaryRank": 11,
-        "shareInTop10": 0.334
+        "player": "Noor Ahmad",
+        "playerId": "7967",
+        "primaryRank": 14,
+        "shareInTop10": 0.275
       },
       {
         "player": "Tim Southee",
         "playerId": "278",
         "primaryRank": 19,
-        "shareInTop10": 0.254
-      },
-      {
-        "player": "Noor Ahmad",
-        "playerId": "7967",
-        "primaryRank": 15,
-        "shareInTop10": 0.249
+        "shareInTop10": 0.258
       },
       {
         "player": "Wanindu Hasaranga",
         "playerId": "4900",
-        "primaryRank": 18,
-        "shareInTop10": 0.239
+        "primaryRank": 17,
+        "shareInTop10": 0.25
+      },
+      {
+        "player": "Jasprit Bumrah",
+        "playerId": "2933",
+        "primaryRank": 15,
+        "shareInTop10": 0.213
       }
     ]
   },
@@ -1635,7 +1629,7 @@
       "comparedWith": "exclusionsOn_otherPenalty",
       "eligible": {
         "batters": 40,
-        "bowlers": 81,
+        "bowlers": 80,
         "allrounders": 5
       },
       "batters": {
@@ -1918,6 +1912,22 @@
         "top10": [
           {
             "rank": 1,
+            "playerId": "8177",
+            "player": "Akash Madhwal",
+            "teams": [
+              "Mumbai Indians"
+            ],
+            "index": 62,
+            "pressureEconomy": 7.29,
+            "usualEconomy": 10.5,
+            "pressureBalls": 93,
+            "pressureMatches": 8,
+            "pressureWickets": 11,
+            "positiveMatchSharePct": 63,
+            "reliabilityPct": 59
+          },
+          {
+            "rank": 2,
             "playerId": "781",
             "player": "Sunil Narine",
             "teams": [
@@ -1933,7 +1943,7 @@
             "reliabilityPct": 91
           },
           {
-            "rank": 2,
+            "rank": 3,
             "playerId": "25048",
             "player": "Umran Malik",
             "teams": [
@@ -1947,22 +1957,6 @@
             "pressureWickets": 12,
             "positiveMatchSharePct": 56,
             "reliabilityPct": 61
-          },
-          {
-            "rank": 3,
-            "playerId": "8177",
-            "player": "Akash Madhwal",
-            "teams": [
-              "Mumbai Indians"
-            ],
-            "index": 61.3,
-            "pressureEconomy": 7.29,
-            "usualEconomy": 10.5,
-            "pressureBalls": 93,
-            "pressureMatches": 8,
-            "pressureWickets": 11,
-            "positiveMatchSharePct": 63,
-            "reliabilityPct": 59
           },
           {
             "rank": 4,
@@ -1982,22 +1976,6 @@
           },
           {
             "rank": 5,
-            "playerId": "2878",
-            "player": "Mohit Sharma",
-            "teams": [
-              "Gujarat Titans"
-            ],
-            "index": 58.1,
-            "pressureEconomy": 9.29,
-            "usualEconomy": 9.78,
-            "pressureBalls": 345,
-            "pressureMatches": 23,
-            "pressureWickets": 36,
-            "positiveMatchSharePct": 78,
-            "reliabilityPct": 82
-          },
-          {
-            "rank": 6,
             "playerId": "3628",
             "player": "Kagiso Rabada",
             "teams": [
@@ -2014,7 +1992,7 @@
             "reliabilityPct": 82
           },
           {
-            "rank": 7,
+            "rank": 6,
             "playerId": "4101",
             "player": "Mitchell Santner",
             "teams": [
@@ -2030,7 +2008,7 @@
             "reliabilityPct": 62
           },
           {
-            "rank": 8,
+            "rank": 7,
             "playerId": "3644",
             "player": "Kuldeep Yadav",
             "teams": [
@@ -2046,7 +2024,7 @@
             "reliabilityPct": 89
           },
           {
-            "rank": 9,
+            "rank": 8,
             "playerId": "7327",
             "player": "Rasikh Salam",
             "teams": [
@@ -2062,7 +2040,7 @@
             "reliabilityPct": 67
           },
           {
-            "rank": 10,
+            "rank": 9,
             "playerId": "5577",
             "player": "Sai Kishore",
             "teams": [
@@ -2076,51 +2054,49 @@
             "pressureWickets": 8,
             "positiveMatchSharePct": 55,
             "reliabilityPct": 65
+          },
+          {
+            "rank": 10,
+            "playerId": "4641",
+            "player": "Lungi Ngidi",
+            "teams": [
+              "Delhi Capitals"
+            ],
+            "index": 55.6,
+            "pressureEconomy": 8.17,
+            "usualEconomy": 8.28,
+            "pressureBalls": 127,
+            "pressureMatches": 10,
+            "pressureWickets": 10,
+            "positiveMatchSharePct": 70,
+            "reliabilityPct": 65
           }
         ],
         "versusPrimary": {
-          "sharedNames": 9,
-          "movedIn": [
-            {
-              "player": "Sai Kishore",
-              "playerId": "5577",
-              "rank": 10,
-              "index": 55.7,
-              "rankInOtherList": 11,
-              "indexInOtherList": 55.7
-            }
-          ],
-          "movedOut": [
-            {
-              "player": "Lungi Ngidi",
-              "playerId": "4641",
-              "rank": 10,
-              "index": 55.7,
-              "rankInOtherList": 11,
-              "indexInOtherList": 55.6
-            }
-          ],
+          "sharedNames": 10,
+          "movedIn": [],
+          "movedOut": [],
           "ranksOfPrimaryTop10": [
             {
-              "player": "Umran Malik",
+              "player": "Akash Madhwal",
               "primaryRank": 1,
-              "primaryIndex": 61.3,
-              "rank": 2,
-              "index": 61.5
+              "primaryIndex": 61.8,
+              "rank": 1,
+              "index": 62
             },
             {
               "player": "Sunil Narine",
               "primaryRank": 2,
-              "primaryIndex": 61.2,
-              "rank": 1,
+              "primaryIndex": 61.3,
+              "rank": 2,
               "index": 61.6
             },
             {
-              "player": "Akash Madhwal",
+              "player": "Umran Malik",
               "primaryRank": 3,
-              "primaryIndex": 61.2,
+              "primaryIndex": 61.3,
               "rank": 3,
-              "index": 61.3
+              "index": 61.5
             },
             {
               "player": "Sakib Hussain",
@@ -2130,46 +2106,46 @@
               "index": 59
             },
             {
-              "player": "Mohit Sharma",
-              "primaryRank": 5,
-              "primaryIndex": 58.2,
-              "rank": 5,
-              "index": 58.1
-            },
-            {
               "player": "Kagiso Rabada",
-              "primaryRank": 6,
+              "primaryRank": 5,
               "primaryIndex": 57.3,
-              "rank": 6,
+              "rank": 5,
               "index": 57.3
             },
             {
               "player": "Mitchell Santner",
-              "primaryRank": 7,
+              "primaryRank": 6,
               "primaryIndex": 57.1,
-              "rank": 7,
+              "rank": 6,
               "index": 57.1
             },
             {
               "player": "Kuldeep Yadav",
-              "primaryRank": 8,
+              "primaryRank": 7,
               "primaryIndex": 56.6,
-              "rank": 8,
+              "rank": 7,
               "index": 56.6
             },
             {
               "player": "Rasikh Salam",
-              "primaryRank": 9,
+              "primaryRank": 8,
               "primaryIndex": 56.3,
-              "rank": 9,
+              "rank": 8,
               "index": 56.2
             },
             {
               "player": "Lungi Ngidi",
+              "primaryRank": 9,
+              "primaryIndex": 55.7,
+              "rank": 10,
+              "index": 55.6
+            },
+            {
+              "player": "Sai Kishore",
               "primaryRank": 10,
               "primaryIndex": 55.7,
-              "rank": 11,
-              "index": 55.6
+              "rank": 9,
+              "index": 55.7
             }
           ]
         }
@@ -2180,7 +2156,7 @@
       "comparedWith": "exclusionsOff_otherPenalty",
       "eligible": {
         "batters": 41,
-        "bowlers": 82,
+        "bowlers": 81,
         "allrounders": 6
       },
       "batters": {
@@ -2468,7 +2444,7 @@
             "teams": [
               "Kolkata Knight Riders"
             ],
-            "index": 61.6,
+            "index": 61.7,
             "pressureEconomy": 6.24,
             "usualEconomy": 7.37,
             "pressureBalls": 683,
@@ -2479,6 +2455,22 @@
           },
           {
             "rank": 2,
+            "playerId": "8177",
+            "player": "Akash Madhwal",
+            "teams": [
+              "Mumbai Indians"
+            ],
+            "index": 61.7,
+            "pressureEconomy": 7.29,
+            "usualEconomy": 10.5,
+            "pressureBalls": 93,
+            "pressureMatches": 8,
+            "pressureWickets": 11,
+            "positiveMatchSharePct": 63,
+            "reliabilityPct": 59
+          },
+          {
+            "rank": 3,
             "playerId": "25048",
             "player": "Umran Malik",
             "teams": [
@@ -2492,22 +2484,6 @@
             "pressureWickets": 12,
             "positiveMatchSharePct": 56,
             "reliabilityPct": 61
-          },
-          {
-            "rank": 3,
-            "playerId": "8177",
-            "player": "Akash Madhwal",
-            "teams": [
-              "Mumbai Indians"
-            ],
-            "index": 61.1,
-            "pressureEconomy": 7.29,
-            "usualEconomy": 10.5,
-            "pressureBalls": 93,
-            "pressureMatches": 8,
-            "pressureWickets": 11,
-            "positiveMatchSharePct": 63,
-            "reliabilityPct": 59
           },
           {
             "rank": 4,
@@ -2527,22 +2503,6 @@
           },
           {
             "rank": 5,
-            "playerId": "2878",
-            "player": "Mohit Sharma",
-            "teams": [
-              "Gujarat Titans"
-            ],
-            "index": 57.9,
-            "pressureEconomy": 9.29,
-            "usualEconomy": 9.78,
-            "pressureBalls": 345,
-            "pressureMatches": 23,
-            "pressureWickets": 36,
-            "positiveMatchSharePct": 78,
-            "reliabilityPct": 82
-          },
-          {
-            "rank": 6,
             "playerId": "3628",
             "player": "Kagiso Rabada",
             "teams": [
@@ -2559,7 +2519,7 @@
             "reliabilityPct": 82
           },
           {
-            "rank": 7,
+            "rank": 6,
             "playerId": "4101",
             "player": "Mitchell Santner",
             "teams": [
@@ -2575,7 +2535,7 @@
             "reliabilityPct": 62
           },
           {
-            "rank": 8,
+            "rank": 7,
             "playerId": "3644",
             "player": "Kuldeep Yadav",
             "teams": [
@@ -2591,7 +2551,7 @@
             "reliabilityPct": 89
           },
           {
-            "rank": 9,
+            "rank": 8,
             "playerId": "7327",
             "player": "Rasikh Salam",
             "teams": [
@@ -2607,7 +2567,7 @@
             "reliabilityPct": 67
           },
           {
-            "rank": 10,
+            "rank": 9,
             "playerId": "5577",
             "player": "Sai Kishore",
             "teams": [
@@ -2621,51 +2581,49 @@
             "pressureWickets": 8,
             "positiveMatchSharePct": 55,
             "reliabilityPct": 65
+          },
+          {
+            "rank": 10,
+            "playerId": "4641",
+            "player": "Lungi Ngidi",
+            "teams": [
+              "Delhi Capitals"
+            ],
+            "index": 55.6,
+            "pressureEconomy": 8.17,
+            "usualEconomy": 8.28,
+            "pressureBalls": 127,
+            "pressureMatches": 10,
+            "pressureWickets": 10,
+            "positiveMatchSharePct": 70,
+            "reliabilityPct": 65
           }
         ],
         "versusPrimary": {
-          "sharedNames": 9,
-          "movedIn": [
-            {
-              "player": "Sai Kishore",
-              "playerId": "5577",
-              "rank": 10,
-              "index": 55.7,
-              "rankInOtherList": 11,
-              "indexInOtherList": 55.7
-            }
-          ],
-          "movedOut": [
-            {
-              "player": "Lungi Ngidi",
-              "playerId": "4641",
-              "rank": 10,
-              "index": 55.7,
-              "rankInOtherList": 11,
-              "indexInOtherList": 55.6
-            }
-          ],
+          "sharedNames": 10,
+          "movedIn": [],
+          "movedOut": [],
           "ranksOfPrimaryTop10": [
             {
-              "player": "Umran Malik",
+              "player": "Akash Madhwal",
               "primaryRank": 1,
-              "primaryIndex": 61.4,
+              "primaryIndex": 61.5,
               "rank": 2,
+              "index": 61.7
+            },
+            {
+              "player": "Umran Malik",
+              "primaryRank": 2,
+              "primaryIndex": 61.4,
+              "rank": 3,
               "index": 61.6
             },
             {
               "player": "Sunil Narine",
-              "primaryRank": 2,
+              "primaryRank": 3,
               "primaryIndex": 61.3,
               "rank": 1,
-              "index": 61.6
-            },
-            {
-              "player": "Akash Madhwal",
-              "primaryRank": 3,
-              "primaryIndex": 60.9,
-              "rank": 3,
-              "index": 61.1
+              "index": 61.7
             },
             {
               "player": "Sakib Hussain",
@@ -2675,46 +2633,46 @@
               "index": 59
             },
             {
-              "player": "Mohit Sharma",
-              "primaryRank": 5,
-              "primaryIndex": 58,
-              "rank": 5,
-              "index": 57.9
-            },
-            {
               "player": "Kagiso Rabada",
-              "primaryRank": 6,
+              "primaryRank": 5,
               "primaryIndex": 57.3,
-              "rank": 6,
+              "rank": 5,
               "index": 57.3
             },
             {
               "player": "Mitchell Santner",
-              "primaryRank": 7,
+              "primaryRank": 6,
               "primaryIndex": 57.1,
-              "rank": 7,
+              "rank": 6,
               "index": 57.1
             },
             {
               "player": "Kuldeep Yadav",
-              "primaryRank": 8,
+              "primaryRank": 7,
               "primaryIndex": 56.7,
-              "rank": 8,
+              "rank": 7,
               "index": 56.7
             },
             {
               "player": "Rasikh Salam",
-              "primaryRank": 9,
+              "primaryRank": 8,
               "primaryIndex": 56.3,
-              "rank": 9,
+              "rank": 8,
               "index": 56.2
             },
             {
               "player": "Lungi Ngidi",
+              "primaryRank": 9,
+              "primaryIndex": 55.7,
+              "rank": 10,
+              "index": 55.6
+            },
+            {
+              "player": "Sai Kishore",
               "primaryRank": 10,
               "primaryIndex": 55.7,
-              "rank": 11,
-              "index": 55.6
+              "rank": 9,
+              "index": 55.7
             }
           ]
         }
@@ -2722,12 +2680,12 @@
     }
   },
   "noExclusionAlternative": {
-    "note": "The alternative to the submitted lists: same method and thresholds, with no player exclusions applied (the five IPL retirees are the exclusion that touches IPL players; Mohit Sharma is not excluded). Columns are the same as the primary tables; versusPrimary compares with the submitted (exclusions on) lists.",
+    "note": "The alternative to the submitted lists: same method and thresholds, with no player exclusions applied (the five IPL retirees are the exclusion that touches the IPL lists). Columns are the same as the primary tables; versusPrimary compares with the submitted (exclusions on) lists.",
     "scenario": "alternative: no exclusions, `other` = illegal ball + 1 penalty run",
     "comparedWith": "exclusionsOn_otherPenalty",
     "eligible": {
       "batters": 42,
-      "bowlers": 83,
+      "bowlers": 82,
       "allrounders": 7
     },
     "batters": {
@@ -2977,6 +2935,22 @@
       "top10": [
         {
           "rank": 1,
+          "playerId": "8177",
+          "player": "Akash Madhwal",
+          "teams": [
+            "Mumbai Indians"
+          ],
+          "index": 61.5,
+          "pressureEconomy": 7.35,
+          "usualEconomy": 10.5,
+          "pressureBalls": 93,
+          "pressureMatches": 8,
+          "pressureWickets": 11,
+          "positiveMatchSharePct": 63,
+          "reliabilityPct": 59
+        },
+        {
+          "rank": 2,
           "playerId": "25048",
           "player": "Umran Malik",
           "teams": [
@@ -2992,7 +2966,7 @@
           "reliabilityPct": 61
         },
         {
-          "rank": 2,
+          "rank": 3,
           "playerId": "781",
           "player": "Sunil Narine",
           "teams": [
@@ -3006,22 +2980,6 @@
           "pressureWickets": 40,
           "positiveMatchSharePct": 60,
           "reliabilityPct": 91
-        },
-        {
-          "rank": 3,
-          "playerId": "8177",
-          "player": "Akash Madhwal",
-          "teams": [
-            "Mumbai Indians"
-          ],
-          "index": 60.9,
-          "pressureEconomy": 7.35,
-          "usualEconomy": 10.5,
-          "pressureBalls": 93,
-          "pressureMatches": 8,
-          "pressureWickets": 11,
-          "positiveMatchSharePct": 63,
-          "reliabilityPct": 59
         },
         {
           "rank": 4,
@@ -3041,22 +2999,6 @@
         },
         {
           "rank": 5,
-          "playerId": "2878",
-          "player": "Mohit Sharma",
-          "teams": [
-            "Gujarat Titans"
-          ],
-          "index": 58,
-          "pressureEconomy": 9.29,
-          "usualEconomy": 9.82,
-          "pressureBalls": 345,
-          "pressureMatches": 23,
-          "pressureWickets": 36,
-          "positiveMatchSharePct": 78,
-          "reliabilityPct": 82
-        },
-        {
-          "rank": 6,
           "playerId": "3628",
           "player": "Kagiso Rabada",
           "teams": [
@@ -3073,7 +3015,7 @@
           "reliabilityPct": 82
         },
         {
-          "rank": 7,
+          "rank": 6,
           "playerId": "4101",
           "player": "Mitchell Santner",
           "teams": [
@@ -3089,7 +3031,7 @@
           "reliabilityPct": 62
         },
         {
-          "rank": 8,
+          "rank": 7,
           "playerId": "3644",
           "player": "Kuldeep Yadav",
           "teams": [
@@ -3105,7 +3047,7 @@
           "reliabilityPct": 89
         },
         {
-          "rank": 9,
+          "rank": 8,
           "playerId": "7327",
           "player": "Rasikh Salam",
           "teams": [
@@ -3121,7 +3063,7 @@
           "reliabilityPct": 67
         },
         {
-          "rank": 10,
+          "rank": 9,
           "playerId": "4641",
           "player": "Lungi Ngidi",
           "teams": [
@@ -3135,6 +3077,22 @@
           "pressureWickets": 10,
           "positiveMatchSharePct": 70,
           "reliabilityPct": 65
+        },
+        {
+          "rank": 10,
+          "playerId": "5577",
+          "player": "Sai Kishore",
+          "teams": [
+            "Gujarat Titans"
+          ],
+          "index": 55.7,
+          "pressureEconomy": 8.29,
+          "usualEconomy": 9.97,
+          "pressureBalls": 110,
+          "pressureMatches": 11,
+          "pressureWickets": 8,
+          "positiveMatchSharePct": 55,
+          "reliabilityPct": 65
         }
       ],
       "versusPrimary": {
@@ -3143,25 +3101,25 @@
         "movedOut": [],
         "ranksOfPrimaryTop10": [
           {
-            "player": "Umran Malik",
+            "player": "Akash Madhwal",
             "primaryRank": 1,
-            "primaryIndex": 61.3,
+            "primaryIndex": 61.8,
             "rank": 1,
-            "index": 61.4
+            "index": 61.5
           },
           {
             "player": "Sunil Narine",
             "primaryRank": 2,
-            "primaryIndex": 61.2,
-            "rank": 2,
+            "primaryIndex": 61.3,
+            "rank": 3,
             "index": 61.3
           },
           {
-            "player": "Akash Madhwal",
+            "player": "Umran Malik",
             "primaryRank": 3,
-            "primaryIndex": 61.2,
-            "rank": 3,
-            "index": 60.9
+            "primaryIndex": 61.3,
+            "rank": 2,
+            "index": 61.4
           },
           {
             "player": "Sakib Hussain",
@@ -3171,42 +3129,42 @@
             "index": 58.9
           },
           {
-            "player": "Mohit Sharma",
-            "primaryRank": 5,
-            "primaryIndex": 58.2,
-            "rank": 5,
-            "index": 58
-          },
-          {
             "player": "Kagiso Rabada",
-            "primaryRank": 6,
+            "primaryRank": 5,
             "primaryIndex": 57.3,
-            "rank": 6,
+            "rank": 5,
             "index": 57.3
           },
           {
             "player": "Mitchell Santner",
-            "primaryRank": 7,
+            "primaryRank": 6,
             "primaryIndex": 57.1,
-            "rank": 7,
+            "rank": 6,
             "index": 57.1
           },
           {
             "player": "Kuldeep Yadav",
-            "primaryRank": 8,
+            "primaryRank": 7,
             "primaryIndex": 56.6,
-            "rank": 8,
+            "rank": 7,
             "index": 56.7
           },
           {
             "player": "Rasikh Salam",
-            "primaryRank": 9,
+            "primaryRank": 8,
             "primaryIndex": 56.3,
-            "rank": 9,
+            "rank": 8,
             "index": 56.3
           },
           {
             "player": "Lungi Ngidi",
+            "primaryRank": 9,
+            "primaryIndex": 55.7,
+            "rank": 9,
+            "index": 55.7
+          },
+          {
+            "player": "Sai Kishore",
             "primaryRank": 10,
             "primaryIndex": 55.7,
             "rank": 10,
@@ -3221,9 +3179,9 @@
           "rank": 1,
           "playerId": "152",
           "player": "Ravindra Jadeja",
-          "index": 51.5,
+          "index": 51.6,
           "battingIndex": 52.6,
-          "bowlingIndex": 50.4,
+          "bowlingIndex": 50.5,
           "battingPressureBalls": 255,
           "bowlingPressureBalls": 369,
           "battingMatches": 18,
@@ -3245,9 +3203,9 @@
           "rank": 3,
           "playerId": "305",
           "player": "Ravichandran Ashwin",
-          "index": 51.1,
+          "index": 51.2,
           "battingIndex": 51.6,
-          "bowlingIndex": 50.6,
+          "bowlingIndex": 50.8,
           "battingPressureBalls": 60,
           "bowlingPressureBalls": 480,
           "battingMatches": 9,
@@ -3259,7 +3217,7 @@
           "player": "Cameron Green",
           "index": 49.1,
           "battingIndex": 51,
-          "bowlingIndex": 47.1,
+          "bowlingIndex": 47.2,
           "battingPressureBalls": 163,
           "bowlingPressureBalls": 160,
           "battingMatches": 12,
@@ -3269,9 +3227,9 @@
           "rank": 5,
           "playerId": "4409",
           "player": "Sam Curran",
-          "index": 46.7,
+          "index": 46.8,
           "battingIndex": 50.5,
-          "bowlingIndex": 42.9,
+          "bowlingIndex": 43.1,
           "battingPressureBalls": 200,
           "bowlingPressureBalls": 218,
           "battingMatches": 18,
@@ -3309,7 +3267,7 @@
             "player": "Ravichandran Ashwin",
             "playerId": "305",
             "rank": 3,
-            "index": 51.1,
+            "index": 51.2,
             "rankInOtherList": null,
             "indexInOtherList": null
           }
@@ -3321,7 +3279,7 @@
             "primaryRank": 1,
             "primaryIndex": 51.5,
             "rank": 1,
-            "index": 51.5
+            "index": 51.6
           },
           {
             "player": "Nitish Reddy",
@@ -3340,9 +3298,9 @@
           {
             "player": "Sam Curran",
             "primaryRank": 4,
-            "primaryIndex": 46.8,
+            "primaryIndex": 46.9,
             "rank": 5,
-            "index": 46.7
+            "index": 46.8
           },
           {
             "player": "Axar Patel",
@@ -3543,11 +3501,11 @@
     "bowlers": {
       "core": [
         {
-          "player": "Umran Malik",
-          "playerId": "25048",
+          "player": "Akash Madhwal",
+          "playerId": "8177",
           "ranks": {
             "exclusionsOn_otherPenalty": 1,
-            "exclusionsOn_otherNoPenalty": 2,
+            "exclusionsOn_otherNoPenalty": 1,
             "exclusionsOff_otherPenalty": 1,
             "exclusionsOff_otherNoPenalty": 2
           },
@@ -3558,19 +3516,19 @@
           "playerId": "781",
           "ranks": {
             "exclusionsOn_otherPenalty": 2,
-            "exclusionsOn_otherNoPenalty": 1,
-            "exclusionsOff_otherPenalty": 2,
+            "exclusionsOn_otherNoPenalty": 2,
+            "exclusionsOff_otherPenalty": 3,
             "exclusionsOff_otherNoPenalty": 1
           },
           "scenariosInTop10": 4
         },
         {
-          "player": "Akash Madhwal",
-          "playerId": "8177",
+          "player": "Umran Malik",
+          "playerId": "25048",
           "ranks": {
             "exclusionsOn_otherPenalty": 3,
             "exclusionsOn_otherNoPenalty": 3,
-            "exclusionsOff_otherPenalty": 3,
+            "exclusionsOff_otherPenalty": 2,
             "exclusionsOff_otherNoPenalty": 3
           },
           "scenariosInTop10": 4
@@ -3587,8 +3545,8 @@
           "scenariosInTop10": 4
         },
         {
-          "player": "Mohit Sharma",
-          "playerId": "2878",
+          "player": "Kagiso Rabada",
+          "playerId": "3628",
           "ranks": {
             "exclusionsOn_otherPenalty": 5,
             "exclusionsOn_otherNoPenalty": 5,
@@ -3598,8 +3556,8 @@
           "scenariosInTop10": 4
         },
         {
-          "player": "Kagiso Rabada",
-          "playerId": "3628",
+          "player": "Mitchell Santner",
+          "playerId": "4101",
           "ranks": {
             "exclusionsOn_otherPenalty": 6,
             "exclusionsOn_otherNoPenalty": 6,
@@ -3609,8 +3567,8 @@
           "scenariosInTop10": 4
         },
         {
-          "player": "Mitchell Santner",
-          "playerId": "4101",
+          "player": "Kuldeep Yadav",
+          "playerId": "3644",
           "ranks": {
             "exclusionsOn_otherPenalty": 7,
             "exclusionsOn_otherNoPenalty": 7,
@@ -3620,8 +3578,8 @@
           "scenariosInTop10": 4
         },
         {
-          "player": "Kuldeep Yadav",
-          "playerId": "3644",
+          "player": "Rasikh Salam",
+          "playerId": "7327",
           "ranks": {
             "exclusionsOn_otherPenalty": 8,
             "exclusionsOn_otherNoPenalty": 8,
@@ -3631,47 +3589,30 @@
           "scenariosInTop10": 4
         },
         {
-          "player": "Rasikh Salam",
-          "playerId": "7327",
+          "player": "Lungi Ngidi",
+          "playerId": "4641",
           "ranks": {
             "exclusionsOn_otherPenalty": 9,
-            "exclusionsOn_otherNoPenalty": 9,
+            "exclusionsOn_otherNoPenalty": 10,
             "exclusionsOff_otherPenalty": 9,
+            "exclusionsOff_otherNoPenalty": 10
+          },
+          "scenariosInTop10": 4
+        },
+        {
+          "player": "Sai Kishore",
+          "playerId": "5577",
+          "ranks": {
+            "exclusionsOn_otherPenalty": 10,
+            "exclusionsOn_otherNoPenalty": 9,
+            "exclusionsOff_otherPenalty": 10,
             "exclusionsOff_otherNoPenalty": 9
           },
           "scenariosInTop10": 4
         }
       ],
-      "primaryTop10NotInCore": [
-        {
-          "player": "Lungi Ngidi",
-          "playerId": "4641",
-          "ranks": {
-            "exclusionsOn_otherPenalty": 10,
-            "exclusionsOn_otherNoPenalty": null,
-            "exclusionsOff_otherPenalty": 10,
-            "exclusionsOff_otherNoPenalty": null
-          },
-          "scenariosInTop10": 2,
-          "missingFrom": [
-            "exclusionsOn_otherNoPenalty",
-            "exclusionsOff_otherNoPenalty"
-          ]
-        }
-      ],
-      "otherNamesInSomeScenario": [
-        {
-          "player": "Sai Kishore",
-          "playerId": "5577",
-          "ranks": {
-            "exclusionsOn_otherPenalty": null,
-            "exclusionsOn_otherNoPenalty": 10,
-            "exclusionsOff_otherPenalty": null,
-            "exclusionsOff_otherNoPenalty": 10
-          },
-          "scenariosInTop10": 2
-        }
-      ]
+      "primaryTop10NotInCore": [],
+      "otherNamesInSomeScenario": []
     }
   },
   "otherEvidence": {
@@ -3873,7 +3814,7 @@
     "after": "const APPLY_PLAYER_EXCLUSIONS = false;",
     "editCheckedBySensitivityScript": true,
     "checkDescription": "sensitivity.mjs applies this exact edit to a copy of scoring.mjs in memory and confirms the batter, bowler and all-rounder lists equal the noExclusionAlternative lists in this file.",
-    "whatTheEditDoes": "Keeps the format and season filters and drops the player exclusion that touches IPL players: the five IPL retirees. Mohit Sharma is not excluded in either setting. The dashboard imports scoring.mjs, so it shows the no-exclusion lists as soon as the line is changed. The text lists of the submitted names (the report, README.md, index.html) do not change by themselves.",
+    "whatTheEditDoes": "Keeps the format and season filters and drops the player exclusion that touches IPL players: the five IPL retirees. The dashboard imports scoring.mjs, so it shows the no-exclusion lists as soon as the line is changed. The text lists of the submitted names (the report, README.md, index.html) do not change by themselves.",
     "analysisDataNeedsRegenerating": "No. The exclusions are applied in scoring.mjs after analysis_data.json is built, so do not run analyze.mjs for this change.",
     "commands": [
       "1. In scoring.mjs change `const APPLY_PLAYER_EXCLUSIONS = true;` to `const APPLY_PLAYER_EXCLUSIONS = false;`.",

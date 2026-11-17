@@ -9,7 +9,7 @@ This analysis defines pressure from the live innings state before a delivery, th
 
 **What the index measures.** The pressure index measures how much a player improves over his own usual level when the innings tightens. It does not measure how good his play under pressure is in absolute terms. A player whose usual level is already high has less room to improve, so he can rank below a player who is weaker overall but improves more. The subsection "Why a high usual level can rank lower" explains this in general terms and works through one example from the batter list.
 
-**Exclusion policy.** The submitted lists exclude one group of players before scoring: five players with confirmed IPL playing retirements (Kieron Pollard, Dwayne Bravo, Ambati Rayudu, Dinesh Karthik, Ravichandran Ashwin). Mohit Sharma is not excluded: his data is scored like that of every other player, and he is 5th in the bowler list. The problem statement does not ask for any exclusion. The scoring module also excludes a group of Pakistan T20I players; none of them has an IPL record, so that rule has no effect on the IPL lists. The ranking with no exclusions is shown as an alternative, with the same metrics, in "Sensitivity and exclusions". To rank without the exclusions, see "Switch the exclusions off".
+**Exclusion policy.** The submitted lists exclude five players with confirmed IPL playing retirements (Kieron Pollard, Dwayne Bravo, Ambati Rayudu, Dinesh Karthik, Ravichandran Ashwin) before scoring. The problem statement does not ask for these exclusions. The scoring module also excludes a group of Pakistan T20I players; none of them has an IPL record, so that rule has no effect on the IPL lists. The ranking with no exclusions is shown as an alternative, with the same metrics, in "Sensitivity and exclusions". To rank without the exclusions, see "Switch the exclusions off".
 
 **Outside this report.** The dashboard also ranks all-rounders and carries the Royal Radar and Raw Talent material. Neither is part of this report or of the Round 1 submission.
 
@@ -44,16 +44,16 @@ This analysis defines pressure from the live innings state before a delivery, th
 
 | Rank | Player | Pressure index | Pressure econ/6 | Usual econ/6 | Pressure balls | Pressure matches | Positive-match share | Sample reliability |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| 1 | Umran Malik | 61.3 | 6.43 | 10.06 | 97 | 9 | 56% | 61% |
-| 2 | Sunil Narine | 61.2 | 6.28 | 7.33 | 684 | 53 | 60% | 91% |
-| 3 | Akash Madhwal | 61.2 | 7.35 | 10.50 | 93 | 8 | 63% | 59% |
+| 1 | Akash Madhwal | 61.8 | 7.35 | 10.50 | 93 | 8 | 63% | 59% |
+| 2 | Sunil Narine | 61.3 | 6.28 | 7.33 | 684 | 53 | 60% | 91% |
+| 3 | Umran Malik | 61.3 | 6.43 | 10.06 | 97 | 9 | 56% | 61% |
 | 4 | Sakib Hussain | 58.9 | 8.36 | 10.82 | 150 | 11 | 82% | 68% |
-| 5 | Mohit Sharma | 58.2 | 9.29 | 9.82 | 345 | 23 | 78% | 82% |
-| 6 | Kagiso Rabada | 57.3 | 8.52 | 9.52 | 276 | 27 | 59% | 82% |
-| 7 | Mitchell Santner | 57.1 | 7.05 | 8.63 | 109 | 9 | 67% | 62% |
-| 8 | Kuldeep Yadav | 56.6 | 7.48 | 8.31 | 547 | 42 | 48% | 89% |
-| 9 | Rasikh Salam | 56.3 | 9.20 | 9.75 | 137 | 11 | 73% | 67% |
-| 10 | Lungi Ngidi | 55.7 | 8.17 | 8.28 | 127 | 10 | 70% | 65% |
+| 5 | Kagiso Rabada | 57.3 | 8.52 | 9.52 | 276 | 27 | 59% | 82% |
+| 6 | Mitchell Santner | 57.1 | 7.05 | 8.63 | 109 | 9 | 67% | 62% |
+| 7 | Kuldeep Yadav | 56.6 | 7.48 | 8.31 | 547 | 42 | 48% | 89% |
+| 8 | Rasikh Salam | 56.3 | 9.20 | 9.75 | 137 | 11 | 73% | 67% |
+| 9 | Lungi Ngidi | 55.7 | 8.17 | 8.28 | 127 | 10 | 70% | 65% |
+| 10 | Sai Kishore | 55.7 | 8.29 | 9.97 | 110 | 11 | 55% | 65% |
 
 <!-- /table:top_bowlers -->
 
@@ -63,7 +63,7 @@ This analysis defines pressure from the live innings state before a delivery, th
 *Figure 2. Top 10 bowlers, economy under pressure (orange) against usual economy (grey ring). Lower is better, so a dot to the left of its ring is an improvement. Every value is printed; the same numbers are in the top 10 bowlers table.*
 <!-- /chart:bowlers_pressure_vs_usual_economy -->
 
-**Reading the two tables.** The index is improvement over a player's own usual level, not absolute pressure quality. A batter's usual strike rate and a bowler's usual economy are in the "Usual" columns, and the index rewards the distance between that and the pressure figure, together with the other inputs and the sample size. That is why Cooper Connolly (3rd) is ranked above Suryakumar Yadav (4th) although Suryakumar Yadav's usual strike rate is the highest in the batter list, and why Umran Malik (1st) is ranked above Sunil Narine (2nd) although Narine's pressure economy is the lower of the two. The general explanation, with the batter case worked through, is in "Why a high usual level can rank lower".
+**Reading the two tables.** The index is improvement over a player's own usual level, not absolute pressure quality. A batter's usual strike rate and a bowler's usual economy are in the "Usual" columns, and the index rewards the distance between that and the pressure figure, together with the other inputs and the sample size. That is why Cooper Connolly (3rd) is ranked above Suryakumar Yadav (4th) although Suryakumar Yadav's usual strike rate is the highest in the batter list, and why Akash Madhwal (1st) is ranked above Sunil Narine (2nd) although Narine's pressure economy is the lower of the two. The general explanation, with the batter case worked through, is in "Why a high usual level can rank lower".
 
 ## Data and scope
 
@@ -80,7 +80,7 @@ The calculation joins `ball_by_ball.csv` to `matches.csv` and `competitions.csv`
 | Ordinary deliveries | 49,721 (56.7%) |
 | IPL player-match records | 10,040 |
 | Eligible batters (60 pressure balls, 8 pressure matches, exclusions on) | 41 |
-| Eligible bowlers (60 pressure balls, 8 pressure matches, exclusions on) | 82 |
+| Eligible bowlers (60 pressure balls, 8 pressure matches, exclusions on) | 81 |
 
 <!-- /table:scope -->
 
@@ -104,7 +104,7 @@ The finish phase captures high-leverage deliveries in either innings. The wicket
 
 ## Performance and ranking
 
-Five players with confirmed IPL playing retirements are excluded from the submitted lists: Kieron Pollard, Dwayne Bravo, Ambati Rayudu, Dinesh Karthik, and Ravichandran Ashwin. Mohit Sharma is not excluded; his data is used in the pools and in the rankings like that of any other player. International-only retirements and unconfirmed rumors are not used. The problem statement does not require any exclusion, so the lists without the five retirees are reported under "Sensitivity and exclusions". The exclusions are applied before scoring and season standardization.
+Five players with confirmed IPL playing retirements are excluded from the submitted lists: Kieron Pollard, Dwayne Bravo, Ambati Rayudu, Dinesh Karthik, and Ravichandran Ashwin. International-only retirements and unconfirmed rumors are not used. The problem statement does not require these exclusions, so the lists without them are reported under "Sensitivity and exclusions". The exclusions are applied before scoring and season standardization.
 
 Players are analyzed by season. A player-season segment must have at least **60 pressure balls**, **8 matches containing pressure batting/bowling**, and **60 ordinary balls**. The "Eligible batters" and "Eligible bowlers" rows of the scope table give the number of players who qualify after the seasons are rolled up. The dashboard also offers 36-ball/5-match and 90-ball/10-match sensitivity settings; their results are in "Sensitivity and exclusions".
 
@@ -149,13 +149,13 @@ The sample filter (60 pressure balls, 8 matches) decides who is ranked at all, a
 
 Both score about 190 under pressure (194.2 and 188.6), but Suryakumar Yadav's usual strike rate (161.1) is the highest of the ten batters, so his change is 27.5 points against 51.7 for Connolly. Connolly also has a positive result in 8 of 8 matches against 14 of 20. His short sample cuts his index from 63.3 to 58.2 (reliability 0.617), and Suryakumar Yadav's from 56.3 to 55.1 (reliability 0.810), but Connolly still ranks higher. At 90 balls / 10 matches Connolly is not eligible and Suryakumar Yadav is 2nd. Connolly's place therefore rests on 8 matches: he stays in the top ten in 57% of bootstrap runs and is not in the robust core (see "Sensitivity and exclusions").
 
-The same pattern holds for bowlers. Umran Malik (1st; usual economy 10.06, 97 pressure balls) ranks above Sunil Narine (2nd; usual economy 7.33, 684 pressure balls) although Narine's pressure economy is lower (6.28 against 6.43). Read the index as "who rises most above his own level, allowing for sample size", and read the pressure figure and the sample size next to it.
+The same pattern holds for bowlers. Akash Madhwal (1st; usual economy 10.50, 93 pressure balls) ranks above Sunil Narine (2nd; usual economy 7.33, 684 pressure balls) although Narine's pressure economy is lower (6.28 against 7.35). Read the index as "who rises most above his own level, allowing for sample size", and read the pressure figure and the sample size next to it.
 
 ## Evidence and interpretation
 
 Rishabh Pant leads the batter list at 58.4, with 217 pressure balls in 17 matches, a 194.9 pressure strike rate versus 123.5 ordinarily, and a positive result in 82% of pressure matches. Sanju Samson and Cooper Connolly follow at 58.3 and 58.2, so the top three are close together. Suryakumar Yadav is 4th at 55.1. Shreyas Iyer has the largest pressure sample in the batter top ten: 467 balls in 35 matches and 87% reliability. Nitish Reddy has the smallest, 108 balls in 11 matches.
 
-Umran Malik leads the bowling index at 61.3, with a 6.43 pressure economy against 10.06 ordinarily over 97 balls in nine matches. Sunil Narine and Akash Madhwal follow at 61.2 each, and Narine ranks higher on pressure balls. Madhwal's 7.35 pressure economy against 10.50 ordinarily comes from 93 balls in eight matches. Narine offers the strongest repeat-volume evidence in the top ten (684 pressure balls, 91% reliability), and Mohit Sharma (5th, 58.2) has the next largest sample among the leaders: 345 balls in 23 matches. The index therefore distinguishes rate performance from sample certainty. The pressure samples of the twenty ranked players run from 93 to 684 balls.
+Akash Madhwal leads the bowling index at 61.8, with a 7.35 pressure economy against 10.50 ordinarily over 93 balls in eight matches. Sunil Narine and Umran Malik follow at 61.3 each, and Narine ranks higher on pressure balls. Umran Malik's 6.43 pressure economy against 10.06 ordinarily comes from 97 balls in nine matches. Narine offers the strongest repeat-volume evidence in the top ten (684 pressure balls, 91% reliability), while his index (61.3) is below Madhwal's (61.8). The index therefore distinguishes rate performance from sample certainty. The pressure samples of the twenty ranked players run from 93 to 684 balls.
 
 ### League-wide: pressure versus ordinary deliveries
 
@@ -188,7 +188,7 @@ The lists depend on three choices that the problem statement or the data leave o
 
 ### Submitted lists versus the no-exclusion alternative
 
-Default thresholds (60 pressure balls, 8 matches). The submitted lists apply the exclusions described under "Performance and ranking". The alternative lists below use the same method with no player excluded. Mohit Sharma is not excluded in either setting, so the two settings differ only by the five retirees. The last column is the player's rank in the submitted list. A player in both lists can have a slightly different index, because the season pools hold different players when the retirees are added back.
+Default thresholds (60 pressure balls, 8 matches). The submitted lists apply the exclusions described under "Performance and ranking". The alternative lists below use the same method with no player excluded. The last column is the player's rank in the submitted list. A player in both lists can have a slightly different index, because the season pools hold different players when the retirees are added back.
 
 **Batters (no exclusions)**
 
@@ -215,20 +215,20 @@ Default thresholds (60 pressure balls, 8 matches). The submitted lists apply the
 
 | Rank | Player | Index | Pressure econ/6 | Usual econ/6 | Pressure balls | Pressure matches | Positive-match share | Sample reliability | Rank in submitted list |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | Umran Malik | 61.4 | 6.43 | 10.06 | 97 | 9 | 56% | 61% | 1 |
-| 2 | Sunil Narine | 61.3 | 6.28 | 7.33 | 684 | 53 | 60% | 91% | 2 |
-| 3 | Akash Madhwal | 60.9 | 7.35 | 10.50 | 93 | 8 | 63% | 59% | 3 |
+| 1 | Akash Madhwal | 61.5 | 7.35 | 10.50 | 93 | 8 | 63% | 59% | 1 |
+| 2 | Umran Malik | 61.4 | 6.43 | 10.06 | 97 | 9 | 56% | 61% | 3 |
+| 3 | Sunil Narine | 61.3 | 6.28 | 7.33 | 684 | 53 | 60% | 91% | 2 |
 | 4 | Sakib Hussain | 58.9 | 8.36 | 10.82 | 150 | 11 | 82% | 68% | 4 |
-| 5 | Mohit Sharma | 58.0 | 9.29 | 9.82 | 345 | 23 | 78% | 82% | 5 |
-| 6 | Kagiso Rabada | 57.3 | 8.52 | 9.52 | 276 | 27 | 59% | 82% | 6 |
-| 7 | Mitchell Santner | 57.1 | 7.05 | 8.63 | 109 | 9 | 67% | 62% | 7 |
-| 8 | Kuldeep Yadav | 56.7 | 7.48 | 8.31 | 547 | 42 | 48% | 89% | 8 |
-| 9 | Rasikh Salam | 56.3 | 9.20 | 9.75 | 137 | 11 | 73% | 67% | 9 |
-| 10 | Lungi Ngidi | 55.7 | 8.17 | 8.28 | 127 | 10 | 70% | 65% | 10 |
+| 5 | Kagiso Rabada | 57.3 | 8.52 | 9.52 | 276 | 27 | 59% | 82% | 5 |
+| 6 | Mitchell Santner | 57.1 | 7.05 | 8.63 | 109 | 9 | 67% | 62% | 6 |
+| 7 | Kuldeep Yadav | 56.7 | 7.48 | 8.31 | 547 | 42 | 48% | 89% | 7 |
+| 8 | Rasikh Salam | 56.3 | 9.20 | 9.75 | 137 | 11 | 73% | 67% | 8 |
+| 9 | Lungi Ngidi | 55.7 | 8.17 | 8.28 | 127 | 10 | 70% | 65% | 9 |
+| 10 | Sai Kishore | 55.7 | 8.29 | 9.97 | 110 | 11 | 55% | 65% | 10 |
 
 <!-- /table:noexcl_bowlers -->
 
-The batter list has the same ten names with and without the exclusions; only the order changes (Shreyas Iyer 5th and David Miller 6th without the exclusions). The bowler list has the same ten names in the same order, including Mohit Sharma in 5th place; the indexes move by a few tenths (for example Akash Madhwal 60.9 without the exclusions and 61.2 with them).
+The batter list has the same ten names with and without the exclusions; only the order changes (Shreyas Iyer 5th and David Miller 6th without the exclusions). The bowler list also has the same ten names; the order changes at the top, where Akash Madhwal is 1st (61.5), Umran Malik 2nd (61.4) and Sunil Narine 3rd (61.3) without the exclusions.
 
 ### The `other` extras assumption and the alternative top 10
 
@@ -261,22 +261,22 @@ The batter list has the same ten names with and without the exclusions; only the
 
 | Rank | Player | Index | Pressure econ/6 | Usual econ/6 | Pressure balls | Pressure matches | Positive-match share | Sample reliability | Rank in submitted list |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | Sunil Narine | 61.6 | 6.24 | 7.37 | 683 | 53 | 62% | 91% | 2 |
-| 2 | Umran Malik | 61.5 | 6.31 | 10.03 | 97 | 9 | 56% | 61% | 1 |
-| 3 | Akash Madhwal | 61.3 | 7.29 | 10.50 | 93 | 8 | 63% | 59% | 3 |
+| 1 | Akash Madhwal | 62.0 | 7.29 | 10.50 | 93 | 8 | 63% | 59% | 1 |
+| 2 | Sunil Narine | 61.6 | 6.24 | 7.37 | 683 | 53 | 62% | 91% | 2 |
+| 3 | Umran Malik | 61.5 | 6.31 | 10.03 | 97 | 9 | 56% | 61% | 3 |
 | 4 | Sakib Hussain | 59.0 | 8.32 | 10.82 | 150 | 11 | 82% | 68% | 4 |
-| 5 | Mohit Sharma | 58.1 | 9.29 | 9.78 | 345 | 23 | 78% | 82% | 5 |
-| 6 | Kagiso Rabada | 57.3 | 8.52 | 9.52 | 276 | 27 | 59% | 82% | 6 |
-| 7 | Mitchell Santner | 57.1 | 7.05 | 8.63 | 109 | 9 | 67% | 62% | 7 |
-| 8 | Kuldeep Yadav | 56.6 | 7.48 | 8.31 | 547 | 42 | 48% | 89% | 8 |
-| 9 | Rasikh Salam | 56.2 | 9.20 | 9.75 | 137 | 11 | 73% | 67% | 9 |
-| 10 | Sai Kishore | 55.7 | 8.29 | 9.97 | 110 | 11 | 55% | 65% | 11 |
+| 5 | Kagiso Rabada | 57.3 | 8.52 | 9.52 | 276 | 27 | 59% | 82% | 5 |
+| 6 | Mitchell Santner | 57.1 | 7.05 | 8.63 | 109 | 9 | 67% | 62% | 6 |
+| 7 | Kuldeep Yadav | 56.6 | 7.48 | 8.31 | 547 | 42 | 48% | 89% | 7 |
+| 8 | Rasikh Salam | 56.2 | 9.20 | 9.75 | 137 | 11 | 73% | 67% | 8 |
+| 9 | Sai Kishore | 55.7 | 8.29 | 9.97 | 110 | 11 | 55% | 65% | 10 |
+| 10 | Lungi Ngidi | 55.6 | 8.17 | 8.28 | 127 | 10 | 70% | 65% | 9 |
 
 <!-- /table:other_bowlers -->
 
 **Batters.** Two of the ten names change. Cooper Connolly (3rd in the submitted list) is no longer eligible: his 8 pressure matches sit exactly at the 8-match minimum, and without the penalty run he falls below it. Jos Buttler (7th) falls out of the top ten. Sai Sudharsan (6th, 53.8) and Riyan Parag (10th, 51.8) enter. Rishabh Pant leads in both lists (59.2 against 58.4) and Sanju Samson is second in both (57.8 against 58.3).
 
-**Bowlers.** One name changes: Sai Kishore (11th in the submitted list) enters in 10th place (55.7) and Lungi Ngidi (10th) leaves. Sunil Narine (61.6) moves to 1st and Umran Malik (61.5) to 2nd, and Akash Madhwal (61.3) stays 3rd.
+**Bowlers.** The same ten names. Sai Kishore and Lungi Ngidi swap places (9th and 10th), and Sunil Narine (61.6) and Akash Madhwal (62.0) gain a few tenths.
 
 ### Robust core: names that stay in the top ten
 
@@ -284,7 +284,7 @@ A player is in the robust core if he is in the top ten under all four combinatio
 
 **Batters in the robust core (8):** Rishabh Pant, Sanju Samson, Suryakumar Yadav, David Miller, Shreyas Iyer, Nitish Reddy, Rinku Singh and Ravindra Jadeja. Two submitted batters are not in the core: Cooper Connolly and Jos Buttler, each in the top ten in 2 of the 4 combinations.
 
-**Bowlers in the robust core (9):** Umran Malik, Sunil Narine, Akash Madhwal, Sakib Hussain, Mohit Sharma, Kagiso Rabada, Mitchell Santner, Kuldeep Yadav and Rasikh Salam. One submitted bowler is not in the core: Lungi Ngidi (10th), in the top ten in 2 of the 4 combinations. Sai Kishore, who is not in the submitted list, enters the top ten in the other 2 combinations (those without the penalty run).
+**Bowlers in the robust core (8):** Akash Madhwal, Sunil Narine, Umran Malik, Sakib Hussain, Kagiso Rabada, Mitchell Santner, Kuldeep Yadav and Rasikh Salam. Two submitted bowlers are not in the core: Lungi Ngidi and Sai Kishore, each in the top ten in 3 of the 4 combinations.
 
 **Batters**
 
@@ -320,17 +320,16 @@ A player is in the robust core if he is in the top ten under all four combinatio
 
 | Player | Submitted list (exclusions on) | Exclusions on, no penalty run | Alternative: no exclusions | No exclusions, no penalty run | Top 10 in | Robust core |
 |---|---:|---:|---:|---:|---:|---:|
-| Umran Malik | 1 | 2 | 1 | 2 | 4 of 4 | core |
-| Sunil Narine | 2 | 1 | 2 | 1 | 4 of 4 | core |
-| Akash Madhwal | 3 | 3 | 3 | 3 | 4 of 4 | core |
+| Akash Madhwal | 1 | 1 | 1 | 2 | 4 of 4 | core |
+| Sunil Narine | 2 | 2 | 3 | 1 | 4 of 4 | core |
+| Umran Malik | 3 | 3 | 2 | 3 | 4 of 4 | core |
 | Sakib Hussain | 4 | 4 | 4 | 4 | 4 of 4 | core |
-| Mohit Sharma | 5 | 5 | 5 | 5 | 4 of 4 | core |
-| Kagiso Rabada | 6 | 6 | 6 | 6 | 4 of 4 | core |
-| Mitchell Santner | 7 | 7 | 7 | 7 | 4 of 4 | core |
-| Kuldeep Yadav | 8 | 8 | 8 | 8 | 4 of 4 | core |
-| Rasikh Salam | 9 | 9 | 9 | 9 | 4 of 4 | core |
-| Lungi Ngidi | 10 | - | 10 | - | 2 of 4 |  |
-| Sai Kishore | - | 10 | - | 10 | 2 of 4 |  |
+| Kagiso Rabada | 5 | 5 | 5 | 5 | 4 of 4 | core |
+| Mitchell Santner | 6 | 6 | 6 | 6 | 4 of 4 | core |
+| Kuldeep Yadav | 7 | 7 | 7 | 7 | 4 of 4 | core |
+| Rasikh Salam | 8 | 8 | 8 | 8 | 4 of 4 | core |
+| Lungi Ngidi | 9 | 10 | 9 | 10 | 4 of 4 | core |
+| Sai Kishore | 10 | 9 | 10 | 9 | 4 of 4 | core |
 
 <!-- /table:robust_bowlers -->
 
@@ -348,9 +347,9 @@ The same scoring is applied at three sample settings, with the exclusions on. Th
 
 | Setting (exclusions on) | Eligible batters | Eligible bowlers | Top 3 batters (rank, name, index) | Top 3 bowlers (rank, name, index) | Top-10 batters shared with submitted | Top-10 bowlers shared with submitted |
 |---|---:|---:|---|---|---:|---:|
-| 60 balls / 8 matches (submitted) | 41 | 82 | 1 Rishabh Pant 58.4; 2 Sanju Samson 58.3; 3 Cooper Connolly 58.2 | 1 Umran Malik 61.3; 2 Sunil Narine 61.2; 3 Akash Madhwal 61.2 | 10 | 10 |
-| 36 balls / 5 matches | 67 | 109 | 1 Vijay Shankar 60.4; 2 Liam Livingstone 58.9; 3 Rishabh Pant 58.0 | 1 Sunil Narine 61.2; 2 Akash Madhwal 61.0; 3 Sakib Hussain 58.5 | 5 | 6 |
-| 90 balls / 10 matches | 22 | 55 | 1 David Miller 58.6; 2 Suryakumar Yadav 58.4; 3 Jos Buttler 54.6 | 1 Sunil Narine 61.2; 2 Sakib Hussain 58.3; 3 Mohit Sharma 57.9 | 5 | 7 |
+| 60 balls / 8 matches (submitted) | 41 | 81 | 1 Rishabh Pant 58.4; 2 Sanju Samson 58.3; 3 Cooper Connolly 58.2 | 1 Akash Madhwal 61.8; 2 Sunil Narine 61.3; 3 Umran Malik 61.3 | 10 | 10 |
+| 36 balls / 5 matches | 67 | 108 | 1 Vijay Shankar 60.4; 2 Liam Livingstone 58.9; 3 Rishabh Pant 58.0 | 1 Akash Madhwal 61.4; 2 Sunil Narine 61.2; 3 Sakib Hussain 58.5 | 5 | 6 |
+| 90 balls / 10 matches | 22 | 54 | 1 David Miller 58.6; 2 Suryakumar Yadav 58.4; 3 Jos Buttler 54.6 | 1 Sunil Narine 61.4; 2 Sakib Hussain 58.3; 3 Kagiso Rabada 57.3 | 5 | 7 |
 
 <!-- /table:thresholds -->
 
@@ -358,15 +357,15 @@ At the looser 36 balls / 5 matches setting the pools grow, the batter order chan
 
 ### Pools and stability
 
-Players are standardised (z-scores) only against the other eligible players of the same season. The table shows how many players each pool holds with the exclusions on (the submitted setting) at 60 balls / 8 matches. The batter pools hold 12 to 17 eligible players and the bowler pools 32 to 36, and no pool holds 10 or fewer players ("thin"), so the small-pool question does not arise for the IPL lists.
+Players are standardised (z-scores) only against the other eligible players of the same season. The table shows how many players each pool holds with the exclusions on (the submitted setting) at 60 balls / 8 matches. The batter pools hold 12 to 17 eligible players and the bowler pools 31 to 36, and no pool holds 10 or fewer players ("thin"), so the small-pool question does not arise for the IPL lists.
 
 <!-- table:pool_sizes -->
 
 | Pool | Eligible batters | Median pressure balls per batter | Batter pool thin | Eligible bowlers | Median pressure balls per bowler |
 |---|---:|---:|---:|---:|---:|
 | IPL:2022 | 16 | 119 | no | 34 | 126 |
-| IPL:2023 | 13 | 120 | no | 34 | 123 |
-| IPL:2024 | 12 | 117 | no | 32 | 119 |
+| IPL:2023 | 13 | 120 | no | 33 | 120 |
+| IPL:2024 | 12 | 117 | no | 31 | 115 |
 | IPL:2025 | 17 | 116 | no | 36 | 122.5 |
 | IPL:2026 | 12 | 120.5 | no | 32 | 123 |
 
@@ -374,10 +373,10 @@ Players are standardised (z-scores) only against the other eligible players of t
 
 **Re-rating tests.** Each test re-rates every player with `scoring.mjs` on changed data (fixed seed; details in `sensitivity_data.json`, `rankStability`). Leave-one-out removes one other eligible player of the same kind at a time. Pool deletion removes a random 20% of the eligible players who are not in the submitted top ten, 1,000 times, so it changes only who is in the pools. The bootstrap resamples each player's match records, 1,000 times, so it also moves the player's own results. The tables give the share of runs in which a submitted player is still in the top ten. The class is fragile below 50%, moderate from 50% to under 80% and stable at 80% or more.
 
-- The make-up of the pools alone moves little. Under pool deletion every submitted player stays in the top ten in at least 52% of runs, and all but one stay in at least 93%. The lowest is Lungi Ngidi (52%).
-- The bootstrap is wider because the samples are small. Only Sunil Narine (99%) is stable by that rule; 11 of the 20 submitted players are fragile (Samson, Buttler, Nitish Reddy, Rinku Singh and Jadeja among the batters; Madhwal, Mohit Sharma, Santner, Kuldeep Yadav, Rasikh Salam and Ngidi among the bowlers), and 8 are moderate. The order inside the top ten is an estimate, not a statistically settled ranking.
-- **Ravindra Jadeja (10th)** is in the top ten in 12% of bootstrap runs and **Nitish Reddy (8th)** in 19%, the two lowest among the batters. **Lungi Ngidi (10th)** and **Mohit Sharma (5th)** are the weakest bowler places: 34% and 36% of bootstrap runs, and Ngidi leaves the top ten in 17 of 81 leave-one-out runs.
-- **Cooper Connolly (3rd, 120 pressure balls)** stays in the top ten in 57% of bootstrap runs and **Akash Madhwal (3rd, 93 pressure balls)** in 46%: the places of these two short samples are not secure.
+- The make-up of the pools alone moves little. Under pool deletion every submitted player stays in the top ten in at least 71% of runs, and all but two stay in at least 93%. The two lowest are Lungi Ngidi (71%) and Sai Kishore (72%).
+- The bootstrap is wider because the samples are small. Only Sunil Narine (99%) is stable by that rule; 10 of the 20 submitted players are fragile (Samson, Buttler, Nitish Reddy, Rinku Singh and Jadeja among the batters; Madhwal, Santner, Rasikh Salam, Ngidi and Sai Kishore among the bowlers), and 9 are moderate. The order inside the top ten is an estimate, not a statistically settled ranking.
+- **Ravindra Jadeja (10th)** is in the top ten in 12% of bootstrap runs and **Nitish Reddy (8th)** in 19%, the two lowest among the batters. **Sai Kishore (10th)** and **Lungi Ngidi (9th)** are the weakest bowler places: 34% and 36% of bootstrap runs, and each leaves the top ten in some leave-one-out runs (5 of 80 and 1 of 80).
+- **Cooper Connolly (3rd, 120 pressure balls)** stays in the top ten in 57% of bootstrap runs and **Akash Madhwal (1st, 93 pressure balls)** in 47%: the top places of these two short samples are not secure.
 
 **Batters: how fragile is each place**
 
@@ -404,16 +403,16 @@ Players are standardised (z-scores) only against the other eligible players of t
 
 | Rank | Player | Index | Smallest pool (players) | Worst rank, one other player removed | In top 10, bootstrap | In top 10, pool deletion | Class: bootstrap / pool deletion |
 |---|---|---:|---:|---:|---:|---:|---:|
-| 1 | Umran Malik | 61.3 | 34 | 3 | 67% | 100% | moderate / stable |
-| 2 | Sunil Narine | 61.2 | 32 | 3 | 99% | 100% | stable / stable |
-| 3 | Akash Madhwal | 61.2 | 34 | 3 | 46% | 100% | fragile / stable |
-| 4 | Sakib Hussain | 58.9 | 32 | 4 | 64% | 100% | moderate / stable |
-| 5 | Mohit Sharma | 58.2 | 32 | 5 | 36% | 100% | fragile / stable |
-| 6 | Kagiso Rabada | 57.3 | 32 | 7 | 53% | 100% | moderate / stable |
-| 7 | Mitchell Santner | 57.1 | 36 | 7 | 40% | 100% | fragile / stable |
-| 8 | Kuldeep Yadav | 56.6 | 32 | 8 | 49% | 100% | fragile / stable |
-| 9 | Rasikh Salam | 56.3 | 32 | 9 | 37% | 97% | fragile / stable |
-| 10 | Lungi Ngidi | 55.7 | 32 | 12 (out in 17 of 81) | 34% | 52% | fragile / moderate |
+| 1 | Akash Madhwal | 61.8 | 33 | 2 | 47% | 100% | fragile / stable |
+| 2 | Sunil Narine | 61.3 | 31 | 3 | 99% | 100% | stable / stable |
+| 3 | Umran Malik | 61.3 | 34 | 3 | 67% | 100% | moderate / stable |
+| 4 | Sakib Hussain | 58.9 | 32 | 4 | 66% | 100% | moderate / stable |
+| 5 | Kagiso Rabada | 57.3 | 32 | 6 | 54% | 100% | moderate / stable |
+| 6 | Mitchell Santner | 57.1 | 36 | 6 | 40% | 100% | fragile / stable |
+| 7 | Kuldeep Yadav | 56.6 | 31 | 7 | 51% | 100% | moderate / stable |
+| 8 | Rasikh Salam | 56.3 | 32 | 8 | 39% | 99% | fragile / stable |
+| 9 | Lungi Ngidi | 55.7 | 32 | 11 (out in 1 of 80) | 36% | 71% | fragile / moderate |
+| 10 | Sai Kishore | 55.7 | 36 | 11 (out in 5 of 80) | 34% | 72% | fragile / moderate |
 
 <!-- /table:fragility_bowlers -->
 
@@ -463,12 +462,12 @@ The `other` coefficient in the main fit is 1.13, with a 95% interval of 0.34 to 
 
 ## Switch the exclusions off (optional alternative, not the submitted ranking)
 
-**Marked section: an option for the submitter, not part of the submitted ranking.** The submitted lists exclude the five IPL retirees; Mohit Sharma is not excluded. The complete no-exclusion lists with full metrics are in "Submitted lists versus the no-exclusion alternative". To rank without the exclusions:
+**Marked section: an option for the submitter, not part of the submitted ranking.** The submitted lists exclude the five IPL retirees. The complete no-exclusion lists with full metrics are in "Submitted lists versus the no-exclusion alternative". To rank without the exclusions:
 
 1. In `scoring.mjs` (line 6) change `const APPLY_PLAYER_EXCLUSIONS = true;` to `const APPLY_PLAYER_EXCLUSIONS = false;`. This is the only code change. `analysis_data.json` is not regenerated, because the exclusions are applied in `scoring.mjs`, not in `analyze.mjs`. The dashboard imports `scoring.mjs`, so it shows the no-exclusion lists at once.
 2. Regenerate the numbers: `node sensitivity.mjs --print-top10` prints the top ten lists that `scoring.mjs` now gives. They equal the no-exclusion tables above. `sensitivity.mjs` checks this edit against `noExclusionAlternative` in `sensitivity_data.json` each time it runs.
 3. Refresh the report: move the no-exclusion tables into the top 10 section, change the exclusion text in this report, `README.md` and `index.html` (method step 06), and print the PDF again with the command under "Reproduction". While the line says `false`, `node sensitivity.mjs` and `node charts.mjs` stop with an error, because they describe the submitted lists; set it back to `true` before running them.
-4. Enter the no-exclusion names in the Unstop dropdowns. Batters: 1 Rishabh Pant, 2 Sanju Samson, 3 Cooper Connolly, 4 Suryakumar Yadav, 5 Shreyas Iyer, 6 David Miller, 7 Jos Buttler, 8 Nitish Reddy, 9 Rinku Singh, 10 Ravindra Jadeja. Bowlers: 1 Umran Malik, 2 Sunil Narine, 3 Akash Madhwal, 4 Sakib Hussain, 5 Mohit Sharma, 6 Kagiso Rabada, 7 Mitchell Santner, 8 Kuldeep Yadav, 9 Rasikh Salam, 10 Lungi Ngidi.
+4. Enter the no-exclusion names in the Unstop dropdowns. Batters: 1 Rishabh Pant, 2 Sanju Samson, 3 Cooper Connolly, 4 Suryakumar Yadav, 5 Shreyas Iyer, 6 David Miller, 7 Jos Buttler, 8 Nitish Reddy, 9 Rinku Singh, 10 Ravindra Jadeja. Bowlers: 1 Akash Madhwal, 2 Umran Malik, 3 Sunil Narine, 4 Sakib Hussain, 5 Kagiso Rabada, 6 Mitchell Santner, 7 Kuldeep Yadav, 8 Rasikh Salam, 9 Lungi Ngidi, 10 Sai Kishore.
 5. To go back to the submitted lists, set the line to `true` again.
 
 ## Reliability and limitations
@@ -480,8 +479,8 @@ The `other` coefficient in the main fit is 1.13, with a 95% interval of 0.34 to 
 - The pressure rules can miss rivalry, knockout stakes, crowd conditions, or a close first-innings contest. Rankings are not causal estimates of a psychological trait.
 - Run-outs are not credited as bowler wickets. Batter runs use `runs`; the boundary flags in the data disagree with that value on some deliveries, so flags are not used. Missing bye/leg-bye run amounts make chase totals approximate.
 - Revised targets/overs are used when present, but supplied fields do not support full Duckworth-Lewis par scores or ball-level win probability.
-- Scores are rounded to one decimal before ranking, so adjacent players can be very close. Players with the same rounded index are ordered by pressure balls, then by name. In the submitted lists the tied pairs are Jos Buttler and Nitish Reddy (53.0 each; Buttler has 344 pressure balls against 108), Sunil Narine and Akash Madhwal (61.2 each; 684 against 93) and, at the edge of the list, Lungi Ngidi and Sai Kishore (55.7 each; 127 against 110). The last pair holds the 10th and 11th bowler places, so the last place in the bowler list rests on the tie-break rule.
-- The `other` extras type is undocumented. Treating it as an illegal ball is supported by tests of over lengths, of the ball after it and of the innings length. The one-run penalty charged to the bowler rests on a regression whose IPL interval is wide (1.13, 0.34 to 1.92) and on the no-ball rule; no column states it. The penalty run matters for the batter list: the alternative (illegal ball, no penalty run) replaces Cooper Connolly and Jos Buttler by Sai Sudharsan and Riyan Parag and replaces Lungi Ngidi by Sai Kishore among the bowlers.
+- Scores are rounded to one decimal before ranking, so adjacent players can be very close. Players with the same rounded index are ordered by pressure balls, then by name. In the submitted lists the tied pairs are Jos Buttler and Nitish Reddy (53.0 each; Buttler has 344 pressure balls against 108), Sunil Narine and Umran Malik (61.3 each; 684 against 97) and Lungi Ngidi and Sai Kishore (55.7 each; 127 against 110). The last pair holds the 9th and 10th bowler places, and their order rests on the tie-break rule.
+- The `other` extras type is undocumented. Treating it as an illegal ball is supported by tests of over lengths, of the ball after it and of the innings length. The one-run penalty charged to the bowler rests on a regression whose IPL interval is wide (1.13, 0.34 to 1.92) and on the no-ball rule; no column states it. The penalty run matters for the batter list: the alternative (illegal ball, no penalty run) replaces Cooper Connolly and Jos Buttler by Sai Sudharsan and Riyan Parag and leaves the bowler names unchanged.
 - Super overs: innings 3 and 4 are skipped. Their balls are neither pressure nor ordinary. Treating every super-over ball as pressure would be a defensible alternative and was not applied.
 - The player exclusions are a selection decision, not a feature of the method. Every list that shows the effect of removing them is in "Sensitivity and exclusions".
 - This report ranks batters and bowlers only. The dashboard also shows an all-rounder ranking, which is outside this report.
