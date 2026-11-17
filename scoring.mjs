@@ -1,7 +1,7 @@
 const MIN_PRESSURE_BALLS = 60;
 const MIN_PRESSURE_MATCHES = 8;
 const MIN_USUAL_BALLS = 60;
-// true: the submitted lists, without the 53 Pakistan T20I players, five IPL retirees and one further player who is no longer in the IPL player pool.
+// true: the submitted lists, without the 53 Pakistan T20I players, six IPL retirees (Mohit Sharma stays excluded even when the switch is false).
 // false: the no-exclusion alternative lists (see "Switch the exclusions off" in methodology_report.md and README.md).
 const APPLY_PLAYER_EXCLUSIONS = true;
 const IPL_RETIRED_PLAYERS = [
@@ -10,9 +10,11 @@ const IPL_RETIRED_PLAYERS = [
   { playerId: '535', player: 'Ambati Rayudu' },
   { playerId: '143', player: 'Dinesh Karthik' },
   { playerId: '305', player: 'Ravichandran Ashwin' },
+  { playerId: '2878', player: 'Mohit Sharma', alwaysExcluded: true },
 ];
 const IPL_RETIRED_PLAYER_IDS = new Set(IPL_RETIRED_PLAYERS.map((player) => player.playerId));
-const IPL_2027_NONPLAYER_IDS = new Set(['2878']);
+// Retirees flagged alwaysExcluded stay out even when APPLY_PLAYER_EXCLUSIONS is false, so no list in the report or dashboard shows them.
+const ALWAYS_EXCLUDED_IDS = new Set(IPL_RETIRED_PLAYERS.filter((player) => player.alwaysExcluded).map((player) => player.playerId));
 
 function emptyTotals() {
   return { balls: 0, runs: 0, outs: 0, conceded: 0, wickets: 0 };
@@ -107,8 +109,8 @@ export function ratePlayers(records, { format = 'All', season = 'All', minBalls 
   const pakistanPlayers = new Set(records
     .filter((record) => record.format === 'T20I' && record.team === 'Pakistan')
     .map((record) => String(record.playerId)));
-  // IPL_2027_NONPLAYER_IDS is always excluded, whatever APPLY_PLAYER_EXCLUSIONS says; the switch covers the other exclusions.
-  const isExcluded = (record) => IPL_2027_NONPLAYER_IDS.has(String(record.playerId)) || (APPLY_PLAYER_EXCLUSIONS && (
+  // ALWAYS_EXCLUDED_IDS are excluded whatever APPLY_PLAYER_EXCLUSIONS says; the switch covers the other exclusions.
+  const isExcluded = (record) => ALWAYS_EXCLUDED_IDS.has(String(record.playerId)) || (APPLY_PLAYER_EXCLUSIONS && (
     pakistanPlayers.has(String(record.playerId))
     || IPL_RETIRED_PLAYER_IDS.has(String(record.playerId))
   ));

@@ -471,7 +471,7 @@ const otherAlternative = {
 };
 
 const noExclusionAlternative = {
-  note: 'The alternative to the submitted lists: same method and thresholds, with no player exclusions applied (the five IPL retirees are the exclusion that touches the IPL lists). Columns are the same as the primary tables; versusPrimary compares with the submitted (exclusions on) lists.',
+  note: 'The alternative to the submitted lists: same method and thresholds, with no player exclusions applied (five of the six IPL retirees are switched off here; the sixth stays excluded in every setting). Columns are the same as the primary tables; versusPrimary compares with the submitted (exclusions on) lists.',
   ...scenarioBlock('exclusionsOff_otherPenalty', 'exclusionsOn_otherPenalty'),
   allrounders: {
     top10: scenarioRated.exclusionsOff_otherPenalty.allrounders.slice(0, TOP).map(allrounderRow),
@@ -698,7 +698,7 @@ const exclusionFlip = {
   after: EXCLUSION_SWITCH_OFF,
   editCheckedBySensitivityScript: flipMatchesAlternativeLists,
   checkDescription: 'sensitivity.mjs applies this exact edit to a copy of scoring.mjs in memory and confirms the batter, bowler and all-rounder lists equal the noExclusionAlternative lists in this file.',
-  whatTheEditDoes: 'Keeps the format and season filters and drops the player exclusion that touches IPL players: the five IPL retirees. The dashboard imports scoring.mjs, so it shows the no-exclusion lists as soon as the line is changed. The text lists of the submitted names (the report, README.md, index.html) do not change by themselves.',
+  whatTheEditDoes: 'Keeps the format and season filters and drops the player exclusion that touches IPL players for five of the six retirees (Pollard, Bravo, Rayudu, Karthik, Ashwin); the sixth stays excluded. The dashboard imports scoring.mjs, so it shows the no-exclusion lists as soon as the line is changed. The text lists of the submitted names (the report, README.md, index.html) do not change by themselves.',
   analysisDataNeedsRegenerating: 'No. The exclusions are applied in scoring.mjs after analysis_data.json is built, so do not run analyze.mjs for this change.',
   commands: [
     '1. In scoring.mjs change `const APPLY_PLAYER_EXCLUSIONS = true;` to `const APPLY_PLAYER_EXCLUSIONS = false;`.',
