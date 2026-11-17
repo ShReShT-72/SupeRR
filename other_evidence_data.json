@@ -1070,5 +1070,490 @@
     "verdict": "a"
    }
   }
+ },
+ "iplMatches": {
+  "label": "IPL matches 2022 to 2026",
+  "T1_freeHit": {
+   "baseRate": 0.0479,
+   "byTypeOfPreviousBall": {
+    "None": {
+     "n": 81742,
+     "nonRunOutWicketOnNextBall": 3912,
+     "rate": 0.0479
+    },
+    "wide": {
+     "n": 3549,
+     "nonRunOutWicketOnNextBall": 188,
+     "rate": 0.053
+    },
+    "legbyes": {
+     "n": 1102,
+     "nonRunOutWicketOnNextBall": 69,
+     "rate": 0.0626
+    },
+    "byes": {
+     "n": 172,
+     "nonRunOutWicketOnNextBall": 10,
+     "rate": 0.0581
+    },
+    "Overstep": {
+     "n": 257,
+     "nonRunOutWicketOnNextBall": 0,
+     "rate": 0,
+     "expectedAtNoneRate": 12.3,
+     "exactBinomialProbabilityOfThisFewOrFewer": 0.0000033601227046654545
+    },
+    "other": {
+     "n": 121,
+     "nonRunOutWicketOnNextBall": 0,
+     "rate": 0,
+     "expectedAtNoneRate": 5.8,
+     "exactBinomialProbabilityOfThisFewOrFewer": 0.002647977474564903
+    }
+   },
+   "nextBallIsPlainLegbyeOrBye": {
+    "None": {
+     "n": 78197,
+     "nonRunOutWicketOnNextBall": 3897
+    },
+    "wide": {
+     "n": 3312,
+     "nonRunOutWicketOnNextBall": 188
+    },
+    "Overstep": {
+     "n": 227,
+     "nonRunOutWicketOnNextBall": 0
+    },
+    "other": {
+     "n": 111,
+     "nonRunOutWicketOnNextBall": 0
+    }
+   }
+  },
+  "T2_ownRowDismissals": {
+   "None": {
+    "rows": 82458,
+    "wicketRows": 4430,
+    "dismissalTypes": {
+     "Caught": 3221,
+     "RunOut": 235,
+     "Bowled": 639,
+     "LBW": 255,
+     "Stump": 66,
+     "Retire Out": 5,
+     "Hit Wicket": 7,
+     "Obstracting the field": 1,
+     "Obstructing the field": 1
+    }
+   },
+   "wide": {
+    "rows": 3552,
+    "wicketRows": 22,
+    "dismissalTypes": {
+     "Stump": 15,
+     "RunOut": 7
+    }
+   },
+   "Overstep": {
+    "rows": 257,
+    "wicketRows": 3,
+    "dismissalTypes": {
+     "RunOut": 3
+    }
+   },
+   "other": {
+    "rows": 123,
+    "wicketRows": 2,
+    "dismissalTypes": {
+     "RunOut": 2
+    }
+   },
+   "runOutShareOfNormalDismissals": 0.053,
+   "probabilityAllOtherWicketsAreRunOutsIfNormal": 0.00281
+  },
+  "T3_overLength": {
+   "oversWithAnOtherRow_includingLastOverOfInnings": 119,
+   "includingLastOvers": {
+    "exactlySixLegalBalls_ifOtherIsIllegal": 113,
+    "moreThanSixLegalBalls_ifOtherIsLegal": 113
+   },
+   "legalBallsPerOver_ifOtherIsLegal_notLastOvers": {
+    "7": 99,
+    "8": 1
+   },
+   "oversWithAnOtherRow_excludingLastOverOfInnings": 100,
+   "interpretationAB_otherIsIllegal": {
+    "oversWithExactlySixLegalBalls": 100,
+    "oversWithMoreThanSix": 0,
+    "oversWithFewerThanSix": 0
+   },
+   "interpretationC_otherIsLegal": {
+    "oversWithExactlySixLegalBalls": 0,
+    "oversWithMoreThanSix": 100,
+    "oversWithFewerThanSix": 0
+   },
+   "baselineOversWithoutOtherRow": {
+    "finishedOvers": 13234,
+    "exactlySixLegalBalls": 13231
+   }
+  },
+  "T3b_inningsBallCount": {
+   "withOtherRow": {
+    "innings": 69,
+    "legal120_AB": 69,
+    "legal120_C": 0,
+    "moreThan120_C": 69
+   },
+   "withoutOtherRow": {
+    "innings": 373,
+    "legal120_AB": 370
+   },
+   "matchesWhereEveryCheckedInningsWithAnOtherRowHasExactly120LegalBalls": {
+    "a": 67,
+    "b": 67,
+    "c": 0,
+    "matchesChecked": 67
+   }
+  },
+  "T4a_T4b_marginReconstruction": {
+   "exactMargin": {
+    "a": {
+     "all": 1,
+     "withOther": 0,
+     "withoutOther": 1
+    },
+    "b": {
+     "all": 1,
+     "withOther": 0,
+     "withoutOther": 1
+    },
+    "c": {
+     "all": 1,
+     "withOther": 0,
+     "withoutOther": 1
+    }
+   },
+   "wicketChaseEndConsistency": {
+    "a": {
+     "ok": 4,
+     "okWithOther": 1
+    },
+    "b": {
+     "ok": 3,
+     "okWithOther": 0
+    },
+    "c": {
+     "ok": 3,
+     "okWithOther": 0
+    }
+   },
+   "counts": {
+    "runWonMatches": 3,
+    "runWonMatchesWithOther": 0,
+    "chaseWonMatches": 4,
+    "chaseWonMatchesWithOther": 1
+   },
+   "runWonMatchesWithOtherRow": []
+  },
+  "T4c_regression": {
+   "main": {
+    "runWonMatchesUsed": 166,
+    "ofWhichWithAnOtherRow": 52,
+    "n": 166,
+    "residualSD": 2.63,
+    "coefficients": {
+     "wide": {
+      "estimate": 1.094,
+      "robustSE": 0.052,
+      "robustZvs0": 21.21,
+      "robustZvs1": 1.82,
+      "classicalCI95": [
+       0.993,
+       1.195
+      ],
+      "robustHC1CI95": [
+       0.993,
+       1.195
+      ]
+     },
+     "Overstep": {
+      "estimate": 1.05,
+      "robustSE": 0.257,
+      "robustZvs0": 4.08,
+      "robustZvs1": 0.19,
+      "classicalCI95": [
+       0.616,
+       1.484
+      ],
+      "robustHC1CI95": [
+       0.546,
+       1.554
+      ]
+     },
+     "extras_2_runs": {
+      "estimate": 0.812,
+      "robustSE": 0.181,
+      "robustZvs0": 4.47,
+      "robustZvs1": -1.04,
+      "classicalCI95": [
+       0.308,
+       1.316
+      ],
+      "robustHC1CI95": [
+       0.456,
+       1.167
+      ]
+     },
+     "legbyes": {
+      "estimate": 1.423,
+      "robustSE": 0.099,
+      "robustZvs0": 14.37,
+      "robustZvs1": 4.27,
+      "classicalCI95": [
+       1.23,
+       1.617
+      ],
+      "robustHC1CI95": [
+       1.229,
+       1.617
+      ]
+     },
+     "byes": {
+      "estimate": 1.57,
+      "robustSE": 0.272,
+      "robustZvs0": 5.77,
+      "robustZvs1": 2.1,
+      "classicalCI95": [
+       1.029,
+       2.111
+      ],
+      "robustHC1CI95": [
+       1.037,
+       2.104
+      ]
+     },
+     "other": {
+      "estimate": 1.132,
+      "robustSE": 0.402,
+      "robustZvs0": 2.82,
+      "robustZvs1": 0.33,
+      "classicalCI95": [
+       0.479,
+       1.786
+      ],
+      "robustHC1CI95": [
+       0.345,
+       1.92
+      ]
+     }
+    }
+   },
+   "withoutExtras2Regressor": {
+    "runWonMatchesUsed": 166,
+    "ofWhichWithAnOtherRow": 52,
+    "n": 166,
+    "residualSD": 2.71,
+    "coefficients": {
+     "wide": {
+      "estimate": 1.094,
+      "robustSE": 0.052,
+      "robustZvs0": 21.05,
+      "robustZvs1": 1.81,
+      "classicalCI95": [
+       0.99,
+       1.198
+      ],
+      "robustHC1CI95": [
+       0.992,
+       1.196
+      ]
+     },
+     "Overstep": {
+      "estimate": 1.262,
+      "robustSE": 0.265,
+      "robustZvs0": 4.76,
+      "robustZvs1": 0.99,
+      "classicalCI95": [
+       0.837,
+       1.687
+      ],
+      "robustHC1CI95": [
+       0.742,
+       1.782
+      ]
+     },
+     "legbyes": {
+      "estimate": 1.43,
+      "robustSE": 0.104,
+      "robustZvs0": 13.71,
+      "robustZvs1": 4.13,
+      "classicalCI95": [
+       1.232,
+       1.629
+      ],
+      "robustHC1CI95": [
+       1.226,
+       1.635
+      ]
+     },
+     "byes": {
+      "estimate": 1.485,
+      "robustSE": 0.275,
+      "robustZvs0": 5.4,
+      "robustZvs1": 1.76,
+      "classicalCI95": [
+       0.932,
+       2.038
+      ],
+      "robustHC1CI95": [
+       0.946,
+       2.024
+      ]
+     },
+     "other": {
+      "estimate": 1.318,
+      "robustSE": 0.406,
+      "robustZvs0": 3.24,
+      "robustZvs1": 0.78,
+      "classicalCI95": [
+       0.658,
+       1.979
+      ],
+      "robustHC1CI95": [
+       0.522,
+       2.114
+      ]
+     }
+    }
+   },
+   "dropFiveLargestResiduals": {
+    "runWonMatchesUsed": 161,
+    "ofWhichWithAnOtherRow": 51,
+    "n": 161,
+    "residualSD": 2.34,
+    "coefficients": {
+     "wide": {
+      "estimate": 1.134,
+      "robustSE": 0.044,
+      "robustZvs0": 25.95,
+      "robustZvs1": 3.07,
+      "classicalCI95": [
+       1.041,
+       1.227
+      ],
+      "robustHC1CI95": [
+       1.048,
+       1.22
+      ]
+     },
+     "Overstep": {
+      "estimate": 1.115,
+      "robustSE": 0.255,
+      "robustZvs0": 4.37,
+      "robustZvs1": 0.45,
+      "classicalCI95": [
+       0.724,
+       1.506
+      ],
+      "robustHC1CI95": [
+       0.615,
+       1.615
+      ]
+     },
+     "extras_2_runs": {
+      "estimate": 0.861,
+      "robustSE": 0.168,
+      "robustZvs0": 5.13,
+      "robustZvs1": -0.82,
+      "classicalCI95": [
+       0.413,
+       1.31
+      ],
+      "robustHC1CI95": [
+       0.532,
+       1.191
+      ]
+     },
+     "legbyes": {
+      "estimate": 1.328,
+      "robustSE": 0.087,
+      "robustZvs0": 15.21,
+      "robustZvs1": 3.75,
+      "classicalCI95": [
+       1.153,
+       1.503
+      ],
+      "robustHC1CI95": [
+       1.157,
+       1.499
+      ]
+     },
+     "byes": {
+      "estimate": 1.423,
+      "robustSE": 0.26,
+      "robustZvs0": 5.47,
+      "robustZvs1": 1.62,
+      "classicalCI95": [
+       0.936,
+       1.909
+      ],
+      "robustHC1CI95": [
+       0.913,
+       1.933
+      ]
+     },
+     "other": {
+      "estimate": 0.851,
+      "robustSE": 0.337,
+      "robustZvs0": 2.53,
+      "robustZvs1": -0.44,
+      "classicalCI95": [
+       0.249,
+       1.454
+      ],
+      "robustHC1CI95": [
+       0.191,
+       1.512
+      ]
+     }
+    }
+   },
+   "ruleOnMain": {
+    "otherRobustCI95": [
+     0.345,
+     1.92
+    ],
+    "overstepControlRobustCI95": [
+     0.546,
+     1.554
+    ],
+    "controlValid": true,
+    "verdict": "a"
+   },
+   "ruleWithoutExtras2": {
+    "otherRobustCI95": [
+     0.522,
+     2.114
+    ],
+    "overstepControlRobustCI95": [
+     0.742,
+     1.782
+    ],
+    "controlValid": true,
+    "verdict": "a"
+   },
+   "ruleDropFive": {
+    "otherRobustCI95": [
+     0.191,
+     1.512
+    ],
+    "overstepControlRobustCI95": [
+     0.615,
+     1.615
+    ],
+    "controlValid": true,
+    "verdict": "a"
+   }
+  }
  }
 }

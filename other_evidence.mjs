@@ -48,14 +48,15 @@ const rows = ball.rows;
 const num = (value) => { const n = Number(value); return Number.isFinite(n) ? n : 0; };
 const round = (value, digits = 3) => (Number.isFinite(value) ? Number(value.toFixed(digits)) : value);
 
-function inScope(match) {
+function inScope(match, onlyFormat) {
   const competition = competitions.get(match?.comp_id);
   if (!competition) return false;
   const format = /indian premier league|\bipl\b/i.test(competition.comp_name) ? 'IPL' : competition.match_format === 'T20I' ? 'T20I' : 'OTHER';
   const season = /^\s*(\d{4})/.exec(competition.season ?? '');
-  return ['IPL', 'T20I'].includes(format) && season && Number(season[1]) >= 2022;
+  return (onlyFormat ? format === onlyFormat : ['IPL', 'T20I'].includes(format)) && season && Number(season[1]) >= 2022;
 }
-const inScopeMatchIds = new Set([...matches.values()].filter(inScope).map((match) => match.match_id));
+const inScopeMatchIds = new Set([...matches.values()].filter((match) => inScope(match)).map((match) => match.match_id));
+const iplMatchIds = new Set([...matches.values()].filter((match) => inScope(match, 'IPL')).map((match) => match.match_id));
 
 // Group rows by match and innings in file order.
 const innings = [];
@@ -493,6 +494,7 @@ const result = {
   T0_fieldAudit: fieldAudit(),
   allMatches: runAll('all matches in ball_by_ball.csv', () => true),
   inScopeMatches: runAll('in-scope matches (IPL and T20I, 2022 to 2026)', (id) => inScopeMatchIds.has(id)),
+  iplMatches: runAll('IPL matches 2022 to 2026', (id) => iplMatchIds.has(id)),
 };
 
 if (process.argv.includes('--write')) {
@@ -505,7 +507,7 @@ if (process.argv.includes('--write')) {
   console.log('# other_evidence.mjs output\n');
   console.log(fmt('## Scope and row profiles', { scope: result.scope, extrasTypeCounts: result.extrasTypeCounts, rowProfile: result.otherWideOverstepRowProfile }));
   console.log(fmt('## T0 field audit', result.T0_fieldAudit));
-  for (const key of ['allMatches', 'inScopeMatches']) {
+  for (const key of ['allMatches', 'inScopeMatches', 'iplMatches']) {
     const block = result[key];
     console.log(`## ${block.label}\n`);
     for (const test of ['T1_freeHit', 'T2_ownRowDismissals', 'T3_overLength', 'T3b_inningsBallCount', 'T4a_T4b_marginReconstruction', 'T4c_regression']) {

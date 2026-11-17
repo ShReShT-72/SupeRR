@@ -157,6 +157,10 @@ const dataQuality = {
   sixFlagMismatches: 0,
   missingMatchMetadata: 0,
 };
+const byFormat = {
+  IPL: { matches: new Set(), pressureDeliveries: 0, ordinaryDeliveries: 0 },
+  T20I: { matches: new Set(), pressureDeliveries: 0, ordinaryDeliveries: 0 },
+};
 
 let headers;
 let currentMatchId = null;
@@ -187,6 +191,7 @@ function processInnings() {
     return;
   }
   dataQuality.matches.add(first.match_id);
+  byFormat[format].matches.add(first.match_id);
 
   const innings = number(first.innings);
   const maxLegalBalls = Math.round(matchOvers(match, innings) * 6);
@@ -210,8 +215,13 @@ function processInnings() {
     );
     const pressure = inFinish || wicketSqueeze || chaseSqueeze;
 
-    if (pressure) dataQuality.pressureDeliveries += 1;
-    else dataQuality.ordinaryDeliveries += 1;
+    if (pressure) {
+      dataQuality.pressureDeliveries += 1;
+      byFormat[format].pressureDeliveries += 1;
+    } else {
+      dataQuality.ordinaryDeliveries += 1;
+      byFormat[format].ordinaryDeliveries += 1;
+    }
 
     const batterRuns = number(row.runs);
     if (batterRuns === 4 && !truthy(row.is_four)) dataQuality.fourFlagMismatches += 1;
@@ -283,7 +293,11 @@ const output = {
     wicketSqueeze: 'At least five wickets lost, after 8 overs, with no more than 12 overs remaining.',
     chaseSqueeze: 'Second innings after 3 overs: required rate >= 9.5, or >= 7.5 and at least 2.5 above the current rate.',
   },
-  dataQuality: { ...dataQuality, matches: dataQuality.matches.size },
+  dataQuality: {
+    ...dataQuality,
+    matches: dataQuality.matches.size,
+    byFormat: Object.fromEntries(Object.entries(byFormat).map(([name, value]) => [name, { ...value, matches: value.matches.size }])),
+  },
   ...(OTHER_PENALTY ? {} : { variant: 'other-no-penalty' }),
   records,
 };

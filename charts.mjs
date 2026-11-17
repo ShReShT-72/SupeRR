@@ -1,11 +1,12 @@
-// Charts and sensitivity tables for the methodology report. Hand-written inline SVG, no dependencies, no timestamps.
+// Charts and tables for the IPL-only methodology report (IPL 2022 to 2026, top 10 batters and top 10 bowlers).
+// Hand-written inline SVG, no dependencies, no timestamps.
 //
 //   node charts.mjs           writes charts/*.svg and refreshes the chart and table blocks in methodology_report.md and .html
 //   node charts.mjs --check   changes nothing; exits with an error if any chart file or report block differs from what this script generates
 //
-// Inputs: analysis_data.json (through scoring.mjs, exactly as the dashboard ranks), sensitivity_data.json
-// (written by sensitivity.mjs), other_evidence_data.json (node other_evidence.mjs --write) and pool_methods_data.json
-// (written once by node sensitivity.mjs --pool-methods, at the earlier settings S1 and S2). The primary (submitted) method is labelled as such in every table; the rest are
+// Inputs: analysis_data.json (through scoring.mjs with { format: 'IPL' }, exactly as the dashboard ranks its IPL view),
+// sensitivity_data.json (written by sensitivity.mjs) and other_evidence_data.json (node other_evidence.mjs --write, IPL scope).
+// The primary (submitted) method is labelled as such in every table; the rest are
 // alternatives that were tested and not adopted. Run from the data folder. Node 18 or newer. Two runs give identical output.
 //
 // A block in the report sits between two marker comments, `<!-- chart:NAME -->` and `<!-- /chart:NAME -->`
@@ -22,14 +23,16 @@ const analysis = JSON.parse(await readFile(resolve(root, 'analysis_data.json'), 
 const sensitivity = JSON.parse(await readFile(resolve(root, 'sensitivity_data.json'), 'utf8'));
 const records = analysis.records;
 
-const rated = ratePlayers(records);
+const iplRecords = records.filter((r) => r.format === 'IPL');
+const iplQuality = analysis.dataQuality.byFormat.IPL;
+const rated = ratePlayers(records, { format: 'IPL' });
 const primaryTop = { batters: rated.batters.slice(0, 10), bowlers: rated.bowlers.slice(0, 10) };
 
 // The sensitivity chart mixes sensitivity_data.json with live scoring.mjs runs, so both must describe the same lists.
 const sameList = (live, saved) => live.length === saved.length && live.every((p, i) => String(p.playerId) === String(saved[i].playerId) && p.score === saved[i].index);
 if (!sameList(primaryTop.batters, sensitivity.primaryCheck.batters) || !sameList(primaryTop.bowlers, sensitivity.primaryCheck.bowlers)) {
   throw new Error('scoring.mjs gives different top-10 lists from sensitivity_data.json (primaryCheck). '
-    + 'If scoring.mjs has APPLY_PLAYER_EXCLUSIONS = false, set it back to true; otherwise rerun `node sensitivity.mjs`.');
+    + 'If scoring.mjs has APPLY_PLAYER_EXCLUSIONS = false, set it back to true; otherwise rerun `node sensitivity.mjs` (IPL only).');
 }
 
 // ---------- drawing helpers ----------
@@ -134,13 +137,15 @@ function leagueTotals() {
       }
     }
     return {
+      ballsFaced: { pressure: bat.pressure.balls, usual: bat.usual.balls },
+      ballsBowled: { pressure: bowl.pressure.balls, usual: bowl.usual.balls },
       battingSR: { pressure: (bat.pressure.runs * 100) / bat.pressure.balls, usual: (bat.usual.runs * 100) / bat.usual.balls },
       battingOuts: { pressure: (bat.pressure.outs * 100) / bat.pressure.balls, usual: (bat.usual.outs * 100) / bat.usual.balls },
       bowlingEconomy: { pressure: (bowl.pressure.conceded * 6) / bowl.pressure.balls, usual: (bowl.usual.conceded * 6) / bowl.usual.balls },
       bowlingWickets: { pressure: (bowl.pressure.wickets * 100) / bowl.pressure.balls, usual: (bowl.usual.wickets * 100) / bowl.usual.balls },
     };
   };
-  return [['All', build(records)], ['IPL', build(records.filter((r) => r.format === 'IPL'))], ['T20I', build(records.filter((r) => r.format === 'T20I'))]];
+  return [['IPL', build(iplRecords)]];
 }
 
 function leagueChart() {
@@ -171,7 +176,7 @@ function leagueChart() {
     parts.push(text(ox + 12, oy + 35, unit, { size: 10, fill: MUTED }));
     parts.push(line(ox + 10, baseline, ox + panelWidth - 10, baseline, '#aeb9af'));
     groups.forEach(([label, g], gi) => {
-      const centre = ox + 62 + gi * 118;
+      const centre = ox + panelWidth / 2;
       const bars = [['pressure', centre - 41, ORANGE, '700'], ['usual', centre + 3, GREY, 'normal']];
       const entries = bars.map(([side, bx, fill, weight]) => {
         const value = g[key][side];
@@ -187,14 +192,14 @@ function leagueChart() {
     width,
     height,
     body: parts.join(''),
-    title: 'League-wide results on pressure and ordinary deliveries',
-    desc: 'Four panels (batting strike rate, batting dismissals, bowling economy, bowling wickets), each with pressure and ordinary bars for all in-scope data, IPL and T20I. Every value is printed above its bar.',
+    title: 'IPL league-wide results on pressure and ordinary deliveries',
+    desc: 'Four panels (batting strike rate, batting dismissals, bowling economy, bowling wickets), each with pressure and ordinary bars for IPL 2022 to 2026. Every value is printed above its bar.',
   };
 }
 
 // ---------- chart 4 and 5: top-10 membership across settings ----------
 const ids = (list) => new Map(list.slice(0, 10).map((p) => [String(p.playerId), p.rank]));
-const thresholds = [[36, 5], [90, 10]].map(([minBalls, minMatches]) => ratePlayers(records, { minBalls, minMatches }));
+const thresholds = [[36, 5], [90, 10]].map(([minBalls, minMatches]) => ratePlayers(records, { format: 'IPL', minBalls, minMatches }));
 const COLUMNS = [
   { key: 'primary', head: ['Submitted', 'exclusions on', 'other +1 run'], scenario: true },
   { key: 'otherNoPenalty', head: ['Excl. on,', 'other:', 'no penalty run'], scenario: true },
@@ -362,7 +367,7 @@ const charts = [
   {
     ...leagueChart(),
     alt: 'League-wide pressure against ordinary deliveries',
-    caption: 'Figure 3. League-wide results on pressure and ordinary deliveries for every in-scope player-match record, all data and split by IPL and T20I. Values are printed above the bars and equal the league-wide table.',
+    caption: 'Figure 3. IPL league-wide results on pressure and ordinary deliveries for every IPL player-match record, 2022 to 2026. Values are printed above the bars and equal the league-wide table.',
   },
   {
     ...membershipChart('batter', 'batters', 'batters'),
@@ -394,8 +399,6 @@ const primaryRankOf = (key, playerId) => rated[key].find((p) => String(p.playerI
 const pct = (share) => `${Math.round(share * 100)}%`;
 const BATTER_COLUMNS = [['Rank', 'l'], ['Player', 'l'], ['Index', 'r'], ['Pressure SR', 'r'], ['Usual SR', 'r'], ['Pressure balls', 'r'], ['Pressure matches', 'r'], ['Positive-match share', 'r'], ['Sample reliability', 'r'], ['Rank in submitted list', 'r']];
 const BOWLER_COLUMNS = [['Rank', 'l'], ['Player', 'l'], ['Index', 'r'], ['Pressure econ/6', 'r'], ['Usual econ/6', 'r'], ['Pressure balls', 'r'], ['Pressure matches', 'r'], ['Positive-match share', 'r'], ['Sample reliability', 'r'], ['Rank in submitted list', 'r']];
-const ALLROUNDER_COLUMNS = [['Rank', 'l'], ['Player', 'l'], ['Composite index', 'r'], ['Batting index', 'r'], ['Bowling index', 'r'], ['Batting pressure balls', 'r'], ['Bowling pressure balls', 'r'], ['Batting matches', 'r'], ['Bowling matches', 'r'], ['Rank in submitted list', 'r']];
-const allrounderRows = (list, missing = 'not eligible') => list.map((p) => [p.rank, p.player, n1(p.index), n1(p.battingIndex), n1(p.bowlingIndex), p.battingPressureBalls, p.bowlingPressureBalls, p.battingMatches, p.bowlingMatches, primaryRankOf('allrounders', p.playerId) ?? missing]);
 const fullRows = (kind, list, key, missing = 'not eligible') => list.map((p) => (kind === 'batter'
   ? [p.rank, p.player, n1(p.index), n1(p.pressureSR), n1(p.usualSR), p.pressureBalls, p.pressureMatches, `${p.positiveMatchSharePct}%`, `${p.reliabilityPct}%`, primaryRankOf(key, p.playerId) ?? missing]
   : [p.rank, p.player, n1(p.index), n2(p.pressureEconomy), n2(p.usualEconomy), p.pressureBalls, p.pressureMatches, `${p.positiveMatchSharePct}%`, `${p.reliabilityPct}%`, primaryRankOf(key, p.playerId) ?? missing]));
@@ -410,26 +413,12 @@ function poolTableRows() {
 
 function fragilityRows(key) {
   return sensitivity.rankStability[key].map((s) => [
-    s.rank, s.player, n1(s.index), pct(s.poolExposure.shareOfPressureBallsInT20IPools), s.poolExposure.smallestPoolSize,
+    s.rank, s.player, n1(s.index), s.poolExposure.smallestPoolSize,
     `${s.leaveOneOut.worstRank}${s.leaveOneOut.timesOutOfTop10 ? ` (out in ${s.leaveOneOut.timesOutOfTop10} of ${s.leaveOneOut.runs})` : ''}`,
     pct(s.bootstrap.shareInTop10), pct(s.poolDeletion.shareInTop10), `${s.fragility} / ${s.poolCompositionFragility}`,
   ]);
 }
-const FRAGILITY_COLUMNS = [['Rank', 'l'], ['Player', 'l'], ['Index', 'r'], ['Pressure balls in T20I pools', 'r'], ['Smallest pool (players)', 'r'], ['Worst rank, one other player removed', 'r'], ['In top 10, bootstrap', 'r'], ['In top 10, pool deletion', 'r'], ['Class: bootstrap / pool deletion', 'r']];
-
-function variantRows() {
-  const ordinal = (n) => `${n}`;
-  const names = (list, withRank) => (list.length ? list.map((p) => (withRank(p))).join('; ') : 'none');
-  const inText = (p) => `${p.player} (${ordinal(p.rank)}, was ${p.rankInOtherList ?? 'unranked'})`;
-  const outText = (p) => `${p.player} (was ${ordinal(p.rank)}, now ${p.rankInOtherList ?? 'not eligible'})`;
-  const make = (label, v) => [label, `${v.eligible.batters} / ${v.eligible.bowlers}`, `${v.batters.versusPrimary.sharedNames} / ${v.bowlers.versusPrimary.sharedNames}`,
-    names(v.batters.versusPrimary.movedIn, inText), names(v.batters.versusPrimary.movedOut, outText), names(v.bowlers.versusPrimary.movedIn, inText), names(v.bowlers.versusPrimary.movedOut, outText)];
-  return [
-    ...sensitivity.minimumPoolSize.variants.map((v) => make(`Drop pools with fewer than ${v.minimumPoolSize} eligible players (${v.poolsDropped.length} pools dropped)`, v)),
-    ...sensitivity.poolingSeasons.standardisationPooled.map((v) => make(`Standardise against a shared pool: ${v.label}`, v)),
-  ];
-}
-const VARIANT_COLUMNS = [['Setting', 'l'], ['Eligible bat / bowl', 'r'], ['Top-10 names shared, bat / bowl', 'r'], ['Batters in', 'l'], ['Batters out', 'l'], ['Bowlers in', 'l'], ['Bowlers out', 'l']];
+const FRAGILITY_COLUMNS = [['Rank', 'l'], ['Player', 'l'], ['Index', 'r'], ['Smallest pool (players)', 'r'], ['Worst rank, one other player removed', 'r'], ['In top 10, bootstrap', 'r'], ['In top 10, pool deletion', 'r'], ['Class: bootstrap / pool deletion', 'r']];
 
 function robustRows(key) {
   const core = sensitivity.robustCore[key];
@@ -442,14 +431,13 @@ function robustRows(key) {
 }
 const ROBUST_COLUMNS = [['Player', 'l'], ['Submitted list (exclusions on)', 'r'], ['Exclusions on, no penalty run', 'r'], ['Alternative: no exclusions', 'r'], ['No exclusions, no penalty run', 'r'], ['Top 10 in', 'r'], ['Robust core', 'r']];
 
-// ---------- evidence tables: the `other` extras decision (other_evidence_data.json) and the pool-method decision (pool_methods_data.json) ----------
-// Primary (submitted) = `other` is an illegal ball with a +1 penalty run (a) and each pool is standardised against its own players (own-pool).
+// ---------- evidence tables: the `other` extras decision (other_evidence_data.json, IPL matches only) ----------
+// Primary (submitted) = `other` is an illegal ball with a +1 penalty run (a); each format-season pool is standardised against its own players.
 // Everything else in these tables is an alternative that was tested and not adopted.
 const otherEvidence = JSON.parse(await readFile(resolve(root, 'other_evidence_data.json'), 'utf8'));
-const poolMethods = JSON.parse(await readFile(resolve(root, 'pool_methods_data.json'), 'utf8'));
 
 function otherTestRows() {
-  const e = otherEvidence.allMatches;
+  const e = otherEvidence.iplMatches;
   const hit = e.T1_freeHit.byTypeOfPreviousBall;
   const flt = (value) => Number(value).toExponential(1);
   const base = e.T1_freeHit;
@@ -465,7 +453,7 @@ function otherTestRows() {
     ['T1 Free hit', `Non-run-out wicket on the ball after the row (${(base.baseRate * 100).toFixed(2)}% after a normal ball)`, ...same(`${hit.other.nonRunOutWicketOnNextBall} of ${hit.other.n}`), `about ${hit.other.expectedAtNoneRate} expected (P = ${flt(hit.other.exactBinomialProbabilityOfThisFewOrFewer)})`],
     ['T1 control', `Same count after an Overstep (no-ball) row`, ...same(`${hit.Overstep.nonRunOutWicketOnNextBall} of ${hit.Overstep.n}`), `about ${hit.Overstep.expectedAtNoneRate} expected (P = ${flt(hit.Overstep.exactBinomialProbabilityOfThisFewOrFewer)})`],
     ['T2 Wickets on the row', 'Dismissals on other rows that are run-outs', ...same(`${otherRows.dismissalTypes.RunOut ?? 0} of ${otherRows.wicketRows}`), `P = ${ownRow.probabilityAllOtherWicketsAreRunOutsIfNormal} if dismissals were as on normal balls`],
-    ['T3 Over length', `Overs with an other row that are not the last over of an innings (${over.oversWithAnOtherRow_excludingLastOverOfInnings}): exactly six legal balls`, ...same(`${over.interpretationAB_otherIsIllegal.oversWithExactlySixLegalBalls} of ${over.oversWithAnOtherRow_excludingLastOverOfInnings}`), `${over.interpretationC_otherIsLegal.oversWithExactlySixLegalBalls} of ${over.oversWithAnOtherRow_excludingLastOverOfInnings} (${per[7]} have 7, ${per[8]} have 8, ${per[9]} ${per[9] === 1 ? 'has' : 'have'} 9)`],
+    ['T3 Over length', `Overs with an other row that are not the last over of an innings (${over.oversWithAnOtherRow_excludingLastOverOfInnings}): exactly six legal balls`, ...same(`${over.interpretationAB_otherIsIllegal.oversWithExactlySixLegalBalls} of ${over.oversWithAnOtherRow_excludingLastOverOfInnings}`), `${over.interpretationC_otherIsLegal.oversWithExactlySixLegalBalls} of ${over.oversWithAnOtherRow_excludingLastOverOfInnings} (${Object.entries(per).map(([legal, count]) => `${count} ${count === 1 ? 'has' : 'have'} ${legal}`).join(', ')})`],
     ['T3 Innings length', `Innings that must have used all 20 overs and contain an other row (${inn.withOtherRow.innings}): exactly 120 legal balls`, ...same(`${inn.withOtherRow.legal120_AB} of ${inn.withOtherRow.innings}`), `${inn.withOtherRow.legal120_C} of ${inn.withOtherRow.innings}`],
     ['T4 Run margin (exact)', `Winning margin equals innings 1 minus innings 2 (${counts.runWonMatches} usable matches, ${counts.runWonMatchesWithOther} with an other row)`, `${exact.exactMargin.a.all} of ${counts.runWonMatches}`, `${exact.exactMargin.b.all} of ${counts.runWonMatches}`, `${exact.exactMargin.c.all} of ${counts.runWonMatches}`],
     ['T4 Chase end (exact)', `Wicket-won chases (${counts.chaseWonMatches}) whose last ball is consistent with the target (${counts.chaseWonMatchesWithOther} with an other row)`, `${exact.wicketChaseEndConsistency.a.ok} of ${counts.chaseWonMatches}`, `${exact.wicketChaseEndConsistency.b.ok} of ${counts.chaseWonMatches}`, `${exact.wicketChaseEndConsistency.c.ok} of ${counts.chaseWonMatches}`],
@@ -482,66 +470,92 @@ function otherRegressionRows() {
     return [label, `${t[key].n} (${t[key].ofWhichWithAnOtherRow})`, other.estimate.toFixed(2), ci(other), control.estimate.toFixed(2), ci(control), t[ruleKey].verdict === 'a' ? 'a' : t[ruleKey].verdict];
   };
   return [
-    fit('All matches, main fit', 'allMatches', 'main', 'ruleOnMain'),
-    fit('Without the extras_2_runs regressor', 'allMatches', 'withoutExtras2Regressor', 'ruleWithoutExtras2'),
-    fit('Five largest residuals dropped', 'allMatches', 'dropFiveLargestResiduals', 'ruleDropFive'),
-    fit('In-scope matches only (837)', 'inScopeMatches', 'main', 'ruleOnMain'),
+    fit('IPL matches, main fit', 'iplMatches', 'main', 'ruleOnMain'),
+    fit('Without the extras_2_runs regressor', 'iplMatches', 'withoutExtras2Regressor', 'ruleWithoutExtras2'),
+    fit('Five largest residuals dropped', 'iplMatches', 'dropFiveLargestResiduals', 'ruleDropFive'),
   ];
 }
 const OTHER_REGRESSION_COLUMNS = [['Fit', 'l'], ['Matches (with an other row)', 'r'], ['other coefficient', 'r'], ['other 95% CI (HC1)', 'r'], ['Overstep control', 'r'], ['Overstep 95% CI (HC1)', 'r'], ['Rule picks', 'r']];
 
-const POOL_CELLS = [['S1', 'batters'], ['S1', 'bowlers'], ['S2', 'batters'], ['S2', 'bowlers']];
-const poolMethodRows = () => poolMethods.methods.map((m) => {
-  const own = poolMethods.methods[0].metrics;
-  const evaluation = poolMethods.decision.evaluation[m.method];
-  const failed = evaluation ? [...new Set(evaluation.failedRules.map((rule) => rule.split(':')[0]))].sort().join(', ') : '';
+// ---------- IPL report tables built from scoring.mjs output and analysis_data.json (no hand-typed numbers) ----------
+const thousands = (value) => String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const TOP_BATTER_COLUMNS = [['Rank', 'l'], ['Player', 'l'], ['Pressure index', 'r'], ['Pressure SR', 'r'], ['Usual SR', 'r'], ['Pressure balls', 'r'], ['Pressure matches', 'r'], ['Positive-match share', 'r'], ['Sample reliability', 'r']];
+const TOP_BOWLER_COLUMNS = [['Rank', 'l'], ['Player', 'l'], ['Pressure index', 'r'], ['Pressure econ/6', 'r'], ['Usual econ/6', 'r'], ['Pressure balls', 'r'], ['Pressure matches', 'r'], ['Positive-match share', 'r'], ['Sample reliability', 'r']];
+const topRows = (kind, list) => list.map((p) => (kind === 'batter'
+  ? [p.rank, p.player, n1(p.score), n1(p.pressureRate), n1(p.usualRate), p.pressureBalls, p.pressureMatches, `${p.consistency}%`, `${p.reliability}%`]
+  : [p.rank, p.player, n1(p.score), n2(p.pressureEconomy), n2(p.usualEconomy), p.pressureBalls, p.pressureMatches, `${p.consistency}%`, `${p.reliability}%`]));
+
+function leagueTotalsRows() {
+  const g = leagueTotals()[0][1];
   return [
-    m.role === 'primary' ? `${m.method} (primary, submitted)` : `${m.code} ${m.method} (alternative)`,
-    ...POOL_CELLS.map(([setting, kind]) => `${(m.metrics[setting][kind].M1_poolThinningError / own[setting][kind].M1_poolThinningError).toFixed(3)} (${m.metrics[setting][kind].M1_poolThinningError.toFixed(3)})`),
-    evaluation ? failed : '-',
-    evaluation ? (evaluation.passes ? 'passes all rules' : 'rejected') : 'kept',
+    ['Batting strike rate (runs per 100 balls faced)', n1(g.battingSR.pressure), n1(g.battingSR.usual)],
+    ['Batting dismissals (outs per 100 balls faced)', n2(g.battingOuts.pressure), n2(g.battingOuts.usual)],
+    ['Bowling economy (runs per 6 legal balls)', n2(g.bowlingEconomy.pressure), n2(g.bowlingEconomy.usual)],
+    ['Bowling wickets (per 100 legal balls)', n2(g.bowlingWickets.pressure), n2(g.bowlingWickets.usual)],
+    ['Balls faced in player-match records', thousands(g.ballsFaced.pressure), thousands(g.ballsFaced.usual)],
+    ['Balls bowled in player-match records', thousands(g.ballsBowled.pressure), thousands(g.ballsBowled.usual)],
   ];
-});
-const POOL_METHOD_COLUMNS = [['Pool method', 'l'], ['M1 ratio (M1), S1 batters', 'r'], ['S1 bowlers', 'r'], ['S2 batters', 'r'], ['S2 bowlers', 'r'], ['Rules failed', 'r'], ['Result', 'r']];
+}
 
-function poolRuleRows() {
-  const t = poolMethods.preregistered.thresholds;
-  const rules = {
-    1: `Pool-thinning error M1 at most ${t.m1Ratio} times own-pool in all four cells (S1 and S2, batters and bowlers)`,
-    2: `S2 batters: top-10 retention (M2) up by ${t.m2Rise} or more, or rank displacement (M3) down by ${t.m3Fall * 100}% or more`,
-    3: `No harm in any cell: retention (M2) no more than ${t.m2Harm} lower, rank displacement (M3) no more than ${t.m3Harm} ranks higher, leave-one-out exit rate (M4) no more than ${t.m4Harm} higher, season correlation (M5) no more than ${t.m5Harm} lower`,
-    4: 'Eligible counts (batters, bowlers, all-rounders) identical to own-pool, S1 and S2',
-    5: `Players with no profile in a thin pool: index change at most ${t.largePoolIndex.toFixed(1)} and rank change at most ${t.largePoolRank}, S1 and S2`,
-    6: `Players with a profile in a thin pool: index change at most ${t.thinPoolIndex.toFixed(1)}, S1 and S2`,
-    7: `S1: at most ${t.s1NamesChanged} top-10 names change in each list (batters, bowlers, all-rounders)`,
+function scopeRows() {
+  const deliveries = iplQuality.pressureDeliveries + iplQuality.ordinaryDeliveries;
+  const seasons = iplRecords.map((r) => Number(r.season));
+  return [
+    ['Competition and seasons', `IPL, ${Math.min(...seasons)} to ${Math.max(...seasons)}`],
+    ['IPL matches scored', thousands(iplQuality.matches)],
+    ['IPL deliveries scored (innings 1 and 2)', thousands(deliveries)],
+    ['Pressure deliveries', `${thousands(iplQuality.pressureDeliveries)} (${n1((iplQuality.pressureDeliveries * 100) / deliveries)}%)`],
+    ['Ordinary deliveries', `${thousands(iplQuality.ordinaryDeliveries)} (${n1((iplQuality.ordinaryDeliveries * 100) / deliveries)}%)`],
+    ['IPL player-match records', thousands(iplRecords.length)],
+    ['Eligible batters (60 pressure balls, 8 pressure matches, exclusions on)', rated.batters.length],
+    ['Eligible bowlers (60 pressure balls, 8 pressure matches, exclusions on)', rated.bowlers.length],
+  ];
+}
+
+function thresholdRows() {
+  const settings = [['60 balls / 8 matches (submitted)', rated], ['36 balls / 5 matches', thresholds[0]], ['90 balls / 10 matches', thresholds[1]]];
+  const topNames = (list) => list.slice(0, 3).map((p) => `${p.rank} ${p.player} ${n1(p.score)}`).join('; ');
+  const shared = (list, base) => {
+    const baseIds = new Set(base.slice(0, 10).map((p) => String(p.playerId)));
+    return list.slice(0, 10).filter((p) => baseIds.has(String(p.playerId))).length;
   };
-  const candidates = poolMethods.methods.filter((m) => m.role !== 'primary');
-  return Object.entries(rules).map(([number, rule]) => [number, rule, ...candidates.map((m) => (poolMethods.decision.evaluation[m.method].failedRules.some((failed) => failed.startsWith(`${number}:`)) ? 'fail' : 'pass'))]);
+  return settings.map(([label, result]) => [label, result.batters.length, result.bowlers.length, topNames(result.batters), topNames(result.bowlers), shared(result.batters, rated.batters), shared(result.bowlers, rated.bowlers)]);
 }
-const POOL_RULE_COLUMNS = [['Rule', 'r'], ['Pre-registered requirement', 'l'], ['C1 format-fallback', 'r'], ['C2 shrunk', 'r'], ['C3 adjacent-fallback', 'r']];
+const THRESHOLD_COLUMNS = [['Setting (exclusions on)', 'l'], ['Eligible batters', 'r'], ['Eligible bowlers', 'r'], ['Top 3 batters (rank, name, index)', 'l'], ['Top 3 bowlers (rank, name, index)', 'l'], ['Top-10 batters shared with submitted', 'r'], ['Top-10 bowlers shared with submitted', 'r']];
 
-function poolEffectRows() {
-  const entered = (list) => (list.length ? list.map((p) => `${p.player} (${p.rank}, was ${p.rankInOtherList})`).join('; ') : 'none');
-  const left = (list) => (list.length ? list.map((p) => `${p.player} (was ${p.rank}, now ${p.rankInOtherList ?? 'not eligible'})`).join('; ') : 'none');
-  return poolMethods.methods.filter((m) => m.role !== 'primary').flatMap((m) => ['S1', 'S2'].map((setting) => {
-    const batters = m.top10VersusBase[setting].batters;
-    const moves = batters.ranksOfBaseTop10.map((r) => ({ ...r, change: r.rank === null ? Infinity : Math.abs(r.rank - r.baseRank) }));
-    const biggest = moves.reduce((a, b) => (b.change > a.change ? b : a));
-    const changedOther = ['bowlers', 'allrounders'].reduce((sum, kind) => sum + m.top10VersusBase[setting][kind].entered.length, 0);
-    return [`${m.code} ${m.method}`, setting === 'S1' ? 'S1 no exclusions' : 'S2 exclusions on', entered(batters.entered), left(batters.left), `${biggest.player}: ${biggest.baseRank} to ${biggest.rank ?? 'not eligible'}`, changedOther];
-  }));
+// Rating example: why a high usual level can rank lower. Reliability is sqrt(b / (b + 60) * m / (m + 6)) as in scoring.mjs; the implied rating is
+// back-solved from the rounded index, (index - 50) / (10 x reliability), so it is exact only to the rounding of the index.
+const EXAMPLE_PAIRS = {
+  batters: ['Cooper Connolly', 'Suryakumar Yadav'],
+};
+function ratingExampleRows(kind, key) {
+  return EXAMPLE_PAIRS[key].map((name) => {
+    const p = primaryTop[key].find((entry) => entry.player === name);
+    if (!p) throw new Error(`rating example: ${name} is not in the IPL top 10 ${key}`);
+    const reliability = Math.sqrt((p.pressureBalls / (p.pressureBalls + 60)) * (p.pressureMatches / (p.pressureMatches + 6)));
+    const rating = (p.score - 50) / (10 * reliability);
+    const positive = Math.round((p.consistency * p.pressureMatches) / 100);
+    const atStricter = thresholds[1][key].find((entry) => String(entry.playerId) === String(p.playerId))?.rank ?? 'not eligible';
+    const level = kind === 'batter'
+      ? [n1(p.usualRate), n1(p.pressureRate), n1(p.pressureRate - p.usualRate)]
+      : [n2(p.usualEconomy), n2(p.pressureEconomy), n2(p.usualEconomy - p.pressureEconomy)];
+    return [p.player, p.rank, n1(p.score), ...level, `${positive} of ${p.pressureMatches} (${p.consistency}%)`, p.pressureBalls, p.pressureMatches,
+      reliability.toFixed(3), rating.toFixed(2), n1(50 + 10 * rating), atStricter];
+  });
 }
-const POOL_EFFECT_COLUMNS = [['Method', 'l'], ['Setting', 'l'], ['Batters entering the top 10', 'l'], ['Batters leaving the top 10', 'l'], ['Largest move inside the own-pool top 10', 'l'], ['Bowler and all-rounder names changed', 'r']];
+const exampleColumns = (usual, pressure, change) => [['Player', 'l'], ['Rank', 'r'], ['Index', 'r'], [usual, 'r'], [pressure, 'r'], [change, 'r'], ['Positive matches', 'r'], ['Pressure balls', 'r'], ['Pressure matches', 'r'], ['Reliability', 'r'], ['Implied rating', 'r'], ['Index before shrinkage', 'r'], ['Rank at 90 balls / 10 matches', 'r']];
 
 const tables = [
+  { name: 'top_batters', columns: TOP_BATTER_COLUMNS, rows: topRows('batter', primaryTop.batters), rankFirst: true },
+  { name: 'top_bowlers', columns: TOP_BOWLER_COLUMNS, rows: topRows('bowler', primaryTop.bowlers), rankFirst: true },
+  { name: 'league_totals', columns: [['Measure', 'l'], ['Pressure deliveries', 'r'], ['Ordinary deliveries', 'r']], rows: leagueTotalsRows(), plain: true },
+  { name: 'scope', columns: [['Item', 'l'], ['Value', 'r']], rows: scopeRows(), plain: true },
+  { name: 'thresholds', columns: THRESHOLD_COLUMNS, rows: thresholdRows(), text: true },
+  { name: 'rating_example_batters', columns: exampleColumns('Usual SR', 'Pressure SR', 'Change (pressure SR minus usual SR)'), rows: ratingExampleRows('batter', 'batters'), plain: true },
   { name: 'other_tests', columns: OTHER_TEST_COLUMNS, rows: otherTestRows(), text: true },
   { name: 'other_regression', columns: OTHER_REGRESSION_COLUMNS, rows: otherRegressionRows(), plain: true },
-  { name: 'pool_methods', columns: POOL_METHOD_COLUMNS, rows: poolMethodRows(), plain: true },
-  { name: 'pool_rules', columns: POOL_RULE_COLUMNS, rows: poolRuleRows(), text: true },
-  { name: 'pool_effects', columns: POOL_EFFECT_COLUMNS, rows: poolEffectRows(), text: true },
   { name: 'noexcl_batters', columns: BATTER_COLUMNS, rows: fullRows('batter', sensitivity.noExclusionAlternative.batters.top10, 'batters', 'excluded'), rankFirst: true },
   { name: 'noexcl_bowlers', columns: BOWLER_COLUMNS, rows: fullRows('bowler', sensitivity.noExclusionAlternative.bowlers.top10, 'bowlers', 'excluded'), rankFirst: true },
-  { name: 'noexcl_allrounders', columns: ALLROUNDER_COLUMNS, rows: allrounderRows(sensitivity.noExclusionAlternative.allrounders.top10, 'excluded'), rankFirst: true },
   { name: 'other_batters', columns: BATTER_COLUMNS, rows: fullRows('batter', sensitivity.otherAlternative.exclusionsOn.batters.top10, 'batters'), rankFirst: true },
   { name: 'other_bowlers', columns: BOWLER_COLUMNS, rows: fullRows('bowler', sensitivity.otherAlternative.exclusionsOn.bowlers.top10, 'bowlers'), rankFirst: true },
   { name: 'robust_batters', columns: ROBUST_COLUMNS, rows: robustRows('batters'), plain: true },
@@ -549,7 +563,6 @@ const tables = [
   { name: 'pool_sizes', columns: [['Pool', 'l'], ['Eligible batters', 'r'], ['Median pressure balls per batter', 'r'], ['Batter pool thin', 'r'], ['Eligible bowlers', 'r'], ['Median pressure balls per bowler', 'r']], rows: poolTableRows(), plain: true },
   { name: 'fragility_batters', columns: FRAGILITY_COLUMNS, rows: fragilityRows('batters'), rankFirst: true },
   { name: 'fragility_bowlers', columns: FRAGILITY_COLUMNS, rows: fragilityRows('bowlers'), rankFirst: true },
-  { name: 'pool_variants', columns: VARIANT_COLUMNS, rows: variantRows(), text: true },
 ];
 
 const mdTable = (table) => {

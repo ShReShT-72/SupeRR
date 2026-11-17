@@ -1,7 +1,7 @@
-﻿# SupeRR Selector Dashboard
+# SupeRR Selector Dashboard
 
-Round 1 entry for SupeRR Selector Season 2. The project ranks batters and bowlers by how they perform under pressure compared with their usual level, using the supplied IPL and T20I ball-by-ball data from 2022 to 2026.
-The submitted lists exclude the 53 Pakistan T20I players, five confirmed IPL retirees and Mohit Sharma (`APPLY_PLAYER_EXCLUSIONS = true` in `scoring.mjs`); the ranking with no exclusions is a labelled alternative with full metrics in the report (see below). The Royal Radar and Raw Talent section of the dashboard is outside the Round 1 submission.
+Round 1 entry for SupeRR Selector Season 2. The project ranks batters and bowlers by how they perform under pressure compared with their usual level, using the supplied ball-by-ball data from 2022 to 2026. The methodology report is IPL-only: it covers the top 10 batters and the top 10 bowlers in the IPL and leaves T20I data out of its rankings and analysis. The dashboard still offers the All, IPL and T20I formats and opens on IPL, so its default lists are the ones in the report.
+The submitted IPL lists exclude the five confirmed IPL retirees (`APPLY_PLAYER_EXCLUSIONS = true` in `scoring.mjs`); Mohit Sharma is not excluded; the ranking with no exclusions is a labelled alternative with full metrics in the report (see below). The same switch also excludes the Pakistan T20I players, which only matters for the dashboard's All and T20I views. The report states that the index measures improvement over a player's own usual level under pressure, not absolute pressure quality, and explains in general terms why a high usual level can rank lower, with Cooper Connolly and Suryakumar Yadav as the worked example. The Royal Radar and Raw Talent section of the dashboard is outside the Round 1 submission.
 A static dashboard (`index.html`) loads `analysis_data.json` and ranks the players in the browser; the method is written up in the methodology report.
 
 - Live dashboard: https://shresht-72.github.io/SupeRR/
@@ -13,8 +13,8 @@ A static dashboard (`index.html`) loads `analysis_data.json` and ranks the playe
 - `analyze.mjs` classifies every delivery as pressure or ordinary and writes `analysis_data.json`.
 - `scoring.mjs` turns those records into the batter, bowler and all-rounder rankings.
 - `index.html`, `dashboard.js` and `styles.css` are a static dashboard that loads `analysis_data.json` and ranks players in the browser.
-- `sensitivity.mjs` writes `sensitivity_data.json` (small-pool, `other`-extras, no-exclusion-alternative and robust-core checks). `charts.mjs` draws `charts/*.svg` and the sensitivity and evidence tables in the methodology report from the four JSON files (`analysis_data.json` through `scoring.mjs`, `sensitivity_data.json`, `other_evidence_data.json`, `pool_methods_data.json`).
-- Two assumptions were tested, and both tests kept the submitted method. The pool criterion was committed before any candidate ran; the `other` decision rule was fixed in the plan after a scouting run and was not committed beforehand. `other_evidence.mjs` (how to read the undocumented `other` extras type; decision: illegal ball with a one-run penalty, as submitted) and `node sensitivity.mjs --pool-methods` (three alternative standardisations for the small T20I pools, `POOL_METHOD` in `scoring.mjs`; run in the settings S1 (no exclusions) and S2 (exclusions on); decision: keep `own-pool`, criterion in `pool_preregistration.md`). The submitted lists are unchanged.
+- `sensitivity.mjs` writes `sensitivity_data.json` (IPL-only `other`-extras, no-exclusion-alternative, threshold and robust-core checks, and re-sampling stability). `charts.mjs` draws `charts/*.svg` and the tables in the IPL methodology report from three JSON files (`analysis_data.json` through `scoring.mjs`, `sensitivity_data.json`, `other_evidence_data.json`).
+- One assumption is tested in the report: how to read the undocumented `other` extras type. `other_evidence.mjs` runs the tests on IPL matches (its `iplMatches` scope); decision: illegal ball with a one-run penalty, as submitted. The decision rule was fixed in the plan after a scouting run and was not committed beforehand.
 
 ## Requirements
 
@@ -39,7 +39,7 @@ The two evidence files that `sensitivity.mjs` and `charts.mjs` read are rewritte
 ```bash
 node other_evidence.mjs --write       # tests of the `other` extras type -> other_evidence_data.json (a few seconds)
 ```
-`pool_methods_data.json` (pool-rule comparison, own-pool vs three alternatives, run in S1 with no exclusions and S2 with exclusions on) was written by `node sensitivity.mjs --pool-methods` before the exclusions were switched on. That command now stops with an error, because its check needs the no-exclusion `sensitivity_data.json` of commit ce1f3b3; the decision (keep `own-pool`) stands as documented.
+`pool_methods.mjs`, `pool_methods_data.json` and `pool_preregistration.md` are earlier all-format work on pooling the small T20I seasons. The IPL report does not use them. `node sensitivity.mjs --pool-methods` stops with an error by design; do not run it.
 `node other_evidence.mjs` without `--write` prints the numbers as markdown. `ratePlayers(records, { poolMethod })` in `scoring.mjs` takes `own-pool` (default, submitted), `format-fallback`, `shrunk` or `adjacent-fallback`.
 
 The PDF is the html printed with headless Edge (adjust the path to `msedge.exe` if needed):
@@ -52,14 +52,14 @@ The report text around the charts and tables is written by hand; `charts.mjs` on
 
 ## Switch the exclusions off (optional alternative, not the submitted ranking)
 
-The submitted lists exclude the 53 Pakistan T20I players, five IPL retirees (Pollard, Bravo, Rayudu, Karthik, Ashwin) and Mohit Sharma (`APPLY_PLAYER_EXCLUSIONS = true`). The alternative lists apply none of these exclusions. To rank without them, change one line in `scoring.mjs` (line 6):
+The submitted lists exclude the five IPL retirees (Pollard, Bravo, Rayudu, Karthik, Ashwin; `APPLY_PLAYER_EXCLUSIONS = true`). Mohit Sharma is not excluded; the same switch also covers the Pakistan T20I players, which has no effect on the IPL lists. The alternative lists apply none of these exclusions (only the retirees affect the IPL lists). To rank without them, change one line in `scoring.mjs` (line 6):
 
 ```js
 const APPLY_PLAYER_EXCLUSIONS = false;   // submitted lists: true
 ```
 
 - `analysis_data.json` is not regenerated; the dashboard shows the no-exclusion lists at once.
-- `node sensitivity.mjs --print-top10` prints the lists `scoring.mjs` now gives. They equal the alternative tables in the report (section "Alternative: top 10 lists with no exclusions") and `noExclusionAlternative` in `sensitivity_data.json`.
+- `node sensitivity.mjs --print-top10` prints the lists `scoring.mjs` now gives. They equal the alternative tables in the report (section "Submitted lists versus the no-exclusion alternative") and `noExclusionAlternative` in `sensitivity_data.json`.
 - While the line says `false`, `node sensitivity.mjs` and `node charts.mjs` stop with an error because they describe the submitted lists. Set it back to `true` first.
 - The report, `README.md`, `index.html` (method step 06) and the Unstop entries are written by hand. The report section "Switch the exclusions off" lists the no-exclusion names and the steps.
 
@@ -83,10 +83,10 @@ Then open:
 |---|---|
 | `analyze.mjs` | Builds `analysis_data.json` from the CSV files. |
 | `analysis_data.json` | Generated player-match records and data-quality counts. |
-| `sensitivity.mjs`, `sensitivity_data.json` | Sensitivity checks and their output (no timestamps). |
-| `other_evidence.mjs`, `other_evidence_data.json` | Tests of how to read the `other` extras type (free hit, over length, run-margin regression) and their output. |
-| `pool_methods.mjs`, `pool_methods_data.json`, `pool_preregistration.md` | Pool-rule comparison for the small T20I pools (written by `node sensitivity.mjs --pool-methods` with S1 no exclusions and S2 exclusions on; the command now stops with an error, see above), its output and the criterion fixed before it ran. |
-| `charts.mjs`, `charts/` | Report charts (SVG) and the code that places charts and sensitivity tables in the report. |
+| `sensitivity.mjs`, `sensitivity_data.json` | IPL-only sensitivity checks and their output (no timestamps). |
+| `other_evidence.mjs`, `other_evidence_data.json` | Tests of how to read the `other` extras type (free hit, over length, run-margin regression) and their output; the report uses the `iplMatches` scope. |
+| `pool_methods.mjs`, `pool_methods_data.json`, `pool_preregistration.md` | Earlier all-format pool-rule comparison for the small T20I pools. Not used by the IPL report; see above. |
+| `charts.mjs`, `charts/` | Report charts (SVG) and the code that places charts and tables in the IPL report. |
 | `scoring.mjs` | Ratings, eligibility rules, pool standardisation (`POOL_METHOD`, default `own-pool`) and player exclusions (`APPLY_PLAYER_EXCLUSIONS` switch on line 6). |
 | `index.html`, `dashboard.js`, `styles.css`, `favicon.svg` | Dashboard and its icon. |
 | `server.mjs` | Small local static server for `npm start`. |
@@ -148,7 +148,7 @@ vercel login            # once
 vercel --prod           # run in this folder; accept the defaults, answer "no" to any build or framework override
 ```
 
-Check after deploying: open `/` (dashboard with 66 batters in the default list) and `/analysis_data.json`. If `/matches.csv` also opens, the CSVs were uploaded; the CLI honours `.vercelignore`, and for deployments from a Git import you can delete the CSVs from the repository or use the dashboard-only approach in section "Data terms" below.
+Check after deploying: open `/` (dashboard on IPL with 41 batters in the default list) and `/analysis_data.json`. If `/matches.csv` also opens, the CSVs were uploaded; the CLI honours `.vercelignore`, and for deployments from a Git import you can delete the CSVs from the repository or use the dashboard-only approach in section "Data terms" below.
 
 ### C. Netlify or Cloudflare Pages
 

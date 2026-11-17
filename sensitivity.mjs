@@ -1,15 +1,13 @@
-// Sensitivity checks for the Round 1 pressure index. Sensitivity only: the primary method and lists
-// come from scoring.mjs and analysis_data.json and are not changed here.
+// Sensitivity checks for the Round 1 pressure index, IPL only (2022 to 2026). Sensitivity only: the primary method and lists
+// come from scoring.mjs and analysis_data.json and are not changed here. Only IPL records are rated; T20I records are left out.
 //
 //   node sensitivity.mjs              writes sensitivity_data.json (about 3 minutes, deterministic)
-//   node sensitivity.mjs --print-top10  prints the top ten lists that scoring.mjs gives right now
-//   node sensitivity.mjs --pool-methods refuses to run here: pool_methods_data.json was produced with S1 (no exclusions) and
-//                                       S2 (exclusions on) as the two settings and its S1 check needs the earlier sensitivity_data.json
-//                                       (commit ce1f3b3); see pool_preregistration.md
+//   node sensitivity.mjs --print-top10  prints the IPL top ten lists that scoring.mjs gives right now
+//   node sensitivity.mjs --pool-methods refuses to run here: pool_methods_data.json is earlier all-format work (see pool_preregistration.md)
 //
-// Labels: the primary (submitted) method is `other` = illegal ball with a +1 penalty run, each pool standardised against its own players,
+// Labels: the primary (submitted) method is `other` = illegal ball with a +1 penalty run, each format-season pool standardised against its own players,
 // player exclusions on (APPLY_PLAYER_EXCLUSIONS = true in scoring.mjs). Every other setting here is an alternative. otherEvidence.decisiveTests reads other_evidence_data.json
-// (node other_evidence.mjs --write) and poolMethodComparison reads pool_methods_data.json (--pool-methods); both must exist before a full run.
+// (node other_evidence.mjs --write), which must exist before a full run.
 //
 // Run from the data folder (the one holding ball_by_ball.csv, matches.csv, analysis_data.json).
 // Node 18 or newer, no npm dependencies. The output has no timestamps: two runs give identical files.
@@ -27,7 +25,6 @@ const SEED = 20261116; // fixed PRNG seed (mulberry32). Change it and every resa
 const BOOTSTRAP_RUNS = 1000;
 const POOL_DELETE_RUNS = 1000;
 const POOL_DELETE_FRACTION = 0.2;
-const MIN_POOL_SIZES = [8, 11, 13]; // 8 drops the pools of 5 and 6 players; 11 also drops the pools of 10; 13 also drops the pools of 12 (no pool holds 7, 8, 9 or 11 players)
 const THIN_POOL_MAX = 10; // a format-season pool with this many eligible players or fewer is called thin
 const TOP = 10;
 const KINDS = [['batter', 'batters'], ['bowler', 'bowlers']];
@@ -114,10 +111,6 @@ const allrounderRow = (p) => ({
   bowlingMatches: p.bowling.pressureMatches,
 });
 
-const leanRow = (p) => ({
-  rank: p.rank, playerId: p.playerId, player: p.player, index: p.score, pressureBalls: p.pressureBalls, pressureMatches: p.pressureMatches,
-});
-
 function movement(primary, alternative) {
   const primaryTop = primary.slice(0, TOP);
   const alternativeTop = alternative.slice(0, TOP);
@@ -161,9 +154,9 @@ async function loadModule(source) {
 if (process.argv.includes('--print-top10')) {
   const { ratePlayers } = await import(new URL('./scoring.mjs', import.meta.url).href);
   const data = JSON.parse(await readFile(resolve(root, 'analysis_data.json'), 'utf8'));
-  const rated = ratePlayers(data.records);
+  const rated = ratePlayers(data.records, { format: 'IPL' });
   for (const [kind, key] of KINDS) {
-    console.log(`\nTop 10 ${key} (scoring.mjs as it is now, 60 balls / 8 matches)`);
+    console.log(`\nTop 10 IPL ${key} (scoring.mjs as it is now, 60 balls / 8 matches)`);
     for (const p of rated[key].slice(0, TOP).map((row) => fullRow(kind, row))) {
       console.log(Object.values({ ...p, teams: p.teams.join('/') }).join(' | '));
     }
@@ -196,7 +189,8 @@ const { ratePlayers: ratePlayersShipped } = await import(new URL('./scoring.mjs'
 // ---------- inputs ----------
 const analysisFile = await readFile(resolve(root, 'analysis_data.json'), 'utf8');
 const analysis = JSON.parse(analysisFile);
-const records = analysis.records;
+const records = analysis.records.filter((record) => record.format === 'IPL'); // IPL only; T20I records are not rated here
+const iplQuality = analysis.dataQuality.byFormat.IPL;
 
 const scratch = await mkdtemp(join(tmpdir(), 'sensitivity-'));
 function runAnalyze(extraArguments, name) {
@@ -214,8 +208,8 @@ try {
   const strip = (text) => text.replace(/"generatedAt":"[^"]*"/, '"generatedAt":""').replace(/\r\n/g, '\n');
   regeneratesIdentically = strip(await readFile(defaultFile, 'utf8')) === strip(analysisFile);
   const variant = JSON.parse(await readFile(runAnalyze(['--other-no-penalty'], 'other_no_penalty.json'), 'utf8'));
-  recordsNoPenalty = variant.records;
-  noPenaltyQuality = variant.dataQuality;
+  recordsNoPenalty = variant.records.filter((record) => record.format === 'IPL');
+  noPenaltyQuality = variant.dataQuality.byFormat.IPL;
 } finally {
   await rm(scratch, { recursive: true, force: true });
 }
@@ -253,6 +247,11 @@ const shippedRated = rate(ratePlayersShipped, records);
 const primaryMatchesScoringModule = JSON.stringify({ b: shippedRated.batters, w: shippedRated.bowlers, a: shippedRated.allrounders })
   === JSON.stringify({ b: primaryRated.batters, w: primaryRated.bowlers, a: primaryRated.allrounders });
 if (!primaryMatchesScoringModule) throw new Error('instrumented scoring copy differs from scoring.mjs');
+// Filtering records to IPL first must equal what the dashboard does with the full record set and the IPL format filter.
+const dashboardIplRated = ratePlayersShipped(analysis.records, { format: 'IPL' });
+const primaryEqualsDashboardIpl = JSON.stringify({ b: dashboardIplRated.batters, w: dashboardIplRated.bowlers, a: dashboardIplRated.allrounders })
+  === JSON.stringify({ b: primaryRated.batters, w: primaryRated.bowlers, a: primaryRated.allrounders });
+if (!primaryEqualsDashboardIpl) throw new Error('ratePlayers(IPL-filtered records) differs from ratePlayers(all records, { format: "IPL" })');
 
 const primaryTop = {
   batters: primaryRated.batters.slice(0, TOP),
@@ -280,10 +279,7 @@ const poolSizes = {
   bowlers: poolTable('bowler'),
 };
 poolSizes.summary = {
-  t20iBatterPoolsOf5To10: poolSizes.batters.filter((pool) => pool.format === 'T20I' && pool.eligiblePlayers >= 5 && pool.eligiblePlayers <= 10).map((pool) => `${pool.pool}: ${pool.eligiblePlayers}`),
-  t20iBatterPoolRange: [Math.min(...poolSizes.batters.filter((p) => p.format === 'T20I').map((p) => p.eligiblePlayers)), Math.max(...poolSizes.batters.filter((p) => p.format === 'T20I').map((p) => p.eligiblePlayers))],
   iplBatterPoolRange: [Math.min(...poolSizes.batters.filter((p) => p.format === 'IPL').map((p) => p.eligiblePlayers)), Math.max(...poolSizes.batters.filter((p) => p.format === 'IPL').map((p) => p.eligiblePlayers))],
-  t20iBowlerPoolRange: [Math.min(...poolSizes.bowlers.filter((p) => p.format === 'T20I').map((p) => p.eligiblePlayers)), Math.max(...poolSizes.bowlers.filter((p) => p.format === 'T20I').map((p) => p.eligiblePlayers))],
   iplBowlerPoolRange: [Math.min(...poolSizes.bowlers.filter((p) => p.format === 'IPL').map((p) => p.eligiblePlayers)), Math.max(...poolSizes.bowlers.filter((p) => p.format === 'IPL').map((p) => p.eligiblePlayers))],
   thinBatterPools: poolSizes.batters.filter((pool) => pool.thin).length,
   thinBowlerPools: poolSizes.bowlers.filter((pool) => pool.thin).length,
@@ -299,12 +295,10 @@ function poolExposure(kind, player) {
   }
   const total = rows.reduce((sum, row) => sum + row.pressureBalls, 0);
   const inThin = rows.filter((row) => row.poolSize <= THIN_POOL_MAX).reduce((sum, row) => sum + row.pressureBalls, 0);
-  const inT20I = rows.filter((row) => row.pool.startsWith('T20I')).reduce((sum, row) => sum + row.pressureBalls, 0);
   return {
     pools: rows.map((row) => ({ ...row, shareOfPlayersPressureBalls: round(row.pressureBalls / total) })),
     smallestPoolSize: Math.min(...rows.map((row) => row.poolSize)),
     shareOfPressureBallsInThinPools: round(inThin / total),
-    shareOfPressureBallsInT20IPools: round(inT20I / total),
   };
 }
 
@@ -441,51 +435,6 @@ for (const [kind, key] of KINDS) {
     .slice(0, 6);
 }
 
-// ---------- minimum pool size and pooling seasons (sensitivity only) ----------
-function variantSummary(rated, pools) {
-  const out = {
-    eligible: { batters: rated.batters.length, bowlers: rated.bowlers.length },
-  };
-  for (const [kind, key] of KINDS) {
-    out[key] = {
-      top10: rated[key].slice(0, TOP).map(leanRow),
-      versusPrimary: movement(primaryRated[key], rated[key]),
-    };
-  }
-  if (pools) out.poolSizes = Object.fromEntries(KINDS.map(([kind, key]) => [key, pools[kind].map((pool) => ({ pool: pool.key, eligiblePlayers: pool.players.length }))]));
-  return out;
-}
-
-const minimumPoolSize = {
-  note: 'Sensitivity only. A pool is dropped for one kind (batters or bowlers) when it has fewer eligible players than K; the players\' records in that pool then contribute nothing (their reliability is also computed without them). The primary lists are unchanged.',
-  variants: MIN_POOL_SIZES.map((minimum) => {
-    const small = new Set(KINDS.flatMap(([kind]) => primaryPools[kind].filter((pool) => pool.players.length < minimum).map((pool) => `${kind}:${pool.key}`)));
-    const kept = records.filter((record) => !small.has(`${record.kind}:${record.format}:${record.season}`));
-    return {
-      minimumPoolSize: minimum,
-      poolsDropped: [...small].sort(),
-      ...variantSummary(ratedWithPools(ratePlayersPrimary, kept).rated),
-    };
-  }),
-};
-
-const POOLINGS = [
-  ['T20I seasons pooled, IPL seasons kept apart', (format) => format === 'T20I'],
-  ['all seasons pooled within each format', () => true],
-];
-const poolingSeasons = {
-  note: 'Sensitivity only. Two ways of pooling seasons. standardisationPooled keeps every player-format-season profile and the same eligible players, and only changes the pool the z-scores are taken against (several seasons share one pool), so it isolates the pool-size effect; it ignores differences in scoring environment between seasons. careerPooled merges a player\'s seasons into one profile per format, so the 60-ball / 8-match gate applies to the merged career and many more players qualify; it mixes the pool-size effect with an eligibility change.',
-  standardisationPooled: POOLINGS.map(([label, pooled]) => {
-    const result = ratedWithPools(ratePlayersPrimary, records, (player) => (pooled(player.format) ? `${player.format}:all-seasons` : `${player.format}:${player.season}`));
-    return { label, ...variantSummary(result.rated, result.pools) };
-  }),
-  careerPooled: POOLINGS.map(([label, pooled]) => {
-    const merged = records.map((record) => (pooled(record.format) ? { ...record, season: 0 } : record));
-    const result = ratedWithPools(ratePlayersPrimary, merged);
-    return { label, ...variantSummary(result.rated, result.pools) };
-  }),
-};
-
 // ---------- `other` alternative and no-exclusion scenarios ----------
 const scenarioRated = {
   exclusionsOn_otherPenalty: primaryRated,
@@ -511,9 +460,9 @@ function scenarioBlock(name, comparedWith = 'exclusionsOn_otherPenalty') {
 const otherAlternative = {
   assumption: 'Primary: an `other` delivery is an illegal ball (not one of the six legal balls) and the bowler is charged one penalty run, as for a no-ball; the run also counts in the innings score used for the required rate. Alternative shown here: still an illegal ball, but no penalty run is charged to the bowler or added to the innings score.',
   datasetQuality: {
-    primaryPressureDeliveries: analysis.dataQuality.pressureDeliveries,
+    primaryPressureDeliveries: iplQuality.pressureDeliveries,
     alternativePressureDeliveries: noPenaltyQuality.pressureDeliveries,
-    primaryOrdinaryDeliveries: analysis.dataQuality.ordinaryDeliveries,
+    primaryOrdinaryDeliveries: iplQuality.ordinaryDeliveries,
     alternativeOrdinaryDeliveries: noPenaltyQuality.ordinaryDeliveries,
     matches: noPenaltyQuality.matches,
   },
@@ -522,7 +471,7 @@ const otherAlternative = {
 };
 
 const noExclusionAlternative = {
-  note: 'The alternative to the submitted lists: same method and thresholds, with none of the three exclusion groups applied (the 53 Pakistan T20I players, the five IPL retirees, Mohit Sharma). Columns are the same as the primary tables; versusPrimary compares with the submitted (exclusions on) lists.',
+  note: 'The alternative to the submitted lists: same method and thresholds, with no player exclusions applied (the five IPL retirees are the exclusion that touches IPL players; Mohit Sharma is not excluded). Columns are the same as the primary tables; versusPrimary compares with the submitted (exclusions on) lists.',
   ...scenarioBlock('exclusionsOff_otherPenalty', 'exclusionsOn_otherPenalty'),
   allrounders: {
     top10: scenarioRated.exclusionsOff_otherPenalty.allrounders.slice(0, TOP).map(allrounderRow),
@@ -575,7 +524,8 @@ async function readRows(file) {
   });
 }
 
-const ballRows = await readRows('ball_by_ball.csv');
+const iplMatchIds = new Set(records.map((record) => String(record.matchId)));
+const ballRows = (await readRows('ball_by_ball.csv')).filter((row) => iplMatchIds.has(row.match_id));
 const matchRows = new Map((await readRows('matches.csv')).map((row) => [row.match_id, row]));
 const tally = (rows, pick) => {
   const counts = {};
@@ -656,7 +606,7 @@ const profiles = {
 };
 const countIn = (list, test) => list.filter(test).length;
 const otherEvidence = {
-  source: 'ball_by_ball.csv, all rows (the file also holds competitions outside the IPL / T20I scope)',
+  source: 'ball_by_ball.csv, rows of the IPL matches that are rated (2022 to 2026, innings 1 to 4)',
   extrasTypeCounts: tally(ballRows, (row) => row.extras_type),
   profiles,
   otherRowsShareWithBatterRuns: round(profiles.other.rowsWithBatterRuns / profiles.other.rows),
@@ -671,7 +621,6 @@ const otherEvidence = {
     oversWithExactlySixLegalBalls_ifOtherIsIllegal: countIn(withOtherFinished, (entry) => legalIfOtherIsIllegal(entry) === 6),
     oversWithMoreThanSixLegalBalls_ifOtherIsLegal_includingLastOvers: countIn(withOther, (entry) => legalIfOtherIsLegal(entry) > 6),
     oversWithExactlySixLegalBalls_ifOtherIsIllegal_includingLastOvers: countIn(withOther, (entry) => legalIfOtherIsIllegal(entry) === 6),
-    earlierReportFigure: 'methodology_report.md says seven or more legal balls in 244 overs; this recount gives 243 (of the 254 overs with an `other` row, the other 11 are shortened last overs of an innings).',
     baselineOversWithoutOtherRow: {
       finishedOvers: withoutOtherFinished.length,
       exactlySixLegalBalls: countIn(withoutOtherFinished, (entry) => legalIfOtherIsLegal(entry) === 6),
@@ -690,10 +639,10 @@ const otherEvidence = {
   // The decisive tests (free hit, own-row dismissals, over length, run-margin regression) live in other_evidence.mjs;
   // its output other_evidence_data.json is summarised here. Decision: `other` stays an illegal ball with a +1 penalty run (a).
   decisiveTests: await (async () => {
-    const evidence = JSON.parse(await readFile(resolve(root, 'other_evidence_data.json'), 'utf8')).allMatches;
+    const evidence = JSON.parse(await readFile(resolve(root, 'other_evidence_data.json'), 'utf8')).iplMatches;
     const reg = evidence.T4c_regression;
     return {
-      source: 'other_evidence_data.json (node other_evidence.mjs --write); all matches in ball_by_ball.csv',
+      source: 'other_evidence_data.json (node other_evidence.mjs --write); IPL matches 2022 to 2026 in ball_by_ball.csv',
       interpretations: { a: 'illegal ball, +1 penalty run (primary, submitted)', b: 'illegal ball, no penalty run (alternative, otherAlternative)', c: 'legal ball, no penalty (rejected)' },
       freeHit: {
         otherNonRunOutWicketOnNextBall: `${evidence.T1_freeHit.byTypeOfPreviousBall.other.nonRunOutWicketOnNextBall} of ${evidence.T1_freeHit.byTypeOfPreviousBall.other.n}`,
@@ -715,21 +664,11 @@ const otherEvidence = {
       decision: 'keep a (illegal ball, +1 penalty run): c is rejected by the free-hit, over-length and 120-ball tests; the regression coefficient for `other` has a 95% CI containing 1 and excluding 0. analyze.mjs and analysis_data.json are unchanged.',
     };
   })(),
-  // Thin T20I pool comparison (pool_methods_data.json, node sensitivity.mjs --pool-methods): own-pool is primary, C1 to C3 alternatives.
-  poolMethodComparison: await (async () => {
-    const pools = JSON.parse(await readFile(resolve(root, 'pool_methods_data.json'), 'utf8'));
-    return {
-      source: 'pool_methods_data.json (node sensitivity.mjs --pool-methods); criterion fixed in pool_preregistration.md before any candidate ran',
-      primary: 'own-pool (each format-season pool is standardised against its own players, as submitted)',
-      alternatives: Object.fromEntries(Object.entries(pools.decision.evaluation).map(([method, entry]) => [method, { code: entry.code, passes: entry.passes, failedRules: entry.failedRules }])),
-      decision: pools.decision.result,
-    };
-  })(),
   inScopeEffect: {
-    note: 'Pressure deliveries in the 837 in-scope matches with the penalty run (primary) and without it.',
-    pressureDeliveriesWithPenalty: analysis.dataQuality.pressureDeliveries,
+    note: 'Pressure deliveries in the IPL matches with the penalty run (primary) and without it.',
+    pressureDeliveriesWithPenalty: iplQuality.pressureDeliveries,
     pressureDeliveriesWithoutPenalty: noPenaltyQuality.pressureDeliveries,
-    difference: analysis.dataQuality.pressureDeliveries - noPenaltyQuality.pressureDeliveries,
+    difference: iplQuality.pressureDeliveries - noPenaltyQuality.pressureDeliveries,
   },
 };
 const ov = otherEvidence.overLength;
@@ -759,7 +698,7 @@ const exclusionFlip = {
   after: EXCLUSION_SWITCH_OFF,
   editCheckedBySensitivityScript: flipMatchesAlternativeLists,
   checkDescription: 'sensitivity.mjs applies this exact edit to a copy of scoring.mjs in memory and confirms the batter, bowler and all-rounder lists equal the noExclusionAlternative lists in this file.',
-  whatTheEditDoes: 'Keeps the format and season filters and drops the three exclusion groups: the Pakistan T20I players, the five IPL retirees and Mohit Sharma. The dashboard imports scoring.mjs, so it shows the no-exclusion lists as soon as the line is changed. The text lists of the submitted names (the report, README.md, index.html) do not change by themselves.',
+  whatTheEditDoes: 'Keeps the format and season filters and drops the player exclusion that touches IPL players: the five IPL retirees. Mohit Sharma is not excluded in either setting. The dashboard imports scoring.mjs, so it shows the no-exclusion lists as soon as the line is changed. The text lists of the submitted names (the report, README.md, index.html) do not change by themselves.',
   analysisDataNeedsRegenerating: 'No. The exclusions are applied in scoring.mjs after analysis_data.json is built, so do not run analyze.mjs for this change.',
   commands: [
     '1. In scoring.mjs change `const APPLY_PLAYER_EXCLUSIONS = true;` to `const APPLY_PLAYER_EXCLUSIONS = false;`.',
@@ -783,8 +722,8 @@ const output = {
     noTimestamps: true,
     inputs: {
       analysisDataRecords: records.length,
-      analysisDataMatches: analysis.dataQuality.matches,
-      analysisDataDeliveriesInScope: analysis.dataQuality.pressureDeliveries + analysis.dataQuality.ordinaryDeliveries,
+      analysisDataMatches: iplQuality.matches,
+      analysisDataDeliveriesInScope: iplQuality.pressureDeliveries + iplQuality.ordinaryDeliveries,
       analysisDataSha256WithoutGeneratedAt: createHash('sha256').update(analysisFile.replace(/"generatedAt":"[^"]*"/, '"generatedAt":""').replace(/\r\n/g, '\n')).digest('hex'),
       analyzeMjsRegeneratesAnalysisDataIdentically: regeneratesIdentically,
     },
@@ -792,14 +731,13 @@ const output = {
   primaryCheck: {
     description: 'Primary (submitted) lists as computed here (scoring.mjs on analysis_data.json, player exclusions on, 60 balls / 8 matches).',
     matchesScoringModule: primaryMatchesScoringModule,
+    equalsScoringModuleWithIplFormatFilter: primaryEqualsDashboardIpl,
     eligible: { batters: primaryRated.batters.length, bowlers: primaryRated.bowlers.length, allrounders: primaryRated.allrounders.length },
     batters: primaryTop.batters.map((p) => fullRow('batter', p)),
     bowlers: primaryTop.bowlers.map((p) => fullRow('bowler', p)),
   },
   poolSizes,
   rankStability: stability,
-  minimumPoolSize,
-  poolingSeasons,
   otherAlternative,
   noExclusionAlternative,
   robustCore,
